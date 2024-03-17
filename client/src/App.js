@@ -1,16 +1,12 @@
-import './stylesheets/App.css';
-// import Connect from './components/connect'
 
-function App() {
+// import './App.css'; - Depricated as we will be using Tailwind CSS
+import Connect from './main/connect.js'
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Connect
-        </p>
-      </header>
-    </div>
+    <Connect/>
   );
 }
 
-export default App;
+
