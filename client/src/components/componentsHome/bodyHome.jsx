@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 export default function Body(){
     return (
         <>
-            <div> Welcome To Conenct. </div>
+            <p> Welcome To Conenct. </p>
+            <a href="#">A link</a>
+            <button>A button</button>
         </>
     );
 }
