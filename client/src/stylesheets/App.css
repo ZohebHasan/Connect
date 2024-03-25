@@ -1,38 +1,105 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body { 
+  margin: 0;
+  padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: black;
+}
+p, a{
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.headerContainer { 
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  background-color: rgba(128, 128, 128, 0.5); /* Grey color with 50% transparency */
+}
+
+.mainBodyContainer{
+  min-height: 100vh;
+  margin-top:100px;
+  display:flex;
+  flex-direction: row;
+}
+
+
+
+/* welcomeAnimation.css  - Logo that user's will see onLoad*/
+.welcome{
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background: linear-gradient(#ffffff, #6e8499);
 }
 
-.App-link {
-  color: #61dafb;
+.welcomeAnimation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 175px;
+  height: 100px;
+ 
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.welcomeAnimation img {
+  opacity: 0;
+  width: 75px;
+  height: auto;
+  transition: transform 0.5s, opacity 0.5s;
+  mix-blend-mode: multiply;
+  background-color: transparent;
+}
+
+.welcomeAnimation img.center-letter {
+  opacity: 0;
+  position: static;
+}
+
+.welcomeAnimation img.logo {
+  opacity: 1;
+}
+
+/* selectLangauge.css */
+
+
+.selectLanguageBodyContainer {
+  height: 100%;
+  margin:0;
+  display:flex;
+  overflow: hidden;
+  flex-direction: column;
+  background-color: black;
+}
+
+ .selectLanguageBackground {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.greetingText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 2em;
+  color: transparent;
+  background: linear-gradient(to right, #1D2671, #C33764);
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: opacity 1s ease-in-out;
 }
