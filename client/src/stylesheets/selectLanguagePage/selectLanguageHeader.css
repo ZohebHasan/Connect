@@ -1,0 +1,164 @@
+.selectLanguageHeaderContainer{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* background-color: red; */
+  transition: background-color 0.1s ease-in-out; /* Smooth transition for background */
+  margin-top: 15px;
+  position: relative;
+  z-index: 3;
+}
+
+.selectLanguagePageContainer .selectLanguageHeaderContainer .logo{
+  flex: 6;
+  align-items: center;
+  position: relative;
+  background-color: transparent;
+  padding-left: 20px;
+  z-index: 3;
+}
+.selectLanguagePageContainer .selectLanguageHeaderContainer .logo img {
+  width: 75px; 
+  height: auto; 
+  opacity: 0; 
+  transition: transform 0.5s, opacity 0.5s; 
+  mix-blend-mode: multiply;
+  background-color: transparent; 
+}
+
+.selectLanguageHeaderContainer.toggleBar{
+  flex:2;
+  align-items: center;
+  justify-content: center;
+  margin-left: 50px;
+
+}
+
+.selectLanguagePageContainer  .selectLanguageHeaderContainer .toggleContainer{
+
+  width: 55px;
+  height: 27px;
+  border-radius: 20px;   
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s;
+  background-color: black; /* Default for light mode */
+  transition: background-color 0.3s ease-in-out; /* Synchronize transition */
+  z-index: 5;
+}
+
+.selectLanguageHeaderContainer:not(.dark-mode) .toggleContainer {
+  background-color: black; 
+}
+
+.selectLanguagePageContainer  .selectLanguageHeaderContainer .toggleContainer .toggle-circle {
+  position: absolute;
+  /* top: 4px; */
+  left: 5px; /* Start with circle on the left */
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background-color: white; /* Circle is white in light mode */
+  z-index: 2;
+  transition: background-color 0.1s ease-in-out, right 0.1s ease-in-out, left 0.1s ease-in-out; /* Match transition timing */
+}
+
+.selectLanguagePageContainer  .selectLanguageHeaderContainer .toggleContainer .icon { 
+  /* position: relative; */
+  font-size: 22px;
+  z-index: 1;
+  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out; /* Matching transition time */
+}
+
+
+.moon-icon {
+  position: absolute;
+  right: 5px;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sun-icon {
+  position: absolute;
+  left: 5px;
+  color:black;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Dark mode styles */
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer {
+  background-color: rgba(0, 0, 0, 0.5); 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; /* Match transition timing */
+
+}
+
+body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageHeaderContainer {
+  background-color: rgba(255, 255, 255, 0.5); 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; /* Match transition timing */
+
+}
+
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer {
+  background-color: white; 
+  transition: background-color 0.3s ease-in-out;
+}
+
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer .toggle-circle {
+  left: auto; /* Reset left positioning */
+  right: 5px; /* Move circle to the right for dark mode */
+  background-color: black; /* Circle color for dark mode */
+  transition: background-color 0.1s ease-in-out, right 0.1s ease-in-out, left 0.1s ease-in-out; /* Ensure smooth transition */
+}
+
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer .moon-icon {
+  opacity: 0; /* Hide moon icon in dark mode */
+  transition: opacity 0.3s ease-in-out;
+
+}
+
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer .sun-icon {
+  opacity: 1; /* Show sun icon in dark mode */
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+
+}
+
+.selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar{
+  flex: 1;
+  margin: 0px 20px 0px 5px;
+
+  
+}
+
+.optionBar .toggle-icon {
+cursor: pointer;
+width: 60px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 32px;
+transition: color 0.3s;
+color: black;
+position: relative;
+z-index: 5;
+margin-left: 90px;
+}
+
+body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar .toggle-icon{
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar .toggle-icon{
+  color: white;
+  transition: opacity 0.3s ease-in-out;
+}

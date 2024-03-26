@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import '../../stylesheets/animations/cursor.css';
+import '../../../stylesheets/animations/cursor.css';
 
 export default function CustomCursor() {
     const cursorRef = useRef(null);

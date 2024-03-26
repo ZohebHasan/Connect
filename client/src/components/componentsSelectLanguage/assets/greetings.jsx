@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import '../../../stylesheets/App.css'; 
+import '../../../stylesheets/App.css';
+import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css';
 
 export default function GreetingText() {
     const [greeting, setGreeting] = useState('Greetings!');
-    const [opacity, setOpacity] = useState(0);
+    const [opacity, setOpacity] = useState(0);  // Start with 0 opacity for the initial fade-in
 
     useEffect(function() {
         let index = 0;
-        const greetings = ['Greetings!', 'অভিবাদন!',' ¡Saludos!', 'Salutations!', 'Grüße!', 'Приветствия!', '问候！', '挨拶！', '인사말!', 'सलाम!', 'تحيات!', 'Selamat!'];
+        const greetings = ['Greetings!', 'অভিবাদন!','¡Saludos!', 'Salutations!', 'Grüße!', 'Приветствия!', '问候！', '挨拶！', '인사말!', 'सलाम!', 'تحيات!', 'Selamat!'];
 
         const updateGreeting = () => {
-            setOpacity(0);
+            setOpacity(0);  // Start fade-out
             setTimeout(() => {
                 index = (index + 1) % greetings.length;
                 setGreeting(greetings[index]);
-                setOpacity(1);
-            }, 1000); // Match the fade-out duration
+                setOpacity(1);  // Fade-in after text change
+            }, 1000);  // Time to match fade-out duration
         };
 
-        const intervalId = setInterval(updateGreeting, 4000);
+        const intervalId = setInterval(updateGreeting, 2000);  // Change greeting every 4 seconds
 
         return () => clearInterval(intervalId);
     }, []);
 
     return (
-        <h1 className="greetingText">
-            {greeting}
-        </h1>
-    );
-};
-
-
+        <div className="greetings">
+            <h1 className="greetingMessage" style={{ opacity: opacity }}>{greeting}</h1>
+        </div>
+    );  
+}

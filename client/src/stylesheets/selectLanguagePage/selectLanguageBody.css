@@ -1,0 +1,39 @@
+
+.selectLanguagePageContainer .selectLanguageBodyContainer{
+    min-height: 84vh;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    /* position: absolute; */
+    z-index: 1;
+    /* background-color: yellow; */
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .greetings {   
+    flex: 2;
+    background-color: pink;
+  }
+
+  .selectLanguagePageContainer .selectLanguageBodyContainer .greetings .greetingMessage {
+    font-size: 2em;
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownTitle{
+    flex: 2;
+    background-color: green;
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownBar{
+    flex:2;
+    background-color: orange;
+  }
+  
+ 
+  
+  
+  
+  

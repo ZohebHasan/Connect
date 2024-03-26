@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../stylesheets/App.css'; 
+import '../../stylesheets/welcomePage/welcomePage.css'; 
 
 // Import images
 import C_dark from './assets/dark/C_dark.jpeg';

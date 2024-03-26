@@ -1,0 +1,89 @@
+.sidebar {
+  height: calc(100% - 15px);
+  width: 0;
+  position: absolute;
+  top: 15px;
+  right: 0;
+  background-color: rgba(48, 48, 48, 0.5); /* Transparent color with 50% opacity */
+  backdrop-filter: blur(10px); /* Adds a blur effect with a radius of 10px */
+  overflow-x: hidden;
+  transition: width 0.5s, border-radius 0.5s;
+  border-top-left-radius: 70%;
+  border-bottom-left-radius: 70%;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+body.dark-mode .sidebar {
+  background-color: rgba(48, 48, 48, 0.5); /* Transparent color with 50% opacity */
+  backdrop-filter: blur(10px); /* Adds a blur effect with a radius of 10px */
+
+}
+body:not(.dark-mode) .sidebar {
+  background-color: rgba(177, 177, 177, 0.5); /* Transparent light gray color with 50% opacity */
+  backdrop-filter: blur(10px); /* Adds a blur effect with a radius of 10px */
+
+
+}
+
+.sidebar.open {
+  width: 300px; 
+  border-radius: 0; 
+}
+
+.sidebar .emptySpace {
+  height: 70px;
+}
+
+.links {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for fade in and out */
+}
+
+.links.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for fade in and out */
+}
+
+.sidebar.open .links {
+  opacity: 1; /* Fade in when sidebar is open */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition for fade in and out */
+
+}
+
+
+
+.sidebar .links a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #313131;
+  display: block;
+  transition: 0.3s;
+  transition: color 0.3s, opacity 0.3s ease-in-out; /* Transition for color and opacity */
+
+}
+body:not(.dark-mode) .sidebar .links a {
+  color: #575757; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode .sidebar .links a{
+  color: #a9a9a9; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* .sidebar .links a:hover {
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+} */
+
+body.dark-mode .sidebar .links a:hover {
+  color: white; 
+  transition: opacity 0.3s ease-in-out;
+
+}
+body:not(.dark-mode) .sidebar .links a:hover {
+  color: black; 
+  transition: opacity 0.3s ease-in-out;
+}

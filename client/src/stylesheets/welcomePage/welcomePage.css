@@ -1,0 +1,36 @@
+.welcome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(#ffffff, #6e8499);
+  }
+  
+  .welcomeAnimation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 175px;
+    height: 100px;
+   
+  }
+  
+  .welcomeAnimation img {
+    opacity: 0;
+    width: 75px;
+    height: auto;
+    transition: transform 0.5s, opacity 0.5s;
+    mix-blend-mode: multiply;
+    background-color: transparent;
+  }
+  
+  .welcomeAnimation img.center-letter {
+    opacity: 0;
+    position: static;
+  }
+  
+  .welcomeAnimation img.logo {
+    opacity: 1;
+  }
