@@ -1,5 +1,6 @@
 // Body.js
 import React from 'react';
+import { Link } from 'react-router-dom'
 import '../../stylesheets/App.css'; 
 import '../../stylesheets/selectLanguagePage/selectLanguageBody.css'; 
 import Greetings from './assets/greetings.jsx';
@@ -12,10 +13,17 @@ export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} />
             <div className="selectLanguageBodyContainer">  
                 <Greetings />             
-                <div className="dropDownTitle">
-                    <p>Please Select Your Language.</p>
+                <div className="dropDown">
+                    <p>
+                        Welcome to Connect! Please Select Your 
+                        Language to get started.
+                    </p>
+                    <LanguagesDropDown />
+                    <div className = "selectLangBtns">
+                        <Link to="#">Confirm</Link>
+                        <Link to="#">I prefer not to answer</Link>
+                    </div>
                 </div>
-                <LanguagesDropDown />
             </div>
         </>
     );

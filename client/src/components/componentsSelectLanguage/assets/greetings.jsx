@@ -19,14 +19,12 @@ export default function GreetingText() {
             }, 1000);  // Time to match fade-out duration
         };
 
-        const intervalId = setInterval(updateGreeting, 2000);  // Change greeting every 4 seconds
+        const intervalId = setInterval(updateGreeting, 3000);  // Change greeting every 4 seconds
 
         return () => clearInterval(intervalId);
     }, []);
 
     return (
-        <div className="greetings">
-            <h1 className="greetingMessage" style={{ opacity: opacity }}>{greeting}</h1>
-        </div>
+        <h1 className="greetingMessage" style={{ opacity: opacity }}>{greeting}</h1> 
     );  
 }
