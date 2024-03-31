@@ -21,15 +21,13 @@ export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
                         </p>
                     </div>
                 </div>
-                <div className = "dropDownAndButtonsContainer">
-                    <LanguagesDropDown />
-                    <div className = "selectLangBtns">
-                            <Link to="#">Confirm</Link>
-                            <Link to="#">I prefer not to answer</Link>
-                            <button>Conna</button>
-                    </div>
+                
+                <LanguagesDropDown />
+                <div className = "selectLangBtns">
+                    <Link to="#" className = "confirmBtn">Confirm</Link>
+                    <Link to="#" className = "declineBtn">Continue Anyway</Link>
+                    <button className = "connaBtn">Conna</button> 
                 </div>
-
             </div>
         </>
     );

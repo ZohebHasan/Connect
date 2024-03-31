@@ -41,7 +41,7 @@ const SelectLanguagePage = () => {
 
     return (
         <div className="selectLanguagePageContainer">
-            <BackgroundAnimation />
+            {/* <BackgroundAnimation /> */}
             <Header
                 toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
