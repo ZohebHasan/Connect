@@ -12,19 +12,24 @@ export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
         <>
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} />
             <div className="selectLanguageBodyContainer">  
-                <Greetings /> 
-                <div className="dropDownText">
-                    <p>
-                        Welcome to Connect! Please Select Your 
-                        Language to get started.
-                    </p>
-                </div>
-                <LanguagesDropDown />
-                <div className = "selectLangBtns">
-                        <Link to="#">Confirm</Link>
-                        <Link to="#">I prefer not to answer</Link>
-                        <button>Conna</button>
+                <div className = "greetingsDropDownTextContainer">
+                    <Greetings /> 
+                    <div className="dropDownText">
+                        <p>
+                            Welcome to Connect! Please Select Your 
+                            Language to get started.
+                        </p>
                     </div>
+                </div>
+                <div className = "dropDownAndButtonsContainer">
+                    <LanguagesDropDown />
+                    <div className = "selectLangBtns">
+                            <Link to="#">Confirm</Link>
+                            <Link to="#">I prefer not to answer</Link>
+                            <button>Conna</button>
+                    </div>
+                </div>
+
             </div>
         </>
     );

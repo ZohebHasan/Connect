@@ -19,7 +19,7 @@ export default function GreetingText() {
             }, 1000);  // Time to match fade-out duration
         };
 
-        const intervalId = setInterval(updateGreeting, 3000);  // Change greeting every 4 seconds
+        const intervalId = setInterval(updateGreeting, 2200);  // Change greeting every 4 seconds
 
         return () => clearInterval(intervalId);
     }, []);

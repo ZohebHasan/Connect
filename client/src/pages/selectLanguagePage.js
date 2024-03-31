@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Header from '../components/componentsSelectLanguage/headerSelectLang';
 import BackgroundAnimation from '../components/componentsSelectLanguage/assets/background';
-import WaterEffect from '../components/componentsSelectLanguage/assets/waterEffect.jsx';
 import Body from '../components/componentsSelectLanguage/bodySelectLang.jsx';
 
 const SelectLanguagePage = () => {
@@ -43,7 +42,6 @@ const SelectLanguagePage = () => {
     return (
         <div className="selectLanguagePageContainer">
             <BackgroundAnimation />
-            <WaterEffect/>
             <Header
                 toggleSidebar={toggleSidebar}
                 isSidebarOpen={isSidebarOpen}
