@@ -1,67 +1,81 @@
 
 .selectLanguagePageContainer .selectLanguageBodyContainer{
-    min-height: 84vh;
+    min-height: 80vh;
     width: 100%;
     display:flex;
     flex-direction: column;
-    align-items:flex-start;
-    /* position: absolute; */
+    align-items:center;
+    position: relative;
     z-index: 1;
     /* background-color: yellow; */
   }
   .selectLanguagePageContainer .selectLanguageBodyContainer .greetingMessage {
-    /* position:fixed; */
-    padding: 40px 0px 0px 180px;
-    margin: 0px 0px 0px 180px;
-    border: 0;
+    position: absolute;
+    left: 29vw; /* Start with a viewport width based percentage */
+    top: 5%;
+    height: auto;
     font-size: 3em;
     color: transparent;
-    background: linear-gradient(to right, #1D2671, #C33764); 
+    background: linear-gradient(to right, #1D2671, #C33764);
     -webkit-background-clip: text;
     background-clip: text;
     transition: opacity 0.5s ease-in-out;
+}
+
+  @media (max-width: 1000px) { /* Adjust breakpoint as needed */
+      .selectLanguagePageContainer .selectLanguageBodyContainer .greetingMessage {
+          left: 10%; /* Increase percentage for smaller screens if needed */
+      }
   }
 
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDown{
-    display: flex;
-    flex-direction: column;
-    padding: 10px 0px 0px 180px;
-    margin: 10px 0px 0px 180px;
+
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText p {
+    position: absolute;
+    left: 29vw; /* Start with the same viewport width based percentage */
+    top: 155px; /* Adjust this value to align under the greeting message */
+    font-size: 20px; /* Match the font size to your design */
+    transition: left 0.5s ease-in-out;
+}
+
+  @media (max-width: 1000px) {
+      .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText p {
+          left: 10%; 
+      }
   }
 
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDown p{
-    flex: 1;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownBar{
-    flex:7;
-  }
   
-  .dropdown-container {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownBar {
+    position: absolute;
+    width: 49%;
+    top: 50%; /* Adjust this value based on layout */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dropdown-container {
+    position: absolute;
     width: 90%;
-    padding: 40px 60px 20px 20px;
-    margin-top: 10px;
+    top: 60%; /* Adjust this value based on layout */
+    left: 10%;
+    transform: translate(-50%, -50%);
     max-height: 300px;
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.8);
-    border: none;
     border-radius: 15px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-
 .search-box {
-justify-content: center;   
- width: 35%; 
-    padding: 3px 15px 20px 50px;
-    top:32.7%;
-    position: fixed;
-    /* margin-bottom: 5px; */
-    border: none;
+    position: absolute;
+    width: 35%;
+    top: 70%; /* Adjust this value based on layout */
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50px;
     outline: none;
 }
+
+
 
 
 
