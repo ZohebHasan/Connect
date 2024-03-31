@@ -13,27 +13,19 @@
 }
 
 .selectLanguagePageContainer .selectLanguageHeaderContainer .logo{
-  flex: 6;
+  flex: 8;
   align-items: center;
   position: relative;
   background-color: transparent;
   padding-left: 20px;
   z-index: 3;
 }
-.selectLanguagePageContainer .selectLanguageHeaderContainer .logo img {
-  width: 75px; 
-  height: auto; 
-  opacity: 0; 
-  transition: transform 0.5s, opacity 0.5s; 
-  mix-blend-mode: multiply;
-  background-color: transparent; 
-}
 
 .selectLanguageHeaderContainer.toggleBar{
-  flex:2;
+  flex:3;
   align-items: center;
   justify-content: center;
-  margin-left: 50px;
+  padding-left: 30px;
 
 }
 
@@ -52,6 +44,41 @@
   transition: background-color 0.3s ease-in-out; /* Synchronize transition */
   z-index: 5;
 }
+
+
+
+.selectLanguagePageContainer .selectLanguageHeaderContainer .logo img {
+  width: 75px; 
+  height: auto; 
+  opacity: 0; 
+  transition: transform 0.5s, opacity 0.5s; 
+  mix-blend-mode: multiply;
+  background-color: transparent; 
+}
+
+.selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar{
+  flex: 1;
+  padding: 0px 20px 0px 5px; 
+
+  
+}
+
+.optionBar .toggle-icon {
+cursor: pointer;
+width: 60px;
+height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 32px;
+transition: color 0.3s;
+color: black;
+position: relative;
+z-index: 5;
+margin-left: 90px;
+}
+
+
 
 .selectLanguageHeaderContainer:not(.dark-mode) .toggleContainer {
   background-color: black; 
@@ -131,27 +158,7 @@ body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .togg
 
 }
 
-.selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar{
-  flex: 1;
-  margin: 0px 20px 0px 5px;
 
-  
-}
-
-.optionBar .toggle-icon {
-cursor: pointer;
-width: 60px;
-height: 60px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 32px;
-transition: color 0.3s;
-color: black;
-position: relative;
-z-index: 5;
-margin-left: 90px;
-}
 
 body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar .toggle-icon{
   color: black;
