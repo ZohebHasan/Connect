@@ -23,7 +23,7 @@ export default function LanguagesDropDown() {
 
     return (
         <>
-        <div className = "dropDown">
+        <div className = "dropDownContainer">
              <div className = "searchBoxContainer">
                 <input
                         type="text"
@@ -34,8 +34,7 @@ export default function LanguagesDropDown() {
                 />
             </div>
 
-            <div className="dropdown-container">
-              
+            <div className="languageListContainer">
                 {filteredLanguages.map(lang => (
                     <div key={lang.code} className="dropdown-item">
                         {lang.name}

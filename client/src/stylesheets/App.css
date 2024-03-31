@@ -11,7 +11,7 @@ body {
 
 body:not(.dark-mode) {
   background-color: white; 
-  /* background-color: blue;  */
+  background-color: blue; 
   color: black;
 }
 
@@ -40,7 +40,7 @@ p, a{
   align-items: center;
   position:relative;
   overflow: auto;
-  /* background-color: pink; */
+  background-color: pink;
 }
 
 .selectLanguagePageContainer .selectLanguageBackground { 
