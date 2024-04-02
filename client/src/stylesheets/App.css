@@ -27,14 +27,24 @@ p, a{
 .selectLanguagePageContainer{
   margin: 15px 15px 15px 15px;
   width: calc(100vw - 30px); 
-  height: calc(100vh - 30px); 
+  height: calc(100vh - 40px); 
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   position:relative;
   overflow: auto;
+  /* background-color: red; */
 
+}
+.copyRight {
+  position: fixed;
+  bottom: 0; 
+  right: 0; 
+  padding-right: 30px;
+  padding-bottom: 5px;;
+  font-size: 12px;
+  
 }
 
 .selectLanguagePageContainer .selectLanguageBackground { 

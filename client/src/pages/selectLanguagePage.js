@@ -40,6 +40,7 @@ const SelectLanguagePage = () => {
     
 
     return (
+    <>
         <div className="selectLanguagePageContainer">
             {/* <BackgroundAnimation /> */}
             <Header
@@ -48,10 +49,11 @@ const SelectLanguagePage = () => {
                 toggleRef={toggleRef}
                 darkLightToggleRef={darkLightToggleRef}
             />
-            <Body isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
-
-
+            <Body isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />  
         </div>
+        <div className = "copyRight"> Connect Inc. © 2024</div>
+    </>
+        
     );
 };
 

@@ -41,8 +41,18 @@
   flex:1;
 }
 
+.dropDownText span {
+  font-size: 24px;
+  transition: color 0.7s ease;
+}
+
+.grey {
+  color: rgba(172, 172, 172, 0.404);
+}
+
+
 .dropDownContainer {
-  flex: 3;
+  flex: 4;
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
@@ -51,7 +61,7 @@
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   margin: 10px 10px 10px 2.5%;
   padding: 10px;
-  width: 35%; 
+  width: 42%; 
   height: 30%;
   max-width: 100%; 
   min-width: 430px; 
@@ -90,10 +100,10 @@
 
 @keyframes mildGlow {
   from {
-    box-shadow: 0 0 2px rgba(146, 6, 134, 0.3); /* Start with a very mild glow */
+    box-shadow: 0 0 2px rgba(146, 6, 134, 0.3);
   }
   to {
-    box-shadow: 0 0 6px rgba(204, 0, 187, 0.6); /* Slightly intensify the glow */
+    box-shadow: 0 0 6px rgba(204, 0, 187, 0.6); 
   }
 }
 
@@ -106,7 +116,7 @@
   border-bottom-left-radius: 15px;
 }
 .dropdown-item {
-  padding: 10px 18px; 
+  padding: 8px 18px; 
   display: block; 
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; 
   color: #333; 
@@ -129,6 +139,7 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); 
   transform: translateY(1px); 
 }
+
 .languageListContainer::-webkit-scrollbar {
     width: 5px; 
 }
@@ -141,55 +152,62 @@
     background-color: darkgrey; 
 }
 
-
-.selectLangBtns{
-  margin-top: 15px;
+.bottomContainer {
+  margin-top: 25px;
   flex:1;
-
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between; 
+  margin-top: 25px;
+  width: 100%;
 }
 
-.confirmBtn {
-  flex: 2;
-  padding: 10px 0px;
-  margin: 0px 50px;
+.selectLangBtns {
+  display: flex;
+  justify-content:right; 
+  flex: 2; 
 }
 
-.declineBtn {
-  flex:2;
-  padding: 10px 0px;
-  margin: 0px 50px;
-}
-.connaBtn{
-  flex: 4;
-  
-
-}
-
-.confirmBtn , .declineBtn{
+.declineBtn, .confirmBtn {
+  padding: 10px 25px;
+  margin: 0 10px; 
   background-color: lightgrey;
-  text-decoration: none;
   border-radius: 5px;
   color: black;
+  text-decoration: none;
   transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-.confirmBtn:hover , .declineBtn:hover {
+.declineBtn{
+  margin-right: 23%;
+}
+.confirmBtn{
+  
+}
+
+.declineBtn:hover, .confirmBtn:hover, .connaBtn:hover {
   background-color: rgb(130, 127, 127);
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-
 }
 
-.confirmBtn:active , .declineBtn:active{
-  background-color: rgb(84, 84, 84); 
-  transform: translateY(2px); 
+.declineBtn:active, .confirmBtn:active, .connaBtn:active {
+  background-color: rgb(84, 84, 84);
+  transform: translateY(2px);
 }
+.connaContainer {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.connaBtn {
+  padding: 10px;
+}
+
+
 
 /* Needs Testing */
-
 /* Small smartphones */
 @media (max-width: 320px) {
   .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {

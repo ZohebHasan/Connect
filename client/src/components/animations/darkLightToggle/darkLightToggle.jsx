@@ -4,17 +4,14 @@ import '../../../stylesheets/selectLanguagePage/selectLanguageHeader.css';
 import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css';
 
 const DarkLightToggle = forwardRef((props, ref) => {
-  // Theme state, true for dark mode
   const [darkMode, setDarkMode] = useState(false);
 
-  // Add or remove the dark-mode class based on the darkMode state
   useEffect(() => {
     document.body.classList.toggle('dark-mode', darkMode);
   }, [darkMode]);
 
-  // Function to toggle the theme
   const toggleTheme = () => {
-    setDarkMode(!darkMode); // Toggle the state
+    setDarkMode(!darkMode); // 
   };
 
   return (
