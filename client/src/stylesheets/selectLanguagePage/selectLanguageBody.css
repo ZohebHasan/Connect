@@ -161,44 +161,117 @@
   justify-content: space-between; 
   margin-top: 25px;
   width: 100%;
+  /* background-color: yellow; */
+}
+.bottomContainer {
+  margin-top: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: yellow; */
 }
 
 .selectLangBtns {
   display: flex;
-  justify-content:right; 
-  flex: 2; 
+  justify-content: right;
+  flex: 3;
+  /* background-color: red; */
+  gap: 15%;
 }
-
 .declineBtn, .confirmBtn {
-  padding: 10px 25px;
-  margin: 0 10px; 
-  background-color: lightgrey;
-  border-radius: 5px;
-  color: black;
-  text-decoration: none;
-  transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
-}
-
-.declineBtn{
-  margin-right: 23%;
-}
-.confirmBtn{
   
+  background: transparent;
+  backface-visibility: hidden;
+  border-radius: .375rem;
+  border-style: solid;
+  border-width: .085rem;
+  box-sizing: border-box;
+  color: #212121;
+  cursor: pointer;
+  /* font-family: Circular, Helvetica, sans-serif; */
+  font-size: 1.125rem;
+  font-weight: 100;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s, background-color .3s ease, box-shadow .2s ease;
+  user-select: none;
+  touch-action: manipulation;
+  /* Retain original padding, margin, and flex properties */
+  padding: 10px 25px; /* Example padding, adjust as needed */
+  backdrop-filter: blur(8px); /* Blur effect for the background */
 }
 
-.declineBtn:hover, .confirmBtn:hover, .connaBtn:hover {
-  background-color: rgb(130, 127, 127);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+.declineBtn {
+  margin-left: 15%;
+  /* Additional specific styles for declineBtn if needed */
 }
 
-.declineBtn:active, .confirmBtn:active, .connaBtn:active {
-  background-color: rgb(84, 84, 84);
-  transform: translateY(2px);
+.confirmBtn {
+  margin-right: 15%;
+  /* Additional specific styles for confirmBtn if needed */
 }
+
+.declineBtn:not(:disabled):hover, .confirmBtn:not(:disabled):hover {
+  transform: scale(1.05);
+  background-color: rgba(130, 127, 127, 0.4); /* Increase transparency */
+}
+
+.declineBtn:not(:disabled):hover:active, .confirmBtn:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.declineBtn:focus, .confirmBtn:focus {
+  outline: 0 solid transparent;
+}
+
+.declineBtn:focus:before, .confirmBtn:focus:before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * .375rem);
+  top: calc(-1 * .375rem);
+  pointer-events: none;
+  transition: border-radius;
+  user-select: none;
+}
+
+.declineBtn:focus:not(:focus-visible), .confirmBtn:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.declineBtn:focus:not(:focus-visible):before, .confirmBtn:focus:not(:focus-visible):before {
+  border-width: 0;
+}
+
+.declineBtn:not(:disabled):active, .confirmBtn:not(:disabled):active {
+  transform: translateY(.125rem);
+}
+
+
+/* Light mode styles */
+body:not(.dark-mode) .declineBtn,
+body:not(.dark-mode) .confirmBtn {
+  color: black;
+}
+
+/* Dark mode styles */
+body.dark-mode .declineBtn,
+body.dark-mode .confirmBtn {
+  color: white;
+
+}
+
+
 .connaContainer {
   display: flex;
   justify-content: flex-end;
   flex: 1;
+  background-color: blue;
 }
 
 .connaBtn {
@@ -267,7 +340,7 @@
 /* Large laptops */
 @media (max-width: 1440px) {
   .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 45%;
+    width: 53%;
     margin: 10px 10px 10px 2%;
   }
 }
