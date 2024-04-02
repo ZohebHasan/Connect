@@ -8,6 +8,7 @@ import LanguagesDropDown from './smallComponents/languagesDropdown.jsx';
 import Sidebar from './smallComponents/sideBar.jsx'; 
 
 export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
+    
     return (
         <>
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} sidebarRef={sidebarRef} />
