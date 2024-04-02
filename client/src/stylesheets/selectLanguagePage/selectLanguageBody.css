@@ -198,7 +198,7 @@
 
 /* Small smartphones */
 @media (max-width: 320px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 100%;
     margin: 10px 10px 10px 2%;
   }
@@ -206,7 +206,7 @@
 
 /* Medium smartphones */
 @media (max-width: 375px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
     width: 100%;
     margin: 10px 10px 10px 2%;
   }
@@ -214,7 +214,7 @@
 
 /* Large smartphones */
 @media (max-width: 425px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 100%;
     margin: 10px 10px 10px 2%;
   }
@@ -222,7 +222,7 @@
 
 /* Small tablets */
 @media (max-width: 600px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 100%;
     margin: 10px 10px 10px 2%;
   }
@@ -230,7 +230,7 @@
 
 /* Standard tablets */
 @media (max-width: 768px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
     width: 80%;
     margin: 10px 10px 10px 2%;
   }
@@ -238,7 +238,7 @@
 
 /* Large tablets */
 @media (max-width: 1024px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 70%;
     margin: 10px 10px 10px 2%;
   }
@@ -246,7 +246,7 @@
 
 /* Small laptops */
 @media (max-width: 1280px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 60%;
     margin: 10px 10px 10px 2%;
   }
@@ -262,31 +262,31 @@
 
 /* Standard desktops */
 @media (max-width: 1920px) {
-  .dropDownContainer {
-    width: 40%;
-    margin: 10px 10px 10px 2%;
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 38%;
+    margin: 10px 10px 10px 5%;
   }
 }
 
 /* Wide screens */
 @media (max-width: 2560px) {
-  .dropDownContainer {
-    width: 35%;
-    margin: 10px 10px 10px 2%;
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 38%;
+    margin: 10px 10px 10px 5%;
   }
 }
 
 /* Ultra-wide screens */
 @media (max-width: 3440px) {
-  .dropDownContainer {
-    width: 30%;
-    margin: 10px 10px 10px 2%;
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
+    width: 38%;
+    margin: 10px 10px 10px 5%;
   }
 }
 
 /* 4K Ultra HD */
 @media (max-width: 3840px) {
-  .dropDownContainer {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
     width: 35%;
     margin: 10px 10px 10px 2.5%;
      
