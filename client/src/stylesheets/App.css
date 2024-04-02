@@ -11,7 +11,6 @@ body {
 
 body:not(.dark-mode) {
   background-color: white; 
-  background-color: blue; 
   color: black;
 }
 
@@ -26,13 +25,8 @@ p, a{
 }
 
 .selectLanguagePageContainer{
- 
-  /* height: 90%;
-  width: 90%;
-  margin: auto; */
   margin: 15px 15px 15px 15px;
   width: calc(100vw - 30px); 
-  /* overflow: scroll; */
   height: calc(100vh - 30px); 
   border-radius: 20px;
   display: flex;
@@ -40,14 +34,10 @@ p, a{
   align-items: center;
   position:relative;
   overflow: auto;
-  background-color: pink;
+
 }
 
 .selectLanguagePageContainer .selectLanguageBackground { 
-  /* top: 0;
-  right:0;
-  bottom: 0;
-  left: 0; */
   display: flex;
   width: 100%;
   height: 100%;

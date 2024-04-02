@@ -15,11 +15,7 @@
     flex-direction: column;
     margin-top: 2%;
     padding: 10px;
-    
-    
  }
-
-
 
  .greetingMessage {
   flex: 0 0 auto;
@@ -37,44 +33,13 @@
 }
 
 
-
 .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText{
   align-self: flex-start;
   font-size: 20px; 
   transition: left 0.5s ease-in-out;
   margin-top: -6%;
   flex:1;
-
 }
-
-
-/* @media (max-width: 1200px) {
-  .dropDownAndButtonsContainer {
-    width: 44%; 
-    padding: 20px;
-  }
-
-  .dropDown, .searchBoxContainer, .languageListContainer {
-    width: 100%;
-  }
-
-  .greetingMessage, .dropDownText {
-    margin-left: 5%; 
-    font-size: 2.5em;
-  }
-}
-
-@media (max-width: 768px) {
-  .dropDownAndButtonsContainer {
-    width: 90%; 
-  }
-
-  .greetingMessage, .dropDownText {
-    margin-left: 4%;
-    font-size: 2em;
-  }
-} */
-
 
 .dropDownContainer {
   flex: 3;
@@ -101,7 +66,6 @@
   width: 100%;
   display: flex;
   align-items: center;
-  background-color: red;
 }
 
 .search-box {
@@ -110,6 +74,27 @@
   border-radius: 10px;
   outline: none;
   padding: 8px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border 0.3s ease; 
+  font-size: 16px; 
+  color: #333; 
+  background-color: #fff; 
+  transition: box-shadow 0.3s ease;
+}
+
+.search-box:focus {
+  box-shadow: 0 0 4px rgba(116, 2, 106, 0.1);
+  animation: mildGlow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes mildGlow {
+  from {
+    box-shadow: 0 0 2px rgba(146, 6, 134, 0.3); /* Start with a very mild glow */
+  }
+  to {
+    box-shadow: 0 0 6px rgba(204, 0, 187, 0.6); /* Slightly intensify the glow */
+  }
 }
 
 .languageListContainer {
@@ -119,15 +104,31 @@
   overflow-y: auto;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  background-color: blue;
+}
+.dropdown-item {
+  padding: 10px 18px; 
+  display: block; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; 
+  color: #333; 
+  text-decoration: none; 
+  font-weight: 5px;
+  background-color: transparent; 
 }
 
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(226, 226, 226, 0.486); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
 
-
-
-
-
-
+.dropdown-item:hover {
+  background-color: rgba(226, 226, 226, 0.486); 
+}
+.dropdown-item:active {
+  background-color: #e0e0e0; 
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); 
+  transform: translateY(1px); 
+}
 .languageListContainer::-webkit-scrollbar {
     width: 5px; 
 }
@@ -140,19 +141,11 @@
     background-color: darkgrey; 
 }
 
-.dropdown-item {
-    padding: 10px 10px 10px 18px;
-    cursor: pointer;
-}
-
-.dropdown-item:hover {
-    background-color: #f0f0f0;
-}
 
 .selectLangBtns{
   margin-top: 15px;
   flex:1;
-  background-color: red;
+
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -177,7 +170,6 @@
 }
 
 .confirmBtn , .declineBtn{
-
   background-color: lightgrey;
   text-decoration: none;
   border-radius: 5px;
@@ -195,6 +187,8 @@
   background-color: rgb(84, 84, 84); 
   transform: translateY(2px); 
 }
+
+/* Needs Testing */
 
 /* Small smartphones */
 @media (max-width: 320px) {
@@ -257,38 +251,5 @@
   .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
     width: 45%;
     margin: 10px 10px 10px 2%;
-  }
-}
-
-/* Standard desktops */
-@media (max-width: 1920px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 38%;
-    margin: 10px 10px 10px 5%;
-  }
-}
-
-/* Wide screens */
-@media (max-width: 2560px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 38%;
-    margin: 10px 10px 10px 5%;
-  }
-}
-
-/* Ultra-wide screens */
-@media (max-width: 3440px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
-    width: 38%;
-    margin: 10px 10px 10px 5%;
-  }
-}
-
-/* 4K Ultra HD */
-@media (max-width: 3840px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
-    width: 35%;
-    margin: 10px 10px 10px 2.5%;
-     
   }
 }

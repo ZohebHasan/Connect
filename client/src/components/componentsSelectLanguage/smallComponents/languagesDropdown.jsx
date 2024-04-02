@@ -5,20 +5,21 @@ import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css';
 export default function LanguagesDropDown() {
     const [searchTerm, setSearchTerm] = useState('');
     const languages = [
-        { "name": "English", "code": "en" },
-        { "name": "Español", "code": "es" },
-        { "name": "Français", "code": "fr" },
-        { "name": "Deutsch", "code": "de" },
-        { "name": "Русский", "code": "ru" },
-        { "name": "中文", "code": "cn" },
-        { "name": "日本語", "code": "ja" },
-        { "name": "한국어", "code": "ko" },
-        { "name": "हिन्दी", "code": "hi" },
-        { "name": "العربية", "code": "ar" }
+        { "name": "English", "code": "en", "countries": ["United States", "United Kingdom", "Australia", "Canada"] },
+        { "name": "Español", "code": "es", "countries": ["Spain", "Mexico", "Colombia"] },
+        { "name": "Français", "code": "fr", "countries": ["France", "Belgium", "Switzerland"] },
+        { "name": "Deutsch", "code": "de", "countries": ["Germany", "Austria", "Switzerland"] },
+        { "name": "Русский", "code": "ru", "countries": ["Russia", "Belarus"] },
+        { "name": "中文", "code": "cn", "countries": ["China"] },
+        { "name": "日本語", "code": "ja", "countries": ["Japan"] },
+        { "name": "한국어", "code": "ko", "countries": ["South Korea"] },
+        { "name": "हिन्दी", "code": "hi", "countries": ["India"] },
+        { "name": "العربية", "code": "ar", "countries": ["Saudi Arabia", "Iraq", "Egypt"] }
     ];
-
+    
     const filteredLanguages = languages.filter(lang =>
-        lang.name.toLowerCase().includes(searchTerm.toLowerCase())
+        lang.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        lang.countries.some(country => country.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     return (
@@ -28,7 +29,7 @@ export default function LanguagesDropDown() {
                 <input
                         type="text"
                         className="search-box"
-                        placeholder="Please search by name or Country or choose from below. (7000 Available Languages)"
+                        placeholder="Search by name or Country (7000 Available Languages)"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                 />
