@@ -87,7 +87,8 @@
   margin: 10px 10px 10px 2.5%;
   padding: 10px;
   width: 35%; 
-  max-width: 35%; 
+  height: 30%;
+  max-width: 100%; 
   min-width: 430px; 
 }
 
@@ -253,8 +254,8 @@
 
 /* Large laptops */
 @media (max-width: 1440px) {
-  .dropDownContainer {
-    width: 50%;
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 45%;
     margin: 10px 10px 10px 2%;
   }
 }
