@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import '../../../stylesheets/App.css'; 
 import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css'; 
 
-
 export default function BackgroundAnimation() {
     const backgroundAnimation = useRef(null);
 
@@ -13,9 +12,12 @@ export default function BackgroundAnimation() {
             canvas.height = canvas.parentElement.offsetHeight;
             const ctx = canvas.getContext('2d');
 
+            // Calculate the radius based on the canvas size
+            const radius = Math.min(canvas.width, canvas.height) / 3;  // Example ratio for dynamic sizing
+
             const balls = [
-                { x: 250, y: 250, dx: 9, dy: 4, radius: 250, color: '#B93E56' },
-                { x: canvas.width - 250, y: canvas.height - 250, dx: 9, dy: 4, radius: 250, color: '#7595AE' }
+                { x: 250, y: 250, dx: 9, dy: 4, radius: radius, color: '#B93E56' },
+                { x: canvas.width - 250, y: canvas.height - 250, dx: 9, dy: 4, radius: radius, color: '#7595AE' }
             ];
 
             const animate = () => {
@@ -25,15 +27,15 @@ export default function BackgroundAnimation() {
                     ctx.beginPath();
                     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
                     ctx.fillStyle = ball.color;
-            
-                    // glow effect
-                    ctx.shadowBlur = 100; // Adjust for desired glow size
-                    ctx.shadowColor = ball.color; // 
-            
+
+                    // Glow effect
+                    ctx.shadowBlur = 100; 
+                    ctx.shadowColor = ball.color;
+
                     ctx.fill();
-                    ctx.filter = 'blur(120px)'; //  adjust or remove this filter depending on the desired effect
+                    ctx.filter = 'blur(120px)';
                     ctx.closePath();
-            
+
                     ball.x += ball.dx;
                     ball.y += ball.dy;
 
@@ -45,10 +47,9 @@ export default function BackgroundAnimation() {
                         ball.dy = -ball.dy;
                     }
                 });
-            
+
                 requestAnimationFrame(animate);
             };
-            
 
             animate();
         }

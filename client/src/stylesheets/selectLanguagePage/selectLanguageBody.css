@@ -28,14 +28,28 @@
   background-clip: text;
   text-align: left;
   white-space: nowrap;
-  opacity: 0; 
+  opacity: 1; 
   transition: opacity 0.5s ease-in-out;
 }
-
-
+body.dark-mode .greetingMessage{
+  color: transparent;
+  background: linear-gradient(to right, #1D2671, #C33764);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0; 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+}
+body:not(.dark-mode) .greetingMessage{
+  color: transparent;
+  background: linear-gradient(to right, #662D8C, #ED1E79);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0; 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+  
+}
 .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText{
   align-self: flex-start;
-  font-size: 20px; 
   transition: left 0.5s ease-in-out;
   margin-top: -6%;
   flex:1;
@@ -64,7 +78,7 @@
   width: 42%; 
   height: 30%;
   max-width: 100%; 
-  min-width: 430px; 
+  min-width: 25%; 
 }
 
 
@@ -152,17 +166,6 @@
     background-color: darkgrey; 
 }
 
-.bottomContainer {
-  margin-top: 25px;
-  flex:1;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; 
-  margin-top: 25px;
-  width: 100%;
-  /* background-color: yellow; */
-}
 .bottomContainer {
   margin-top: 25px;
   flex: 1;
@@ -271,7 +274,7 @@ body.dark-mode .confirmBtn {
   display: flex;
   justify-content: flex-end;
   flex: 1;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .connaBtn {
@@ -280,52 +283,101 @@ body.dark-mode .confirmBtn {
 
 
 
-/* Needs Testing */
-/* Small smartphones */
-@media (max-width: 320px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 100%;
-    margin: 10px 10px 10px 2%;
+
+/* Smartphones (not optimized for galaxy z fold)*/
+@media (max-width: 500px){
+  .greetingMessage{
+    font-size: 1.5em;
+    height: 50px;
   }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText span {
+    font-size: 15px; 
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 400px ; 
+    /* max-height: 300px; */
+    /* max-width: 100%;  */
+    min-width: 280px;
+    margin: 0;
+    background-color: red;
+  }
+  .search-box {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  .dropdown-item {
+    padding: 5px 5px;
+  }
+  .bottomContainer {
+    width: auto; 
+    margin-top: 15px;
+  }
+  .selectLangBtns {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 2%;
+  }
+
+  .declineBtn, .confirmBtn {
+    font-size: 0.7rem;
+    padding: 4px 10px; 
+    margin: 0 2%; 
+  }
+
+  .declineBtn {
+    margin-left: 5%; 
+  }
+
+  .confirmBtn {
+    margin-right: 5%; 
+  }
+  .connaContainer {
+    justify-content: center; 
+  }
+
+  .connaBtn {
+    padding: 5px;
+    font-size: 12px;
+  }
+
 }
 
-/* Medium smartphones */
-@media (max-width: 375px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
-    width: 100%;
-    margin: 10px 10px 10px 2%;
-  }
-}
 
-/* Large smartphones */
-@media (max-width: 425px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 100%;
-    margin: 10px 10px 10px 2%;
-  }
-}
 
 /* Small tablets */
 @media (max-width: 600px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 100%;
-    margin: 10px 10px 10px 2%;
-  }
+.selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+  width: 100%;
+  margin: 10px 10px 10px 2%;
+  
+}
 }
 
 /* Standard tablets */
 @media (max-width: 768px) {
-  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
-    width: 80%;
-    margin: 10px 10px 10px 2%;
-  }
+.selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
+  width: 80%;
+  margin: 10px 10px 10px 2%;
+  
+}
 }
 
 /* Large tablets */
 @media (max-width: 1024px) {
+  .greetingMessage{
+    font-size: 1.5em;
+    height: 50px;
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText span {
+    font-size: 15px; 
+  }
   .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
-    width: 70%;
-    margin: 10px 10px 10px 2%;
+    width: auto; 
+    height: 3%;
+    max-width: 90%; 
+    min-width: 35%; 
+    margin: 10px 5px 10px 5px;
   }
 }
 

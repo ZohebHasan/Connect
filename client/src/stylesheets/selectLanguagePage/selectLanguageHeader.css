@@ -21,7 +21,7 @@
 }
 
 .selectLanguagePageContainer .selectLanguageHeaderContainer .logo img {
-  width: 75px; 
+  width: 40px; 
   height: auto; 
   opacity: 0; 
   transition: transform 0.5s, opacity 0.5s; 
@@ -60,13 +60,12 @@
 
 .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer:hover .toggle-circle {
   width: 29px;
-
   transition: background-color 0.4s ease-in-out, width 0.2s ease-in-out;
 }
 
 .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer:active .toggle-circle {
   width: 38px; 
-  background-color: darkgrey;
+  background-color: rgb(109, 109, 109);
   transition: background-color 0.4s ease-in-out, width 0.2s ease-in-out;
 }
 
@@ -120,8 +119,6 @@
 .selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar{
   flex: 1;
   padding: 0px 20px 0px 5px; 
-
-  
 }
 
 .optionBar .toggle-icon {
@@ -142,7 +139,7 @@ margin-left: 90px;
 
 
 body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer {
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(52, 52, 52, 0.4); 
   transition: opacity 0.1s background-color 0.1s ease-in-out; 
 
 }
@@ -161,7 +158,7 @@ body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .togg
 body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer .toggle-circle {
   left: auto; 
   right: 5px; 
-  background-color: darkgrey;
+  background-color: rgb(109, 109, 109);
   transition: background-color 0.4s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;}
 
 body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .toggleContainer  .toggle-circle:hover {
@@ -198,4 +195,10 @@ body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageHeaderContainer
 body.dark-mode .selectLanguagePageContainer .selectLanguageHeaderContainer .optionBar .toggle-icon{
   color: white;
   transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 600px) {
+  .optionBar .toggle-icon{
+    margin-left: 35% 
+  }
 }

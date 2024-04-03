@@ -10,7 +10,7 @@ body {
 }
 
 body:not(.dark-mode) {
-  background-color: white; 
+  background-color: rgb(210, 201, 210); 
   color: black;
 }
 
@@ -60,7 +60,7 @@ p, a{
 
 
 body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageBackground {
-  background-color: white; 
+  background-color: rgb(210, 201, 210); 
 }
 
 body.dark-mode .selectLanguagePageContainer .selectLanguageBackground {
