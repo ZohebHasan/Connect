@@ -10,12 +10,12 @@ body {
 }
 
 body:not(.dark-mode) {
-  background-color: rgb(210, 201, 210); 
+  background-color: rgb(230, 215, 230); 
   color: black;
 }
 
 body.dark-mode {
-  background-color: black; /* Dark mode */
+  background-color: rgb(26, 16, 26);
   color: white; /* For dark mode text color */
 }
 
@@ -60,9 +60,9 @@ p, a{
 
 
 body:not(.dark-mode) .selectLanguagePageContainer .selectLanguageBackground {
-  background-color: rgb(210, 201, 210); 
+  background-color: rgb(230, 215, 230); 
 }
 
 body.dark-mode .selectLanguagePageContainer .selectLanguageBackground {
-  background-color: black; 
+  background-color: rgb(26, 16, 26);  
 }
