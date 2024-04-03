@@ -5,6 +5,7 @@ import Body from '../components/componentsSelectLanguage/bodySelectLang.jsx';
 
 const SelectLanguagePage = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isDarkMode, setDarkMode] = useState(false);
     const sidebarRef = useRef(null);
     const toggleRef = useRef(null);
     const darkLightToggleRef = useRef(null);
@@ -13,22 +14,19 @@ const SelectLanguagePage = () => {
         setSidebarOpen(!isSidebarOpen);
     };
 
+    const toggleDarkMode = () => {
+        setDarkMode(prevMode => !prevMode); // Ensure we toggle based on the previous state
+    };
+
     useEffect(() => {
+        // Event handler to close the sidebar when clicking outside of it
         const handleClickOutside = (event) => {
-            console.log('Document clicked');
             if (isSidebarOpen) {
-                console.log('Sidebar is open');
-    
                 const outsideSidebar = sidebarRef.current && !sidebarRef.current.contains(event.target);
                 const outsideToggle = toggleRef.current && !toggleRef.current.contains(event.target);
-                const outsideDarkLightToggle = !darkLightToggleRef.current || !darkLightToggleRef.current.contains(event.target);
-    
-                console.log('Outside Sidebar:', outsideSidebar);
-                console.log('Outside Toggle:', outsideToggle);
-                console.log('Outside Dark Light Toggle:', outsideDarkLightToggle);
+                const outsideDarkLightToggle = darkLightToggleRef.current && !darkLightToggleRef.current.contains(event.target);
     
                 if (outsideSidebar && outsideToggle && outsideDarkLightToggle) {
-                    console.log('Closing Sidebar');
                     setSidebarOpen(false);
                 }
             }
@@ -37,21 +35,23 @@ const SelectLanguagePage = () => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isSidebarOpen]);
-    
 
     return (
-        <div className="selectLanguagePageContainer">
-            {/* <BackgroundAnimation /> */}
-            <Header
-                toggleSidebar={toggleSidebar}
-                isSidebarOpen={isSidebarOpen}
-                toggleRef={toggleRef}
-                darkLightToggleRef={darkLightToggleRef}
-            />
-            <Body isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
-
-
-        </div>
+        <>
+            <div className="selectLanguagePageContainer">
+                <BackgroundAnimation />
+                <Header
+                    toggleSidebar={toggleSidebar}
+                    isSidebarOpen={isSidebarOpen}
+                    darkLightToggleRef={darkLightToggleRef}
+                    isDarkMode={isDarkMode}
+                    toggleDarkMode={toggleDarkMode}
+                    toggleRef={toggleRef} 
+                />
+                <Body isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
+            </div>
+            <div className="copyRight">Connect Inc. © 2024</div>
+        </>
     );
 };
 

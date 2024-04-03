@@ -87,3 +87,12 @@ body:not(.dark-mode) .sidebar .links a:hover {
   color: black; 
   transition: opacity 0.3s ease-in-out;
 }
+
+@media (max-width: 650px) and (max-width: 655px){
+  .sidebar {
+    flex: 0; /* Prevent sidebar from growing or shrinking beyond set width */
+  }
+  .sidebar.open {
+    width: 200px; /* Smaller width for smaller devices */
+  }
+}

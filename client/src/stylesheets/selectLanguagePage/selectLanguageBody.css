@@ -15,29 +15,7 @@
     flex-direction: column;
     margin-top: 2%;
     padding: 10px;
-    
-    
  }
-
-
-.dropDownContainer {
-  flex:3;
-  display:flex;
-  flex-direction: column;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  margin: 10px 50px 10px 50px; 
-  padding:10px 130px 10px 130px;
-  height: 10%;
-  /* width: 33%; */
-  /* min-width: 33%; */
-  
- 
-  
-}
 
  .greetingMessage {
   flex: 0 0 auto;
@@ -50,49 +28,58 @@
   background-clip: text;
   text-align: left;
   white-space: nowrap;
-  opacity: 0; 
+  opacity: 1; 
   transition: opacity 0.5s ease-in-out;
 }
-
-
-
+body.dark-mode .greetingMessage{
+  color: transparent;
+  background: linear-gradient(to right, #1D2671, #C33764);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0; 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+}
+body:not(.dark-mode) .greetingMessage{
+  color: transparent;
+  background: linear-gradient(to right, #662D8C, #ED1E79);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0; 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+  
+}
 .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText{
   align-self: flex-start;
-  font-size: 20px; 
   transition: left 0.5s ease-in-out;
   margin-top: -6%;
   flex:1;
+}
 
+.dropDownText span {
+  font-size: 24px;
+  transition: color 0.7s ease;
+}
+
+.grey {
+  color: rgba(172, 172, 172, 0.404);
 }
 
 
-/* @media (max-width: 1200px) {
-  .dropDownAndButtonsContainer {
-    width: 44%; 
-    padding: 20px;
-  }
-
-  .dropDown, .searchBoxContainer, .languageListContainer {
-    width: 100%;
-  }
-
-  .greetingMessage, .dropDownText {
-    margin-left: 5%; 
-    font-size: 2.5em;
-  }
+.dropDownContainer {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+  margin: 10px 10px 10px 2.5%;
+  padding: 10px;
+  width: 42%; 
+  height: 30%;
+  max-width: 100%; 
+  min-width: 25%; 
 }
-
-@media (max-width: 768px) {
-  .dropDownAndButtonsContainer {
-    width: 90%; 
-  }
-
-  .greetingMessage, .dropDownText {
-    margin-left: 4%;
-    font-size: 2em;
-  }
-} */
-
 
 
 .searchBoxContainer {
@@ -101,10 +88,8 @@
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   width: 100%;
-  /* padding: 10px 150px 5px 150px; */
-  display:flex;
+  display: flex;
   align-items: center;
-  background-color: red;
 }
 
 .search-box {
@@ -112,24 +97,62 @@
   height: 40%;
   border-radius: 10px;
   outline: none;
-  padding: 8px 8px 8px 8px;
+  padding: 8px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, border 0.3s ease; 
+  font-size: 16px; 
+  color: #333; 
+  background-color: #fff; 
+  transition: box-shadow 0.3s ease;
+}
 
+.search-box:focus {
+  box-shadow: 0 0 4px rgba(116, 2, 106, 0.1);
+  animation: mildGlow 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes mildGlow {
+  from {
+    box-shadow: 0 0 2px rgba(146, 6, 134, 0.3);
+  }
+  to {
+    box-shadow: 0 0 6px rgba(204, 0, 187, 0.6); 
+  }
 }
 
 .languageListContainer {
   align-self: flex-start;
   flex: 7;
-  /* flex-grow: 1; */
   width: 100%;
   overflow-y: auto;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-  /* padding: 0px 10px 10px 10px; */
-  background-color: blue;
+}
+.dropdown-item {
+  padding: 8px 18px; 
+  display: block; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; 
+  color: #333; 
+  text-decoration: none; 
+  font-weight: 5px;
+  background-color: transparent; 
 }
 
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: rgba(226, 226, 226, 0.486); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
 
-
+.dropdown-item:hover {
+  background-color: rgba(226, 226, 226, 0.486); 
+}
+.dropdown-item:active {
+  background-color: #e0e0e0; 
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); 
+  transform: translateY(1px); 
+}
 
 .languageListContainer::-webkit-scrollbar {
     width: 5px; 
@@ -143,59 +166,233 @@
     background-color: darkgrey; 
 }
 
-.dropdown-item {
-    padding: 10px 10px 10px 18px;
-    cursor: pointer;
-}
-
-.dropdown-item:hover {
-    background-color: #f0f0f0;
-}
-
-.selectLangBtns{
-  margin-top: 15px;
-  flex:1;
-  background-color: red;
-  width: 100%;
+.bottomContainer {
+  margin-top: 25px;
+  flex: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* background-color: yellow; */
 }
 
-.confirmBtn {
-  flex: 2;
-  padding: 10px 0px;
-  margin: 0px 50px;
+.selectLangBtns {
+  display: flex;
+  justify-content: right;
+  flex: 3;
+  /* background-color: red; */
+  gap: 15%;
+}
+.declineBtn, .confirmBtn {
+  
+  background: transparent;
+  backface-visibility: hidden;
+  border-radius: .375rem;
+  border-style: solid;
+  border-width: .085rem;
+  box-sizing: border-box;
+  color: #212121;
+  cursor: pointer;
+  /* font-family: Circular, Helvetica, sans-serif; */
+  font-size: 1.125rem;
+  font-weight: 100;
+  letter-spacing: -.01em;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  transform: translateZ(0) scale(1);
+  transition: transform .2s, background-color .3s ease, box-shadow .2s ease;
+  user-select: none;
+  touch-action: manipulation;
+  /* Retain original padding, margin, and flex properties */
+  padding: 10px 25px; /* Example padding, adjust as needed */
+  backdrop-filter: blur(8px); /* Blur effect for the background */
 }
 
 .declineBtn {
-  flex:2;
-  padding: 10px 0px;
-  margin: 0px 50px;
-}
-.connaBtn{
-  flex: 4;
-  
-
+  margin-left: 15%;
+  /* Additional specific styles for declineBtn if needed */
 }
 
-.confirmBtn , .declineBtn{
+.confirmBtn {
+  margin-right: 15%;
+  /* Additional specific styles for confirmBtn if needed */
+}
 
-  background-color: lightgrey;
-  text-decoration: none;
-  border-radius: 5px;
+.declineBtn:not(:disabled):hover, .confirmBtn:not(:disabled):hover {
+  transform: scale(1.05);
+  background-color: rgba(130, 127, 127, 0.4); /* Increase transparency */
+}
+
+.declineBtn:not(:disabled):hover:active, .confirmBtn:not(:disabled):hover:active {
+  transform: scale(1.05) translateY(.125rem);
+}
+
+.declineBtn:focus, .confirmBtn:focus {
+  outline: 0 solid transparent;
+}
+
+.declineBtn:focus:before, .confirmBtn:focus:before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * .375rem);
+  top: calc(-1 * .375rem);
+  pointer-events: none;
+  transition: border-radius;
+  user-select: none;
+}
+
+.declineBtn:focus:not(:focus-visible), .confirmBtn:focus:not(:focus-visible) {
+  outline: 0 solid transparent;
+}
+
+.declineBtn:focus:not(:focus-visible):before, .confirmBtn:focus:not(:focus-visible):before {
+  border-width: 0;
+}
+
+.declineBtn:not(:disabled):active, .confirmBtn:not(:disabled):active {
+  transform: translateY(.125rem);
+}
+
+
+/* Light mode styles */
+body:not(.dark-mode) .declineBtn,
+body:not(.dark-mode) .confirmBtn {
   color: black;
-  transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
-.confirmBtn:hover , .declineBtn:hover {
-  background-color: rgb(130, 127, 127);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+/* Dark mode styles */
+body.dark-mode .declineBtn,
+body.dark-mode .confirmBtn {
+  color: white;
 
 }
 
-.confirmBtn:active , .declineBtn:active{
-  background-color: rgb(84, 84, 84); 
-  transform: translateY(2px); 
+
+.connaContainer {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  /* background-color: blue; */
 }
 
+.connaBtn {
+  padding: 10px;
+}
+
+
+
+
+/* Smartphones (not optimized for galaxy z fold)*/
+@media (max-width: 500px){
+  .greetingMessage{
+    font-size: 1.5em;
+    height: 50px;
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText span {
+    font-size: 15px; 
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 400px ; 
+    /* max-height: 300px; */
+    /* max-width: 100%;  */
+    min-width: 280px;
+    margin: 0;
+    background-color: red;
+  }
+  .search-box {
+    width: 90%;
+    font-size: 15px;
+  }
+
+  .dropdown-item {
+    padding: 5px 5px;
+  }
+  .bottomContainer {
+    width: auto; 
+    margin-top: 15px;
+  }
+  .selectLangBtns {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 2%;
+  }
+
+  .declineBtn, .confirmBtn {
+    font-size: 0.7rem;
+    padding: 4px 10px; 
+    margin: 0 2%; 
+  }
+
+  .declineBtn {
+    margin-left: 5%; 
+  }
+
+  .confirmBtn {
+    margin-right: 5%; 
+  }
+  .connaContainer {
+    justify-content: center; 
+  }
+
+  .connaBtn {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+}
+
+
+
+/* Small tablets */
+@media (max-width: 600px) {
+.selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+  width: 100%;
+  margin: 10px 10px 10px 2%;
+  
+}
+}
+
+/* Standard tablets */
+@media (max-width: 768px) {
+.selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer {
+  width: 80%;
+  margin: 10px 10px 10px 2%;
+  
+}
+}
+
+/* Large tablets */
+@media (max-width: 1024px) {
+  .greetingMessage{
+    font-size: 1.5em;
+    height: 50px;
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownText span {
+    font-size: 15px; 
+  }
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: auto; 
+    height: 3%;
+    max-width: 90%; 
+    min-width: 35%; 
+    margin: 10px 5px 10px 5px;
+  }
+}
+
+/* Small laptops */
+@media (max-width: 1280px) {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 60%;
+    margin: 10px 10px 10px 2%;
+  }
+}
+
+/* Large laptops */
+@media (max-width: 1440px) {
+  .selectLanguagePageContainer .selectLanguageBodyContainer .dropDownContainer  {
+    width: 53%;
+    margin: 10px 10px 10px 2%;
+  }
+}

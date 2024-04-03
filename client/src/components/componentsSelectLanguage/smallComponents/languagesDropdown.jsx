@@ -5,20 +5,22 @@ import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css';
 export default function LanguagesDropDown() {
     const [searchTerm, setSearchTerm] = useState('');
     const languages = [
-        { "name": "English", "code": "en" },
-        { "name": "Español", "code": "es" },
-        { "name": "Français", "code": "fr" },
-        { "name": "Deutsch", "code": "de" },
-        { "name": "Русский", "code": "ru" },
-        { "name": "中文", "code": "cn" },
-        { "name": "日本語", "code": "ja" },
-        { "name": "한국어", "code": "ko" },
-        { "name": "हिन्दी", "code": "hi" },
-        { "name": "العربية", "code": "ar" }
+        { "name": "English (Default)", "englishName": "English", "code": "en", "countries": ["United States", "United Kingdom", "Australia", "Canada"] },
+        { "name": "Español", "englishName": "Spanish", "code": "es", "countries": ["Spain", "Mexico", "Colombia"] },
+        { "name": "Français", "englishName": "French", "code": "fr", "countries": ["France", "Belgium", "Switzerland"] },
+        { "name": "Deutsch", "englishName": "German", "code": "de", "countries": ["Germany", "Austria", "Switzerland"] },
+        { "name": "Русский", "englishName": "Russian", "code": "ru", "countries": ["Russia", "Belarus"] },
+        { "name": "中文", "englishName": "Chinese", "code": "cn", "countries": ["China"] },
+        { "name": "日本語", "englishName": "Japanese", "code": "ja", "countries": ["Japan"] },
+        { "name": "한국어", "englishName": "Korean", "code": "ko", "countries": ["South Korea"] },
+        { "name": "हिन्दी", "englishName": "Hindi", "code": "hi", "countries": ["India"] },
+        { "name": "العربية", "englishName": "Arabic", "code": "ar", "countries": ["Saudi Arabia", "Iraq", "Egypt"] }
     ];
-
+    
     const filteredLanguages = languages.filter(lang =>
-        lang.name.toLowerCase().includes(searchTerm.toLowerCase())
+        lang.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        lang.englishName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        lang.countries.some(country => country.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     return (
@@ -28,7 +30,7 @@ export default function LanguagesDropDown() {
                 <input
                         type="text"
                         className="search-box"
-                        placeholder="Please search by name or Country or choose from below. (7000 Available Languages)"
+                        placeholder="Search by name or Country (7000 Available Languages)"
                         value={searchTerm}
                         onChange={e => setSearchTerm(e.target.value)}
                 />
