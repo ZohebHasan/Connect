@@ -65,13 +65,19 @@ body:not(.dark-mode) .greetingMessage{
 }
 
 
+
+
+
+
+
+
 .dropDownContainer {
   flex: 4;
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   margin: 10px 10px 10px 2.5%;
   padding: 10px;
@@ -80,8 +86,14 @@ body:not(.dark-mode) .greetingMessage{
   max-width: 100%; 
   min-width: 25%; 
 }
-
-
+body:not(.dark-mode) .dropDownContainer{
+  background-color: rgba(255, 255, 255, 0.3);
+  color:black;
+}
+body.dark-mode .dropDownContainer{
+  background-color: rgba(156, 156, 156, 0.3);
+  color: white;
+}
 .searchBoxContainer {
   align-self: flex-start;
   flex: 1;
@@ -103,8 +115,24 @@ body:not(.dark-mode) .greetingMessage{
   transition: box-shadow 0.3s ease, border 0.3s ease; 
   font-size: 16px; 
   color: #333; 
-  background-color: #fff; 
+  background-color: rgba(255, 255, 255, 0.8);
   transition: box-shadow 0.3s ease;
+}
+body.dark-mode  .search-box{
+  background-color: rgba(255, 255, 255, 0.4);
+ 
+}
+body:not(.dark-mode)  .search-box{
+  background-color: rgba(255, 255, 255, 0.3);
+
+}
+
+body:not(.dark-mode) .searchBoxContainer .search-box::placeholder {
+  color: #999;
+}
+
+body.dark-mode .searchBoxContainer .search-box::placeholder {
+  color: #ccc;
 }
 
 .search-box:focus {
@@ -133,12 +161,17 @@ body:not(.dark-mode) .greetingMessage{
   padding: 8px 18px; 
   display: block; 
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; 
-  color: #333; 
+  color: #1d1d1d; 
   text-decoration: none; 
   font-weight: 5px;
   background-color: transparent; 
 }
-
+body:not(.dark-mode) .dropdown-item{
+  color: #1f1f1f; 
+}
+body.dark-mode .dropdown-item{
+  color: #fffefe; 
+}
 .dropdown-item:hover, .dropdown-item:focus {
   background-color: rgba(226, 226, 226, 0.486); 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -166,6 +199,13 @@ body:not(.dark-mode) .greetingMessage{
     background-color: darkgrey; 
 }
 
+
+
+
+
+
+
+
 .bottomContainer {
   margin-top: 25px;
   flex: 1;
@@ -174,14 +214,13 @@ body:not(.dark-mode) .greetingMessage{
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  /* background-color: yellow; */
+  
 }
 
 .selectLangBtns {
   display: flex;
   justify-content: right;
   flex: 3;
-  /* background-color: red; */
   gap: 15%;
 }
 .declineBtn, .confirmBtn {
@@ -194,7 +233,6 @@ body:not(.dark-mode) .greetingMessage{
   box-sizing: border-box;
   color: #212121;
   cursor: pointer;
-  /* font-family: Circular, Helvetica, sans-serif; */
   font-size: 1.125rem;
   font-weight: 100;
   letter-spacing: -.01em;
@@ -205,24 +243,21 @@ body:not(.dark-mode) .greetingMessage{
   transition: transform .2s, background-color .3s ease, box-shadow .2s ease;
   user-select: none;
   touch-action: manipulation;
-  /* Retain original padding, margin, and flex properties */
-  padding: 10px 25px; /* Example padding, adjust as needed */
-  backdrop-filter: blur(8px); /* Blur effect for the background */
+  padding: 10px 25px; 
+  backdrop-filter: blur(8px); 
 }
 
 .declineBtn {
-  margin-left: 15%;
-  /* Additional specific styles for declineBtn if needed */
+  margin-left: 15%; 
 }
 
 .confirmBtn {
   margin-right: 15%;
-  /* Additional specific styles for confirmBtn if needed */
 }
 
 .declineBtn:not(:disabled):hover, .confirmBtn:not(:disabled):hover {
   transform: scale(1.05);
-  background-color: rgba(130, 127, 127, 0.4); /* Increase transparency */
+  background-color: rgba(130, 127, 127, 0.4); 
 }
 
 .declineBtn:not(:disabled):hover:active, .confirmBtn:not(:disabled):hover:active {
