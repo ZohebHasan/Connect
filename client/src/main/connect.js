@@ -1,16 +1,20 @@
-import HomePage from '../pages/homepage.js'
-import Model from '../models/dataModel.js';
-import {Link} from 'react-router-dom';
-// import CustomCursor from '../components/animations/cursor/customCursor.jsx';
-import WelcomePage from '../pages/welcomePage.js'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-export default function connect(){
+
+import Intro from '../pages/intro.js'
+import SelectLanguagePage from "../pages/loginSignup/selectLanguage.js";
+import LoginPage from "../pages/loginSignup/login.js";
+
+export default function Connect(){
     return (
-        <>
-            {/* <CustomCursor/> */}
-            <WelcomePage/>
-            {/* <HomePage/> */}
-            
-        </>
+     
+            <Router>
+                <Routes>
+                    <Route path = "/" element = {<Intro/>} />
+                    <Route path = "/selectLanguage" element = {<SelectLanguagePage/>}/>
+                    <Route path = "login" element = {<LoginPage/>}/>
+                </Routes>
+            </Router>
+
     );
 }
