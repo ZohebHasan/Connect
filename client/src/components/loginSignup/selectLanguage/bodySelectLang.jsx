@@ -10,7 +10,7 @@ import AnimatedText from './assets/textAnimation.jsx';
 import LanguagesDropDown from './smallComponents/languagesDropdown.jsx';
 
 
-export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
+export default function Body() {
     
     return (
         <>
@@ -25,8 +25,8 @@ export default function Body({ isSidebarOpen, toggleSidebar , sidebarRef}) {
 
                 <div className="bottomContainer">
                     <div className="selectLangBtns">
-                        <Link to="/login" className="declineBtn">Skip (Default)</Link>
-                        <Link to="/login" className="confirmBtn">Confirm</Link>
+                        <Link to="/login" className="declineBtn">Skip (Default)
+                        <span></span></Link>
                     </div>
                     <div className="connaContainer">
                         <button className="connaBtn">Conna</button>

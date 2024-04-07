@@ -211,7 +211,7 @@ body.dark-mode .dropdown-item{
   gap: 15%;
 }
 
-.declineBtn, .confirmBtn {
+.declineBtn{
   background: transparent;
   backface-visibility: hidden;
   border-radius: .375rem;
@@ -234,28 +234,22 @@ body.dark-mode .dropdown-item{
   backdrop-filter: blur(8px); 
 }
 
-.declineBtn {
-  margin-left: 15%; 
-}
 
-.confirmBtn {
-  margin-right: 15%;
-}
 
-.declineBtn:not(:disabled):hover, .confirmBtn:not(:disabled):hover {
+.declineBtn:not(:disabled):hover {
   transform: scale(1.05);
   background-color: rgba(130, 127, 127, 0.4); 
 }
 
-.declineBtn:not(:disabled):hover:active, .confirmBtn:not(:disabled):hover:active {
+.declineBtn:not(:disabled):hover:active{
   transform: scale(1.05) translateY(.125rem);
 }
 
-.declineBtn:focus, .confirmBtn:focus {
+.declineBtn:focus{
   outline: 0 solid transparent;
 }
 
-.declineBtn:focus:before, .confirmBtn:focus:before {
+.declineBtn:focus:before{
   content: "";
   position: absolute;
   left: calc(-1 * .375rem);
@@ -265,27 +259,25 @@ body.dark-mode .dropdown-item{
   user-select: none;
 }
 
-.declineBtn:focus:not(:focus-visible), .confirmBtn:focus:not(:focus-visible) {
+.declineBtn:focus:not(:focus-visible){
   outline: 0 solid transparent;
 }
 
-.declineBtn:focus:not(:focus-visible):before, .confirmBtn:focus:not(:focus-visible):before {
+.declineBtn:focus:not(:focus-visible):before{
   border-width: 0;
 }
 
-.declineBtn:not(:disabled):active, .confirmBtn:not(:disabled):active {
+.declineBtn:not(:disabled):active{
   transform: translateY(.125rem);
 }
 
 
 
-body:not(.dark-mode) .declineBtn,
-body:not(.dark-mode) .confirmBtn {
+body:not(.dark-mode) .declineBtn {
   color: black;
 }
 
-body.dark-mode .declineBtn,
-body.dark-mode .confirmBtn {
+body.dark-mode .declineBtn {
   color: white;
 
 }

@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+import { useDarkMode } from '../../contexts/DarkMode.js';
+
 import Header from '../../components/loginSignup/login/headerLogin.jsx';
 import Body from '../../components/loginSignup/login/bodyLogin.jsx';
 
 const LoginPage = () => {
-    const [isDarkMode, setDarkMode] = useState(false);
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
     const darkLightToggleRef = useRef(null);
     const containerRef = useRef(null); 
 
-
-    const toggleDarkMode = () => {
-        setDarkMode(prevMode => !prevMode); 
-    };
 
     useEffect(() => {
         containerRef.current.classList.add('fade-in');
@@ -24,7 +23,6 @@ const LoginPage = () => {
                 <Header
                     darkLightToggleRef={darkLightToggleRef}
                     isDarkMode={isDarkMode}
-                    toggleDarkMode={toggleDarkMode}
                 />
                 <Body isDarkMode={isDarkMode} />
             </div>

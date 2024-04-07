@@ -45,20 +45,31 @@
 }
 
 .posterLogo img {
-  width: 15%; 
+  width: 25%; 
   height: auto; 
   opacity: 0; 
   transition: transform 0.5s, opacity 0.5s; 
   mix-blend-mode: multiply;
   background-color: transparent; 
 }
+
+
  .posterText{
   flex: 2; 
-  text-align: center; 
+  text-align: left; 
   z-index: 3;
+  font-size: 100px;
+  font-weight: bold;
+  color: #ffffff; 
 }
 
+.span1 {
+  color: #007bff; 
+}
 
+.span2 {
+  color: #28a745; 
+}
 
 .loginContainer{
   /* position: absolute; */

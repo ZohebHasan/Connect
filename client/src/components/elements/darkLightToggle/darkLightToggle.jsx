@@ -1,12 +1,11 @@
 import React, { useEffect, forwardRef } from 'react';
-import '../../../stylesheets/App.css'; 
-// import '../../../stylesheets/selectLanguagePage/selectLanguageHeader.css';
-// import '../../../stylesheets/selectLanguagePage/selectLanguageBody.css';
+import { useDarkMode } from '../../../contexts/DarkMode';
 
-const DarkLightToggle = forwardRef(({ isDarkMode, toggleDarkMode }, ref) => {  
-  useEffect(() => {
-    document.body.classList.toggle('dark-mode', isDarkMode);
-  }, [isDarkMode]);
+import '../../../stylesheets/App.css'; 
+
+
+const DarkLightToggle = forwardRef((props, ref) => {  
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   return (
     <div onClick={toggleDarkMode} ref={ref} className={`toggleContainer ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>

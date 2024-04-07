@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+
 import '../../../stylesheets/App.css'; 
 import '../../../stylesheets/loginSignup/selectLang/selectLangHeader.css'; 
 
@@ -22,6 +23,7 @@ const Header = ({
     toggleRef,
     sidebarRef
 }) => {
+
     useEffect(() => {
         const logoImg = document.querySelector('.logo img');
         if (logoImg) {

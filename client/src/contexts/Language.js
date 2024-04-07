@@ -3,18 +3,16 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-    const [language, setLanguage] = useState('en'); 
+    const [language, setLanguage] = useState('en-US'); 
 
+    const changeLanguage = (langCode) => {
+        // console.log("Updating language to:", langCode);
+        setLanguage(langCode);
+    };
 
     useEffect(() => {
-        console.log("Current language state:", language);
+        // console.log("Current language state:", language);
     }, [language]);
-    
-    const changeLanguage = (langCode) => {
-        console.log("Updating language to:", langCode);
-        setLanguage(langCode);
-        console.log("Current language state:", language);
-    };
 
     return (
         <LanguageContext.Provider value={{ language, changeLanguage }}>

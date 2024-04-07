@@ -1,23 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-
 import Header from '../../components/loginSignup/selectLanguage/headerSelectLang.jsx';
 import Background1 from '../../components/backgrounds/background1/background1.jsx';
 import Body from  '../../components/loginSignup/selectLanguage/bodySelectLang.jsx';
+import { useDarkMode } from '../../contexts/DarkMode.js'
 
 const SelectLanguagePage = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
-    const [isDarkMode, setDarkMode] = useState(false);
     const sidebarRef = useRef(null);
     const toggleRef = useRef(null);
     const darkLightToggleRef = useRef(null);
-    const containerRef = useRef(null); 
+    const containerRef = useRef(null);
+    const { isDarkMode, toggleDarkMode } = useDarkMode(); 
+
     const toggleSidebar = () => {
         setSidebarOpen(!isSidebarOpen);
-    };
-
-    const toggleDarkMode = () => {
-        setDarkMode(prevMode => !prevMode); 
     };
 
     useEffect(() => {
@@ -46,10 +43,10 @@ const SelectLanguagePage = () => {
                     toggleSidebar={toggleSidebar}
                     isSidebarOpen={isSidebarOpen}
                     darkLightToggleRef={darkLightToggleRef}
+                    sidebarRef={sidebarRef}
                     isDarkMode={isDarkMode}
                     toggleDarkMode={toggleDarkMode}
                     toggleRef={toggleRef} 
-                    sidebarRef={sidebarRef}
                 />
                 <Body isSidebarOpen={isSidebarOpen}/>
             </div>

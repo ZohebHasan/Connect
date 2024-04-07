@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
+import {useLanguage} from '../../../../contexts/Language.js'
+
 import '../../../../stylesheets/App.css';
 import '../../../../stylesheets/loginSignup/selectLang/selectLangBody.css';
 
@@ -6,6 +9,7 @@ const AnimatedText = () => {
     const text = "Welcome to Connect! Please Select Your Language to get started.";
     const [index, setIndex] = useState(0);
     const greyLetterCount = 5; 
+    const {language} = useLanguage();
   
     useEffect(() => {
       const intervalId = setInterval(() => {
