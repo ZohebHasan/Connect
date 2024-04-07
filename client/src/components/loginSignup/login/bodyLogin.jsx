@@ -12,21 +12,22 @@ function PosterContainer({isDarkMode}){
     return(
         <>
             <div className="posterContainer">
+                <video autoPlay loop muted className="video">
+                    <source src={videoSrc} type="video/mp4" />
+                </video>
                 <div className = "posterLogoContainer">
                     <div className = "posterLogo">
                         <img src={isDarkMode ? LogoDark : LogoLight} alt="Logo" style={{ opacity: 1 }} />
                     </div>
-
-                    <p className="posterText"> 
-                        The <span className='span1'>Future</span><br />
-                        is <span className='span2'>Here</span>.
-                    </p>
-
+                    <div className="posterText">
+                        <p > 
+                            The <span className='span1'>Future</span><br />
+                            is <span className='span2'>Here</span>.
+                        </p>
+                    </div>
+                   
                 </div>
-                <video autoPlay loop muted className="video">
-                    <source src={videoSrc} type="video/mp4" />
-                </video>
-                This is some video/our poster
+                
             </div>
         </>
     );
