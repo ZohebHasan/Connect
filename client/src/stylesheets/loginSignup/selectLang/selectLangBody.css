@@ -71,7 +71,7 @@ body:not(.dark-mode) .greetingMessage{
   flex-direction: column;
   align-items: flex-start; 
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   margin: 10px 10px 10px 2.5%;
   padding: 10px;
@@ -81,11 +81,11 @@ body:not(.dark-mode) .greetingMessage{
   min-width: 25%; 
 }
 body:not(.dark-mode) .dropDownContainer{
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.8);
   color:black;
 }
 body.dark-mode .dropDownContainer{
-  background-color: rgba(156, 156, 156, 0.3);
+  background-color: rgba(156, 156, 156, 0.8);
   color: white;
 }
 .searchBoxContainer {
@@ -122,11 +122,11 @@ body:not(.dark-mode)  .search-box{
 }
 
 body:not(.dark-mode) .searchBoxContainer .search-box::placeholder {
-  color: #999;
+  color: #6c6c6c;
 }
 
 body.dark-mode .searchBoxContainer .search-box::placeholder {
-  color: #ccc;
+  color: #e5e5e5;
 }
 
 .search-box:focus {
@@ -283,15 +283,13 @@ body.dark-mode .declineBtn {
 }
 
 
-.connaContainer {
+.connaSelectLang {
   display: flex;
   justify-content: flex-end;
   flex: 1;
 }
 
-.connaBtn {
-  padding: 10px;
-}
+
 
 
 /* Smartphones (not optimized for galaxy z fold)*/
