@@ -1,0 +1,70 @@
+
+.posterContainer{
+    flex:1;
+    position: relative;
+    height: 100%;
+    
+}
+
+.video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.posterLogoContainer{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  z-index: 2; 
+  width: 100%; 
+  height: 100%; 
+  justify-content: center; 
+  align-items: center;  
+}
+
+.posterLogo {
+  display: flex;
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  z-index: 3;
+}
+
+.posterLogo img {
+  width: 25%; 
+  height: auto; 
+  opacity: 0; 
+  transition: transform 0.5s, opacity 0.5s; 
+  mix-blend-mode: multiply;
+  background-color: transparent; 
+}
+
+ .posterText{
+  flex: 2; 
+  text-align: left; 
+  z-index: 3;
+  font-size: 75px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.freedomSpan {
+ color:white;
+}
+
+.hereSpan {
+  color:white;
+}
+
+.uncontrolledSpan {
+  color: transparent;
+  background: linear-gradient(to right, #2E3192 , #1BFFFF);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
