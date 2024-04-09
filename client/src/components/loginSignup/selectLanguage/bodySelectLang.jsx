@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 import '../../../stylesheets/App.css'; 
 import '../../../stylesheets/loginSignup/selectLang/selectLangBody.css';
+import '../../../stylesheets/elements/conna.css';
+
 
 import Greetings from './assets/greetings.jsx';
 import AnimatedText from './assets/textAnimation.jsx';
@@ -28,7 +30,7 @@ export default function Body() {
                         <Link to="/login" className="declineBtn">Skip (Default)
                         <span></span></Link>
                     </div>
-                    <div className="connaContainer">
+                    <div className="connaSelectLang">
                         <button className="connaBtn">Conna</button>
                     </div>
                 </div>

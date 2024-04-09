@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import Header from '../../components/loginSignup/selectLanguage/headerSelectLang.jsx';
-import Background1 from '../../components/backgrounds/background1/background1.jsx';
+import Background1 from '../../components/loginSignup/selectLanguage/background/backgroundSelectLang.jsx';
 import Body from  '../../components/loginSignup/selectLanguage/bodySelectLang.jsx';
 import { useDarkMode } from '../../contexts/DarkMode.js'
 
