@@ -8,7 +8,7 @@
     left: 0; 
     
 }
-.loginSignUpContainer{  /*something's causing overflow in here */
+.loginSignUpContainer{  
   position: relative;
   flex: 1;
   display: flex;
@@ -18,10 +18,17 @@
   margin: auto;
   justify-content: center; 
   align-items: center;  
-  overflow: hidden;  
-  /* background-color: pink; */
+  /* overflow: hidden;  */
+  /* transition: transform 0.5s;  */
 }
 
+/* .slide-out {
+  transform: translateX(100vw); 
+}
+
+.slide-in {
+  transform: translateX(-50%); 
+} */
 
 
 
