@@ -2,9 +2,8 @@
     flex: 1.5;
     display: flex;
     flex-direction: row;
-    align-items: center; /* Center vertically in the flex container */
-    justify-content: center; /* Center horizontally in the flex container */
-    /* background-color: red; */
+    align-items: center; 
+    justify-content: center; 
     width: 100%;
     z-index: 1;
 }
@@ -14,7 +13,6 @@
     display: flex;
     align-items: center; 
     justify-content: center; 
-  
 }
 
 .connaLoginSignup {

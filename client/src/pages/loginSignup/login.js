@@ -19,7 +19,6 @@ const LoginPage = () => {
     return (
         <>
              <div ref={containerRef} className="pageContainer">
-               
                 <Header
                     darkLightToggleRef={darkLightToggleRef}
                     isDarkMode={isDarkMode}

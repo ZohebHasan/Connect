@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
+import {useLanguage} from '../../../../contexts/Language.js'
+import {poster} from '../../../../translations/loginSignup/login/poster.js'
 
 import '../../../../stylesheets/App.css'; 
-// import '../../../../stylesheets/loginSignup/login/loginBody.css';
 import '../../../../stylesheets/loginSignup/login/containers/poster.css';
 
 
@@ -13,8 +13,28 @@ import LogoLight from '../../../assets/logoLight.png';
 import videoSrc from '../assets/poster.mp4';
 
 
-
 export default function PosterContainer({isDarkMode}){
+    const { language } = useLanguage();
+
+    let the = "The";
+    let freedom = "Freedom";
+    let is = "is";
+    let here = "here";
+    let uncontrolled = "Uncontrolled";
+    let period = ".";
+    
+    if (poster && poster[language]) {
+        const { the: theVal, freedom: freedomVal, is: isVal, here: hereVal, uncontrolled: uncontrolledVal, period: periodVal } = poster[language];
+        the = theVal;
+        freedom = freedomVal;
+        is = isVal;
+        here = hereVal;
+        uncontrolled = uncontrolledVal;
+        period = periodVal;
+    }
+    
+    
+
     return(
         <>
             <div className="posterContainer">
@@ -27,9 +47,9 @@ export default function PosterContainer({isDarkMode}){
                     </div>
                     <div className="posterText">
                         <p > 
-                            The <span className='freedomSpan'>Freedom</span><br />
-                            is <span className='hereSpan'>Here</span>.<br/>
-                            <span className = 'uncontrolledSpan'>Uncontrolled</span>. 
+                            {the} <span className='freedomSpan'>{freedom}</span><br />
+                            {is} <span className='hereSpan'>{here}</span>{period}<br/>
+                            <span className = 'uncontrolledSpan'>{uncontrolled}</span>{period} 
                         </p>
                     </div>           
                 </div>     

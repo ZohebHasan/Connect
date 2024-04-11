@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-
+import { useLanguage } from '../../../../contexts/Language';
+import {transLogin } from '../../../../translations/loginSignup/login/login.js';
 
 import '../../../../stylesheets/App.css'; 
 import '../../../../stylesheets/loginSignup/login/loginBody.css';
@@ -13,20 +14,18 @@ import MicrosoftLogo from '../assets/microsoft.png'
 import AppleLightLogo from '../assets/appleLogoBlack.png';
 
 
-function LoginText(){
-    return(
-        <div className = "loginText">
-            <p> 
-                Let's get 
-                you <span className='in'>in</span>.
-            </p>
-        </div>
-    );
-}
-
 function CredentialContainer(){
     const [showPassword, setShowPassword] = useState(false);
+    const { language } = useLanguage();
 
+    let id = "Phone, email, or username"
+    let pass = "Password"
+
+    if( transLogin && transLogin[language]){
+        const {id: idVal, pass: passVal} = transLogin[language];
+        id = idVal;
+        pass = passVal;
+    }
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -35,7 +34,7 @@ function CredentialContainer(){
         <div className="credentialContainer">    
             <div className="idContainer">
                 <input type="text" id="emailInput" placeholder=" " />
-                <label htmlFor="emailInput">Phone, email, or username</label>
+                <label htmlFor="emailInput">{id}</label>
             </div>
             <div className="passwordContainer">
                 <input
@@ -43,7 +42,7 @@ function CredentialContainer(){
                     id="passwordInput"
                     placeholder=" "
                 />
-                <label for="passwordInput">Password</label>
+                <label htmlFor="passwordInput">{pass}</label>
                 <button onClick={togglePasswordVisibility} className="togglePasswordBtn">
                     <img src={showPassword ? ShowSign : HideSign} alt={showPassword ? "Hide" : "Show"} />
                 </button>
@@ -55,9 +54,18 @@ function CredentialContainer(){
 
 
 function SocialLoginButtons (){
+    const { language } = useLanguage();
+
+    let signInWith = "Sign in with";
+
+    if(transLogin && transLogin[language]){
+        const { signInWith: signInWithVal } = transLogin[language];
+        signInWith = signInWithVal;
+    }
+
     return(
         <div className="socialLoginButtons">
-            <p> Sign in With: </p>
+            <p> {signInWith}: </p>
             <Link to = "#" className="microsoftBtn">
                 <img src={MicrosoftLogo} alt="Microsoft" />
             </Link>
@@ -72,31 +80,42 @@ function SocialLoginButtons (){
 }
 
 
-export default function LoginContainer() {
+
+
+export default function LoginContainer({ onSignIn, onSignUp }) {
     const [showPassword, setShowPassword] = useState(false);
-  
+    
+    const { language } = useLanguage();
+
+    let signIn = "Sign in";
+    let signUp = "Create an account"
+
+    if(transLogin && transLogin[language]){
+        const { signIn: signInVal, signUp: signUpVal } = transLogin[language];
+        signIn = signInVal;
+        signUp = signUpVal;
+    }
+
+
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
   
     return (
         <>
-            {/* <BackgroundLogin/> */}
-            <LoginText/>
             <div className="login">          
                 <CredentialContainer/>
                 <div className = "loginBtnContainer">
-                    <Link to = "#" className="loginBtn">Sign in</Link>
+                    <Link className="loginBtn" onClick={onSignIn}>{signIn}</Link>
                 </div>    
                 <SocialLoginButtons/>
-    
                 <div className="dividerContainer">
                     <div className="line"></div>
                         <span className="orText">or</span>
                     <div className="line"></div>
                 </div>
                 <div className = "signupBtnContainer">
-                    <Link className="signupBtn">Create an account</Link>  
+                    <Link className="signupBtn" onClick={onSignUp}>{signUp}</Link>  
                 </div>              
             </div>
         </>

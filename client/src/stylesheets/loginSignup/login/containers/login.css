@@ -8,17 +8,21 @@
     z-index: 0;
   }
   
-  .loginText{
+  .loginSignUpContainer .loginText{
     flex: 2;
     display: flex;
-    text-align: left;
+    /* text-align: center; */
     align-items: center;
+    justify-content: center;
     width: 100%;
     font-size: 50px;
     font-weight: bold;
-    margin-left: 24%;
+    position: relative;
+    left: -11%;
     z-index: 1;
     color: rgba(255, 255, 255, 0.8);
+    /* background-color: red; */
+    
   }
   
   body:not(.dark-mode)  .loginText{
