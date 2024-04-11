@@ -1,0 +1,411 @@
+  .backgroundLogin {  /* Not effective right now*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+  
+  .loginSignUpContainer .loginText{
+    flex: 2;
+    display: flex;
+    /* text-align: center; */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    left: -11%;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.8);
+    /* background-color: red; */
+    
+  }
+  
+  body:not(.dark-mode)  .loginText{
+    color: rgba(0, 0, 0, 0.8);
+  }
+  
+  body.dark-mode .loginTextn {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .in{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  body.dark-mode .in{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+  }
+  
+  body:not(.dark-mode) .in{
+    color: transparent;
+    background: linear-gradient(to right, #662D8C , #ED1E79);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  .login{
+    z-index: 1; 
+    flex:7;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(156, 156, 156, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(253, 211, 255, 0.201);
+  }
+  
+  body.dark-mode .login{
+    background-color: rgba(181, 181, 181, 0.5);
+  }
+  
+  body:not(.dark-mode) .login{
+    background-color: rgba(136, 136, 136, 0.442);
+  }
+  
+  .credentialContainer {
+    flex: 1.5;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px; 
+  }
+  
+  .idContainer, .passwordContainer { 
+    position: relative;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .idContainer input, .passwordContainer input {
+    padding: 20px 15px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(253, 211, 255, 0.879);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px; 
+    transition: box-shadow 0.3s ease, border 0.3s ease; 
+  }
+  
+  body.dark-mode .idContainer input, body.dark-mode .passwordContainer input{
+    background-color: rgba(251, 243, 250, 0.681);
+  }
+  
+  
+  body:not(.dark-mode) .idContainer input, body:not(.dark-mode) .passwordContainer input{
+    background-color: rgba(255, 255, 255, 0.646);
+  }
+  
+  
+  .idContainer input:focus, .passwordContainer input:focus {
+    border-color:  #ED1E79; 
+  }
+    
+  
+  body:not(.dark-mode) .idContainer label,  body:not(.dark-mode) .passwordContainer label{
+    color: #8d8d8d;
+  }
+  
+  
+  body.dark-mode .idContainer label, body.dark-mode .passwordContainer label {
+    color: #505050;
+  }
+  
+  
+  .idContainer label, .passwordContainer label {
+    position: absolute;
+    left: 15px;
+    top: 18px;
+    color: #999;
+    transition: top 0.3s, font-size 0.3s;
+    pointer-events: none;
+    
+  }
+  
+  .idContainer input:focus + label, .passwordContainer input:focus + label,
+  .idContainer input:not(:placeholder-shown) + label, .passwordContainer input:not(:placeholder-shown) + label {
+    top: 3px;
+    font-size: 12px;
+    color: #ED1E79;
+  }
+  
+  .passwordContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .togglePasswordBtn {
+    position: absolute;
+    right: 5%;
+    padding: 5px 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .togglePasswordBtn img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .loginBtnContainer{
+    flex:1;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .signupBtnContainer{
+    flex:1;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loginBtnContainer .loginBtn , 
+  .signupBtnContainer .signupBtn{
+    background: linear-gradient(
+      to right, 
+      rgba(29, 38, 113, 0.55), 
+      rgba(195, 55, 100, 0.55)     
+    );
+    backface-visibility: hidden;
+    border-radius: .375rem;
+    border-style: solid;
+    border-width: .085rem;
+    box-sizing: border-box;
+    color: #212121;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 100;
+    letter-spacing: -.01em;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none;
+    transform: translateZ(0) scale(1);
+    transition: transform .2s, background-color .5s ease, box-shadow .2s ease;
+    user-select: none;
+    touch-action: manipulation;
+    padding: 10px 160px; 
+    backdrop-filter: blur(8px); 
+  }
+  
+  body.dark-mode .loginBtn, body.dark-mode .signupBtnContainer .signupBtn{
+    background: linear-gradient(
+        to right, 
+        rgba(29, 38, 113, 0.55), 
+        rgba(195, 55, 100, 0.55)     
+    );
+  }
+  
+  
+  body:not(.dark-mode) .loginBtn, body:not(.dark-mode) .signupBtnContainer .signupBtn{
+    background: linear-gradient(
+      to right, 
+      rgba(102, 45, 140, 0.55), 
+      rgba(237, 30, 121, 0.55) 
+     );
+  }
+  
+  
+  body.dark-mode .loginBtnContainer .loginBtn:not(:disabled):hover,
+  body.dark-mode .signupBtnContainer .signupBtn:not(:disabled):hover {
+    background: linear-gradient(
+        to right, 
+        rgba(29, 37, 113, 0.73), 
+        rgba(195, 55, 99, 0.726)     
+    );
+  }
+  body.dark-mode .loginBtnContainer .loginBtn:not(:disabled):hover:active, 
+  body.dark-mode .signupBtnContainer .signupBtn:not(:disabled):hover:active{
+    transform: scale(1.05) translateY(.125rem);
+    background: linear-gradient(
+      to right, 
+      rgb(29, 37, 113), 
+      rgb(195, 55, 99) 
+    );
+  }
+  
+  .loginBtnContainer .loginBtn:not(:disabled):hover,
+  .signupBtnContainer .signupBtn:not(:disabled):hover{
+    transform: scale(1.05);
+    background: linear-gradient(
+      to right, 
+      rgba(102, 45, 140, 0.748), 
+      rgba(237, 30, 120, 0.741) 
+    );
+  }
+  
+  .loginBtnContainer .loginBtn:not(:disabled):hover:active,
+  .signupBtnContainer .signupBtn:not(:disabled):hover:active{
+    transform: scale(1.05) translateY(.125rem);
+    background: linear-gradient(
+      to right, 
+      rgb(102, 45, 140), 
+      rgb(237, 30, 120) 
+    );
+  }
+  
+  .loginBtnContainer .loginBtn:focus,
+  .signupBtnContainer .signupBtn:focus{
+    outline: 0 solid transparent;
+  }
+  
+  .loginBtnContainer .loginBtn:focus:before,
+  .signupBtnContainer .signupBtn:focus:before{
+    content: "";
+    position: absolute;
+    left: calc(-1 * .375rem);
+    top: calc(-1 * .375rem);
+    pointer-events: none;
+    transition: border-radius;
+    user-select: none;
+  }
+  
+  .loginBtnContainer .loginBtn:focus:not(:focus-visible),
+  .signupBtnContainer .signupBtn:not(:focus-visible){
+    outline: 0 solid transparent;
+  }
+  
+  .loginBtnContainer .loginBtn:focus:not(:focus-visible):before,
+  .signupBtnContainer .signupBtn:focus:not(:focus-visible):before{
+    border-width: 0;
+  }
+  
+  .loginBtnContainer .loginBtn:not(:disabled):active,
+  .signupBtnContainer .signupBtn:not(:disabled):active{
+    transform: translateY(.125rem);
+  }
+  
+  
+  
+  body:not(.dark-mode) .loginBtnContainer .loginBtn ,
+  body:not(.dark-mode) .signupBtnContainer .signupBtn{
+    color: black;
+  }
+  
+  body.dark-mode .loginBtnContainer .loginBtn,
+  body.dark-mode .signupBtnContainer .signupBtn  {
+    color: white;
+  
+  }
+  
+  .socialLoginButtons {
+    flex:1;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  
+  .microsoftBtn, .googleBtn, .appleBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    width: 15%;
+  }
+  
+  .microsoftBtn, .googleBtn {
+      padding: 3px 17px;
+      margin: 5px 3px;
+      border-radius: 8px;
+  }
+  
+  .appleBtn{
+    padding: 0px 20px;
+    margin: 0px 3px;
+    border-radius: 8px;
+  }
+  
+  .microsoftBtn, .googleBtn, .appleBtn {
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease;
+  }
+  
+  .microsoftBtn:hover, .googleBtn:hover, .appleBtn:hover {
+    transform: scale(1.05);
+  }
+  
+  .microsoftBtn:active, .googleBtn:active, .appleBtn:active {
+    transform: scale(0.95);
+  }
+  
+  
+  .microsoftBtn img {
+    width: 86px; 
+    height: 18px; 
+    padding: 6px 30px 
+  }
+  
+  .appleBtn img {
+    width: 23px; 
+    height: auto; 
+    padding: 4px 0px;
+  }
+  
+  
+  .googleBtn img {
+      width: 26px;
+      height: 26px;
+      padding: 2px 0px 
+  }
+  
+  
+  .dividerContainer {
+    flex:0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    width: 90%;
+  }
+  
+  .line {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+  }
+  
+  body:not(.dark-mode) .line {
+    background-color: #3d3d3d;
+  }
+  
+  .orText {
+    margin: 0 10px;
+  }
+  
+
+  
