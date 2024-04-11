@@ -17,7 +17,6 @@ export default function LanguagesDropDown() {
     );
 
     const handleLanguageChange = (langCode) => {
-        console.log("Changing language to:", langCode);
         changeLanguage(langCode);
     };
 
@@ -38,9 +37,9 @@ export default function LanguagesDropDown() {
                     <Link key={lang.code} 
                         className="dropdown-item"
                         onClick={() => handleLanguageChange(lang.code)}
+                        to = "/login"
                         >
                         {lang.name}
-                        
                     </Link>
                 ))}
             </div>

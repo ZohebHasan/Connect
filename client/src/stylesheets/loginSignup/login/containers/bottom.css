@@ -1,0 +1,25 @@
+.bottomLoginSignup {
+    flex: 1.5;
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center; 
+    width: 100%;
+    z-index: 1;
+}
+  
+.currentLangLoginSignup {
+    flex: 1;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+}
+
+.connaLoginSignup {
+    display: flex;
+    flex: 1;
+    align-items: center; 
+    justify-content: flex-end;
+    margin-right: 7%;
+
+}
