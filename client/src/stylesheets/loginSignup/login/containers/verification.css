@@ -1,0 +1,71 @@
+ .loginSignUpContainer .verificationText{
+    flex: 3;
+    display: flex;
+    /* text-align: center; */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    left: -11%;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.8);
+    /* background-color: red; */
+    
+}
+  
+  body:not(.dark-mode)  .verificationText{
+    color: rgba(0, 0, 0, 0.8);
+  }
+  
+  body.dark-mode .verificationText{
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .sure{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  body.dark-mode .sure{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+  }
+  
+  body:not(.dark-mode) .sure{
+    color: transparent;
+    background: linear-gradient(to right, #662D8C , #ED1E79);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+.verification{
+    z-index: 1; 
+    flex:7;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(156, 156, 156, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(253, 211, 255, 0.201);
+  }
+    
+  body.dark-mode .verification{
+    background-color: rgba(181, 181, 181, 0.5);
+  }
+  
+  body:not(.dark-mode) .verification{
+    background-color: rgba(136, 136, 136, 0.442);
+  }
