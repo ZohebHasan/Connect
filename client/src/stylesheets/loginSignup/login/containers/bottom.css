@@ -1,5 +1,4 @@
-.bottomLoginSignup {
-    flex: 1.5;
+.bottomLogin, .bottomSignup, .bottomTwoStep {
     display: flex;
     flex-direction: row;
     align-items: center; 
@@ -7,7 +6,16 @@
     width: 100%;
     z-index: 1;
 }
-  
+.bottomLogin{
+    flex: 1.5;
+}
+
+.bottomSignup , .bottomTwoStep{
+    flex: 3;
+}
+
+
+
 .currentLangLoginSignup {
     flex: 1;
     display: flex;

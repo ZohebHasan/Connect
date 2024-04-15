@@ -38,9 +38,9 @@ export default function PosterContainer({isDarkMode}){
     return(
         <>
             <div className="posterContainer">
-                <video autoPlay loop muted className="video">
+                {/* <video autoPlay loop muted className="video">
                     <source src={videoSrc} type="video/mp4" />
-                </video>
+                </video> */}
                 <div className = "posterLogoContainer">
                     <div className = "posterLogo">
                         <img src={isDarkMode ? LogoDark : LogoLight} alt="Logo" style={{ opacity: 1 }} />
