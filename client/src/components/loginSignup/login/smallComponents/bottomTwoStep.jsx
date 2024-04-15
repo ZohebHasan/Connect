@@ -6,7 +6,7 @@ import CurrentLanguage from '../../../elements/currentLanguage/currentLanguage.j
 
 export default function Bottom(){
     return(
-        <div className="bottomLoginSignup">
+        <div className="bottomTwoStep">
             <div className = "currentLangLoginSignup">
                 <CurrentLanguage/>
             </div>

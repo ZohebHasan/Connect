@@ -1,0 +1,324 @@
+ .loginSignUpContainer .verificationText{
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    left: -9%;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.8);
+}
+  
+
+  body:not(.dark-mode)  .verificationText{
+    color: rgba(0, 0, 0, 0.8);
+  }
+  
+  body.dark-mode .verificationText{
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .sure{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  
+  body.dark-mode .sure{
+    color: transparent;
+    background: linear-gradient(to right, #1D2671, #C33764);
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+  }
+  
+  body:not(.dark-mode) .sure{
+    color: transparent;
+    background: linear-gradient(to right, #662D8C , #ED1E79);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+
+  
+.verification{
+    /* z-index: 1;  */
+    flex:4;
+    width: 75%;
+    /* height: 100%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(156, 156, 156, 0.8); 
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(253, 211, 255, 0.201);
+  }
+
+
+    
+  body.dark-mode .verification{
+    background-color: rgba(181, 181, 181, 0.5);
+  }
+  
+
+
+  body:not(.dark-mode) .verification{
+    background-color: rgba(136, 136, 136, 0.442);
+  }
+
+
+ .verificationHeader{
+    flex:0.7;
+    width: 95%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+ }
+
+ .verificationHeader p{
+    font-size: 25px;
+ }
+ .verificTxt{
+    flex: 0.1;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+ }
+
+
+
+ .verificAnimeCode{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+ }
+
+ .codeContainer { 
+    flex: 2;
+    position: relative;
+    /* width: 70%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+  }
+
+  .codeContainer input {
+    padding: 20px 15px;
+    width: 82.5%;
+    border-radius: 10px;
+    border: 1px solid rgba(253, 211, 255, 0.879);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px; 
+    transition: box-shadow 0.3s ease, border 0.3s ease; 
+  }
+  
+  body.dark-mode .codeContainer input{
+    background-color: rgba(251, 243, 250, 0.681);
+  }
+  
+  
+  body:not(.dark-mode) .codeContainer input{
+    background-color: rgba(255, 255, 255, 0.646);
+  }
+  
+  
+  .codeContainer input:focus{
+    border-color:  #ED1E79; 
+  }
+    
+  
+  body:not(.dark-mode) .codeContainer label{
+    color: #8d8d8d;
+  }
+  
+  
+  body.dark-mode .codeContainer label{
+    color: #505050;
+  }
+  
+  
+  .codeContainer label{
+    position: absolute;
+    left: 30px;
+    top: 18px;
+    color: #999;
+    transition: top 0.3s, font-size 0.3s;
+    pointer-events: none;
+    
+  }
+  
+  .codeContainer input:focus + label,
+  .codeContainer input:not(:placeholder-shown) + label{
+    top: 3px;
+    font-size: 12px;
+    color: #ED1E79;
+  }
+  
+  .verificAnim{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+  .verificationButtons{
+    flex:0.7;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5%;
+    width: 90%;
+    /* background-color: yellow; */
+    
+ 
+  }
+
+  .resendBtnContainer .resendBtn, 
+  .loginVerificBtnContainer .loginVerificBtn {
+      all: unset;  
+      display: inline-block; 
+      background: linear-gradient(
+          to right, 
+          rgba(29, 38, 113, 0.55), 
+          rgba(195, 55, 100, 0.55)     
+      );
+      border-radius: .375rem;
+      border: solid .085rem rgba(0, 0, 0, 0.5); 
+      box-sizing: border-box;
+      color: #212121;
+      cursor: pointer;
+      font-size: 1.125rem;
+      font-weight: 100;
+      letter-spacing: -.01em;
+      line-height: 1.3;
+      text-align: center; 
+      text-decoration: none;
+      transform: translateZ(0);
+      transition: transform .2s, background-color .5s ease, box-shadow .2s ease;
+      user-select: none;
+      touch-action: manipulation;
+      padding: 10px 60px;
+      backdrop-filter: blur(8px);
+      width: auto; 
+      overflow: visible; 
+  }
+  
+  
+  body.dark-mode .loginVerificBtnContainer .resendBtn, body.dark-mode   .loginVerificBtnContainer .loginVerificBtn{
+    background: linear-gradient(
+        to right, 
+        rgba(29, 38, 113, 0.55), 
+        rgba(195, 55, 100, 0.55)     
+    );
+  }
+  
+  
+  body:not(.dark-mode) .loginVerificBtnContainer .resendBtn, body:not(.dark-mode)   .loginVerificBtnContainer .loginVerificBtn{
+    background: linear-gradient(
+      to right, 
+      rgba(102, 45, 140, 0.55), 
+      rgba(237, 30, 121, 0.55) 
+     );
+  }
+  
+  
+  body.dark-mode .resendBtnContainer .resendBtn:not(:disabled):hover,
+  body.dark-mode   .loginVerificBtnContainer .loginVerificBtn:not(:disabled):hover {
+    background: linear-gradient(
+        to right, 
+        rgba(29, 37, 113, 0.73), 
+        rgba(195, 55, 99, 0.726)     
+    );
+  }
+  body.dark-mode .resendBtnContainer .resendBtn:not(:disabled):hover:active, 
+  body.dark-mode   .loginVerificBtnContainer .loginVerificBtn:not(:disabled):hover:active{
+    transform: scale(1.05) translateY(.125rem);
+    background: linear-gradient(
+      to right, 
+      rgb(29, 37, 113), 
+      rgb(195, 55, 99) 
+    );
+  }
+  
+  .resendBtnContainer .resendBtn:not(:disabled):hover,
+    .loginVerificBtnContainer .loginVerificBtn:not(:disabled):hover{
+    transform: scale(1.05);
+    background: linear-gradient(
+      to right, 
+      rgba(102, 45, 140, 0.748), 
+      rgba(237, 30, 120, 0.741) 
+    );
+  }
+  
+  .resendBtnContainer .resendBtn:not(:disabled):hover:active,
+    .loginVerificBtnContainer .loginVerificBtn:not(:disabled):hover:active{
+    transform: scale(1.05) translateY(.125rem);
+    background: linear-gradient(
+      to right, 
+      rgb(102, 45, 140), 
+      rgb(237, 30, 120) 
+    );
+  }
+  
+.resendBtnContainer .resendBtn:focus,
+.loginVerificBtnContainer .loginVerificBtn:focus{
+    outline: 0 solid transparent;
+}
+  
+  .resendBtnContainer .resendBtn:focus:before,
+    .loginVerificBtnContainer .loginVerificBtn:focus:before{
+    content: "";
+    position: absolute;
+    left: calc(-1 * .375rem);
+    top: calc(-1 * .375rem);
+    pointer-events: none;
+    transition: border-radius;
+    user-select: none;
+  }
+  
+   .resendBtnContainer .resendBtn:focus:not(:focus-visible),
+    .loginVerificBtnContainer .loginVerificBtn:not(:focus-visible){
+    outline: 0 solid transparent;
+  }
+  
+  .resendBtnContainer .resendBtn:focus:not(:focus-visible):before,
+    .loginVerificBtnContainer .loginVerificBtn:focus:not(:focus-visible):before{
+    border-width: 0;
+  }
+  
+  .resendBtnContainer .resendBtn:not(:disabled):active,
+    .loginVerificBtnContainer .loginVerificBtn:not(:disabled):active{
+    transform: translateY(.125rem);
+  }
+  
+  
+  
+  body:not(.dark-mode) .resendBtnContainer .resendBtn,
+  body:not(.dark-mode) .loginVerificBtnContainer .loginVerificBtn{
+    border: solid .085rem rgba(0, 0, 0, 0.5); 
+    color: black;
+  }
+  
+  body.dark-mode .resendBtnContainer .resendBtn,
+  body.dark-mode .loginVerificBtnContainer .loginVerificBtn  {
+    border: solid .085rem rgba(255, 255, 255, 0.5); 
+    color: white;
+  
+  }
+
+

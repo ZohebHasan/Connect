@@ -10,7 +10,16 @@ import GoogleLogo from '../assets/google.png';
 import MicrosoftLogo from '../assets/microsoft.png'
 import AppleLightLogo from '../assets/appleLogoBlack.png';
 
-
+function SignupEmailText(){
+    return(
+        <div className = "signupEmailText">
+            <p> 
+                Let's get 
+                you <span className='connected'>Connected</span>.
+            </p>
+        </div>
+    );
+}
 
 function SocialSignupButtons (){
     return(
@@ -33,6 +42,7 @@ function SocialSignupButtons (){
 export default function SignupNonEmailContainer() {
     return (
         <>
+            <SignupEmailText/>
             <div className="signupNonEmail">    
                 <SocialSignupButtons/>      
                 <div className="dividerContainer">
@@ -40,8 +50,8 @@ export default function SignupNonEmailContainer() {
                         <span className="orText">or</span>
                     <div className="line"></div>
                 </div>
-                <div className = "signupBtnContainer">
-                    <Link className="signupBtn">Sign up with email</Link>  
+                <div className = "signupEmailBtnCont">
+                    <Link className="signupEmailBtn">Sign up with email</Link>  
                 </div>              
             </div>
         </>

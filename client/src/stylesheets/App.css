@@ -10,7 +10,7 @@ body {
 }
 
 body:not(.dark-mode) {
-  background-color: rgb(230, 215, 230); 
+  background-color: rgb(230, 230, 230); 
   color: black;
 }
 
