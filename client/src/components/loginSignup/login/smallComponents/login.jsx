@@ -14,6 +14,19 @@ import MicrosoftLogo from '../assets/microsoft.png'
 import AppleLightLogo from '../assets/appleLogoBlack.png';
 
 
+
+function LoginText(){
+    return(
+        <div className = "loginText">
+            <p> 
+                Let's get 
+                you <span className='in'>in</span>.
+            </p>
+        </div>
+    );
+}
+
+
 function CredentialContainer(){
     const [showPassword, setShowPassword] = useState(false);
     const { language } = useLanguage();
@@ -82,7 +95,7 @@ function SocialLoginButtons (){
 
 
 
-export default function LoginContainer({ onSignIn, onSignUp }) {
+export default function LoginContainer() {
     const [showPassword, setShowPassword] = useState(false);
     
     const { language } = useLanguage();
@@ -103,10 +116,11 @@ export default function LoginContainer({ onSignIn, onSignUp }) {
   
     return (
         <>
+            <LoginText/>
             <div className="login">          
                 <CredentialContainer/>
                 <div className = "loginBtnContainer">
-                    <Link className="loginBtn" onClick={onSignIn}>{signIn}</Link>
+                    <Link className="loginBtn" to = "twoStep" >{signIn}</Link>
                 </div>    
                 <SocialLoginButtons/>
                 <div className="dividerContainer">
@@ -115,7 +129,7 @@ export default function LoginContainer({ onSignIn, onSignUp }) {
                     <div className="line"></div>
                 </div>
                 <div className = "signupBtnContainer">
-                    <Link className="signupBtn" onClick={onSignUp}>{signUp}</Link>  
+                    <Link className="signupBtn" to = "signup">{signUp}</Link>  
                 </div>              
             </div>
         </>

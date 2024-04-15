@@ -6,8 +6,9 @@
     position: absolute; 
     top: 0; 
     left: 0; 
-    
+    overflow: hidden;
 }
+
 .loginSignUpContainer{  
   position: relative;
   flex: 1;
@@ -20,15 +21,9 @@
   align-items: center;  
   /* overflow: hidden;  */
   /* transition: transform 0.5s;  */
+  /* background-color: red; */
 }
 
-/* .slide-out {
-  transform: translateX(100vw); 
-}
-
-.slide-in {
-  transform: translateX(-50%); 
-} */
 
 
 
