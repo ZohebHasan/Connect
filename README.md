@@ -3,7 +3,7 @@
 ## Requirements:
 
 - A Linux operating system to ensure consistency among the developers for things like package/environment control
-- Make sure you have NodeJS >= 18, Python >= 3, C++ >= 12
+- Make sure you have NodeJS >= 18, Python >= 3, C++ >= 11
 
 ## Important Notes:
 
