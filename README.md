@@ -3,6 +3,7 @@
 ## Requirements:
 
 - A Linux operating system to ensure consistency among the developers for things like package/environment control
+- Make sure you have NodeJS >= 18, Python >= 3, C++ >= 12
 
 ## Important Notes:
 
@@ -11,6 +12,11 @@
 
 ## Dependencies:
 
+### Automating the below process:
+If you're lazy like me (chrig) and want to automate the dependencies, run the `dependencies.sh` file by doing:
+```bash
+./dependencies.sh
+```
 ### C++:
 To install the C++ dependencies, there will be a `cpprequirements.txt` file in the root directory of the Connect repository. To install, see below:
 ### Ubuntu (change based on what package manager you're using):
