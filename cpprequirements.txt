@@ -1,0 +1,4 @@
+libcrypto++-dev
+libcrypto++-doc
+libcrypto++-utils
+nlohmann-json3-dev
