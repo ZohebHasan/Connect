@@ -69,7 +69,7 @@ std::string decrypt(const std::string& cipherText, const CryptoPP::SecByteBlock&
 }
 
 int main() {
-    std::string filePath = "server/src/user.json";
+    std::string filePath = "../user.json";
     std::string fileContents = readFile(filePath);
     auto j = json::parse(fileContents);
 
