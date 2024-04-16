@@ -19,9 +19,9 @@ sudo apt-get install -y $(cat cpprequirements.txt)
 ```
 ### Javascript:
 ```bash
-       - (code) npm install
+npm install
 ```
 ## Python:
 ```bash
-        - (code) pip install -r requirements.txt
+pip install -r requirements.txt
 ```
