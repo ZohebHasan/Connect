@@ -19,7 +19,7 @@ If you're lazy like me (chrig) and want to automate the dependencies, run the `d
 ```
 ### C++:
 To install the C++ dependencies, there will be a `cpprequirements.txt` file in the root directory of the Connect repository. To install, see below:
-### Ubuntu (change based on what package manager you're using):
+(change based on what package manager you're using)
 ```bash
 sudo apt-get install -y $(cat cpprequirements.txt)
 ```
