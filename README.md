@@ -21,7 +21,7 @@ sudo apt-get install -y $(cat cpprequirements.txt)
 ```bash
 npm install
 ```
-## Python:
+### Python:
 ```bash
 pip install -r requirements.txt
 ```
