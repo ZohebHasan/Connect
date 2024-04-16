@@ -13,7 +13,7 @@
 ## Dependencies:
 
 ### Automating the below process:
-If you're lazy like me (chrig) and want to automate updating the dependencies, run the `dependencies.sh` file by doing:
+If you're lazy like me (chrig) and want to automate updating the dependencies (only supports Ubuntu package manager right now), run the `dependencies.sh` file by doing:
 ```bash
 ./dependencies.sh
 ```
