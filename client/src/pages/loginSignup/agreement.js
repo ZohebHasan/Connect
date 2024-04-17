@@ -5,7 +5,7 @@ import Background1 from '../../components/loginSignup/agreement/background/backg
 import Body from '../../components/loginSignup/agreement/bodyAgreement.jsx'
 import { useDarkMode } from '../../contexts/DarkMode.js'
 
-const SelectLanguagePage = () => {
+const AgreementPage = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const sidebarRef = useRef(null);
     const toggleRef = useRef(null);
@@ -55,4 +55,4 @@ const SelectLanguagePage = () => {
     );
 };
 
-export default SelectLanguagePage;
+export default AgreementPage;
