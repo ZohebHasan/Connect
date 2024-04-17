@@ -5,6 +5,7 @@ import SelectLanguagePage from "../pages/loginSignup/selectLanguagePage/selectLa
 import LoginPage from "../pages/loginSignup/loginPage/login";
 import SignupPage from "../pages/loginSignup/signupPage/signup";
 import TwoStepPageLogin from "../pages/loginSignup/twoStepLoginPage/twoStepLogin";
+import AgreementPage from "../pages/loginSignup/agreementPage/agreement"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -15,6 +16,7 @@ export default function Connect(): React.ReactElement {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/login/signup" element={<SignupPage />} />
                 <Route path="/login/twoStep" element={<TwoStepPageLogin />} />
+                {/* <Route path="/login" element={<AgreementPage />} /> */}
             </Routes>
         </Router>
     );
