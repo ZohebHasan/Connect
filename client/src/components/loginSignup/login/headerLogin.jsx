@@ -4,7 +4,7 @@ import '../../../stylesheets/loginSignup/login/loginHeader.css';
 
 import '../../../stylesheets/elements/darkLightToggle.css';
 
-import DarkLightToggle from '../../elements/darkLightToggle/darkLightToggle.jsx';
+import DarkLightToggle from '../../elements/darkLightToggle/darkLightToggle';
 
 const Header = ({ darkLightToggleRef, isDarkMode, toggleDarkMode}) => {
     useEffect(() => {

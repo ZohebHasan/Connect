@@ -12,7 +12,7 @@ import LogoDark from '../../assets/logoDark.png';
 import LogoLight from '../../assets/logoLight.png'; 
 
 import DarkLightToggle from '../../elements/darkLightToggle/darkLightToggle.jsx';
-import Sidebar from '../smallComponenets/sideBar.jsx'
+import Sidebar from '../smallComponents/sideBar.js'
 
 const Header = ({ 
     toggleSidebar, 

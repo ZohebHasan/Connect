@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from '../../../contexts/Language.js'
+import { useLanguage } from '../../../contexts/Language/Language.js'
 import {languages} from '../../loginSignup/selectLanguage/smallComponents/languagesData.js'
 
 

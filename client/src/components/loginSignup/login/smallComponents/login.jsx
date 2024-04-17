@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../../../contexts/Language';
+import { useLanguage } from '../../../../contexts/Language/Language';
 import {transLogin } from '../../../../translations/loginSignup/login/login.js';
 
 import '../../../../stylesheets/App.css'; 

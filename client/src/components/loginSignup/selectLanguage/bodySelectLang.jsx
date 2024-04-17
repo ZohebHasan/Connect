@@ -6,7 +6,7 @@ import '../../../stylesheets/App.css';
 import '../../../stylesheets/loginSignup/selectLang/selectLangBody.css';
 import '../../../stylesheets/elements/conna.css';
 
-import {useLanguage} from '../../../contexts/Language';
+import {useLanguage} from '../../../contexts/Language/Language';
 
 import Greetings from './assets/greetings.jsx';
 import AnimatedText from './assets/textAnimation.jsx';

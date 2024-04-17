@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import Header from '../../components/loginSignup/selectLanguage/headerSelectLang.jsx';
-import Background1 from '../../components/loginSignup/selectLanguage/background/backgroundSelectLang.jsx';
-import Body from  '../../components/loginSignup/selectLanguage/bodySelectLang.jsx';
-import { useDarkMode } from '../../contexts/DarkMode.js'
+import Header from '../../../components/loginSignup/agreement/headerAgreement.jsx';
+import Background1 from '../../../components/loginSignup/agreement/background/backgroudAgreement.jsx'
+import Body from '../../../components/loginSignup/agreement/bodyAgreement.jsx'
+import { useDarkMode } from '../../../contexts/DarkMode/DarkMode'
 
 const SelectLanguagePage = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);

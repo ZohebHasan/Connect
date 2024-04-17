@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {useLanguage} from '../../../../contexts/Language.js'
+import {useLanguage} from '../../../../contexts/Language/Language.js'
 import {poster} from '../../../../translations/loginSignup/login/poster.js'
 
 import '../../../../stylesheets/App.css'; 
