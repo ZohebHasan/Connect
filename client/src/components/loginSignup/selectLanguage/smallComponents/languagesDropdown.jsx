@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
-import {useLanguage} from '../../../../contexts/Language.js'
+import {useLanguage} from '../../../../contexts/Language/Language.js'
 import { languages } from './languagesData.js'
 
 import '../../../../stylesheets/App.css'

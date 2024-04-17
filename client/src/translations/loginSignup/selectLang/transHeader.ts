@@ -1,4 +1,17 @@
-export const transHeader = {
+interface TranslationEntries {
+    aboutUs: string;
+    mission: string;
+    career: string;
+    contact: string;
+    childSafety: string;
+  }
+
+interface Translations {
+    [languageCode: string]: TranslationEntries;
+}
+export type { TranslationEntries, Translations };
+
+export const transHeader: Translations = {
     "en-US": {
         aboutUs: "About Us",
         mission: "Our Mission",

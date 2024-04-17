@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import {useLanguage} from '../../../../contexts/Language.js'
+import {useLanguage} from '../../../../contexts/Language/Language.js'
 
 import '../../../../stylesheets/App.css';
 import '../../../../stylesheets/loginSignup/selectLang/selectLangBody.css';

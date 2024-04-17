@@ -1,9 +1,9 @@
-import React, {useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
-import { useDarkMode } from '../../contexts/DarkMode.js';
+import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 
-import Header from '../../components/loginSignup/login/headerLogin.jsx';
-import Body from '../../components/loginSignup/login/bodySignUp.jsx';
+import Header from '../../../components/loginSignup/login/headerLogin.jsx';
+import Body from '../../../components/loginSignup/login/bodyTwoStep.jsx';
 
 const LoginPage = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
