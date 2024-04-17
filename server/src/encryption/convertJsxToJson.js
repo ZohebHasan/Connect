@@ -1,22 +1,8 @@
 const fs = require('fs');
-const babel = require('@babel/core');
+const path = require('path');
 
-const jsxFilePath = 'server/src/user.jsx';
-const outputJsonPath = 'server/src/encryption/user.json';
+const schema = require('../inputUser.jsx');
 
-// Read the JSX file
-const jsxContent = fs.readFileSync(jsxFilePath, 'utf8');
+fs.writeFileSync(path.join(__dirname, 'user.json'), JSON.stringify(schema, null, 2), 'utf-8');
+console.log('The schema has been successfully converted to JSON.');
 
-// Transform JSX to JavaScript using Babel
-const transformed = babel.transformSync(jsxContent, {
-    presets: ['@babel/preset-react'],
-    plugins: [
-        // Convert to an object structure directly executable by JavaScript
-        '@babel/plugin-transform-react-jsx',
-    ],
-});
-
-// Optional: You might want to further process `transformed.code` to fit your needs
-
-// For demonstration, save the transformed code directly
-fs.writeFileSync(outputJsonPath, JSON.stringify({ code: transformed.code }));

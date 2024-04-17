@@ -1,0 +1,5 @@
+1. delete the json-file right after the encryption/hashing of the information finishes
+2. keep reminding zoheb to change branch names
+3. figure out the creation of a user object to convert to json thing
+4. create a decryption process
+5. upload encrypted informations (except for kek) to mongoDB

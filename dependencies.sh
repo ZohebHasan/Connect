@@ -6,7 +6,7 @@
 # Install new dependencies from package.json
 npm install
 
-# Optionally, update all packages to the latest version
+# Optionally, update all packages to the latest version 
 npm update
 
 
@@ -16,10 +16,10 @@ npm update
 source venv/bin/activate
 
 # Install or update dependencies from requirements.txt
-pip install -r requirements.txt
+pip install -r dependencies/requirements.txt
 
 
 # C++
 
 # Install C++ requirements
-sudo apt-get install -y $(cat cpprequirements.txt)
+sudo apt-get install -y $(cat dependencies/cpprequirements.txt)
