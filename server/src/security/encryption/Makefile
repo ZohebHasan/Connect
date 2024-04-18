@@ -7,7 +7,7 @@ LDFLAGS = -lcryptopp
 PROGRAM = encryptionProgram
 
 # Source files
-SOURCES = encrypt.cpp
+SOURCES = encrypt.cpp encryptMain.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # Default target

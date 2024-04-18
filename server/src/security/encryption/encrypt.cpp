@@ -1,17 +1,8 @@
-#include <cryptopp/aes.h>
-#include <cryptopp/base64.h>
-#include <cryptopp/filters.h>
-#include <cryptopp/hex.h>
-#include <cryptopp/modes.h>
-#include <cryptopp/osrng.h>
-#include <cryptopp/pwdbased.h>
-#include <cryptopp/sha.h>
+#include "encrypt.h"
 
-#include <fstream>
-#include <iostream>
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
+//
+// Main Functions
+//
 
 std::string readFile(const std::string& fileName) {
     std::ifstream file(fileName);
@@ -61,81 +52,73 @@ std::string encrypt(const std::string& plainText, const CryptoPP::SecByteBlock& 
     return cipherText;
 }
 
-int main() {
-    std::string filePath = "user.json";
+//
+// Helper Functions
+//
+
+void convertJsxToJson(const std::string command) {
+    if (std::system(command.c_str()) != 0) {
+        std::cerr << "Failed to execute the conversion script." << std::endl;
+        exit(1);
+    }
+    std::cout << "JSX to JSON conversion completed successfully." << std::endl;
+}
+
+json parseJsonFile(const std::string& filePath) {
     std::string fileContents = readFile(filePath);
-    auto j = json::parse(fileContents);
+    return json::parse(fileContents);
+}
 
-    std::string salt = generateSalt();
-    std::string hashedPassword = hashPassword(j["security"]["password"], salt);
-
-    CryptoPP::AutoSeededRandomPool rnd;
-    CryptoPP::SecByteBlock key(CryptoPP::AES::DEFAULT_KEYLENGTH);
-    CryptoPP::SecByteBlock iv(CryptoPP::AES::BLOCKSIZE);
-    rnd.GenerateBlock(key, key.size());
-    rnd.GenerateBlock(iv, iv.size());
-
+json encryptData(const json& j, const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv) {
     json encryptedSecurityInfo;
     for (auto& el : j["security"].items()) {
         if (el.key() != "password") {
             encryptedSecurityInfo[el.key()] = encrypt(el.value(), key, iv);
         }
     }
+    return encryptedSecurityInfo;
+}
 
-    encryptedSecurityInfo["hashedPassword"] = hashedPassword;
-    encryptedSecurityInfo["salt"] = salt;
-
-    json encryptedJson = j;
-    encryptedJson["security"] = encryptedSecurityInfo;
-
-    std::ofstream outFile("encryptedInformation/encryptedData.json");
-    outFile << encryptedJson.dump(4);
-    outFile.close();
-
-    // Generate a key-encryption_key from the hashed password (or another method)
+CryptoPP::SecByteBlock generateKek(const std::string& hashedPassword, const std::string& salt) {
     CryptoPP::SecByteBlock keyEncryptionKey(CryptoPP::AES::DEFAULT_KEYLENGTH);
     CryptoPP::PKCS5_PBKDF2_HMAC<CryptoPP::SHA256> pbkdf;
     pbkdf.DeriveKey(keyEncryptionKey, keyEncryptionKey.size(), 0,
                     reinterpret_cast<const CryptoPP::byte*>(hashedPassword.data()), hashedPassword.size(),
                     reinterpret_cast<const CryptoPP::byte*>(salt.data()), salt.size(), 1000);
+    return keyEncryptionKey;
+}
 
-    // Encrypt the key and IV using the key-encryption_key
+std::pair<std::string, std::string> encryptKeyIV(const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv, const CryptoPP::SecByteBlock& keyEncryptionKey) {
     std::string encryptedKey = encrypt(std::string((char*)key.data(), key.size()), keyEncryptionKey, iv);
     std::string encryptedIV = encrypt(std::string((char*)iv.data(), iv.size()), keyEncryptionKey, iv);
+    return {encryptedKey, encryptedIV};
+}
 
-    // Store the encrypted key and IV
-    json encryptedKeysJson;
-    encryptedKeysJson["key"] = encryptedKey;
-    encryptedKeysJson["iv"] = encryptedIV;
-
-    std::ofstream encryptedKeysFile("encryptedInformation/encryptedKeys.json");
-    encryptedKeysFile << encryptedKeysJson.dump(4);
-    encryptedKeysFile.close();
-
-    // Assuming keyEncryptionKey is a SecByteBlock that you want to store as hex in JSON
+std::string encodeKeyEncryptionKeyToHex(const CryptoPP::SecByteBlock& keyEncryptionKey) {
     std::string encodedKeyEncryptionKey;
     CryptoPP::StringSink* stringSink = new CryptoPP::StringSink(encodedKeyEncryptionKey);
     CryptoPP::HexEncoder encoder(stringSink);
     encoder.Put(keyEncryptionKey, keyEncryptionKey.size());
     encoder.MessageEnd();
-
-    // Now you can safely assign encodedKeyEncryptionKey to the json object
-    json kekJson;
-    kekJson["key-encryption_key"] = encodedKeyEncryptionKey;
-
-    std::ofstream kekFile("encryptedInformation/key-encryption_key.json");
-    kekFile << kekJson.dump(4);
-    kekFile.close();
-
-    // Store the salt
-    json saltJson;
-    saltJson["salt"] = salt;
-
-    std::ofstream saltFile("encryptedInformation/salt.json");
+    return encodedKeyEncryptionKey;
+}
+void storeEncryptedData(const json& encryptedDataJson, const std::string& fileName) {
+    std::ofstream outFile(fileName);
+    outFile << encryptedDataJson.dump(4);
+    outFile.close();
+}
+void storeKeyIV(const json& encryptedKeysJson, const std::string& fileName) {
+    std::ofstream encryptedKeysFile(fileName);
+    encryptedKeysFile << encryptedKeysJson.dump(4);
+    encryptedKeysFile.close();
+}
+void storeSalt(const json& saltJson, const std::string& fileName) {
+    std::ofstream saltFile(fileName);
     saltFile << saltJson.dump(4);
     saltFile.close();
-
-    std::cout << "Encryption completed successfully and saved to encryptedData.json, encryptedKeys.json, salt.json, and key-encryption_key.json" << std::endl;
-
-    return 0;
+}
+void storeKek(const json& kekJson, const std::string& fileName) {
+    std::ofstream kekFile(fileName);
+    kekFile << kekJson.dump(4);
+    kekFile.close();
 }

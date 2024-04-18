@@ -3,3 +3,4 @@
 3. figure out the creation of a user object to convert to json thing
 4. create a decryption process
 5. upload encrypted informations (except for kek) to mongoDB
+6. Change js to ts
