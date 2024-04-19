@@ -1,14 +1,15 @@
 {
     "accountCreated": "Date",
-    "fullName": "String",
     "security": {
-        "address": "+BHXpKVCbh4MPFfc/oHsIQ==\n",
-        "dob": "T57Ng4yVEhqvCLuFOONyVw==\n",
-        "email": "+BHXpKVCbh4MPFfc/oHsIQ==\n",
-        "hashedPassword": "64000B18EF52F31261934B4B9AD54184E9BAF6CE52A981C67DCCF7F0131E87EB",
-        "lastLogin": "T57Ng4yVEhqvCLuFOONyVw==\n",
-        "phoneNumber": "YrbkjBwi6z3FTN6x8YMzQQ==\n",
-        "status": "+BHXpKVCbh4MPFfc/oHsIQ==\n",
-        "twoFactorAuthentication": "ZlJ2+IqvqW7ePtc5yA0gEg==\n"
-    }
+        "address": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "dob": "O1kQvUgq7ictIX0PUQvbeg==\n",
+        "email": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "fullName": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "hashedPassword": "7FB3DD9CDE75AB9C0666586B34C869006F11FD7CEB05986F9B27659F53200FDE",
+        "lastLogin": "O1kQvUgq7ictIX0PUQvbeg==\n",
+        "phoneNumber": "BiVZzW0tYQv9LZaskaxXQw==\n",
+        "status": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "twoFactorAuthentication": "L1nL0duPyVGnGJfd5NMXHA==\n"
+    },
+    "username": "String"
 }

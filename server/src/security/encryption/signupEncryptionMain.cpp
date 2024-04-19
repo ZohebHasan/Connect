@@ -1,3 +1,4 @@
+#include "../header/security.h"
 #include "header/encrypt.h"
 
 int main() {
