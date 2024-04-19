@@ -11,7 +11,7 @@ EXECDIR = exec/
 PROGRAM = $(EXECDIR)decryptionProgram
 
 # Source files
-SOURCES = decrypt.cpp loginDecryptionMain.cpp ../security.cpp
+SOURCES = decrypt.cpp decryptionMain.cpp ../security.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 OBJECTS := $(addprefix $(OBJDIR),$(OBJECTS))
 
