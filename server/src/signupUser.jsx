@@ -1,8 +1,9 @@
 // Users inputted information
 module.exports = {
     accountCreated: "Date",
-    fullName: "String",
+    username: "String",
     security: {
+        fullName: "String",
         address: "String",
         dob: "Date",
         email: "String",

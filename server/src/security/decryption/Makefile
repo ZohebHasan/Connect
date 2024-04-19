@@ -8,10 +8,10 @@ OBJDIR = object/
 EXECDIR = exec/
 
 # Your program's name (executable output)
-PROGRAM = $(EXECDIR)encryptionProgram
+PROGRAM = $(EXECDIR)decryptionProgram
 
 # Source files
-SOURCES = encrypt.cpp signupEncryptionMain.cpp
+SOURCES = decrypt.cpp loginDecryptionMain.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 OBJECTS := $(addprefix $(OBJDIR),$(OBJECTS))
 

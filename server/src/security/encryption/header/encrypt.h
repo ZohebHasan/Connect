@@ -16,14 +16,14 @@
 
 using json = nlohmann::json;
 
-// Function declarations
+// Function Declarations
 std::string readFile(const std::string& fileName);
 std::string generateSalt();
 std::string hashPassword(const std::string& password, const std::string& salt);
 std::string encrypt(const std::string& plainText, const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv);
 std::string decrypt(const std::string& cipherText, const CryptoPP::SecByteBlock& key, const CryptoPP::SecByteBlock& iv);
 
-// Helper Function declarations
+// Helper Function Declarations
 void convertJsxToJson(const std::string command);
 json parseJsonFile(const std::string& filePath);
 void deleteJsonFile(const std::string& filePath);

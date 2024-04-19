@@ -1,10 +1,6 @@
-3. figure out the creation of a user object to convert to json thing
-4. create a decryption process
-5. upload encrypted informations (except for kek) to mongoDB
-7. link my data to the mongodb platform..need to partially do some of it too so I can work on 
+-figure out the creation of a user object to convert to json thing
+-create a decryption process
+-upload encrypted informations (except for kek) to mongoDB
+-link my data to the mongodb platform..need to partially do some of it too so I can work on 
 password checking upon login, retrieval of sensitive data for the user (by decryption), and etc.
 
-
-done:
--converted js to ts
--create a method that immediately deletes the uesr.json file in tempSensitive folder

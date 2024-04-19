@@ -1,6 +1,4 @@
-#include "encrypt.h"
-
-using json = nlohmann::json;
+#include "header/decrypt.h"
 
 std::string decrypt(const std::string& cipherText, const CryptoPP::SecByteBlock& key, const CryptoPP::SecByteBlock& iv) {
     std::string decryptedText;
