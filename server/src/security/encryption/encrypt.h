@@ -26,6 +26,7 @@ std::string decrypt(const std::string& cipherText, const CryptoPP::SecByteBlock&
 // Helper Function declarations
 void convertJsxToJson(const std::string command);
 json parseJsonFile(const std::string& filePath);
+void deleteJsonFile(const std::string& filePath);
 json encryptData(const json& j, const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv);
 CryptoPP::SecByteBlock generateKek(const std::string& hashedPassword, const std::string& salt);
 std::pair<std::string, std::string> encryptKeyIV(const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv, const CryptoPP::SecByteBlock& keyEncryptionKey);

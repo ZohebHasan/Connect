@@ -2,10 +2,13 @@
 
 int main() {
     // Conversion of Jsx To Json
-    convertJsxToJson("node ../convertJsxToJson.js");
+    convertJsxToJson("node ../convertJsxToJson.ts");
 
     // Parsing the Json File
     auto j = parseJsonFile("tempSensitive/user.json");
+
+    // Delete the Json File
+    deleteJsonFile("tempSensitive/user.json");
 
     // Defining the Key and IV, then Generating a block
     CryptoPP::SecByteBlock key(CryptoPP::AES::DEFAULT_KEYLENGTH);

@@ -69,6 +69,14 @@ json parseJsonFile(const std::string& filePath) {
     return json::parse(fileContents);
 }
 
+void deleteJsonFile(const std::string& filePath) {
+    if (std::remove(filePath.c_str()) != 0) {
+        std::cerr << "Error deleting file: " << filePath << std::endl;
+    } else {
+        std::cout << "File deleted successfully: " << filePath << std::endl;
+    }
+}
+
 json encryptData(const json& j, const CryptoPP::SecByteBlock& key, CryptoPP::SecByteBlock& iv) {
     json encryptedSecurityInfo;
     for (auto& el : j["security"].items()) {

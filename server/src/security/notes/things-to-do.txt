@@ -1,8 +1,10 @@
-1. delete the json-file right after the encryption/hashing of the information finishes
-2. keep reminding zoheb to change branch names
 3. figure out the creation of a user object to convert to json thing
 4. create a decryption process
 5. upload encrypted informations (except for kek) to mongoDB
-6. Change js to ts
 7. link my data to the mongodb platform..need to partially do some of it too so I can work on 
 password checking upon login, retrieval of sensitive data for the user (by decryption), and etc.
+
+
+done:
+-converted js to ts
+-create a method that immediately deletes the uesr.json file in tempSensitive folder
