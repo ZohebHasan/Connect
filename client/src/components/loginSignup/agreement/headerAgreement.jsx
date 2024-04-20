@@ -11,8 +11,8 @@ import '../../../stylesheets/elements/sideBar.css'
 import LogoDark from '../../assets/logoDark.png';
 import LogoLight from '../../assets/logoLight.png'; 
 
-import DarkLightToggle from '../../elements/darkLightToggle/darkLightToggle.jsx';
-import Sidebar from '../smallComponents/sideBar.js'
+import DarkLightToggle from '../../ConnectUI_web/common/darkLightToggle/darkLightToggle.js';
+import Sidebar from '../sidebar.js'
 
 const Header = ({ 
     toggleSidebar, 

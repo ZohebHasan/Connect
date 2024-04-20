@@ -40,6 +40,9 @@ body:not(.dark-mode)  .selectLangHeader {
     background-color: transparent; 
   }
   
+
+
+  
   .selectLangHeader.toggleBar{
     flex:3;
     align-items: center;

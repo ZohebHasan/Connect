@@ -16,7 +16,7 @@
   },
   "include": [
     "src/**/*" // Include all files in the src folder
-  ],
+, "src/app/App.tsx"  ],
   "exclude": [
     "node_modules", // Standard practice to exclude node_modules
     "dist" // Exclude the output directory from the source file list
