@@ -4,3 +4,8 @@
 -link my data to the mongodb platform..need to partially do some of it too so I can work on 
 password checking upon login, retrieval of sensitive data for the user (by decryption), and etc.
 
+
+
+more things:
+make file paths relative for every file call
+
