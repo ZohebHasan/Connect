@@ -1,4 +1,4 @@
-.selectLangBody {
+/* .selectLangBody {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,16 +7,21 @@
   padding:10px;
   min-height: 80vh;
   width: 90%;
-}
- 
- .greetingsDropDownTextContainer{
+} */
+
+ /* .test{
+  color: #1A101A;
+  background: (to right, #364da9, #C33764);
+  background: linear-gradient(to right, #662D8C, #ED1E79);
+ } */
+ /* .greetingsDropDownTextContainer{
     flex:1;
     display:flex;
     flex-direction: column;
     margin-top: 2%;
     padding: 10px;
- }
-
+ } */
+/* 
  .greetingMessage {
   flex: 0 0 auto;
   align-self: flex-start;
@@ -47,38 +52,52 @@ body:not(.dark-mode) .greetingMessage{
   opacity: 0; 
   transition: opacity 0.1s background-color 0.1s ease-in-out; 
   
-}
-.dropDownText{
+} */
+/* .dropDownText{
   align-self: flex-start;
-  transition: left 0.5s ease-in-out;
+  
   margin-top: -6%;
   flex:1;
 }
 
-.dropDownText span {
+.temp{
+  transition: left 0.5s ease-in-out;
+}
+.temp span {
   font-size: 24px;
   transition: color 0.7s ease;
 }
 
 .grey {
   color: rgba(172, 172, 172, 0.404);
-}
-
-
-.dropDownContainer {
-  flex: 4;
+} */
+/* .centeredtHalf{
+  flex: 5;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
+  align-items: center;
+  justify-content: center;
+  width: 82%;
+  background-color: red;
+  
+} */
+
+
+
+/* 
+.dropDownContainer {
+  display: flex;
+  flex-direction: column;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-  margin: 10px 10px 10px 2.5%;
+  margin: 10px;
   padding: 10px;
-  width: 42%; 
+  width: 90%; 
   height: 30%;
   max-width: 100%; 
   min-width: 25%; 
+
 }
 body:not(.dark-mode) .dropDownContainer{
   background-color: rgba(255, 255, 255, 0.8);
@@ -151,6 +170,19 @@ body.dark-mode .searchBoxContainer .search-box::placeholder {
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
+
+.languageListContainer::-webkit-scrollbar {
+    width: 5px; 
+}
+
+.languageListContainer::-webkit-scrollbar-thumb {
+    background-color: transparent; 
+}
+
+.languageListContainer:hover::-webkit-scrollbar-thumb {
+    background-color: darkgrey; 
+}
+
 .dropdown-item {
   padding: 8px 18px; 
   display: block; 
@@ -179,22 +211,9 @@ body.dark-mode .dropdown-item{
   background-color: #e0e0e0; 
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); 
   transform: translateY(1px); 
-}
+} */
 
-.languageListContainer::-webkit-scrollbar {
-    width: 5px; 
-}
-
-.languageListContainer::-webkit-scrollbar-thumb {
-    background-color: transparent; 
-}
-
-.languageListContainer:hover::-webkit-scrollbar-thumb {
-    background-color: darkgrey; 
-}
-
-
-.bottomContainer {
+/* .bottomContainer {
   margin-top: 25px;
   flex: 1;
   display: flex;
@@ -209,9 +228,9 @@ body.dark-mode .dropdown-item{
   justify-content: right;
   flex: 3;
   gap: 15%;
-}
+} */
 
-.declineBtn{
+/* .declineBtn{
   background: transparent;
   backface-visibility: hidden;
   border-radius: .375rem;
@@ -280,17 +299,19 @@ body:not(.dark-mode) .declineBtn {
 body.dark-mode .declineBtn {
   color: white;
 
-}
+} */
 
-
+/* 
 .connaSelectLang {
   display: flex;
   justify-content: flex-end;
   flex: 1;
-}
+} */
 
 
 
+
+/*Still not implemented */
 
 /* Smartphones (not optimized for galaxy z fold)*/
 @media (max-width: 500px){

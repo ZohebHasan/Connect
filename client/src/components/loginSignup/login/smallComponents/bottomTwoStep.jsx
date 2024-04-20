@@ -2,7 +2,7 @@ import React from "react";
 
 import '../../../../stylesheets/loginSignup/login/containers/bottom.css'
 
-import CurrentLanguage from '../../../elements/currentLanguage/currentLanguage.jsx'
+import CurrentLanguage from '../../../ConnectUI_web/common/currentLanguage/currentLanguage.jsx'
 
 export default function Bottom(){
     return(

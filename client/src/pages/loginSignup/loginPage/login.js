@@ -5,6 +5,7 @@ import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 import Header from '../../../components/loginSignup/login/headerLogin.jsx';
 import Body from '../../../components/loginSignup/login/bodyLogin.jsx';
 
+import Copyright from '../../../components/ConnectUI_web/common/copyright/Copyright';
 
 const LoginPage = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
@@ -25,7 +26,7 @@ const LoginPage = () => {
                 />
                 <Body isDarkMode={isDarkMode} />
             </div>
-            <div className="copyRight">Connect Inc. © 2024</div>
+            <Copyright/>
         </>
     );
 };
