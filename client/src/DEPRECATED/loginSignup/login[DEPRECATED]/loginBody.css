@@ -1,0 +1,61 @@
+/* .loginBody {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+} */
+/* 
+.loginSignUpContainer{  
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  height: 100%; 
+  margin: auto;
+  justify-content: center; 
+  align-items: center;  
+} */
+
+
+
+
+/* Smartphones (not optimized for galaxy z fold)*/
+@media (max-width: 500px){
+  .connaContainer {
+    justify-content: center; 
+  }
+
+  .connaBtn {
+    padding: 5px;
+    font-size: 12px;
+  }
+
+}
+
+/* Small tablets */
+@media (max-width: 600px) {
+
+}
+
+/* Standard tablets */
+@media (max-width: 768px) {
+
+}
+
+/* Large tablets */
+@media (max-width: 1024px) {
+  
+}
+
+/* Small laptops */
+@media (max-width: 1280px) {
+  
+}
+
+/* Large laptops */
+@media (max-width: 1440px) {
+}
