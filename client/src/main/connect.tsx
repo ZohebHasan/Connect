@@ -15,11 +15,11 @@ export default function Connect(): React.ReactElement {
             <Routes>
                 <Route path="/" element={<Intro />} />
                 <Route path="/selectLanguage" element={<SelectLanguagePage />} />
-                <Route path="/login" element={<LoginPage />} />
+                {/* <Route path="/login" element={<LoginPage />} /> */}
                 
                 <Route path="/login/signup" element={<SignupPage />} />
                 <Route path="/login/twoStep" element={<VerificationLoginPage/>} />
-                {/* <Route path="/login" element={<AgreementPage />} /> */}
+                <Route path="/login" element={<AgreementPage />} />
             </Routes>
         </Router>
     );
