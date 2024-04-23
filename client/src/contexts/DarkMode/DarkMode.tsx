@@ -1,6 +1,25 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ThemeProvider, DefaultTheme } from 'styled-components';
-import { lightTheme, darkTheme, Theme } from './theme';
+
+
+export interface Theme {
+  bodyBackgroundColor: string;
+  textColor: string;
+  otherColor: string;  
+}
+
+const lightTheme: Theme = {
+  bodyBackgroundColor: "rgb(245, 245, 245)",
+  textColor: "black",
+  otherColor: "#333",
+};
+
+const darkTheme: Theme = {
+  // bodyBackgroundColor: "rgb(26, 16, 26)",
+  bodyBackgroundColor: "rgb(0,0,0)",
+  textColor: "white",
+  otherColor: "#ddd",
+};
 
 interface DarkModeContextType {
   isDarkMode: boolean;
