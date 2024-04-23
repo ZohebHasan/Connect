@@ -18,7 +18,6 @@ export default ConnaButton;
 
 const Conna = styled.button <{$isDarkMode: boolean}>`
   padding: 10px;
-
   background-color:  ${({ $isDarkMode }) => $isDarkMode ? 'white' : '#212121'};
   border: 1px solid #ccc; // Example styling
   border-radius: 5px;

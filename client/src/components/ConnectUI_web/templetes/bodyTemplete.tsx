@@ -3,25 +3,31 @@ import styled from "styled-components";
 
 interface BodyContainerProps{
     children: React.ReactNode; 
+    flexDirection: "row" | "column";
+    position?: "absolute";
 }
 
-const Body: React.FC<BodyContainerProps> = ({children }) => {
+const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position}) => {
     return (
-        <BodyContainer >
+        <BodyContainer $flexDirection = {flexDirection} $position = {position}>
             {children}
         </BodyContainer>
     );
 }
 export default Body;
 
-const BodyContainer = styled.div`
+const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute"}>`
     display: flex;
-    flex-direction: column;
     align-items: center;
-    min-height: 80vh;
     z-index: 1;
-    padding:10px;
-    min-height: 80vh;
-    width: 90%;
-    // overflow: hidden;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    flex-direction:  ${({ $flexDirection }) => {
+        return $flexDirection === "row" ? "row" : "column";
+     }};
+    position: ${({ $position }) => {
+        return $position === "absolute" ? "absolute" : undefined;
+     }};
+    // min-height: 80vh; 
 `;

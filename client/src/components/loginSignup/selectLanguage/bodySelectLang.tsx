@@ -8,7 +8,7 @@ import Greetings from './smallComponents/greetings';
 import DirectionText from './smallComponents/textAnimation';
 import LanguagesDropDown from './smallComponents/languagesDropdown';
 
-import TransparentButton from '../../ConnectUI_web/common/buttons/button1';
+import Button from '../../ConnectUI_web/common/buttons/button1';
 import ConnaButton from '../../ConnectUI_web/common/conna/connaButton';
 
 
@@ -33,11 +33,11 @@ const Bottom: React.FC = () => {
     const { changeLanguage } = useLanguage(); 
     return (
         <BottomContainer>
-            <TransparentButtonContainer>
-                <TransparentButton  to="/login" onClick={() => changeLanguage('en-US')}>
+            <ButtonContainer>
+                <Button variant = {"transparent"} to="/login" onClick={() => changeLanguage('en-US')}>
                     Skip (English)
-                </TransparentButton>
-            </TransparentButtonContainer>
+                </Button>
+            </ButtonContainer>
             <ConnaContainer>
                 <ConnaButton/>
             </ConnaContainer>
@@ -48,7 +48,7 @@ const Bottom: React.FC = () => {
 const Body: React.FC = () => {
     return (
         <>
-            <BodyContainer>
+            <BodyContainer flexDirection = {"column"}>
                 <Top />
                 <Bottom />
             </BodyContainer>
@@ -65,7 +65,7 @@ const TopContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;   
+    width: 52%;   
 `
 
 
@@ -96,19 +96,18 @@ const BottomContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
 `;
 
-const TransparentButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: right; 
-  flex: 4;
-
+  flex: 3.2;
 `;
 
 const ConnaContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   flex: 1;
+  margin-right: 20px; 
 `;
