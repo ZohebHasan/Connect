@@ -207,3 +207,18 @@ Storing everything else:
 
 Key points: Decentralized Peer to Peer Network, Storej, MongoDB, Decentralized Identity Documents, Smart Contracts, Chunking, 
 Distributed Hash Tables, Kademlia, KEK, Salt, Hash 
+
+
+Things to add:
+
+-Still trying to figure out the best way to store specifically the key encryption keys on our decentralized 
+network with the use of DIDs and smart contracts so we as members of the company cannot access them for ourselves. 
+-Explore mechanisms for incentivizing network participation and reliability among peer nodes, 
+especially those that store and manage critical data chunks. 
+Incentivization could help maintain high availability and quick data access across the decentralized network.
+-Depending on the regions where the platform will operate, consider the implications of data protection laws 
+(e.g., GDPR, CCPA) on your decentralized model, especially regarding user data rights 
+(access, rectification, erasure) and cross-border data transfers.
+-As the platform scales, ongoing testing will be essential to ensure that the infrastructure supports growth 
+without compromising on speed, reliability, or privacy. This might include stress testing the DHT implementation 
+and evaluating the efficiency of encryption/decryption processes in real-world scenarios.
