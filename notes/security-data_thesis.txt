@@ -1,0 +1,209 @@
+If we are creating a decentralized peer-to-peer social media platform that favors speed, reliability, and privacy...
+how do we even go about doing this...?
+
+Our Network Platform: Storej (susecptible to change)
+
+Our Database: MongoDB
+
+
+If we can successfully accomplish implementing our data in a dP2P network for a social media platform
+
+    We will create a new standard
+
+
+Securely storing users personal/sensitive data:
+    
+    Given that it may seem difficult to securely store users personal data in a dP2P network,
+    it's nevertheless important how we manage our data in this unconventional but promising setting.
+
+    Decentralized Identities:
+
+        As Microsoft puts it, "an open-standards based identity framework that uses digital identifiers
+        and verifiable credentials that are self-owned, independent, and enable trusted data exchange"
+
+        -DID systems provide a way for users to control their identity and personal data without relying on any central authority.
+        -This approach emphasizes user sovereignty and privacy.
+        -In a system focused solely on DIDs, encrypted personal data can be linked to a user's DID. 
+        -The user controls access to this data through cryptographic keys associated with their DID.
+        
+        Concerns for protocol:
+
+            -Given our scaling of the platform we will need to require additional mechanisms for means of access control and 
+            interactions with smart contracts given the complex rules or programmable logic needed.
+
+    Smart Contracts:
+
+        In blockchain-based decentralized networks, smart contracts can be used to manage access to encrypted personal data. 
+        Smart contracts can enforce rules about who can access or modify data, under what conditions, and track these interactions. 
+        This approach can provide a secure, transparent, and programmable way to manage access to sensitive information.
+
+        Concerns for protocol:
+
+            -It's important to understand and research specifically which blockchain we choose to minimize our transaction fees (gas fees) 
+            for operations based on our platform we're building. Likely, we'll use storej, given the low cost with high reliability and efficiency it offers
+            -It may need to be combined with a system for identity management in order to link users with their data securely and privately.
+    
+    so... what do we do from here?
+
+        combine
+
+    With reguard to users personal/sensitive data, we are going to build a Decentralized Identity (DID) Document Infrastructure with
+    Smart Contracts
+
+        -By combining DIDs with smart contracts, we can create a system where users have sovereign control over their identity and personal data, 
+        with the added ability to programmatically define and enforce access control policies through smart contracts.
+        
+        -DIDs allow users to prove their identity securely, while smart contracts can manage permissions, making this combination powerful 
+        for scenarios that require detailed control over who can access or interact with certain pieces of data.
+        
+        -Using DIDs in combination with smart contracts can also enhance interoperability with other decentralized systems and services, 
+        ensuring compliance with emerging standards for decentralized identity and access management.
+
+Storing everything else:
+
+    When storing other data like media, files, etc. in a dP2P network in an efficient and secure manner we must perform chunking on this data.
+
+    Chunking:
+
+        When a file is uploaded to a decentralized storage system, it is first divided into smaller pieces or chunks. 
+        Each chunk is then encrypted to ensure its privacy and security. 
+        This process ensures that even the node operators who store these chunks cannot access the original content of the files.
+        The reason we don't perform chunking on the users personal/sensitive data given the small size of the information and security risks
+
+        Why is it important to perform encryption of the data after the chunking?
+
+            Efficiency in Updates:
+            -Social media content is dynamic, with frequent updates, edits, and deletions. 
+            -Encrypting after chunking allows for more efficient handling of these updates. 
+            -Only the chunks that have actually changed need to be re-encrypted and transmitted, compared to decrypting and reencrypting
+            the whole file again, then chunking it... blah blah you get it. This effectively saves on bandwidth and processing time. 
+            -This is particularly relevant for features like editing posts or comments, where typically only a small portion of the content changes.
+            
+            Parallel Processing:
+            -Encryption after chunking can significantly speed up both the encryption process for content uploads 
+            and the decryption process for content viewing. 
+            -This is crucial for a social media platform that needs to handle a high volume of content being uploaded and accessed simultaneously by many users.
+
+            Adaptive Security:
+            Different types of content on a social media platform may require different levels of security. 
+            For example, private messages might need stronger encryption than public posts. 
+            Encrypting after chunking allows you to apply different encryption standards or keys to different chunks based on their sensitivity 
+            or the user's preferences, providing a more nuanced approach to privacy.
+
+    What do we do after we perform chunking and encryption?
+
+    Distributed Hash Tables:
+
+        Each encrypted chunk is associated with a unique hash, generated through a cryptographic hash function. 
+        The hash for any encrypted chunk serves as a unique identifier for retrieving the chunk, which determines its storage
+        location in the network.
+        The DHT then maps this hash to one or more nodes in the network responsible for storing the chunk. 
+        The mapping is determined by algorithms designed to distribute data evenly across the network, enhancing data availability and fault tolerance.
+
+            Why is it important to use DHTs in a dP2P network?
+
+                -By using DHTs, decentralized storage systems eliminate the need for a central authority or server to manage the location
+                and retrieval of data. This greatly reduces the risks associated with centralized control, such as data monopolization, censorship, and single points of failure.
+
+                -DHTs can handle large networks with millions of nodes and vast amounts of data.
+                As the network grows, the DHT dynamically adjusts, maintaining efficient operations without significant increases in search time or resource consumption.
+
+                -The combination of chunking and encryption with DHT-based storage ensures that data privacy is maintained. 
+                Since data is encrypted before distribution and nodes store only pieces of the whole, 
+                compromising any single node does not expose meaningful data.
+            
+            How do we efficiently store the encrypted chunks using DHTs in the dP2P network? (with reguard to distributing storage evenly across the network)
+
+                -DHTs work by organizing the network into a structured overlay where each peer or node is responsible for storing 
+                a certain range of keys (hashes, in this case).
+                When a file chunk’s hash is generated, the DHT algorithm determines which peer’s key range it falls into. 
+                That peer then becomes responsible for storing the chunk.
+
+                -We're going to be using a consistent hashing protocol, which helps distribute data evenly across the peers and 
+                minimizes reorganization when peers join or leave the network. This ensures that each peer is responsible for a segment 
+                of the hash space. When a chunk needs to be stored, the hash of the chunk determines where in the hash space it belongs, 
+                and by extension, which peer is responsible for it.
+
+                Peers can announce their capabilities to the network, allowing the system to make informed decisions about where to store chunks 
+                to optimize performance and reliability.                
+                
+                The algorithm used to determine which peer stores which chunk can vary depending on the design of the decentralized system
+                and its underlying DHT. Given that we're creating a dP2P social media platform, we're going to use Kademlia's algorithm.
+
+                Kademlia is known for its efficiency and low latency in finding nodes in a distributed network. 
+                It uses XOR metrics for distance calculation, making it straightforward to find the closest peers. 
+                This feature is particularly beneficial for our social media platform, ensuring quick data retrieval. 
+
+                    How does it work?
+
+                        Each node and each piece of data in the network are assigned a unique identifier (ID). 
+                        Kademlia determines the distance between two IDs using the XOR operation. 
+                        Data is stored in the node whose ID is closest to the data's ID.
+                    
+                    Other Advantages:
+                        
+                        Kademlia supports concurrent queries, speeding up the search process. 
+                        It’s robust against node churn (nodes frequently joining and leaving the network) and is the basis for many P2P networks, 
+                        including BitTorrent and IPFS, indicating its reliability and scalability.
+            
+        Redundancy:
+
+            The most common approach to ensure reliability and availability, is to have each chunk be stored on multiple peers. 
+            An example of this approach could be where the DHT algorithm might specify that each chunk be stored on the N closest peers 
+            to the chunk’s hash, according to the network topology.
+            This redundancy means that if one peer goes offline or loses data, other copies of the chunk are available for retrieval. 
+        
+                Why must this be the case? Doesn't this take up more storage in the network?
+
+                    Removing redundancy entirely in a decentralized P2P network, especially concerning storing chunks of data, 
+                    could in fact save in storage space across the network, but, it introduces significant risks and challenges, 
+                    particularly regarding data availability, durability, and fault tolerance. 
+
+                    Removing redundancy also poses a significant challenge due to the inherent nature of decentralization 
+                    and the reliance on individual and potentially unpredictable node operators
+               
+    
+    Retrieval of Data:
+
+        When a user wants to retrieve a file, the decentralized storage system uses the DHT to locate the chunks of the file. 
+        The system queries the DHT with the hashes of the file's chunks, and the DHT returns the addresses of the nodes storing those chunks. 
+        This allows the system to directly request and retrieve the chunks from those nodes.
+
+
+Securely Storing Keys, Initialization Vectors (IVs), Hashed Passwords, and their Salt:
+
+    Keys and IV's:
+
+    Storing keys and IVs for (encrypted user data) and Hashed Passwords and their salt in a dP2P social media network requires careful 
+    consideration to maintain the security and privacy of the data. 
+    Since these elements are critical to the encryption and decryption processes and verifying a recipiant, their protection is paramount. 
+
+    We're going to be using DID Documents and Smart Contracts for Key/IV Management:
+
+        Each user's DID document makes references to their encryption keys and IVs(not to be stored directly) on the storej platform, 
+        ensuring that only the user, and those authorized by them through smart contracts, can access these keys.
+
+        Extending upon this, access to these keys (via their references in the DID documents) can be governed by smart contracts. 
+        These contracts can specify conditions under which the keys can be accessed or decrypted, integrating with the DID for authentication 
+        and authorization. This mechanism ensures that only the user or authorized entities can access the keys for use.
+
+        Since Storj encrypts files client-side before they are uploaded (i know zoheb would love this line), 
+        we have an add an additional layer of security by encrypting the keys and IVs beforehand.
+
+        Instead of storing the KEK directly, just like the encryption keys and iv's, we store a reference or pointer to its encrypted version 
+        stored on Storj within the user’s DID Document. This reference can be a unique identifier or a URI that points to the location of the 
+        encrypted KEK on the decentralized storage platform.
+        This method keeps the actual location of the encrypted KEK secure and allows for controlled access via the DID infrastructure, 
+        ensuring that the KEK can only be accessed and decrypted by entities satisfying the Smart Contract conditions.
+
+    Securely Storing the Hashed Passwords and Salts:
+
+        Similar how we store the KEK, keys, and IV's, we use the DID document to store references to the location of the encrypted hashed passwords 
+        and salts in Storj, not the actual encrypted data. This method keeps the sensitive information secure while allowing easy lookup and access 
+        control via the DID infrastructure.
+        Smart contracts govern the conditions under which these references (and thus the encrypted hashed passwords and salts) can be accessed, 
+        adding an additional layer of security and ensuring compliance with the platform’s privacy and security policies.
+
+
+Key points: Decentralized Peer to Peer Network, Storej, MongoDB, Decentralized Identity Documents, Smart Contracts, Chunking, 
+Distributed Hash Tables, Kademlia, KEK, Salt, Hash 

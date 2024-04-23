@@ -9,3 +9,9 @@ password checking upon login, retrieval of sensitive data for the user (by decry
 more things:
 make file paths relative for every file call
 
+
+
+encryption:
+
+-encrypt after chunking
+
