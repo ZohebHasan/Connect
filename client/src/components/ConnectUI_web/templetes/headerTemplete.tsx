@@ -32,7 +32,7 @@ const HeaderContainer = styled.div<{ $isDarkMode: boolean; $variant: "visible" |
 
   background-color: ${({ $isDarkMode, $variant }) => {
      if($variant === "visible"){
-        return $isDarkMode? "rgba(52, 52, 52, 0.4)" : "rgba(255, 255, 255, 0.5)";
+        return $isDarkMode? "rgba(52, 52, 52, 0.4)" : "rgba(212, 197, 216, 0.5)";
      }
      else if($variant === "hidden"){
         return "transparent"

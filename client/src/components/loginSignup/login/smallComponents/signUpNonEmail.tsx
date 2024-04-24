@@ -40,11 +40,20 @@ export default function SignupNonEmailContainer() {
         <>
             <SignupEmailText/>
             <SignupContainer $isDarkMode={isDarkMode}>    
-                <SocialSignupButtons flex = {1}/>      
+                <SocialSignupButtons 
+                        flex = {1} 
+                        text= {"Sign up with"} 
+                        // toSignupApple= {"signupWithApple"}
+                        // toSignupGoogle= {"signupWithGoogle"}
+                        // toSignupMicrosoft= {"signupWithMicrosoft"}
+                        toSignupApple= {"addPhoneNumber"}
+                        toSignupGoogle= {"addPhoneNumber"}
+                        toSignupMicrosoft= {"addPhoneNumber"}
+                        />      
                 <OrDivider flex={0}/>
                 <ButtonContainer>
                     <Button variant="gradient" width="80%">
-                        sign up with email
+                        sign up with email OR phone
                     </Button>
                 </ButtonContainer>           
             </SignupContainer>

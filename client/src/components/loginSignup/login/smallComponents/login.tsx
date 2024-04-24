@@ -102,7 +102,12 @@ const Login: React.FC = () => {
                     </Button>
                 </ButtonContainer>
 
-                <SocialLoginButtons flex = {1}/>
+                <SocialLoginButtons 
+                    flex = {1} 
+                    text = {"Sign in with"}
+                    toLoginApple= {"signInWithApple"}
+                    toLoginGoogle= {"signInWithGoogle"}
+                    toLoginMicrosoft= {"signInWithMicrosoft"} />
 
                 <OrDivider flex={0.5}/>
 

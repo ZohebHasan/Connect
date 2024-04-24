@@ -7,46 +7,109 @@ import { transLogin } from "../../../../translations/loginSignup/login/login";
 
 import Text from "../../../ConnectUI_web/common/texts/static";
 
-import MicrosoftLogo from "../assets/microsoft.png"
-import AppleLogo from "../assets/appleLogoBlack.png"
-import GoogleLogo from "../assets/google.png"
+import MicrosoftLogo from "../assets/microsoft.png";
+import AppleLogo from "../assets/appleLogoBlack.png";
+import GoogleLogo from "../assets/google.png";
 
-interface SocialLoginSignupButtonsProps{
-    flex: number;
+interface SocialLoginSignupButtonsProps {
+  text: string;
+  flex: number;
+
+  toLoginMicrosoft?: string;
+  toLoginGoogle?: string;
+  toLoginApple?: string;
+
+  toSignupMicrosoft?: string;
+  toSignupGoogle?: string;
+  toSignupApple?: string;
 }
 
-const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({flex}) => {
-    const { language } = useLanguage();
+const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({
+  flex,
+  text,
+  toLoginMicrosoft,
+  toLoginGoogle,
+  toLoginApple,
+  toSignupMicrosoft,
+  toSignupGoogle,
+  toSignupApple,
+}) => {
+  const { language } = useLanguage();
 
-    let signInWith = "Sign in with";
+  let signInWith = "Sign in with";
+  let signUpWith = "Sign up with";
 
-    if (transLogin && transLogin[language]) {
-        const { signInWith: signInWithVal } = transLogin[language];
-        signInWith = signInWithVal;
+  let output: { text: string } = { text };
+
+  if (transLogin && transLogin[language]) {
+    if (text === signInWith) {
+      const { signInWith: signInWithVal } = transLogin[language];
+      output.text = signInWithVal;
+    } else if (text === signUpWith) {
+      output.text = signUpWith;
+    } else {
+      output.text = "Select";
     }
+  }
 
-    return (
-        <SocialButtons $flex = {flex}>
-            <Text size={"17px"} variant={"normal"} fontWeight={"100"}>
-                {signInWith}:
-            </Text>
-            <MicrosoftButton to="#">
-                <MicrosoftImage src={MicrosoftLogo} alt="Microsoft" />
-            </MicrosoftButton>
-            <AppleButton to="#">
-                <AppleImage src={AppleLogo} alt="Apple" />
-            </AppleButton>
-            <GoogleButton to="#">
-                <GoogleImage src={GoogleLogo} alt="Google" />
-            </GoogleButton>
-        </SocialButtons>
-    );
-}
+  return (
+    <SocialButtons $flex={flex}>
+      <Text size={"17px"} variant={"normal"} fontWeight={"100"}>
+        {output.text}:
+      </Text>
+      {toLoginMicrosoft && (
+        <MicrosoftButton to={toLoginMicrosoft}>
+          <MicrosoftImage src={MicrosoftLogo} alt="Microsoft" />
+        </MicrosoftButton>
+      )}
+      {!toLoginMicrosoft && toSignupMicrosoft && (
+        <MicrosoftButton to={toSignupMicrosoft}>
+          <MicrosoftImage src={MicrosoftLogo} alt="Microsoft" />
+        </MicrosoftButton>
+      )}
+      {!toLoginMicrosoft && !toSignupMicrosoft && (
+        <MicrosoftButton to="#">
+          <MicrosoftImage src={MicrosoftLogo} alt="Microsoft" />
+        </MicrosoftButton>
+      )}
+      {toLoginGoogle && (
+        <GoogleButton to={toLoginGoogle}>
+          <GoogleImage src={GoogleLogo} alt="Google" />
+        </GoogleButton>
+      )}
+      {!toLoginGoogle && toSignupGoogle && (
+        <GoogleButton to={toSignupGoogle}>
+          <GoogleImage src={GoogleLogo} alt="Google" />
+        </GoogleButton>
+      )}
+      {!toLoginGoogle && !toSignupGoogle && (
+        <GoogleButton to="#">
+          <GoogleImage src={GoogleLogo} alt="Google" />
+        </GoogleButton>
+      )}
+      {toLoginApple && (
+        <AppleButton to={toLoginApple}>
+          <AppleImage src={AppleLogo} alt="Apple" />
+        </AppleButton>
+      )}
+      {!toLoginApple && toSignupApple && (
+        <AppleButton to={toSignupApple}>
+          <AppleImage src={AppleLogo} alt="Apple" />
+        </AppleButton>
+      )}
+      {!toLoginApple && !toSignupApple && (
+        <AppleButton to="#">
+          <AppleImage src={AppleLogo} alt="Apple" />
+        </AppleButton>
+      )}
+    </SocialButtons>
+  );
+};
 
 export default SocialLoginSignupButtons;
 
-const SocialButtons = styled.div<{$flex: number}>`
-  flex: ${({ $flex }) => $flex}; 
+const SocialButtons = styled.div<{ $flex: number }>`
+  flex: ${({ $flex }) => $flex};
   display: flex;
   flex-direction: row;
   gap: 10px;

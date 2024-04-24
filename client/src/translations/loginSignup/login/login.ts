@@ -1,5 +1,6 @@
 interface LanguageTranslations {
     signInWith: string;
+    // signUpWith: string;
     id: string;
     pass: string;
     signIn: string;
