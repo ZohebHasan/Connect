@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 
 interface TextProps {
-    variant: 'transparent' | 'normal' | 'gradient';
+    variant?: 'transparent' | 'normal' | 'personal' | 'school' | 'professional' | 'gradient';
     size: string;
     fontWeight: string;
     children: React.ReactNode;
@@ -21,7 +21,7 @@ const Text: React.FC<TextProps> = ({ variant, size, children, fontWeight }) => {
 export default Text;
 
 interface StyledTextProps {
-    $variant: 'transparent' | 'normal' | 'gradient';
+    $variant?: 'transparent' | 'normal' | 'personal' | 'school' | 'professional' | 'gradient'
     $size: string;
     $isDarkMode: boolean;
     $fontWeight: string;
@@ -43,11 +43,36 @@ const StyledText = styled.p<StyledTextProps>`
             case 'gradient':
                 return css`
                     color: transparent;
-                    background: ${$isDarkMode ? "linear-gradient(to right, #1D2671, #C33764)" 
-                                              : "linear-gradient(to right, #662D8C , #ED1E79)" };
+                    background: ${$isDarkMode ? "linear-gradient(to right, #3944a4, #e15782)" 
+                                            : "linear-gradient(to right, #662D8C, #ED1E79)"};
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                `;
+            case 'personal':
+                return css`
+                    color: transparent;
+                    background: ${$isDarkMode ? "linear-gradient(to right, #662D8C, #ED1E79)" 
+                                              : "linear-gradient(to right, #662D8C, #ED1E79)"};
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                `;
+            case 'professional':
+                return css`
+                    color: transparent;
+                    background: ${$isDarkMode ? "linear-gradient(to right, #2E3192, #1BFFFF)"
+                                              : "linear-gradient(to right, #2E3192, #1BFFFF)"};
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                `;
+            case 'school':
+                return css`
+                    color: transparent;
+                    background: ${$isDarkMode ? "linear-gradient(to right, #EA8D8D, #A890FE)"
+                                              : "linear-gradient(to right, #EA8D8D, #A890FE)"};
                     -webkit-background-clip: text;
                     background-clip: text;
                 `;
         }
     }}
+    
 `;

@@ -11,11 +11,11 @@ const Agreements: React.FC = () => {
         <Text variant="normal" fontWeight={"400"} size="20px">
           1. Data Control
         </Text>
-        <TEMP>
+        <TextContainer>
           <Text variant="transparent" fontWeight={"200"} size="15px">
             I understand that I will store and have 100% control over my personal information.
           </Text>
-        </TEMP>
+        </TextContainer>
       </AgreementContainer>
 
 
@@ -23,11 +23,11 @@ const Agreements: React.FC = () => {
         <Text variant="normal" fontWeight={"400"} size="20px">
           2. User Independence
         </Text>
-        <TEMP>
+        <TextContainer>
           <Text variant="transparent" fontWeight={"200"} size="15px">
             I understand my uncensored content will only be seen by people if they want to.
           </Text>
-        </TEMP>
+        </TextContainer>
       </AgreementContainer>
 
 
@@ -35,11 +35,11 @@ const Agreements: React.FC = () => {
         <Text variant="normal" fontWeight={"400"} size="20px">
           3. Data Protection
         </Text>
-        <TEMP>
+        <TextContainer>
           <Text variant="transparent" fontWeight={"200"} size="15px">
             I understand I will not be able to download or copy other user's information if they have data protection turned on.
           </Text>
-        </TEMP>
+        </TextContainer>
       </AgreementContainer>
 
 
@@ -47,11 +47,11 @@ const Agreements: React.FC = () => {
         <Text variant="normal" fontWeight={"400"} size="20px">
           4. Child Safety
         </Text>
-        <TEMP>
+        <TextContainer>
           <Text variant="transparent" fontWeight={"200"} size="15px">
             I understand that my interactions with a user under 13 years old will strictly be moderated, such as comments, messages.
           </Text>
-        </TEMP>   
+        </TextContainer>   
       </AgreementContainer>
 
     </AgreementList>
@@ -72,6 +72,7 @@ const AgreementList = styled.div`
     padding: 0;
     margin-left: 15px;
     gap: 30px;
+    margin-top: 3%;
 
 `;
 
@@ -83,6 +84,6 @@ const AgreementContainer = styled.div`
     gap: 3px;
 `
 
-const TEMP = styled.div`
+const TextContainer = styled.div`
     margin-left: 2.2%;
 `

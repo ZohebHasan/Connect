@@ -13,21 +13,27 @@ const Body: React.FC= () => {
     const [policyError, setPolicyError] = useState(false); 
     
     const handlePolicy = () => {
-      setAgreedPolicy(!agreedPolicy);
-      setPolicyError(!agreedPolicy);  
-    };
-  
-    const handleConfirmClick = () => {
-        if (!agreedPolicy) {
-            setPolicyError(true);
+        const newAgreedPolicy = !agreedPolicy;
+        setAgreedPolicy(newAgreedPolicy);
+        if (newAgreedPolicy) {
+          setPolicyError(false); // Clear error if the checkbox is now checked
         }
-    };
+      };
+      
+      const handleConfirmClick = () => {
+        if (!agreedPolicy) {
+          setPolicyError(true); // Only show error if the checkbox is not checked
+        } else {
+          // submit the form since the policy is agreed
+        }
+      };
+      
 
     return (
         <>
             <Bodycontainer flexDirection="column">
                 <Top agreedPolicy={agreedPolicy} policyError={policyError} handlePolicy = {handlePolicy}/>
-                <Bottom agreedPolicy={agreedPolicy} policyError={policyError} handleConfirmClick = {handleConfirmClick}/>
+                <Bottom agreedPolicy={agreedPolicy}  handleConfirmClick = {handleConfirmClick}/>
             </Bodycontainer>
         </>
     );
