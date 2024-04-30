@@ -43,6 +43,7 @@ export default function LanguagesDropDown() {
                 />
             </SearchBoxContainer>
             <LanguageListContainer>
+
                 {filteredLanguages.map(lang => (
                     <DropdownItem
                         key={lang.code}
@@ -53,8 +54,6 @@ export default function LanguagesDropDown() {
                         {lang.name}
                     </DropdownItem>
                 ))}
-     
-           
             </LanguageListContainer>
        </DropDownContainer>
         </>

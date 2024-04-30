@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Numbers } from "./numData";  // Ensure the import path is correct
 
 interface LangCodeDropDownProps {
   onSelect: (code: string) => void;
@@ -7,7 +8,7 @@ interface LangCodeDropDownProps {
 
 const LangCodeDropDown: React.FC<LangCodeDropDownProps> = ({ onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCode, setSelectedCode] = useState("");
+  const [selectedCode, setSelectedCode] = useState(Numbers[0].code);  // Default to the first item
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -22,14 +23,17 @@ const LangCodeDropDown: React.FC<LangCodeDropDownProps> = ({ onSelect }) => {
   return (
     <DropdownContainer>
       <DropdownToggle onClick={toggleDropdown}>
-        {selectedCode || "Select"}
+        {Numbers.find(num => num.code === selectedCode)?.flag} {selectedCode}
       </DropdownToggle>
       {isOpen && (
         <DropdownList>
-          <DropdownItem onClick={() => handleSelect("+1")}>+1</DropdownItem>
-          <DropdownItem onClick={() => handleSelect("+880")}>+880</DropdownItem>
-          {/* Add more language codes as needed */}
+          {Numbers.map(num => (
+            <DropdownItem key={num.code} onClick={() => handleSelect(num.code)}>
+              <span>{num.flag}</span> {num.code}
+            </DropdownItem>
+          ))}
         </DropdownList>
+
       )}
     </DropdownContainer>
   );
@@ -42,10 +46,13 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownToggle = styled.button`
-  padding: 8px 12px;
+  padding: 15px 30px;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const DropdownList = styled.ul`
@@ -65,8 +72,15 @@ const DropdownList = styled.ul`
 const DropdownItem = styled.li`
   padding: 8px 12px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: #f0f0f0;
   }
+
+  span {
+    margin-right: 8px;  // Adds right margin to the flag
+  }
 `;
+

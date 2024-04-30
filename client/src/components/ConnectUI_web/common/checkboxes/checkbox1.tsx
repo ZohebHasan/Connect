@@ -5,12 +5,13 @@ import styled from 'styled-components';
 interface CustomCheckboxProps {
   children: React.ReactNode;
   onClick?: () => void;
+  checked?: boolean;
 }
 
-const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ children, onClick }) => {
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ children, onClick, checked }) => {
   return (
-    <CheckboxContainer onClick={onClick}> {/* Attached onClick to the container */}
-      <StyledCheckbox type="checkbox" id="customCheckbox" />
+    <CheckboxContainer onClick={onClick}> 
+      <StyledCheckbox type="checkbox" id="customCheckbox"  checked={checked} readOnly />
       <Label>{children}</Label>
     </CheckboxContainer>
   );

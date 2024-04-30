@@ -5,21 +5,15 @@ import styled from 'styled-components'
 import Button from '../../../ConnectUI_web/common/buttons/button1';
 import ConnaButton from '../../../ConnectUI_web/common/conna/connaButton';
 
-interface BottomProps {
-    agreedPolicy: boolean;  
-    handleConfirmClick: () => void;  
- 
 
-  }
 
-const Bottom: React.FC<BottomProps> = ({ agreedPolicy, handleConfirmClick }) => {
+const Bottom: React.FC= () => {
     return(
         <BottomContainer>
             <ButtonContainer>
                 <Button variant= {"transparent"} 
                         width= {"30%"} 
-                        to={agreedPolicy ? "/features" : "#"} 
-                        onClick={handleConfirmClick}
+                        to={"/profiles"} 
                         >
                         Confirm 
                 </Button>
