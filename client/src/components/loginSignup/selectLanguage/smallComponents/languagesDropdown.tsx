@@ -43,6 +43,7 @@ export default function LanguagesDropDown() {
                 />
             </SearchBoxContainer>
             <LanguageListContainer>
+
                 {filteredLanguages.map(lang => (
                     <DropdownItem
                         key={lang.code}
@@ -53,8 +54,6 @@ export default function LanguagesDropDown() {
                         {lang.name}
                     </DropdownItem>
                 ))}
-     
-           
             </LanguageListContainer>
        </DropDownContainer>
         </>
@@ -71,7 +70,7 @@ const DropDownContainer = styled.div<DropDownContainerProps>`
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
   color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'};
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   margin: 10px;

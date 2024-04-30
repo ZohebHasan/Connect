@@ -49,7 +49,7 @@ const GreetingMessage = styled.h1<GreetingMessageProps>`
   font-size: 3em;
   color: transparent;
   background: ${({ $isDarkMode }) => $isDarkMode ? 
-    'linear-gradient(to right, #1D2671, #C33764)' : 
+    'linear-gradient(to right, #2a37a8, #e15782)' : 
     'linear-gradient(to right, #662D8C, #ED1E79)'};
   -webkit-background-clip: text;
   background-clip: text;

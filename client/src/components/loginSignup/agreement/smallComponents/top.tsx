@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { Link } from 'react-router-dom';
 
@@ -51,13 +51,11 @@ const Top: React.FC<TopProps> = ({ agreedPolicy, policyError, handlePolicy }) =>
                 <AgreementText/>
                 <ContainerTransparent flex={2}>
                     <Agreements/>
-                    <CheckBoxContainer>
-                        <Checkbox onClick={handlePolicy} >
-                            <Text variant = {"normal"} fontWeight = {"300"} size= {"15px"}> 
-                                I confirm that I am over 13 years old.
-                            </Text>
-                        </Checkbox>
-                        <Checkbox onClick={handlePolicy}>
+                    <CheckBoxContainer $isActive = {policyError}>
+                        <Checkbox 
+                                onClick={handlePolicy}
+                                checked={agreedPolicy}  
+                             >
                             <Text variant = {"normal"} fontWeight = {"300"} size= {"15px"}> 
                                 I agree to Connect’s privacy, user, data, and child safety 
                                 <StyledLink to="/privacy" $isDarkMode = {isDarkMode}> policies</StyledLink>
@@ -67,7 +65,7 @@ const Top: React.FC<TopProps> = ({ agreedPolicy, policyError, handlePolicy }) =>
 
                     
                     <ErrorMessage $isActive={policyError}>
-                        You must agree to the policies before you can proceed.
+                        You must agree to the policies before proceeding.
                     </ErrorMessage>
                 </ContainerTransparent> 
             </TopContainer>
@@ -83,10 +81,10 @@ const TopContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 70%;   
+    width: 60%;   
 `
 
-const CheckBoxContainer = styled.div`
+const CheckBoxContainer = styled.div<{$isActive: boolean}>`
   display: flex;
   flex: 0.5;
   align-items: flex-start;
@@ -94,17 +92,29 @@ const CheckBoxContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  animation: ${({ $isActive }) => $isActive ? css`${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both` : 'none'};
+
 `
 
 const ErrorMessage = styled.p<{$isActive: boolean}> `
   color: red;
   font-size: 14px;
-  height: 20px;
-  margin-top: 5px;
-  margin-bottom: 10px;
   visibility: ${({ $isActive }) => $isActive ? 'visible' : 'hidden'};
 `;
 
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-10px); }
+  20% { transform: translateX(10px); }
+  30% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  60% { transform: translateX(10px); }
+  70% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  90% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+`;
 
 
 

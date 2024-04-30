@@ -102,7 +102,12 @@ const Login: React.FC = () => {
                     </Button>
                 </ButtonContainer>
 
-                <SocialLoginButtons flex = {1}/>
+                <SocialLoginButtons 
+                    flex = {1} 
+                    text = {"Sign in with"}
+                    toLoginApple= {"signInWithApple"}
+                    toLoginGoogle= {"signInWithGoogle"}
+                    toLoginMicrosoft= {"signInWithMicrosoft"} />
 
                 <OrDivider flex={0.5}/>
 
@@ -129,7 +134,7 @@ const LoginContainer = styled.div<{ $isDarkMode: boolean }>`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(181, 181, 181, 0.5)' : 'rgba(136, 136, 136, 0.442)'};
+    background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(181, 181, 181, 0.3)' : 'rgba(136, 136, 136, 0.3)'};
     border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(253, 211, 255, 0.201);

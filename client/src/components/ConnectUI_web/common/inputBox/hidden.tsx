@@ -11,16 +11,17 @@ import HideSign from './assets/hide.png';
 interface HiddenInputProps {
   id: string;
   label: string;
+  width?: string;
 }
 
-const HiddenInput: React.FC<HiddenInputProps> = ({ id, label }) => {
+const HiddenInput: React.FC<HiddenInputProps> = ({ id, label, width }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { isDarkMode } = useDarkMode();
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const inputType = showPassword ? "text" : "password";
 
   return (
-    <InputContainer>
+    <InputContainer width = {width}>
       <InputField type={inputType} id={id} $isDarkMode={isDarkMode} placeholder = {""}/>
       <Label htmlFor={id} $isDarkMode={isDarkMode}>
         {label}

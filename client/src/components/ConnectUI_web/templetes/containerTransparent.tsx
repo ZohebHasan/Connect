@@ -41,7 +41,7 @@ const Container = styled.div<ContainerProps>`
   flex-direction: ${({ $flexDirection }) => $flexDirection || 'column'};
   position: ${({ $position }) => $position || ''};
   width: ${({ $width }) => $width || '100%'};
-  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.8)' : 'rgba(255, 255, 255, 0.8)'};
+  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
   color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'};
   flex: ${({ $flex }) => $flex || 'auto'};
   align-items: center;
