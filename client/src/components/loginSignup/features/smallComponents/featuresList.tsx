@@ -17,10 +17,10 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size="25px">
+              <Text variant="normal" fontWeight={"400"} size={"clamp(0.8rem, 0.8vw + 1rem, 2.3rem)"}>
                 Data Protection Mode
               </Text>
-              <Text variant={"transparent"} fontWeight={"300"} size="18px">
+              <Text variant={"transparent"} fontWeight={"300"} size={"clamp(0.2rem, 0.2vw + 1rem, 1.8rem)"}>
                 (Recommended for most users)
               </Text>
             </FeatureTextContainer>
@@ -28,7 +28,7 @@ const Features: React.FC = () => {
               <Toggle isOn={dataProtectionMode} toggleOn={() => setDataProtectionMode(!dataProtectionMode)} />
             </FeatureToggleContainer>
           </Feature>
-          <Text variant="transparent" fontWeight={"300"} size="16px">
+          <Text variant="transparent" fontWeight={"300"} size={"clamp(0.1rem, 0.1vw + 0.90em, 1.6rem)"}>
             Connect's flagship feature. Prevents anyone from taking screenshots, download or copy your data. 
           </Text>
         </FeatureContainer>
@@ -37,10 +37,10 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size="25px">
+              <Text variant="normal" fontWeight={"400"} size={"clamp(0.8rem, 0.8vw + 1rem, 2.3rem)"}>
                 End-to-End encryption
               </Text>
-              <Text variant={"transparent"} fontWeight={"300"} size="18px">
+              <Text variant={"transparent"} fontWeight={"300"} size={"clamp(0.2rem, 0.2vw + 1rem, 1.8rem)"}>
                 (Recommended for most users)
               </Text>
             </FeatureTextContainer>
@@ -48,7 +48,7 @@ const Features: React.FC = () => {
               <Toggle isOn={endtoendEncryption} toggleOn={() => setEndtoEndEncryption(!endtoendEncryption)} />
             </FeatureToggleContainer>
           </Feature>
-          <Text variant="transparent" fontWeight={"300"} size="16px">
+          <Text variant="transparent" fontWeight={"300"} size={"clamp(0.1rem, 0.1vw + 0.90em, 1.6rem)"}>
             Connect's flagship security feature. Encrypts your entire virtual 
             existence (messages, photos, videos, etc) which can only be decrypted by your community. 
           </Text>
@@ -57,7 +57,7 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size="25px">
+              <Text variant="normal" fontWeight={"400"} size={"clamp(0.8rem, 0.8vw + 1rem, 2.3rem)"}>
                 Censor Mode
               </Text>
             </FeatureTextContainer>
@@ -65,7 +65,7 @@ const Features: React.FC = () => {
               <Toggle isOn={censorMode} toggleOn={() => setCensorMode(!censorMode)} />
             </FeatureToggleContainer>
           </Feature>
-          <Text variant="transparent" fontWeight={"300"} size="16px">
+          <Text variant="transparent" fontWeight={"300"} size={"clamp(0.1rem, 0.1vw + 0.90em, 1.6rem)"}>
             Enabling Censor mode allows you see content only that are fully censored. Connect allows 
             user to fully utilize their freedom of speech.
           </Text>
@@ -75,18 +75,18 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size="25px">
+              <Text variant="normal" fontWeight={"400"} size={"clamp(0.8rem, 0.8vw + 1rem, 2.3rem)"}>
                 Restricted Mode
               </Text>
               <BetaContainer>
-                <Text size={"15px"} fontWeight="300"> Beta</Text>
+                <Text size={"clamp(0.1rem, 0.1vw + 0.8rem, 1.6rem)"} fontWeight="300"> Beta</Text>
               </BetaContainer>
             </FeatureTextContainer>
             <FeatureToggleContainer>
               <Toggle isOn={restrictedMode} toggleOn={() => setRestrictedMode(!restrictedMode)} />
             </FeatureToggleContainer>
           </Feature>
-          <Text variant="transparent" fontWeight={"300"} size="16px">
+          <Text variant="transparent" fontWeight={"300"} size={"clamp(0.1rem, 0.1vw + 0.90em, 1.6rem)"}>
             Prevents everyone from sending, commenting inappropriate content, 
             messages regardless of the context.
           </Text>
@@ -115,14 +115,14 @@ const FeatureContainerWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 40px;
+  gap: 2rem;
 `
 
 const FeatureContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 10px;
+    gap: 0.8rem;
 `
 
 
@@ -139,7 +139,7 @@ const FeatureTextContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  gap: 10px;
+  gap: 0.8rem;
 `
 const FeatureToggleContainer = styled.div`
   display: flex;
@@ -153,7 +153,7 @@ const FeatureToggleContainer = styled.div`
 
 const BetaContainer = styled.div`
   color:rgb(174, 60, 200); 
-  border: 1px solid rgb(174, 60, 200); 
-  border-radius: 10px;
+  border: 0.1rem solid rgb(174, 60, 200); 
+  border-radius: 0.5rem;
   padding: 3px 7px;
 `;

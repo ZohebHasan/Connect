@@ -16,7 +16,7 @@ const ProfilesPage: React.FC = () => {
             <PageContainer fadeIn={true} variant = {"fit"}>
                 <Background1 />
                 <Header/>
-                <Body/>
+                <Body/> 
             </PageContainer>
             <Copyright /> 
         </>
