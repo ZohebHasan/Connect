@@ -9,6 +9,7 @@ import AddPhoneNumPage from '../pages/loginSignup/addPhoneNum'
 import AgreementPage from "../pages/loginSignup/agreementPage"
 import FeaturesPage from "../pages/loginSignup/featuresPage"
 import ProfilesPage from "../pages/loginSignup/profiles"
+import VerificationSignupPage from "../pages/loginSignup/verificationSignupPage"
 
 
 export default function Connect(): React.ReactElement {
@@ -20,6 +21,7 @@ export default function Connect(): React.ReactElement {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/login/signup" element={<SignupPage />} />
                 <Route path="/login/signup/addPhoneNumber" element={<AddPhoneNumPage />} />
+                <Route path="/verifyPhoneNum" element={<VerificationSignupPage/>}/>
                 <Route path="/login/twoStep" element={<VerificationLoginPage/>} />
                 <Route path="/agreement" element={<AgreementPage />} />
                 <Route path= "/features" element = {<FeaturesPage/>}/>

@@ -16,10 +16,14 @@ const Logo: React.FC = () => {
 export default Logo;
 
 const StyledLogo = styled.img`
-    width: 38px;
+    width: 2.375rem; 
     height: auto;
     opacity: 1;
     transition: transform 0.5s, opacity 0.5s;
     mix-blend-mode: multiply;
     background-color: transparent;
+
+    @media (max-width: 1280px)  {
+        width: 1.6rem; 
+    }
 `;

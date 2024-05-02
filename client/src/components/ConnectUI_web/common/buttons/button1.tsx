@@ -67,13 +67,18 @@ const baseStyles = css<StyleProps>`
   font-size: 1.125rem;
   font-weight: 100;
   line-height: 1.3;
-  padding: 10px 25px;
+  padding: 0.8rem 1.5rem;
   border-radius: 0.375rem;
   text-align: center;
   display:flex;
   justify-content: center;
   text-decoration: none;
   width: ${({ $width }) => $width || 'auto'};
+
+  @media (max-width: 1280px) { 
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
 `;
 
 
@@ -141,6 +146,10 @@ const buttonLinkStyles = css<StyleProps>`
   ${backdropBlur}
   border-style: solid;
   border-width: 0.085rem;
+
+  @media (max-width: 1280px) { 
+    border-width: 0.055rem;
+  }
 `;
 
 
@@ -154,5 +163,9 @@ const StyledButton = styled.button<StyleProps>`
   border-color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : '#212121'};
   border-width: 0.085rem; 
   font-family: inherit; 
+  
+  @media (max-width: 1280px) { 
+    border-width: 0.055rem;
+  }
 `;
 

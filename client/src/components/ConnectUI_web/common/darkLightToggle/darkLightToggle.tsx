@@ -32,29 +32,37 @@ const DarkLightToggle: React.FC = () => {
 
 export default DarkLightToggle;
 
+
 const ToggleCircle = styled.div<{ $darkMode?: boolean }>`
   position: absolute;
-  left: ${({ $darkMode }) => $darkMode ? 'auto' : '5px'};
-  right: ${({ $darkMode }) => $darkMode ? '5px' : 'auto'};
-  width: 21px;
-  height: 21px;
-  border-radius: 200px;
+  left: ${({ $darkMode }) => $darkMode ? 'auto' : '0.3125rem'}; 
+  right: ${({ $darkMode }) => $darkMode ? '0.3125rem' : 'auto'}; 
+  width: 1.3125rem; 
+  height: 1.3125rem; 
+  border-radius: 200px; 
   background-color: ${({ $darkMode }) => $darkMode ? 'rgb(109, 109, 109)' : '#FDB813'};
   z-index: 6;
   transition: background-color 0.4s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;
 
-  &:hover{
+  &:hover {
     background-color: ${({ $darkMode }) => $darkMode ? '#FDB813' : 'darkgrey'};
   }
   &:active {
     background-color: darkgrey;
   }
+
+  @media (max-width: 1280px) { 
+    width: 1rem; 
+    height: 1rem; 
+  }
 `;
 
+
+
 const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
-  width: 65px;
-  height: 27px;
-  border-radius: 20px;
+  width: 4.0625rem;  // Standard width
+  height: 1.6875rem;  // Standard height
+  border-radius: 1.25rem;
   position: relative;
   cursor: pointer;
   display: flex;
@@ -65,18 +73,34 @@ const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
   z-index: 5;
 
   &:hover ${ToggleCircle} {
-    width: ${({ $darkMode }) => $darkMode ? '31px' : '29px'};
+    width: ${({ $darkMode }) => $darkMode ? '1.9375rem' : '1.8125rem'}; 
+  }
+
+  @media (max-width: 1280px) { 
+    width: 3rem; 
+    height: 1.25rem;  
+
+    &:hover ${ToggleCircle} {
+      width: ${({ $darkMode }) => $darkMode ? '1.3rem' : '1.3rem'};
+    }
   }
 `;
 
+
 const Icon = styled.span<{ type: 'sun' | 'moon'; $darkMode?: boolean }>`
-  font-size: 22px;
+  font-size: 1.375rem; 
   z-index: 1;
   position: absolute;
   color: ${({ type, $darkMode }) => type === 'sun' ? ($darkMode ? 'black' : 'transparent') : 'white'};
   opacity: ${({ type, $darkMode }) => type === 'moon' && $darkMode ? '0' : '1'};
-  right: ${({ type }) => type === 'moon' ? '7px' : 'auto'};
-  left: ${({ type }) => type === 'sun' ? '5px' : 'auto'};
+  right: ${({ type }) => type === 'moon' ? '0.4375rem' : 'auto'}; 
+  left: ${({ type }) => type === 'sun' ? '0.3125rem' : 'auto'}; 
+  top: -0.15rem;
   transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  @media (max-width: 1280px) { 
+    font-size: 1.1rem; 
+  }
+
 `;
 
