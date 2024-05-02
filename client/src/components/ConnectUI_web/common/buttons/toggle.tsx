@@ -34,12 +34,17 @@ const ToggleCircle = styled.div<{ $darkMode?: boolean, $isOn: boolean }>`
   &:hover{
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
   }
+  
+  @media (max-width: 1280px) { 
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 `;
 
 const ToggleContainer = styled.div<{ $darkMode?: boolean, $isOn: boolean }>`
-  width: 3.9rem;
-  height: 2.1rem;
-  border-radius: 1rem;
+  width: 4.2rem;
+  height: 2.2rem;
+  border-radius: 1.2rem;
   position: relative;
   cursor: pointer;
   display: flex;
@@ -54,6 +59,15 @@ const ToggleContainer = styled.div<{ $darkMode?: boolean, $isOn: boolean }>`
     width: 2.1rem;
   }
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+
+
+  @media (max-width: 1280px) { 
+    width: 3rem;
+    height: 1.5rem;
+    &:hover ${ToggleCircle} {
+      width: 1.4rem;
+    }
+  }
 `;
 
 

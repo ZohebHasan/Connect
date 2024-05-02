@@ -35,21 +35,28 @@ export default OptionButton;
 
 
 
-const Icon = styled.div<{$isSidebarOpen: boolean, $isDarkMode: boolean}>`
+
+
+const Icon = styled.div<{ $isSidebarOpen: boolean, $isDarkMode: boolean }>`
   cursor: pointer;
-  width: 60px;
-  height: 60px;
+  width: 3.75rem;  
+  height: 3.75rem;  
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 2rem;  
   transition: color 0.3s, opacity 0.3s ease-in-out;
-  color: ${props => props.$isDarkMode ? 'white' : 'black'};
+  color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'};
   position: relative;
   z-index: 5;
-  margin-left: 90px;
 
   &:before {
-    content: '${props => props.$isSidebarOpen ? '×' : '☰'}'; 
+    content: '${({ $isSidebarOpen }) => $isSidebarOpen ? '×' : '☰'}'; 
+  }
+
+  @media (max-width: 80rem) { 
+    width: 3.5rem;  
+    height: 3.5rem;  
+    font-size: 1.3rem; 
   }
 `;

@@ -72,7 +72,7 @@ export default function SignupNonEmailContainer() {
                     <Button variant="gradient" width="50%" to = {"/agreement"}>
                         My email is enough
                     </Button>
-                    <Button variant="gradient" width="50%" to = {"/agreement"}>
+                    <Button variant="gradient" width="50%" to = {"/verifyPhoneNum"}>
                         Confirm
                     </Button>
                 </ButtonContainer>           
