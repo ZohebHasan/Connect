@@ -31,7 +31,7 @@ const StyledText = styled.p<StyledTextProps>`
     font-size: ${({ $size }) => $size};
 
     @media (max-width: 1280px) { 
-        font-size: ${({ $size }) => `calc(${$size} * 0.7)`}; 
+        font-size: ${({ $size }) => `calc(${$size} * 0.65)`}; 
     }
 
     font-weight: ${ ({$fontWeight}) => $fontWeight};
