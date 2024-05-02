@@ -32,26 +32,28 @@ const HeaderSelectLang: React.FC = () => {
 export default HeaderSelectLang;
 
 const LogoContainer = styled.div`
-  flex: 8;
+  flex: 4.3;
   display:flex;
   align-items: center;
   position: relative;
-  // background-color: transparent;
-  padding-left: 20px;
-  z-index: 3;
-  padding-top: 3px;
-  padding-bottom: 3px;
+  padding-left: 1.25rem; 
+  z-index: 3;         
+  padding-top: 0.1875rem; 
+  padding-bottom: 0.1875rem; 
+  
 `;
 
 const DarkLightToggleContainer = styled.div`
   flex: 3;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding-left: 40%;
+  justify-content: flex-end;
 `;
 
 const OptionButtonContainer = styled.div`
   flex: 1;
-  padding: 0px 20px 0px 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+  margin-right: 0.3rem;
 `;

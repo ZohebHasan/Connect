@@ -115,7 +115,15 @@ const FeatureContainerWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 2rem;
+  gap: 3.5rem;
+  
+  @media (max-width: 1280px) { 
+    gap: 2rem;
+  }
+
+  @media (max-width: 1440px) { 
+    gap: 2rem;
+  }
 `
 
 const FeatureContainer = styled.div`
