@@ -58,6 +58,10 @@ const DropDownContainer = styled.div`
     display: flex;
     width: 100%;
     
-    max-height: 25.875rem;
+    max-height: 28rem;
+
+    @media (max-width: 1440px) { 
+        max-height: 21.875rem;
+    }
 
 `;
