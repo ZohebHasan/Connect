@@ -12,10 +12,10 @@ function ProfilesText() {
     return (
         <TextContainer>
             <Text size={"3rem"} variant={"normal"} fontWeight={"300"}>
-                Please select your desired
+                Profile setup:
             </Text>
-            <Text size={"3rem"} variant={"transparent"} fontWeight={"400"}>
-                profiles.
+            <Text size={"3rem"} variant={"personal"} fontWeight={"400"}>
+                Personal
             </Text>
         </TextContainer>
     );
@@ -32,33 +32,17 @@ const TextContainer = styled.div`
     gap: 15px;
 `
 
-type ProfileType = 'professional' | 'personal' | 'school';
-
 interface TopProps {
-    selectedProfile: {
-      professional: boolean;
-      personal: boolean;
-      school: boolean;
-    };
-    notSelectedError: boolean;
-    handleSelected: (profileType: ProfileType) => void; 
+
 }
 
-const Top: React.FC<TopProps> = ({ selectedProfile, notSelectedError, handleSelected }) => {
+const Top: React.FC<TopProps> = () => {
     const {isDarkMode} = useDarkMode();
 
     return(
             <TopContainer>
                 <ProfilesText/>
-                <ProfilesContainer $isActive = {notSelectedError}>
-                    <Profiles 
-                        selectedProfile={selectedProfile}
-                        handleSelected = {handleSelected}
-                    />
-                </ProfilesContainer>
-                <ErrorMessage $isActive={notSelectedError}>
-                        At least one profile needs to be selected.
-                </ErrorMessage>
+
             </TopContainer>
     );
   }

@@ -61,7 +61,7 @@ const DropDownContainer = styled.div`
     max-height: 28rem;
 
     @media (max-width: 1440px) { 
-        max-height: 21.875rem;
+        max-height: 21rem;
     }
 
 `;

@@ -10,7 +10,7 @@ import AgreementPage from "../pages/loginSignup/agreementPage"
 import FeaturesPage from "../pages/loginSignup/featuresPage"
 import ProfilesPage from "../pages/loginSignup/profiles"
 import VerificationSignupPage from "../pages/loginSignup/verificationSignupPage"
-
+import PersonalSetupPage from "../pages/loginSignup/personal"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -26,6 +26,7 @@ export default function Connect(): React.ReactElement {
                 <Route path="/agreement" element={<AgreementPage />} />
                 <Route path= "/features" element = {<FeaturesPage/>}/>
                 <Route path= "/profiles" element = {<ProfilesPage/>}/>
+                <Route path= "/profiles/personal" element = {<PersonalSetupPage/>}/>
             </Routes>
         </Router>
     );

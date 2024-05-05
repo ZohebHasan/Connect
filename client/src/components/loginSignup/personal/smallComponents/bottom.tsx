@@ -7,15 +7,9 @@ import ConnaButton from '../../../ConnectUI_web/common/conna/connaButton';
 
 
 interface BottomProps {
-      selectedProfile: {
-        professional: boolean;
-        personal: boolean;
-        school: boolean;
-      };
-      handleConfirmClick: (event: React.MouseEvent<HTMLElement>) => void;
     }
 
-const Bottom: React.FC<BottomProps> = ({ selectedProfile, handleConfirmClick }) => {
+const Bottom: React.FC<BottomProps> = () => {
 
   return(
         <BottomContainer>
@@ -24,22 +18,21 @@ const Bottom: React.FC<BottomProps> = ({ selectedProfile, handleConfirmClick }) 
             </ConnaContainer>
             <ButtonContainer>
               <Wrapper>
-                <Button variant= {"transparent"} 
+                {/* <Button variant= {"transparent"} 
                         width= {"50%"} 
                         to={"personal"} 
                         >
                         Set up all three profiles 
-                </Button>
+                </Button> */}
               </Wrapper>
 
               <Wrapper>
-                <Button variant= {"transparent"} 
+                {/* <Button variant= {"transparent"} 
                         width= {"50%"} 
-                        to={selectedProfile ? "/null" : "#"} 
-                        onClick={handleConfirmClick}
+
                         >
                         Set up selected profile
-                </Button>
+                </Button> */}
               </Wrapper>
 
             </ButtonContainer>
