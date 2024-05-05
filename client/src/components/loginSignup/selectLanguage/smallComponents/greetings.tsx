@@ -10,8 +10,31 @@ const GreetingText: React.FC = () => {
 
     useEffect(() => {
         let index = 0;
-        const greetings: string[] = ['Greetings!', 'অভিবাদন!', '¡Saludos!', 'Salutations!', 'Grüße!', 'Приветствия!', '问候！', '挨拶！', '인사말!', 'सलाम!', 'تحيات!', 'Selamat!'];
-
+        const greetings: string[] = [
+            'Hello!',             // English
+            'অভিবাদন!',          // Bengali
+            '你好！',              // Chinese (Mandarin)
+            'नमस्ते!',           // Hindi
+            '¡Hola!',             // Spanish
+            'Oi!',                // Portuguese
+            'Здравствуйте!',      // Russian
+            'こんにちは！',        // Japanese
+            '안녕하세요!',          // Korean
+            'Merhaba!',           // Turkish
+            'Hallo!',             // German
+            'سلام!',              // Arabic
+            'Salut!',             // French
+            'Ciao!',              // Italian
+            'สวัสดี!',             // Thai
+            'Xin chào!',          // Vietnamese
+            'سلام!',              // Persian
+            'ਸਤ ਸ੍ਰੀ ਅਕਾਲ!',     // Punjabi
+            'Selamat!',           // Malay/Indonesian
+            'שלום!',              // Hebrew
+            'नमस्कार!',           // Marathi
+            'أهلاً!',             // Egyptian Arabic
+        ];
+        
         const updateGreeting = () => {
             setOpacity(0);
             setTimeout(() => {
@@ -46,7 +69,12 @@ const GreetingMessage = styled.h1<GreetingMessageProps>`
   flex: 0 0 auto;
   align-self: flex-start;
   height: 100px;
-  font-size: 3em;
+  font-size: 3rem;
+  
+  @media (max-width: 1280px) { 
+    font-size: 2rem; 
+ }
+
   color: transparent;
   background: ${({ $isDarkMode }) => $isDarkMode ? 
     'linear-gradient(to right, #2a37a8, #e15782)' : 

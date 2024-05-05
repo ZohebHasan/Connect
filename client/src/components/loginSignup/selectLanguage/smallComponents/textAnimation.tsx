@@ -5,9 +5,9 @@ import LeftToRightAnimatedText from '../../../ConnectUI_web/common/texts/animate
 
 const AnimatedText: React.FC = () => {
   const text = "Welcome to Connect! Please Select Your Language to get started.";
-  const size = "24px";
+ 
   return(
-    <LeftToRightAnimatedText size = {size}>
+    <LeftToRightAnimatedText size = {"1.5rem"}>
         {text}
     </LeftToRightAnimatedText>
   );
