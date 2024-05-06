@@ -15,13 +15,13 @@ import FeaturesList from './featuresList';
 function FeaturesText() {
     return (
         <TextContainer>
-            <Text size= {"3.5rem"} variant={"normal"} fontWeight={"400"}>
+            <Text size= {"3rem"} variant={"normal"} fontWeight={"400"}>
                 Connect's four
             </Text>
-            <Text size= {"3.5rem"} variant={"gradient"} fontWeight={"500"}>
+            <Text size= {"3rem"} variant={"gradient"} fontWeight={"500"}>
               revolutionary
             </Text>
-            <Text size = {"3.5rem"} variant={"normal"} fontWeight={"400"}>
+            <Text size = {"3rem"} variant={"normal"} fontWeight={"400"}>
                 features.
             </Text>
         </TextContainer>

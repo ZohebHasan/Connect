@@ -29,9 +29,9 @@ const Bottom: React.FC<BottomProps> = () => {
               <Wrapper>
                 <Button variant= {"transparent"} 
                         width= {"60%"} 
-                        to = {"/setupProfessional"}
+                        to = {"/setupSchool"}
                         >
-                        Next (Professional)
+                        Next (School)
                 </Button>
               </Wrapper>
 

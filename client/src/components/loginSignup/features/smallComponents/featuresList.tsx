@@ -17,7 +17,7 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size={"2rem"}>
+              <Text variant="normal" fontWeight={"400"} size={"1.8rem"}>
                 Data Protection Mode
               </Text>
               <Text variant={"transparent"} fontWeight={"500"} size={"1rem"}>
@@ -37,7 +37,7 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size = {"2rem"}>
+              <Text variant="normal" fontWeight={"400"} size = {"1.8rem"}>
                 End-to-End encryption
               </Text>
               <Text variant={"transparent"} fontWeight={"500"} size={"1rem"}>
@@ -57,7 +57,7 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size = {"2rem"}>
+              <Text variant="normal" fontWeight={"400"} size = {"1.8rem"}>
                 Censor Mode
               </Text>
             </FeatureTextContainer>
@@ -75,7 +75,7 @@ const Features: React.FC = () => {
         <FeatureContainer>
           <Feature>
             <FeatureTextContainer>
-              <Text variant="normal" fontWeight={"400"} size = {"2rem"}>
+              <Text variant="normal" fontWeight={"400"} size = {"1.8rem"}>
                 Restricted Mode
               </Text>
               <BetaContainer>
