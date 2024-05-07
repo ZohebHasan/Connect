@@ -8,7 +8,10 @@ import { posterTrans } from '../../../../translations/loginSignup/login/poster';
 import LogoDark from '../../../assets/logoDark.png';
 import LogoLight from '../../../assets/logoLight.png';
 import videoSrc from '../assets/poster.mp4';
+import LogoNew from '../../../assets/logo.png'
 
+import TextLogo from '../../../ConnectUI_web/common/texts/static';
+import StyledText from '../../../ConnectUI_web/common/texts/static'
 
 interface PosterTexts {
   the: string;
@@ -52,15 +55,30 @@ const Poster: React.FC = () => {
 
         <PosterLogoTextContainer>
           <LogoContainer>
-            <Logo src={isDarkMode ? LogoDark : LogoLight} alt="Logo" />
+            <Logo src={LogoNew} alt="Logo"/>
+            <TextLogo variant = {"normal"} size = {"7rem"} fontWeight= {"300"}> 
+                  Connect
+            </TextLogo>
+            {/* <Logo src={isDarkMode ? LogoDark : LogoLight} alt="Logo" /> */}
           </LogoContainer>
 
           <PosterTextContainer>
-            <Text $isDarkMode={isDarkMode}>
+            {/* <Text $isDarkMode={isDarkMode}>
               {the} <Span $isDarkMode={isDarkMode}>{freedom}</Span><br />
               {is} <Span $isDarkMode={isDarkMode}>{here}</Span>{period}<br />
               <GradientText $isDarkMode={isDarkMode} >{uncontrolled}</GradientText>{period}
-            </Text>
+            </Text> */}
+            <Temp>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"transparent"}>The</StyledText>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Future</StyledText>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"transparent"}>is</StyledText>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Here.</StyledText>
+            </Temp>
+            {/* <Temp>
+              <StyledText size ={"6rem"} fontWeight = {"500"} variant = {"transparent"}>is</StyledText>
+              <StyledText size ={"6rem"} fontWeight = {"500"} variant = {"normal"}>Here.</StyledText>
+            </Temp> */}
+            
           </PosterTextContainer>
         </PosterLogoTextContainer>
       </PosterContainer>
@@ -69,6 +87,27 @@ const Poster: React.FC = () => {
 }
 
 export default Poster;
+
+
+const Temp = styled.div`
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+  gap: 0.5rem;
+`
+
+const PosterTextContainer = styled.div`
+  flex: 1; 
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 90%;
+  // background-color: red;
+`;
 
 
 const PosterContainer = styled.div`
@@ -107,6 +146,8 @@ const LogoContainer = styled.div`
   justify-content: center;
   background-color: transparent;
   z-index: 3;
+  gap: 2rem;
+  // background-color: green;
 `;
 
 const Logo = styled.img`
@@ -119,11 +160,7 @@ const Logo = styled.img`
 `;
 
 
-const PosterTextContainer = styled.div`
-  flex: 2; 
-  text-align: left; 
-  z-index: 3;
-`;
+
 
 const Text = styled.p<{ $isDarkMode: boolean }>`
   font-size: 75px;

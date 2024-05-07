@@ -23,7 +23,7 @@ export default function Connect(): React.ReactElement {
                 <Route path="/selectLanguage" element={<SelectLanguagePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/login/signup" element={<SignupPage />} />
-                <Route path="/login/signup/addPhoneNumber" element={<AddPhoneNumPage />} />
+                {/* <Route path="/login/signup/addPhoneNumber" element={<AddPhoneNumPage />} /> */}
                 <Route path="/verifyPhoneNum" element={<VerificationSignupPage/>}/>
                 <Route path="/login/twoStep" element={<VerificationLoginPage/>} />
                 <Route path="/agreement" element={<AgreementPage />} />

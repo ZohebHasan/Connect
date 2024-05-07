@@ -49,7 +49,7 @@ const Top: React.FC<TopProps> = ({ agreedPolicy, policyError, handlePolicy }) =>
     return(
             <TopContainer>
                 <AgreementText/>
-                <ContainerTransparent flex={2}>
+                <ContainerTransparent flex={2.5}>
                     <Agreements/>
                     <CheckBoxContainer $isActive = {policyError}>
                         <Checkbox 
@@ -76,12 +76,13 @@ export default Top;
 
 
 const TopContainer = styled.div`
-    flex: 5;
+
+    flex:7;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;   
+    width: 65%;   
 `
 
 const CheckBoxContainer = styled.div<{$isActive: boolean}>`
@@ -91,7 +92,7 @@ const CheckBoxContainer = styled.div<{$isActive: boolean}>`
   gap: 10px;
   flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 95%;
   animation: ${({ $isActive }) => $isActive ? css`${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both` : 'none'};
 
 `
