@@ -16,7 +16,7 @@ function FeaturesText() {
     return (
         <TextContainer>
             <Text size= {"3rem"} variant={"normal"} fontWeight={"400"}>
-                Connect's four
+                Connect's five
             </Text>
             <Text size= {"3rem"} variant={"gradient"} fontWeight={"500"}>
               revolutionary
