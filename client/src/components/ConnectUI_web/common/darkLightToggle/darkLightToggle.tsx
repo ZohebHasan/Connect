@@ -95,7 +95,7 @@ const Icon = styled.span<{ type: 'sun' | 'moon'; $darkMode?: boolean }>`
   opacity: ${({ type, $darkMode }) => type === 'moon' && $darkMode ? '0' : '1'};
   right: ${({ type }) => type === 'moon' ? '0.4375rem' : 'auto'}; 
   left: ${({ type }) => type === 'sun' ? '0.3125rem' : 'auto'}; 
-  top: -0.15rem;
+  // top: -0.15rem;
   transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
 
   @media (max-width: 1280px) { 

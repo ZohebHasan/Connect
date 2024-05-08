@@ -2,9 +2,10 @@ import React from 'react';
 
 
 import Header from '../../components/registration/common/headerHidden';
-import Body from '../../components/registration/loginSignup/bodyPhoneNum';
+import Body from '../../components/registration/loginSignup/bodyUserCredentials';
 
-const LoginPage: React.FC = () => {
+
+const SignupPage: React.FC = () => {
     return (
         <>
             <Header/>
@@ -13,4 +14,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default SignupPage;
