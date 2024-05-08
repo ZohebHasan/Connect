@@ -6,7 +6,6 @@ import Bottom from './smallComponents/bottom';
 
 type ProfileType = 'professional' | 'personal' | 'school';
 
-
 const Body: React.FC= () => {
     const navigate = useNavigate();  // Hook for navigation
     const [selectedProfile, setSelectedProfile] = useState({
@@ -48,7 +47,7 @@ const Body: React.FC= () => {
           school: true
         });
     
-        // Wait for 1 second before navigating
+       
         setTimeout(() => {
           navigate('/home');
         }, 700);

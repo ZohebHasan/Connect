@@ -9,21 +9,32 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 
 import DatePicker from '../elements/datePicker';
 import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
-import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
-const CredentialText: React.FC = () => {
+
+const UserInfoText: React.FC = () => {
     return (
         <TextContainer>
             <Text size={"3rem"} variant={"normal"} fontWeight={"500"}>
-                Let's setup your 
+                Let's get to know 
             </Text>
             <Text size={"3rem"} variant={"gradient"} fontWeight={"500"}>
-                Account.
+                you.
             </Text>
         </TextContainer>
     );
 }
 
+const NoticeText: React.FC = () => {
+    return (
+        <NoticeContainer>
+            <Text size={"0.9rem"} variant={"transparent"} fontWeight={"300"}>
+                Connect must verify your age to comply with the U.S. Children's 
+                Online Privacy Protection Act (COPPA) and to provide tailored 
+                contents.
 
+            </Text>
+        </NoticeContainer>
+    );
+}
 
 
 
@@ -34,43 +45,46 @@ export default function Age() {
     const {isDarkMode} = useDarkMode();
     return (
         <>
-            <CredentialText/>
+            <UserInfoText/>
             <Container $isDarkMode={isDarkMode}>  
 
-                <Credential>
-                    <CredentialTextContainer>
+                <UserInfo>
+                    <InfoText>
                         <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
-                            Account credential
+                            User Information
                         </Text>
-                    </CredentialTextContainer>  
+                    </InfoText>  
                     <InputContainer>
-                        <NormalInput id={""} label={"Phone number or email address"} width= {"75%"}/>
+                        <NormalInput id={""} label={"Full Name"} width= {"75%"}/>
+                        <NormalInput id={""} label={"username "} width= {"75%"}/>     
                     </InputContainer>
-                </Credential>
+                </UserInfo>
 
 
-                <Password>
+                <DateOfBirth>
                     <DateText>
-                        <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
-                            Account password
-                        </Text> 
+                        <Temp>
+                            <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
+                                Date of Birth
+                            </Text>
+                        </Temp>
+                        <NoticeText/>
                     </DateText> 
                     <DatePickerContainer>
-                        <HiddenInput id={""} label={"Password"} width= {"75%"}/>
-                        <HiddenInput id={""} label={"Confirm Password"} width= {"75%"}/>
+                        <DatePicker/>
                     </DatePickerContainer>
 
                     <ButtonContainer>
                         <Button 
                             variant= {"gradient"} 
                             width= {"60%"}
-                            to = {"/verifySignup"}
+                            to = {"/agreement"}
                             >
                                 Next
-                        </Button> 
+                        </Button>
                     </ButtonContainer>
 
-                </Password>
+                </DateOfBirth>
                           
             </Container>
      
@@ -79,9 +93,16 @@ export default function Age() {
     );
   }
 
+
+  const Temp = styled.div`
+    display:flex;
+    flex: 1;
+    align-items: center;
+    justify-content: flex-start;
+  `
   const Container = styled.div<{ $isDarkMode: boolean }>`
     z-index: 1;
-    flex: 2;
+    flex: 4;
     width: 100%;
     height: 100%;
     display: flex;
@@ -97,51 +118,49 @@ export default function Age() {
 
    
   const TextContainer = styled.div`
-    flex: 0.7;
+    flex: 0.8;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction:row;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
-    // gap: 0.8rem;
+    gap: 0.8rem;
 `
-  const Credential = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    // background-color:green;
-  `
-
-  const CredentialTextContainer = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction:column;
-    width: 75%;
-   
-  `
-
-  const InputContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  `
-
-  const Password = styled.div`
+  const UserInfo = styled.div`
     flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    // background-color:blue;
+  `
+
+  const InfoText = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction:column;
+    width: 75%;
+  `
+
+  const InputContainer = styled.div`
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  `
+
+  const DateOfBirth = styled.div`
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    // background-color:green;
 `
 
 const DateText = styled.div`
@@ -155,13 +174,21 @@ const DateText = styled.div`
     // background-color: blue;
 `
 
-  const DatePickerContainer = styled.div`
+const NoticeContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction:column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+`
+
+  const DatePickerContainer = styled.div`
+    flex: 1;
+    display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 100%;
+    width: 75%;
     // background-color: pink;
 `
 

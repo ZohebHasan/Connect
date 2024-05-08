@@ -28,6 +28,9 @@ export default Body;
 const LoginContainer = styled.div`
     flex: 9;
     width: 70%;
+    @media (max-width: 1920px) {  
+        width: 60%; 
+    }
     display: flex;
     flex-direction: column;
     align-items: center;

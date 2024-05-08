@@ -16,7 +16,7 @@ interface Translations {
 export const transLogin: Translations = {
     "en-US": {
         signInWith: "Sign in with",
-        id: "Phone, email, or Connect ID",
+        id: "Phone, email, or username",
         pass: "Password",
         signIn: "Sign in",
         signUp: "Create an account"
@@ -30,21 +30,21 @@ export const transLogin: Translations = {
     },
     "en-GB": {
         signInWith: "Sign in with",
-        id: "Phone, email, or Connect ID",
+        id: "Phone, email, or username",
         pass: "Password",
         signIn: "Sign in",
         signUp: "Create an account"
     },
     "en-IN": {
         signInWith: "Sign in with",
-        id: "Phone, email, or Connect ID",
+        id: "Phone, email, or username",
         pass: "Password",
         signIn: "SIgn in",
         signUp: "Create an account"
     },
     "en-AU": {
         signInWith: "Sign in with",
-        id: "Phone, email, or Connect ID",
+        id: "Phone, email, or username",
         pass: "Password",
         signIn: "Sign in",
         signUp: "Create an account"

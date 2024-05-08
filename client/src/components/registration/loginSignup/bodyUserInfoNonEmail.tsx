@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BodyContainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import Poster from './smallComponents/poster';
 import HalfBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
-import UserInfo from './smallComponents/userInfo';
+import UserInfo from './smallComponents/userInfoNonEmail';
 import Bottom from './smallComponents/bottom';
 import DatePicker from './elements/datePicker';
 
@@ -28,6 +28,9 @@ export default Body;
 const Container = styled.div`
     flex: 8;
     width: 70%;
+    @media (max-width: 1920px) {  
+        width: 60%; 
+    }
     display: flex;
     flex-direction: column;
     align-items: center;
