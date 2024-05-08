@@ -27,18 +27,6 @@ const LoginText: React.FC = () => {
     );
 }
 
-const TextContainer = styled.div`
-    flex: 2;
-    display: flex;
-    flex-direction: row;
-    gap: 13px;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-`
-
-
-
 
 const Credentials: React.FC = () => {
     const { language } = useLanguage();
@@ -58,17 +46,6 @@ const Credentials: React.FC = () => {
         </CredentialContainer>
     );
 }
-
-const CredentialContainer = styled.div`
-    flex: 1.5;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 15px;
-`;
 
 
 
@@ -123,6 +100,26 @@ const Login: React.FC = () => {
 
 export default Login;
 
+const TextContainer = styled.div`
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+`
+
+const CredentialContainer = styled.div`
+    flex: 1.5;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+`;
 
 
 const LoginContainer = styled.div<{ $isDarkMode: boolean }>`

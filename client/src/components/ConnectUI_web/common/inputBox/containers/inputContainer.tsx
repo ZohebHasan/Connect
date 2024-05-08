@@ -17,8 +17,14 @@ const InputContainer: React.FC<InputContainerProps> = ({ children, width }) => {
 export default InputContainer;
 
 
+
+
 const Container = styled.div<{$width?: string}>`
   width: ${({ $width }) => $width || '70%'};
+
+  // @media (max-width: 1920px) {  
+  //   width: ${({ $width }) => $width ? `calc(${ $width } * 0.7)` : '70%'}; 
+  // }
   position: relative;
   display: flex;
   justify-content: center;
