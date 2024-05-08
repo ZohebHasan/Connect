@@ -22,7 +22,7 @@ const Features: React.FC = () => {
                 Data Protection Mode
               </Text>
               <Text variant={"transparent"} fontWeight={"500"} size={"0.9375 rem"}>
-                (Recommended for most users)
+                (Recommended)
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
@@ -42,7 +42,7 @@ const Features: React.FC = () => {
                 Profile encryption
               </Text>
               <Text variant={"transparent"} fontWeight={"500"} size={"0.9375 rem"}>
-                (Recommended for most users)
+                (Recommended)
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
@@ -50,7 +50,7 @@ const Features: React.FC = () => {
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>
-            End-to-End encryption, Connect's flagship security feature. Encrypts your entire virtual 
+            End-to-End encryption. Encrypts your entire virtual 
             existence (messages, photos, videos, etc) which can only be decrypted by your followers. 
           </Text>
         </FeatureContainer>
@@ -62,7 +62,7 @@ const Features: React.FC = () => {
                 Content Monitization
               </Text>
               <Text variant={"transparent"} fontWeight={"500"} size={"0.9375 rem"}>
-                (Recommended for most users)
+                (Recommended)
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
@@ -70,9 +70,8 @@ const Features: React.FC = () => {
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>
-              Monitize everything content you have. Connect values it's users creativity and offers a 50-50 revenue split 
-              on their photos and chirps. Clips monitization, however happens through the number of views and
-              engagement.
+              Allows you to monitize every content you upload regardless of it's nature and make some extra
+              cash.
           </Text>
         </FeatureContainer>
 
@@ -147,7 +146,7 @@ const FeatureContainerWrapper = styled.div`
   }
 
   @media (max-width: 1440px) { 
-    gap: 2rem;
+    gap: 1.3rem;
   }
 `
 
@@ -155,7 +154,7 @@ const FeatureContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 0.8rem;
+    gap: 0.1rem;
 `
 
 

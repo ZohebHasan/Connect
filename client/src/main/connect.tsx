@@ -13,7 +13,8 @@ import VerificationSignupPage from "../pages/loginSignup/verificationSignupPage"
 import PersonalSetupPage from "../pages/loginSignup/personal"
 import ProfessionalSetupPage from "../pages/loginSignup/professional"
 import SchoolPage from "../pages/loginSignup/school"
-
+import AgeVerifyPage from "../pages/loginSignup/ageVerificationPage"
+import UserInfoNonEmail from "../pages/loginSignup/userInfoNonEmailPage"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -23,15 +24,17 @@ export default function Connect(): React.ReactElement {
                 <Route path="/selectLanguage" element={<SelectLanguagePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/login/signup" element={<SignupPage />} />
-                <Route path="/login/signup/addPhoneNumber" element={<AddPhoneNumPage />} />
+                {/* <Route path="/login/signup/addPhoneNumber" element={<AddPhoneNumPage />} /> */}
                 <Route path="/verifyPhoneNum" element={<VerificationSignupPage/>}/>
                 <Route path="/login/twoStep" element={<VerificationLoginPage/>} />
                 <Route path="/agreement" element={<AgreementPage />} />
                 <Route path= "/features" element = {<FeaturesPage/>}/>
                 <Route path= "/profiles" element = {<ProfilesPage/>}/>
-                <Route path= "/profiles/personal" element = {<PersonalSetupPage/>}/>
-                <Route path= "/setupProfessional" element = {<ProfessionalSetupPage/>}/>
-                <Route path= "/setupSchool" element = {<SchoolPage/>}/>
+                {/* <Route path= "/profiles/personal" element = {<PersonalSetupPage/>}/> */}
+                {/* <Route path= "/setupProfessional" element = {<ProfessionalSetupPage/>}/> */}
+                {/* <Route path= "/setupSchool" element = {<SchoolPage/>}/> */}
+                <Route path= "/login/signup/ageVerification" element = {<AgeVerifyPage/>}/>
+                <Route path= "/userInfoNonEmail" element = {<UserInfoNonEmail/>}/>
             </Routes>
         </Router>
     );

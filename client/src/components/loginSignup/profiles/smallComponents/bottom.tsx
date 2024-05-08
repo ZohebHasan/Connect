@@ -23,22 +23,22 @@ const Bottom: React.FC<BottomProps> = ({ selectedProfile, handleConfirmClick }) 
                 {/* Empty space */}
             </ConnaContainer>
             <ButtonContainer>
-              <Wrapper>
+              {/* <Wrapper>
                 <Button variant= {"transparent"} 
                         width= {"50%"} 
                         to={"personal"} 
                         >
-                        Set up all three profiles 
+                        Confirm 
                 </Button>
-              </Wrapper>
+              </Wrapper> */}
 
               <Wrapper>
                 <Button variant= {"transparent"} 
                         width= {"50%"} 
-                        to={selectedProfile ? "/null" : "#"} 
+                        to={selectedProfile ? "/home" : "#"} 
                         onClick={handleConfirmClick}
                         >
-                        Set up selected profile
+                        Confirm
                 </Button>
               </Wrapper>
 

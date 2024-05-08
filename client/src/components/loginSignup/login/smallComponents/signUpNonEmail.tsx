@@ -46,9 +46,9 @@ export default function SignupNonEmailContainer() {
                         // toSignupApple= {"signupWithApple"}
                         // toSignupGoogle= {"signupWithGoogle"}
                         // toSignupMicrosoft= {"signupWithMicrosoft"}
-                        toSignupApple= {"addPhoneNumber"}
-                        toSignupGoogle= {"addPhoneNumber"}
-                        toSignupMicrosoft= {"addPhoneNumber"}
+                        toSignupApple= {"ageVerification"}
+                        toSignupGoogle= {"ageVerification"}
+                        toSignupMicrosoft= {"ageVerification"}
                         />      
                 <OrDivider flex={0}/>
                 <ButtonContainer>
@@ -70,7 +70,7 @@ const SignupContainer = styled.div<{ $isDarkMode: boolean }>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(181, 181, 181, 0.3)' : 'rgba(136, 136, 136, 0.3)'};
+  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
   border-radius: 10px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(253, 211, 255, 0.201);
