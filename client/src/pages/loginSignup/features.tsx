@@ -1,16 +1,19 @@
 import React from 'react';
 
-import Header from '../../components/registration/common/headerVisible';
-import Body from '../../components/registration/profiles/bodyProfiles'
 
-const ProfilesPage: React.FC = () => {
+import Header from '../../components/registration/common/headerVisible';
+import Body from '../../components/registration/features/bodyFeatures'
+
+
+
+const FeaturesPage: React.FC = () => {
    
     return (
         <>
             <Header/>
-            <Body />
+            <Body/>
         </>
     );
 };
 
-export default ProfilesPage;
+export default FeaturesPage;
