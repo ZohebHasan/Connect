@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLanguage } from '../../../../contexts/Language/Language';
-import { languages } from '../../../loginSignup/selectLanguage/smallComponents/languagesData';
+import { languages } from '../../../registration/selectLanguage/smallComponents/languagesData';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 
 interface Language {

@@ -1,15 +1,17 @@
 import styled  from 'styled-components';
 
 export const InputField = styled.input<{ $isDarkMode: boolean }>`
-  padding: 20px 15px;
+  padding: 18px 15px;
   width: 100%;
   border-radius: 10px;
-  border: 1px solid rgba(253, 211, 255, 0.879);
+  border: ${({ $isDarkMode }) => $isDarkMode ? '0.8px solid rgb(252, 105, 186)' : '1.5px solid rgb(254, 178, 224)'};
   outline: none;
   font-size: 18px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, border 0.3s ease;
-  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(251, 243, 250, 0.681)' : 'rgba(255, 255, 255, 0.646)'};
+  color: ${({ $isDarkMode }) => $isDarkMode ? '#FFF' : '#000'};  // Default text color based on theme
+
+  background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(72, 72, 72, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
 
   &:focus {
     border-color: #ED1E79;
@@ -22,7 +24,8 @@ export const Label = styled.label<{ $isDarkMode: boolean }>`
   top: 20px;
   transition: top 0.3s, font-size 0.3s;
   pointer-events: none;
-  color: ${({ $isDarkMode }) => $isDarkMode ? '#505050' : '#8d8d8d'};
+  color: ${({ $isDarkMode }) => $isDarkMode ? '#c6c6c6' : '#686868'};
+  font-size: 14px;
 
   ${InputField}:focus + &,
   ${InputField}:not(:placeholder-shown) + & {  // Ensuring the label stays up if the input is not empty

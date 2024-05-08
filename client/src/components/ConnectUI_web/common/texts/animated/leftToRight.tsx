@@ -7,10 +7,6 @@ interface AnimatedTextProps {
   children?: ReactNode;
 }
 
-interface SpanProps {
-    $isGrey: boolean;
-    size: string;
-}
 
 const LeftToRightText: React.FC<AnimatedTextProps> = ({ size, children }) => {
     const defaultText = "Unable to render your text, default text is being rendered.";
@@ -31,7 +27,7 @@ const LeftToRightText: React.FC<AnimatedTextProps> = ({ size, children }) => {
       <StyledTextContainer>
         {childArray.map((char, idx) => {
           const isGrey = Array.from({ length: greyLetterCount }, (_, i) => (index + i) % childArray.length).includes(idx);
-          return <StyledSpan key={idx} $isGrey={isGrey} size={size}>{char}</StyledSpan>;
+          return <StyledSpan key={idx} $isGrey={isGrey} $size={size}>{char}</StyledSpan>;
         })}
       </StyledTextContainer>
     );
@@ -40,12 +36,22 @@ const LeftToRightText: React.FC<AnimatedTextProps> = ({ size, children }) => {
 export default LeftToRightText;
 
 
+interface SpanProps {
+  $isGrey: boolean;
+  $size: string;
+}
+
 const StyledTextContainer = styled.div`
   transition: left 0.5s ease-in-out;
 `;
 
 const StyledSpan = styled.span<SpanProps>`
-  font-size: ${({ size }) => size};
+  font-size: ${({ $size }) => $size};
+  
+  @media (max-width: 1280px) { 
+    font-size: ${({ $size }) => `calc(${$size} * 0.65)`}; 
+}
+
   transition: color 0.7s ease;
   color: ${({ $isGrey }) => $isGrey ? 'rgba(172, 172, 172, 0.404)' : 'inherit'};
 `;
