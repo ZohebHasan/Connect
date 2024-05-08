@@ -17,6 +17,7 @@ import ProfilesPage from "../pages/loginSignup/profiles";
 import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
 import UserInfoNonEmail from "../pages/loginSignup/userInfoNonEmail";
 import UserCredentals from "../pages/loginSignup/userCredentials"
+import VerificationSignup from "../pages/loginSignup/verificationSignup"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -54,13 +55,13 @@ function ConnectInner() {
                     <Route path="/selectLanguage" element={<SelectLanguagePage />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/login/signup" element={<SignupPage />} />
-                    <Route path="/verifyPhoneNum" element={<VerificationSignupPage />} />
                     <Route path="/login/twoStep" element={<VerificationLoginPage />} />
                     <Route path="/agreement" element={<AgreementPage />} />
                     <Route path="/features" element={<FeaturesPage />} />
                     <Route path="/profiles" element={<ProfilesPage />} />
                     <Route path="/userInfoNonEmail" element={<UserInfoNonEmail />} />
-                    <Route path="/userCredentials" element={<UserCredentals />} />
+                    <Route path="/userCredentials" element={<UserCredentals />}/>
+                    <Route path="/verifySignup" element={<VerificationSignup />} />
                 </Routes>
             </PageContainer>
             <Copyright />

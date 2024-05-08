@@ -43,7 +43,7 @@ const TextContainer = styled.div`
 const Credentials: React.FC = () => {
     const { language } = useLanguage();
 
-    let id = "Phone, email, or Connect ID"
+    let id = "Phone, email, or username"
     let pass = "Password"
 
     if (transLogin && transLogin[language]) {

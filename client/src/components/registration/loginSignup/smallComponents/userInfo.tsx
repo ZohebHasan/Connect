@@ -56,7 +56,7 @@ export default function Age() {
                     </InfoText>  
                     <InputContainer>
                         <NormalInput id={""} label={"Full Name"} width= {"75%"}/>
-                        <NormalInput id={""} label={"@ ConnectID (e.g: @zoheb.hasan)"} width= {"75%"}/>     
+                        <NormalInput id={""} label={"username "} width= {"75%"}/>     
                     </InputContainer>
                 </UserInfo>
 

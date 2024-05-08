@@ -64,7 +64,7 @@ export default function Age() {
                         <Button 
                             variant= {"gradient"} 
                             width= {"60%"}
-                            to = {"/userInfoNonEmail"}
+                            to = {"/verifySignup"}
                             >
                                 Next
                         </Button> 
