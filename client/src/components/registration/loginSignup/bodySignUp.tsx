@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BodyContainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import Poster from './smallComponents/poster';
 import SignupBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
-import SignupNonEmail from './smallComponents/signUpNonEmail';
+import SignupNonEmail from './smallComponents/signUp';
 import BottomSignup from './smallComponents/bottom';
 
 

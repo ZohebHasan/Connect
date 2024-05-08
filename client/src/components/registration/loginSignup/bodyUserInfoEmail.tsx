@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BodyContainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import Poster from './smallComponents/poster';
 import HalfBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
-import UserInfo from './smallComponents/userInfoNonEmail';
+import UserInfo from './smallComponents/userInfoEmail';
 import Bottom from './smallComponents/bottom';
 import DatePicker from './elements/datePicker';
 

@@ -46,9 +46,9 @@ export default function SignupNonEmailContainer() {
                         // toSignupApple= {"signupWithApple"}
                         // toSignupGoogle= {"signupWithGoogle"}
                         // toSignupMicrosoft= {"signupWithMicrosoft"}
-                        toSignupApple= {"/userInfoNonEmail"}
-                        toSignupGoogle= {"/userInfoNonEmail"}
-                        toSignupMicrosoft= {"/userInfoNonEmail"}
+                        toSignupApple= {"/userInfoEmail"}
+                        toSignupGoogle= {"/userInfoEmail"}
+                        toSignupMicrosoft= {"/userInfoEmail"}
                         />      
                 <OrDivider flex={0}/>
                 <ButtonContainer>
