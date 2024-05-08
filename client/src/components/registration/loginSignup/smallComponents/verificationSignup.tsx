@@ -42,7 +42,7 @@ const Verification: React.FC = () => {
     const {language} = useLanguage(); //need to be implemented
     
    
-    let id = "******8805"
+    let id = "something"
     return (
         <>
             <VerificationText/>
@@ -56,7 +56,7 @@ const Verification: React.FC = () => {
          
                 <BodyTextContainer>
                     <Text size={"15px"} variant={"transparent"} fontWeight={"200"}>
-                        A code has been sent to {id}
+                        We sent a code to {id}
                     </Text>
                 </BodyTextContainer>    
               
@@ -72,7 +72,7 @@ const Verification: React.FC = () => {
                     <Button variant = {"normal"} width= {"50%"}>
                         Send it again(20)
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"} to = {"/agreement"}>
+                    <Button variant = {"gradient"} width= {"50%"} to = {"/userInfoNonEmail"}>
                         Next
                     </Button>
                 </VerificBtnContainer>
@@ -95,7 +95,7 @@ export default Verification;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(181, 181, 181, 0.3)' : 'rgba(136, 136, 136, 0.3)'};
+    background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
     border-radius: 10px;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(253, 211, 255, 0.201);

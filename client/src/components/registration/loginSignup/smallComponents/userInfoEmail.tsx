@@ -55,8 +55,7 @@ export default function Age() {
                         </Text>
                     </InfoText>  
                     <InputContainer>
-                        <NormalInput id={""} label={"Full Name"} width= {"75%"}/>
-                        <NormalInput id={""} label={"@ ConnectID (e.g: @zoheb.hasan)"} width= {"75%"}/>     
+                        <NormalInput id={""} label={"username "} width= {"75%"}/>     
                     </InputContainer>
                 </UserInfo>
 
@@ -127,7 +126,7 @@ export default function Age() {
     gap: 0.8rem;
 `
   const UserInfo = styled.div`
-    flex: 2;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,10 +141,11 @@ export default function Age() {
     justify-content: center;
     flex-direction:column;
     width: 75%;
+    // background-color: red;
   `
 
   const InputContainer = styled.div`
-    flex: 3;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;

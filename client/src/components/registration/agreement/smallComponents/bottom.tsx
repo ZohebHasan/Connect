@@ -21,7 +21,7 @@ const Bottom: React.FC<BottomProps> = ({ agreedPolicy, handleConfirmClick }) => 
                         to={agreedPolicy ? "/features" : "#"} 
                         onClick={handleConfirmClick}
                         >
-                        Next
+                        Sign up
                 </Button>
             </ButtonContainer>
             <ConnaContainer>
