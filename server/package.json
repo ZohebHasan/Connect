@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.19.2",
+    "mongoose": "^8.3.4",
     "nodemon": "^3.1.0"
   },
   "devDependencies": {
