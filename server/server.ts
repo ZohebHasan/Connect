@@ -1,13 +1,13 @@
 // Importing module
-import express from 'express';
+import express, {Request, Response} from 'express';
 
 const app = express();
 const PORT:Number=8000;
 
 // Handling GET / Request
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to typescript backend!');
-})
+}) 
 
 // Server setup
 app.listen(PORT,() => {
