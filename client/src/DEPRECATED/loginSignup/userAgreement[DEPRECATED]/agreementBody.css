@@ -1,0 +1,249 @@
+    /* .agreementBody {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 80vh;
+        z-index: 1;
+        padding:5 px;
+        max-width: 800px;
+        width: 90%;
+    } */
+
+    /* .agreementText{
+        font-size: 1.7em;
+        font-weight: bold;
+        position: relative;
+        padding-top: 15px;
+        margin-bottom: 20px;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.8);   
+    } */
+    
+    /* body:not(.dark-mode)  .agreementText{
+        color: rgba(0, 0, 0, 0.8);
+    }
+    
+    body.dark-mode .agreementText {
+        color: rgba(255, 255, 255, 0.8);
+    }
+     */
+    /* .agreementSpan{
+        color: transparent;
+        background: linear-gradient(to right, #1D2671, #C33764);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+     */
+    
+    /* body.dark-mode .agreementSpan{
+        color: transparent;
+        background: linear-gradient(to right, #1D2671, #C33764);
+        -webkit-background-clip: text;
+        background-clip: text;
+        
+    } */
+    
+    /* body:not(.dark-mode) .agreementSpan{
+        color: transparent;
+        background: linear-gradient(to right, #662D8C , #ED1E79);
+        -webkit-background-clip: text;
+        background-clip: text;
+    } */
+
+    /* .agreementContainer {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+
+        
+    }
+
+    body.dark-mode .agreementContainer {
+        background-color: rgba(52, 52, 52, 0.4); 
+        transition: opacity 0.1s background-color 0.1s ease-in-out; 
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        width: 100%;
+    }
+
+    body:not(.dark-mode) .agreementContainer {
+        background-color: rgba(255, 255, 255, 0.5); 
+        transition: opacity 0.1s background-color 0.1s ease-in-out; 
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        width: 100%;
+    } */
+
+    /* body:not(.dark-mode)  .agreements{
+        color: rgba(0, 0, 0, 0.8);
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        list-style: none;
+    } */
+    
+    /* body.dark-mode .agreements {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 17px;
+        line-height: 1.5;
+        margin-bottom: 5px;
+        list-style: none;
+    } */
+
+    /* body:not(.dark-mode) .agreements li,
+    body.dark-mode .agreements li {
+    position: relative;
+    } */
+
+
+.ageError,
+.policyError {
+  color: red;
+  font-size: 14px;
+  height: 20px; /* Reserve space for error message */
+  margin-top: 5px; /* Space above error message */
+  margin-bottom: 10px; /* Space below error message */
+  visibility: hidden; /* Hide by default using visibility so they take up space */
+}
+
+/* When error is active, make it visible */
+.ageError.active,
+.policyError.active {
+  visibility: visible;
+  border: 2px solid #c0489c;
+}
+
+
+body.dark-mode .AgeConfirmation{
+    color: rgba(255, 255, 255, 0.8);
+    
+    display: flex;
+    align-items: center;
+    gap: 13px; 
+}
+
+body:not(.dark-mode) .AgeConfirmation{
+    color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 13px; 
+}
+.policy-link{
+    margin-left: 5px;
+
+}   
+
+body.dark-mode .agreementTickbox {
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0px; 
+}
+body:not(.dark-mode) .agreementTickbox {
+    color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    gap: 0px; 
+  }
+#tickbox{
+    margin-right: 17px;
+}
+
+
+
+.custom{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 18px; 
+  height: 18px; 
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  margin-right: 5px; 
+}
+
+.custom:checked {
+  background-color: #007bff;
+}
+
+.custom:checked::after {
+  content: '✓';
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px; 
+  line-height: 1;
+}
+
+
+.AgeConfirmation label,
+.agreementTickbox label {
+  display: flex;
+  align-items: center;
+  font-size: 17px; 
+}
+
+/* 
+.agreeBtnContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2%;
+}
+
+.agreeBtn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.agreeBtn:hover {
+  background-color: #0056b3;
+} */
+
+
+/* .connaAgreement {
+    position: absolute;
+    right: 20px; 
+    bottom: 20px; 
+} */
+
+
+    /* Small tablets */
+    @media (max-width: 600px) {
+    }
+
+    /* Standard tablets */
+    @media (max-width: 768px) {
+
+    }
+
+    /* Large tablets */
+    @media (max-width: 1024px) {
+
+    }
+
+    /* Small laptops */
+    @media (max-width: 1280px) {
+
+    }
+
+    /* Large laptops */
+    @media (max-width: 1440px) {
+
+    }
