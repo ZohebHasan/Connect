@@ -16,7 +16,7 @@ exports.connectToMongoDB = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const connection_string = 'mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.ny9wvom.mongodb.net/';
+const connection_string = 'mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.ny9wvom.mongodb.net/Connect_Test?retryWrites=true&w=majority';
 // Function to connect to MongoDB
 const connectToMongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

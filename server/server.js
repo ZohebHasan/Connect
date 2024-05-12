@@ -13,6 +13,8 @@ const login_1 = __importDefault(require("./routers/login"));
 const signup_1 = __importDefault(require("./routers/signup"));
 // import the body parser
 const body_parser_1 = __importDefault(require("body-parser"));
+// import the cors
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const PORT = 8000;
 // use the body parser
@@ -20,6 +22,12 @@ app.use(body_parser_1.default.json());
 // express json
 app.use(express_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
+// Enable CORS with specific origins
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    // Replace with your React app's origin
+}));
 // Handling GET / Request
 app.get('/', (req, res) => {
     res.send('Welcome to typescript backend!');

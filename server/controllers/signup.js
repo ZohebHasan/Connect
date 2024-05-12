@@ -38,7 +38,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         phoneNumber
     });
     // save the user
-    // await user.save();
+    yield user.save();
     // // create a token
     // const token = jwt.sign({ userId: user._id }, JWT_SECRET);
     // // send the token and user details
