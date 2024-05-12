@@ -1,0 +1,145 @@
+/* .optionBar .icon {
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: color 0.3s;
+  color: black;
+  position: relative;
+  z-index: 5;
+  margin-left: 90px;
+}
+
+body:not(.dark-mode) .optionBar .icon{
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode  .optionBar .icon{
+  color: white;
+  transition: opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 600px) {
+  .optionBar .icon{
+    margin-left: 35% 
+  }
+}
+
+
+
+
+
+.sidebar {
+  height: 0;
+  width: 300px; 
+  position: absolute;
+  top: 15px;
+  right: 0;
+  background-color: rgba(48, 48, 48, 0.5); 
+  backdrop-filter: blur(10px); 
+  overflow-x: hidden;
+  transition: height 0.5s ease-out, 
+    transform 0.5s ease-out, 
+    opacity 0.5s ease-in-out, 
+    border-radius 0.5s ease-out;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  transform: scaleY(0); 
+  transform-origin: top; 
+  opacity: 0; 
+  margin-right: 15px;
+}
+
+body.dark-mode .sidebar {
+  background-color: rgba(48, 48, 48, 0.5); 
+  backdrop-filter: blur(10px); 
+}
+
+body:not(.dark-mode) .sidebar {
+  background-color: rgba(177, 177, 177, 0.5); 
+  backdrop-filter: blur(10px); 
+}
+.sidebar.open {
+  height: calc(100% - 15px); 
+  border-radius: 0; 
+  transform: scaleY(1); 
+  opacity: 1; 
+}
+
+
+@media (max-width: 650px) and (max-width: 655px){
+  .sidebar {
+    flex: 0; 
+  }
+  .sidebar.open {
+    width: 200px;
+  }
+}
+
+
+
+
+
+
+.sidebar .emptySpace {
+  height: 70px;
+}
+
+.links {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out; 
+}
+
+.links.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; 
+}
+
+.sidebar.open .links {
+  opacity: 1; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar .links a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #313131;
+  display: block;
+  transition: 0.3s;
+  transition: color 0.3s, opacity 0.3s ease-in-out;
+}
+
+body:not(.dark-mode) .sidebar .links a {
+  color: #575757; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode .sidebar .links a{
+  color: #a9a9a9; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar .links a:hover {
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode .sidebar .links a:hover {
+  color: white; 
+  transition: opacity 0.3s ease-in-out;
+
+}
+body:not(.dark-mode) .sidebar .links a:hover {
+  color: black; 
+  transition: opacity 0.3s ease-in-out;
+}
+
+ */
