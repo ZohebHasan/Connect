@@ -1,25 +1,10 @@
+"use strict";
 // creating a user schema using mongoose 
-
+Object.defineProperty(exports, "__esModule", { value: true });
 // user requirements : first and last name, email, password, username, dateCreated, lastLogin, phoneNumber
-
-import { Schema } from 'mongoose';
-
-// creating the user interface 
-interface User {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    username: string;
-    dateCreated: Date;
-    lastLogin: Date;
-    phoneNumber: string;
-
-}
-
+const mongoose_1 = require("mongoose");
 // creating the user schema
-
-const schema = new Schema<User>({
+const schema = new mongoose_1.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -29,6 +14,5 @@ const schema = new Schema<User>({
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, required: true }
 });
-
 // exporting the user schema
-export default schema;
+exports.default = schema;
