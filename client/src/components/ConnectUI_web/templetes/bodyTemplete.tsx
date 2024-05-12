@@ -5,18 +5,20 @@ interface BodyContainerProps{
     children: React.ReactNode; 
     flexDirection: "row" | "column";
     position?: "absolute";
+    flex?: number;
 }
 
-const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position}) => {
+const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position,  flex}) => {
     return (
-        <BodyContainer $flexDirection = {flexDirection} $position = {position}>
+        <BodyContainer $flexDirection = {flexDirection} $position = {position} $flex={flex}>
             {children}
         </BodyContainer>
     );
 }
 export default Body;
 
-const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute"}>`
+const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute", $flex?: number}>`
+    flex: ${({ $flex }) => $flex}; 
     display: flex;
     align-items: center;
     z-index: 1;

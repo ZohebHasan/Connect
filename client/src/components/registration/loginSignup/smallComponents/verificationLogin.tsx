@@ -72,7 +72,11 @@ const Verification: React.FC = () => {
                     <Button variant = {"normal"} width= {"50%"}>
                         Send it again(20)
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"}>
+                    <Button 
+                        variant = {"gradient"} 
+                        width= {"50%"}
+                        to = {"/home"}
+                        >
                         Sign in
                     </Button>
                 </VerificBtnContainer>
