@@ -2,7 +2,7 @@
 
 // user requirements : first and last name, email, password, username, dateCreated, lastLogin, phoneNumber
 
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 // creating the user interface 
 interface User {
@@ -27,8 +27,9 @@ const schema = new Schema<User>({
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
-    phoneNumber: { type: String, required: true }
+    phoneNumber: { type: String, required: false }
 });
+;
+// export the user model
+export default model('User', schema);
 
-// exporting the user schema
-export default schema;

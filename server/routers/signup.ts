@@ -1,12 +1,9 @@
 // creating a signup router
 import express from 'express';
-import {Request, Response} from 'express';
 const router = express.Router();
+// import the signup controller
+import { signup } from '../controllers/signup';
 
+router.post('/signup', signup);
 
-
-router.get('/signup', (req: Request, res: Response) => {
-    res.send('Signup route');
-
-});
 export default router;

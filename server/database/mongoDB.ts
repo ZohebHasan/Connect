@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { ConnectOptions } from "mongoose";
 
 dotenv.config();
-const connection_string ='mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.ny9wvom.mongodb.net/';
+const connection_string ='mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.ny9wvom.mongodb.net/test';
 
 // Function to connect to MongoDB
 export const connectToMongoDB = async () => {

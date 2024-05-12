@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // creating a signup router
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
-router.get('/signup', (req, res) => {
-    res.send('Signup route');
-});
+// import the signup controller
+const signup_1 = require("../controllers/signup");
+router.post('/signup', signup_1.signup);
 exports.default = router;

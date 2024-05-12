@@ -1,13 +1,10 @@
 // creating a login router
 import express from 'express';
-import {Request, Response} from 'express';
 const router = express.Router();
 
+// import the login controller
+import { login } from '../controllers/login';
 
-
-router.get('/login', (req: Request, res: Response) => {
-    res.send('Login route');
-
-});
+router.post('/login', login);
 
 export default router;
