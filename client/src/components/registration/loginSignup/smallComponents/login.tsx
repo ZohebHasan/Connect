@@ -15,7 +15,10 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 import SocialLoginButtons from '../elements/socialButtons';
 import OrDivider from '../elements/orDivider';
 
+
 import Credentials from "./loginCredentials"
+import GoogleOauth from './google_Oauth';
+
 
 const LoginText: React.FC = () => {
     return (
@@ -69,7 +72,7 @@ const Login: React.FC = () => {
                     toLoginApple= {"signInWithApple"}
                     toLoginGoogle= {"signInWithGoogle"}
                     toLoginMicrosoft= {"signInWithMicrosoft"} />
-
+                    <GoogleOauth />
                 <OrDivider flex={0.5}/>
 
                 <ButtonContainer>

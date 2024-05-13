@@ -3,7 +3,6 @@
 // user requirements : first and last name, email, password, username, dateCreated, lastLogin, phoneNumber
 
 import { Schema, model } from 'mongoose';
-
 // creating the user interface 
 interface User {
     firstName: string;
@@ -13,8 +12,7 @@ interface User {
     username: string;
     dateCreated: Date;
     lastLogin: Date;
-    phoneNumber: string;
-
+    phoneNumber: string;    
 }
 
 // creating the user schema
@@ -27,9 +25,9 @@ const schema = new Schema<User>({
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
-    phoneNumber: { type: String, required: false }
+    phoneNumber: { type: String, required: false },
 });
-;
+
 // export the user model
 export default model('User', schema);
 
