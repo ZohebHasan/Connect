@@ -9,6 +9,9 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 import OrDivider from '../elements/orDivider';
 import SocialSignupButtons from '../elements/socialButtons';
 
+
+
+
 const SignupEmailText: React.FC = () => {
     return (
         <TextContainer>
@@ -47,7 +50,8 @@ export default function SignupNonEmailContainer() {
                         // toSignupGoogle= {"signupWithGoogle"}
                         // toSignupMicrosoft= {"signupWithMicrosoft"}
                         toSignupApple= {"/userInfoEmail"}
-                        toSignupGoogle= {"/userInfoEmail"}
+                        toSignupGoogle= {"/userInfoEmail"} 
+                        /// google login component
                         toSignupMicrosoft= {"/userInfoEmail"}
                         />      
                 <OrDivider flex={0}/>
