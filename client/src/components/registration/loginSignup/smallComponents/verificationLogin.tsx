@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 
@@ -40,6 +40,11 @@ const TextContainer = styled.div`
 const Verification: React.FC = () => {
     const {isDarkMode} = useDarkMode();
     const {language} = useLanguage(); //need to be implemented
+    const [code, setCode] = useState('');
+
+    const handleCodeChange = (input: string) =>{
+        setCode(input);
+    }
     
    
     let id = "z*********al@gmail.com"
@@ -61,7 +66,13 @@ const Verification: React.FC = () => {
                 </BodyTextContainer>    
               
                 <InputAnimeContainer>
-                    <NormalInput id={""} label={"Verification Code"} width= {"60%"}/>
+                    <NormalInput 
+                        id={""} 
+                        label={"Verification Code"}
+                        width= {"60%"}
+                        value= {code}
+                        onChange={handleCodeChange}
+                    />
                  
                     <VerificAnim>
                         <PhoneGIF src = {PhoneIcon}/>
@@ -72,7 +83,11 @@ const Verification: React.FC = () => {
                     <Button variant = {"normal"} width= {"50%"}>
                         Send it again(20)
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"}>
+                    <Button 
+                        variant = {"gradient"} 
+                        width= {"50%"}
+                        to = {"/home"}
+                        >
                         Sign in
                     </Button>
                 </VerificBtnContainer>

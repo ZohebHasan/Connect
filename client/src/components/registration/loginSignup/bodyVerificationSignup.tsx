@@ -30,6 +30,9 @@ const VerificationContainer = styled.div`
     @media (max-width: 1920px) {  
         width: 60%; 
     }
+    @media (max-width: 1440px) {  
+        width: 70%;
+    }
     display: flex;
     flex-direction: column;
     align-items: center;

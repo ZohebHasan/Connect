@@ -26,3 +26,32 @@ export const login = async (req: Request, res: Response) => {
     // send the token and user details
     res.status(200).json({ user });
 };
+
+
+//this code should work, but for some reason it's not
+// export const login = async (req: Request, res: Response) => {
+//     const { identifier, password } = req.body;
+
+//     if (!identifier || !password) {
+//         return res.status(400).json({ message: 'Identifier and password are required' });
+//     }
+
+//     const user = await User.findOne({
+//         $or: [
+//             { email: identifier.toLowerCase() },
+//             { username: identifier.toLowerCase() },
+//             { phone: identifier }
+//         ]
+//     });
+
+//     if (!user) {
+//         return res.status(400).json({ message: 'User does not exist' });
+//     }
+
+//     const validPassword = await bcrypt.compare(password, user.password);
+//     if (!validPassword) {
+//         return res.status(400).json({ message: 'Invalid password' });
+//     }
+
+//     res.status(200).json({ user });
+// };

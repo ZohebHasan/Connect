@@ -22,6 +22,12 @@ import UserCredentals from "../pages/loginSignup/userCredentials"
 import VerificationSignup from "../pages/loginSignup/verificationSignup"
 
 
+import TestPage from "../components/temp"
+import TestPage2 from "../components/temp2"
+
+import Feed from "../pages/feed"
+
+
 export default function Connect(): React.ReactElement {
     return (
         <Router>
@@ -34,29 +40,38 @@ function ConnectInner() {
     const location = useLocation();
    
     const [backgroundComponent, setBackgroundComponent] = useState<React.ReactNode>(<Background1 />);
-    const [pageVariant, setPageVariant] = useState <"fit" | "scrollable">('fit');
+    // const [pageVariant, setPageVariant] = useState <"fit" | "scrollable">('fit');
 
     useEffect(() => {
         switch (location.pathname) {
             case "/":
                 setBackgroundComponent(null); 
-                setPageVariant('scrollable'); 
+                // setPageVariant('scrollable'); 
+                break;
+            case "/home":
+                setBackgroundComponent(null); 
+                // setPageVariant('scrollable'); 
                 break;
             default:
                 setBackgroundComponent(<Background1 />);
-                setPageVariant('fit');
+                // setPageVariant('fit');
                 break;
         }
     }, [location.pathname]);
 
     return (
         <>
-            <PageContainer fadeIn={true} variant={pageVariant}>
+           
+            <PageContainer > {/* variant={pageVariant} */}  {/* fadeIn={true} */}
                 {backgroundComponent}
                 <Routes>
+                    
+                   
                     <Route path="/" element={<Intro />} />
                     <Route path="/selectLanguage" element={<SelectLanguagePage />} />
+                    {/* <Route path="/login" element={<TestPage/>} />  */}
                     <Route path="/login" element={<LoginPage />} />
+                    {/* <Route path="/login" element={<TestPage2 />} /> */}
                     <Route path="/login/signup" element={<SignupPage />} />
                     <Route path="/login/twoStep" element={<VerificationLoginPage />} />
                     <Route path="/agreement" element={<AgreementPage />} />
@@ -66,6 +81,9 @@ function ConnectInner() {
                     <Route path="/userInfoEmail" element={<UserInfoEmail />} />
                     <Route path="/userCredentials" element={<UserCredentals />}/>
                     <Route path="/verifySignup" element={<VerificationSignup />} />
+                    <Route path="/home" element={<Feed/>} />
+                   
+
                 </Routes>
             </PageContainer>
             <Copyright />

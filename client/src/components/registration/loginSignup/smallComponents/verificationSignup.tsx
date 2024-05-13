@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 
@@ -40,7 +40,11 @@ const TextContainer = styled.div`
 const Verification: React.FC = () => {
     const {isDarkMode} = useDarkMode();
     const {language} = useLanguage(); //need to be implemented
-    
+    const [code, setCode] = useState('');
+
+    const handleCodeChange = (input: string) =>{
+        setCode(input);
+    }
    
     let id = "something"
     return (
@@ -61,8 +65,14 @@ const Verification: React.FC = () => {
                 </BodyTextContainer>    
               
                 <InputAnimeContainer>
-                    <NormalInput id={""} label={"Verification Code"} width= {"60%"}/>
-                 
+                    <NormalInput 
+                        id={""} 
+                        label={"Verification Code"} 
+                        width= {"60%"}
+                        value= {code}
+                        onChange={handleCodeChange}
+                    />
+
                     <VerificAnim>
                         <PhoneGIF src = {PhoneIcon}/>
                     </VerificAnim>
