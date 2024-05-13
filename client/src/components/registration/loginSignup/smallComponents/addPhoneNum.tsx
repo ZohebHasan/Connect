@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
@@ -36,9 +36,11 @@ const TextContainer = styled.div`
 export default function SignupNonEmailContainer() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
+    const [phoneNum, setPhoneNum] = useState('');
 
-    // const handleNumCodeSelect = (code: string) => {
-    // };
+    const handlePhoneNum = (input: string) => {
+        setPhoneNum(input);
+    }
 
     return (
         <>
@@ -63,7 +65,13 @@ export default function SignupNonEmailContainer() {
                     </NumCodeContaienr>
                     
                     <InputContainer>
-                        <NormalInput id={""} label={"Phone number"} width = {"90%"}/>
+                        <NormalInput 
+                            id={""} 
+                            label={"Phone number"} 
+                            width = {"90%"}
+                            value = {phoneNum}
+                            onChange={handlePhoneNum}
+                        />
                     </InputContainer>
 
                 </NumberAndPhoneInputContainer>

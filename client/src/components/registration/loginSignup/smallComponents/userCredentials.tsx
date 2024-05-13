@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
@@ -32,6 +32,16 @@ const CredentialText: React.FC = () => {
 export default function Age() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
+    const[age,setAge] = useState('');
+    const[password, setPassword] = useState('');
+
+    const handlePassword = (input: string) =>{
+        setPassword(input);
+    }
+
+    const handleAge = (input:string) => {
+        setAge(input);
+    }
     return (
         <>
             <CredentialText/>
@@ -44,7 +54,13 @@ export default function Age() {
                         </Text>
                     </CredentialTextContainer>  
                     <InputContainer>
-                        <NormalInput id={""} label={"Phone number or email address"} width= {"75%"}/>
+                        <NormalInput 
+                            id={""}
+                            label={"Phone number or email address"} 
+                            width= {"75%"}
+                            value = {age}
+                            onChange={handleAge}
+                        />
                     </InputContainer>
                 </Credential>
 
@@ -56,8 +72,20 @@ export default function Age() {
                         </Text> 
                     </DateText> 
                     <DatePickerContainer>
-                        <HiddenInput id={""} label={"Password"} width= {"75%"}/>
-                        <HiddenInput id={""} label={"Confirm Password"} width= {"75%"}/>
+                        <HiddenInput 
+                            id={""} 
+                            label={"Password"} 
+                            width= {"75%"}
+                            value= {password}
+                            onChange={handlePassword}
+                        />
+                        <HiddenInput 
+                            id={""} 
+                            label={"Confirm Password"}
+                            width= {"75%"}
+                            value= {password}
+                            onChange={handlePassword}
+                        />
                     </DatePickerContainer>
 
                     <ButtonContainer>
