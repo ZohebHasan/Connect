@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { useLanguage } from '../../../../contexts/Language/Language';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { transLogin } from '../../../../translations/loginSignup/login/login';
 
+import { useLogin } from '../../../../contexts/login/loginContext';
 
 import Text from "../../../ConnectUI_web/common/texts/static"
-import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
-import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
+
 import Button from "../../../ConnectUI_web/common/buttons/button1"
 import SocialLoginButtons from '../elements/socialButtons';
 import OrDivider from '../elements/orDivider';
 
+import Credentials from "./loginCredentials"
 
 const LoginText: React.FC = () => {
     return (
@@ -27,29 +30,6 @@ const LoginText: React.FC = () => {
     );
 }
 
-
-const Credentials: React.FC = () => {
-    const { language } = useLanguage();
-
-    let id = "Phone, email, or username"
-    let pass = "Password"
-
-    if (transLogin && transLogin[language]) {
-        const { id: idVal, pass: passVal } = transLogin[language];
-        id = idVal;
-        pass = passVal;
-    }
-    return (
-        <CredentialContainer>
-            <NormalInput id={""} label={id} />
-            <HiddenInput id={""} label={pass} />
-        </CredentialContainer>
-    );
-}
-
-
-
-
 interface Translations {
     signIn: string;
     signUp: string;
@@ -58,6 +38,10 @@ interface Translations {
 const Login: React.FC = () => {
     const { language } = useLanguage();
     const { isDarkMode } = useDarkMode();
+ 
+    const {handleSubmit} = useLogin();
+    
+
 
     let signIn = "Sign in";
     let signUp = "Create an account";
@@ -70,11 +54,11 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <LoginText />
+            <LoginText/>
             <LoginContainer $isDarkMode={isDarkMode}>
-                <Credentials />
+                <Credentials/>
                 <ButtonContainer>
-                    <Button to="twoStep" variant="gradient" width="58%">
+                    <Button onClick={handleSubmit} variant="gradient" width="70%">
                         {signIn}
                     </Button>
                 </ButtonContainer>
@@ -89,7 +73,7 @@ const Login: React.FC = () => {
                 <OrDivider flex={0.5}/>
 
                 <ButtonContainer>
-                    <Button to="signup" variant="gradient" width="70%">
+                    <Button to = "signup" variant="gradient" width="70%">
                         {signUp}
                     </Button>
                 </ButtonContainer>
@@ -110,16 +94,6 @@ const TextContainer = styled.div`
     width: 100%;
 `
 
-const CredentialContainer = styled.div`
-    flex: 1.5;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 15px;
-`;
 
 
 const LoginContainer = styled.div<{ $isDarkMode: boolean }>`

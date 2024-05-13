@@ -9,23 +9,24 @@ interface ButtonProps {
     to?: string;
     variant: "transparent" | "gradient" | "normal"
     width?: string;
+    isActive?:boolean;
 }
   
 
-const Button: React.FC<ButtonProps> = ({ to, onClick, children, variant, width }) => {
+const Button: React.FC<ButtonProps> = ({ to, onClick, children, variant, width, isActive }) => {
   const { isDarkMode } = useDarkMode();
 
   
 
   if (to) {
     return (
-      <StyledLink to={to} onClick={onClick} $isDarkMode={isDarkMode} $variant = {variant} $width = {width}>
+      <StyledLink to={to} onClick={onClick} $isDarkMode={isDarkMode} $variant = {variant} $width = {width} $isActive = {isActive}>
         {children}
       </StyledLink>
     );
   } else {
     return (
-      <StyledButton onClick={onClick} $isDarkMode={isDarkMode} $variant= {variant} $width = {width} > 
+      <StyledButton onClick={onClick} $isDarkMode={isDarkMode} $variant= {variant} $width = {width} $isActive = {isActive} > 
         {children}
       </StyledButton>
     );
@@ -44,6 +45,7 @@ interface StyleProps{
   $isDarkMode: boolean;
   $variant: "transparent" | "gradient" | "normal";
   $width ?: string;
+  $isActive?:boolean;
 }
 
 
@@ -61,6 +63,24 @@ const baseStyles = css<StyleProps>`
       default:
         return 'red'; 
     }
+  }};
+
+  background-color: ${({ $variant, $isDarkMode, $isActive }) => {
+    if($isActive){
+      switch ($variant) {
+        case 'transparent':
+          return $isDarkMode ? 'rgba(130, 127, 127, 0.4)' : 'rgba(130, 127, 127, 0.4)'; 
+        case 'normal':
+          return $isDarkMode ? 'rgba(186, 186, 186, 0.85)' : 'rgba(220, 218, 218, 0.95)'; 
+        case 'gradient':
+          return $isDarkMode ? 
+            'linear-gradient(to right, rgba(29, 38, 113, 0.55), rgba(195, 55, 100, 0.55))' : 
+            'linear-gradient(to right, rgba(102, 45, 140, 0.55), rgba(237, 30, 121, 0.55))';
+        default:
+          return 'red'; 
+      }
+    }
+
   }};
 
   color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : '#212121'};
