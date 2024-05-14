@@ -12,8 +12,7 @@ const schema = new mongoose_1.Schema({
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
-    phoneNumber: { type: String, required: false }
+    phoneNumber: { type: String, required: false },
 });
-;
 // export the user model
 exports.default = (0, mongoose_1.model)('User', schema);
