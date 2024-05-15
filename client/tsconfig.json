@@ -17,7 +17,7 @@
   "include": [
     "src/**/*",
     "src/app/App.tsx"
-  ],
+, "types"  ],
   "exclude": [
     "node_modules", // Standard practice to exclude node_modules
     "dist" // Exclude the output directory from the source file list
