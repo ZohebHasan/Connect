@@ -11,6 +11,7 @@ import MicrosoftLogo from "../assets/microsoft.png";
 import AppleLogo from "../assets/appleLogoBlack.png";
 import GoogleLogo from "../assets/google.png";
 
+
 interface SocialLoginSignupButtonsProps {
   text: string;
   flex: number;

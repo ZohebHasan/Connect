@@ -21,9 +21,10 @@ import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 import UserCredentals from "../pages/loginSignup/userCredentials"
 import VerificationSignup from "../pages/loginSignup/verificationSignup"
 
+import GoogleCallBack from '../components/registration/loginSignup/elements/GoogleCallBack';
 
-import TestPage from "../components/temp"
-import TestPage2 from "../components/temp2"
+import DemoSignup from "../components/temp"
+import DemoLogin from "../components/temp2"
 
 import Feed from "../pages/feed"
 
@@ -63,15 +64,18 @@ function ConnectInner() {
         <>
            
             <PageContainer > {/* variant={pageVariant} */}  {/* fadeIn={true} */}
-                {backgroundComponent}
-                <Routes>
-                    
-                   
+                {/* {backgroundComponent} */}
+                <Routes>   
+
+
+
+                    <Route path="/auth/google/callback" element={<GoogleCallBack />} />  {/* this is for testing */}
+
                     <Route path="/" element={<Intro />} />
                     <Route path="/selectLanguage" element={<SelectLanguagePage />} />
-                    {/* <Route path="/login" element={<TestPage/>} />  */}
+                    {/* <Route path="/login" element={<DemoSignup/>} />  */}
                     <Route path="/login" element={<LoginPage />} />
-                    {/* <Route path="/login" element={<TestPage2 />} /> */}
+                    {/* <Route path="/login" element={<DemoLogin />} /> */}
                     <Route path="/login/signup" element={<SignupPage />} />
                     <Route path="/login/twoStep" element={<VerificationLoginPage />} />
                     <Route path="/agreement" element={<AgreementPage />} />
