@@ -136,19 +136,19 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setLoading(true);
 
         //KAMRUL LOOK AT HERE! This is only working for email, but the payload below is compatable for any type [email, phonenumber, username]
-        const payload = {
-            // username: validateUsername(userId) ? userId.toLowerCase() : undefined,
-            email: validateEmail(userId) ? userId.toLowerCase() : undefined,
-            // phone: validatePhone(userId) ? userId : undefined,  
-            password
-        };
+        // const payload = {
+        //     // username: validateUsername(userId) ? userId.toLowerCase() : undefined,
+        //     email: validateEmail(userId) ? userId.toLowerCase() : undefined,
+        //     // phone: validatePhone(userId) ? userId : undefined,  
+        //     password
+        // };
 
         // KAMRUL LOOK AT HERE!But this code is not working even though it should. 
 
-        // const payload = {
-        //     identifier: userId.trim(),  
-        //     password
-        // };
+        const payload = {
+            identifier: userId.trim(),  
+            password
+        };
 
         console.log(payload)
         try {
@@ -181,3 +181,5 @@ export const useLogin = () => {
     }
     return context;
 };
+
+
