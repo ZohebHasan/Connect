@@ -9,9 +9,10 @@ export const signup = async (req: Request, res: Response) => {
     // get the user details from the request body
     const { firstName, lastName, email, password, username, phoneNumber } = req.body;
     // check if the user already exists
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-        return res.status(400).json({ message: 'User already exists' });
+   
+    const userExists2 = isUnique(email, username, phoneNumber);
+    if (!userExists2) {
+        return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
     }
     // hash the password
     const salt = await bcrypt.genSalt(10);
@@ -35,3 +36,19 @@ export const signup = async (req: Request, res: Response) => {
 
 };
 
+const isUnique = async (email: string, username: string, phoneNumber: string) =>  {
+    
+    const exists =  await User.findOne({
+        $or: [
+            { email },
+            { username },
+            { phoneNumber }
+        ]
+    });
+    if(!exists){
+        return true;
+    }
+    return false;
+
+
+}

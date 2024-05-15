@@ -21,9 +21,9 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // get the user details from the request body
     const { firstName, lastName, email, password, username, phoneNumber } = req.body;
     // check if the user already exists
-    const userExists = yield user_model_1.default.findOne({ email });
-    if (userExists) {
-        return res.status(400).json({ message: 'User already exists' });
+    const userExists2 = isUnique(email, username, phoneNumber);
+    if (!userExists2) {
+        return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
     }
     // hash the password
     const salt = yield bcrypt_1.default.genSalt(10);
@@ -46,3 +46,16 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(201).json({ user });
 });
 exports.signup = signup;
+const isUnique = (email, username, phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
+    const exists = yield user_model_1.default.findOne({
+        $or: [
+            { email },
+            { username },
+            { phoneNumber }
+        ]
+    });
+    if (!exists) {
+        return true;
+    }
+    return false;
+});
