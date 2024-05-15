@@ -12,12 +12,13 @@ import { useLogin } from '../../../../contexts/login/loginContext';
 import Text from "../../../ConnectUI_web/common/texts/static"
 
 import Button from "../../../ConnectUI_web/common/buttons/button1"
-import SocialLoginButtons from '../elements/socialButtons';
+
+
+import SocialLoginButtons from '../elements/socialButtonsLogin';
 import OrDivider from '../elements/orDivider';
 
 
 import Credentials from "./loginCredentials"
-import GoogleOauth from './google_Oauth';
 
 
 const LoginText: React.FC = () => {
@@ -41,9 +42,9 @@ interface Translations {
 const Login: React.FC = () => {
     const { language } = useLanguage();
     const { isDarkMode } = useDarkMode();
- 
-    const {handleSubmit} = useLogin();
-    
+
+    const { handleSubmit } = useLogin();
+
 
 
     let signIn = "Sign in";
@@ -57,26 +58,21 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <LoginText/>
+            <LoginText />
             <LoginContainer $isDarkMode={isDarkMode}>
-                <Credentials/>
+                <Credentials />
                 <ButtonContainer>
                     <Button onClick={handleSubmit} variant="gradient" width="70%">
                         {signIn}
                     </Button>
                 </ButtonContainer>
 
-                <SocialLoginButtons 
-                    flex = {1} 
-                    text = {"Sign in with"}
-                    toLoginApple= {"signInWithApple"}
-                    toLoginGoogle= {"signInWithGoogle"}
-                    toLoginMicrosoft= {"signInWithMicrosoft"} />
-                    <GoogleOauth />
-                <OrDivider flex={0.5}/>
+                <SocialLoginButtons flex={1}/>
+                {/* <GoogleOauth /> */}
+                <OrDivider flex={0.5} />
 
                 <ButtonContainer>
-                    <Button to = "signup" variant="gradient" width="70%">
+                    <Button to="signup" variant="gradient" width="70%">
                         {signUp}
                     </Button>
                 </ButtonContainer>
