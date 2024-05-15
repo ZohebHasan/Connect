@@ -13,13 +13,12 @@ import Text from "../../../ConnectUI_web/common/texts/static"
 
 import Button from "../../../ConnectUI_web/common/buttons/button1"
 
-// import SocialLoginButtons from '../elements/socialButtons';
+
 import SocialLoginButtons from '../elements/socialButtonsLogin';
 import OrDivider from '../elements/orDivider';
 
 
 import Credentials from "./loginCredentials"
-// import GoogleOauth from './google_Oauth';
 
 
 const LoginText: React.FC = () => {

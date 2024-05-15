@@ -21,7 +21,7 @@ import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 import UserCredentals from "../pages/loginSignup/userCredentials"
 import VerificationSignup from "../pages/loginSignup/verificationSignup"
 
-import OAuth2Callback from '../components/registration/loginSignup/elements/oAuth2Google';
+import GoogleCallBack from '../components/registration/loginSignup/elements/GoogleCallBack';
 
 import DemoSignup from "../components/temp"
 import DemoLogin from "../components/temp2"
@@ -69,11 +69,7 @@ function ConnectInner() {
 
 
 
-                    <Route path="/oauth2/callback" element={<OAuth2Callback />} />  {/* this is for testing */}
-              
-
-
-
+                    <Route path="/auth/google/callback" element={<GoogleCallBack />} />  {/* this is for testing */}
 
                     <Route path="/" element={<Intro />} />
                     <Route path="/selectLanguage" element={<SelectLanguagePage />} />

@@ -11,16 +11,17 @@ interface SocialLoginSignupButtonsProps {
 }
 
 const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({ flex }) => {
+
   const handleGoogleLogin = () => {
-    const clientId = "927314664227-e5ukk88gdjem7f4mn8dkk6op0fjv6ej8.apps.googleusercontent.com";
-    const redirectUri = "http://localhost:3000/oauth2/callback";
-    const scope = "email profile";
-    const responseType = "code";
-    const state = "random_state";
+    const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+    const clientId = "907262819056-kohknc54tiiima4gdehjfc7r2k5fri9u.apps.googleusercontent.com"
+    const redirectUri = 'http://localhost:3000/auth/google/callback';
+    const scope = 'profile email';
+    const responseType = 'code';
 
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=${responseType}&scope=${encodeURIComponent(scope)}&state=${state}`;
+    const authUrl = `${googleAuthUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
 
-    window.location.href = googleAuthUrl;
+    window.location.href = authUrl;
   };
 
   return (
