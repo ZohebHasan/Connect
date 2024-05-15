@@ -15,8 +15,9 @@
     "sourceMap": true // Enable source map generation
   },
   "include": [
-    "src/**/*" // Include all files in the src folder
-, "src/app/App.tsx"  ],
+    "src/**/*",
+    "src/app/App.tsx"
+, "types"  ],
   "exclude": [
     "node_modules", // Standard practice to exclude node_modules
     "dist" // Exclude the output directory from the source file list
