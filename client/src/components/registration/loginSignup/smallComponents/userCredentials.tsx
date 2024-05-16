@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { useLanguage } from '../../../../contexts/Language/Language';
@@ -12,7 +12,6 @@ import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
 import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
 
 import { useSignup } from '../../../../contexts/signup/signupContext';
-
 
 const CredentialText: React.FC = () => {
     return (
@@ -27,11 +26,45 @@ const CredentialText: React.FC = () => {
     );
 }
 
+const DisplayErrorMessages = () => {
+    const {
+        errors,
+        userIdEmptyError,
+        passwordEmptyError } = useSignup();
+
+    let errorMessage = null;
+
+    if (userIdEmptyError && passwordEmptyError) {
+        errorMessage = <ErrorMessage>User id and password fields are empty</ErrorMessage>;
+    }
+    else if (passwordEmptyError) {
+        errorMessage = <ErrorMessage>Password field is empty</ErrorMessage>;
+    }
+    else if (userIdEmptyError) {
+        errorMessage = <ErrorMessage>User id field is empty</ErrorMessage>;
+    }
+    else if ((errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError) {
+        errorMessage = <ErrorMessage>Incorrect user id and password</ErrorMessage>;
+    }
+    else if (errors.emailError && errors.phoneError && errors.usernameError) {
+        errorMessage = <ErrorMessage>Incorrect user id</ErrorMessage>;
+    }
+    else if (errors.passwordError) {
+        errorMessage = <ErrorMessage>Incorrect Password</ErrorMessage>;
+    }
+
+    return (
+        <>
+            {errorMessage}
+        </>
+    );
+};
+
 export default function Credentials() {
     const { language } = useLanguage();
     const { isDarkMode } = useDarkMode();
     const [age, setAge] = useState('');
-   
+
 
     const {
         userId,
@@ -42,16 +75,13 @@ export default function Credentials() {
         handlePasswordChange,
         handleConfirmPasswordChange,
 
-        errors, 
-        userIdEmptyError, 
-        passwordEmptyError, 
-        confirmPasswordEmptyError
+        errors,
+        userIdEmptyError,
+        passwordEmptyError,
+        confirmPasswordEmptyError,
 
-        } = useSignup();
-
-    // const handlePassword = (input: string) => {
-    //     setPassword(input);
-    // }
+        handleCredentialSubmit
+    } = useSignup();
 
     const handleAge = (input: string) => {
         setAge(input);
@@ -72,12 +102,11 @@ export default function Credentials() {
                             id={""}
                             label={"Phone number or email address"}
                             width={"75%"}
-                            value={age}
-                            onChange={handleAge}
+                            value={userId}
+                            onChange={handleUserIdChange}
                         />
                     </InputContainer>
                 </Credential>
-
 
                 <Password>
                     <DateText>
@@ -90,14 +119,14 @@ export default function Credentials() {
                             id={""}
                             label={"Password"}
                             width={"75%"}
-                            value={""}
+                            value={password}
                             onChange={handlePasswordChange}
                         />
                         <HiddenInput
                             id={""}
                             label={"Confirm Password"}
                             width={"75%"}
-                            value={""}
+                            value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                         />
                     </DatePickerContainer>
@@ -107,6 +136,7 @@ export default function Credentials() {
                             variant={"gradient"}
                             width={"60%"}
                             to={"../verifySignup"}
+                            // onClick={handleCredentialSubmit}
                         >
                             Next
                         </Button>
@@ -224,3 +254,23 @@ const ButtonContainer = styled.div`
 
 
 
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-10px); }
+  20% { transform: translateX(10px); }
+  30% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  60% { transform: translateX(10px); }
+  70% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  90% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+`;
+
+
+const ErrorMessage = styled.div`
+    color: red;
+    font-size: 14px;
+    animation: ${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both; 
+`

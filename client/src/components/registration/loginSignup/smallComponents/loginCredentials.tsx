@@ -61,7 +61,7 @@ const Credentials: React.FC = () => {
         onChange={handleUserIdChange}
       />
       <HiddenInput
-        id={""}
+        id={"password"}
         label={"Password"}
         value={password}
         onChange={handlePasswordChange}

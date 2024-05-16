@@ -60,7 +60,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [age, setAge] = useState(); //incomplete
-    
+
     const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false });
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
@@ -150,7 +150,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         try {
             const response = await axios.post('http://localhost:8000/check-identifier', { identifier: userId });
             console.log('Identifier check successful:', response.data);
-            navigate('/verifySignup');
+            navigate('../verifySignup');
         } catch (error) {
             console.error('Identifier check error:', error);
             setLoading(false);
