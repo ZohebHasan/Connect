@@ -17,7 +17,7 @@ const validateUsername = (username: string): boolean => {
 const validatePassword = (password: string): boolean => /\d/.test(password) && password.length >= 6;
 
 
-interface AuthContextType {
+interface LoginContextType {
     userId: string;
     password: string;
     handleUserIdChange: (input: string) => void;
@@ -25,7 +25,6 @@ interface AuthContextType {
     handleUserIdError: () => void;
     handlePasswordError: () => void;
     errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean };
-  
     passwordEmptyError: boolean;
     userIdEmptyError:  boolean;
     setErrors: (errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
@@ -34,7 +33,7 @@ interface AuthContextType {
     
 }
 
-export const LoginContext = createContext<AuthContextType | undefined>(undefined);
+export const LoginContext = createContext<LoginContextType | undefined>(undefined);
 
 export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [userId, setUserId] = useState('');
@@ -95,17 +94,10 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     }
 
-    // console.log("Email Error context: ", errors.emailError);
-    // console.log("Phone Error context: ", errors.phoneError);
-    // console.log("Username Error context: ", errors.usernameError);
-    // console.log("Password Error context: ", errors.passwordError);
-    // console.log("All errors context: ", (errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError);
-    // console.log("User ID errors context: ", (errors.emailError && errors.phoneError && errors.usernameError));
-
-
     const validateCredentials = () => {
         return (validateEmail(userId) || validatePhone(userId) || validateUsername(userId)) && validatePassword(password);
     };
+    
 
     const handleSubmit = async () => {
         if(userId != '') {
@@ -135,26 +127,17 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         
         setLoading(true);
 
-        //KAMRUL LOOK AT HERE! This is only working for email, but the payload below is compatable for any type [email, phonenumber, username]
+
         const payload = {
-            // username: validateUsername(userId) ? userId.toLowerCase() : undefined,
-            email: validateEmail(userId) ? userId.toLowerCase() : undefined,
-            // phone: validatePhone(userId) ? userId : undefined,  
+            identifier: userId.trim(),  
             password
         };
-
-        // KAMRUL LOOK AT HERE!But this code is not working even though it should. 
-
-        // const payload = {
-        //     identifier: userId.trim(),  
-        //     password
-        // };
 
         console.log(payload)
         try {
             const response = await axios.post('http://localhost:8000/login', payload);
             console.log('Login successful:', response.data);
-            navigate('twoStep');
+            navigate('/login/twoStep');
         } catch (error) {
             console.error('Login error:', error);
             setLoading(false);

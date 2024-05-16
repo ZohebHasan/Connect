@@ -11,8 +11,8 @@ const App: React.FC = () => {
       <LanguageProvider>
         <DarkModeProvider>
           <SidebarProvider>
-            <GlobalStyle/>
-            <Connect/>
+            <GlobalStyle />
+            <Connect />
           </SidebarProvider>
         </DarkModeProvider>
       </LanguageProvider>

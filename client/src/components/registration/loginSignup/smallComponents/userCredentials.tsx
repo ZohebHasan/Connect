@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
@@ -10,11 +10,15 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 import DatePicker from '../elements/datePicker';
 import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
 import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
+
+import { useSignup } from '../../../../contexts/signup/signupContext';
+
+
 const CredentialText: React.FC = () => {
     return (
         <TextContainer>
             <Text size={"3rem"} variant={"normal"} fontWeight={"500"}>
-                Let's setup your 
+                Let's setup your
             </Text>
             <Text size={"3rem"} variant={"gradient"} fontWeight={"500"}>
                 Account.
@@ -23,42 +27,52 @@ const CredentialText: React.FC = () => {
     );
 }
 
+export default function Credentials() {
+    const { language } = useLanguage();
+    const { isDarkMode } = useDarkMode();
+    const [age, setAge] = useState('');
+   
 
+    const {
+        userId,
+        password,
+        confirmPassword,
 
+        handleUserIdChange,
+        handlePasswordChange,
+        handleConfirmPasswordChange,
 
+        errors, 
+        userIdEmptyError, 
+        passwordEmptyError, 
+        confirmPasswordEmptyError
 
+        } = useSignup();
 
+    // const handlePassword = (input: string) => {
+    //     setPassword(input);
+    // }
 
-export default function Age() {
-    const {language} = useLanguage(); 
-    const {isDarkMode} = useDarkMode();
-    const[age,setAge] = useState('');
-    const[password, setPassword] = useState('');
-
-    const handlePassword = (input: string) =>{
-        setPassword(input);
-    }
-
-    const handleAge = (input:string) => {
+    const handleAge = (input: string) => {
         setAge(input);
     }
     return (
         <>
-            <CredentialText/>
-            <Container $isDarkMode={isDarkMode}>  
+            <CredentialText />
+            <Container $isDarkMode={isDarkMode}>
 
                 <Credential>
                     <CredentialTextContainer>
                         <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
                             Account credential
                         </Text>
-                    </CredentialTextContainer>  
+                    </CredentialTextContainer>
                     <InputContainer>
-                        <NormalInput 
+                        <NormalInput
                             id={""}
-                            label={"Phone number or email address"} 
-                            width= {"75%"}
-                            value = {age}
+                            label={"Phone number or email address"}
+                            width={"75%"}
+                            value={age}
                             onChange={handleAge}
                         />
                     </InputContainer>
@@ -69,45 +83,45 @@ export default function Age() {
                     <DateText>
                         <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
                             Account password
-                        </Text> 
-                    </DateText> 
+                        </Text>
+                    </DateText>
                     <DatePickerContainer>
-                        <HiddenInput 
-                            id={""} 
-                            label={"Password"} 
-                            width= {"75%"}
-                            value= {password}
-                            onChange={handlePassword}
+                        <HiddenInput
+                            id={""}
+                            label={"Password"}
+                            width={"75%"}
+                            value={""}
+                            onChange={handlePasswordChange}
                         />
-                        <HiddenInput 
-                            id={""} 
+                        <HiddenInput
+                            id={""}
                             label={"Confirm Password"}
-                            width= {"75%"}
-                            value= {password}
-                            onChange={handlePassword}
+                            width={"75%"}
+                            value={""}
+                            onChange={handleConfirmPasswordChange}
                         />
                     </DatePickerContainer>
 
                     <ButtonContainer>
-                        <Button 
-                            variant= {"gradient"} 
-                            width= {"60%"}
-                            to = {"/verifySignup"}
-                            >
-                                Next
-                        </Button> 
+                        <Button
+                            variant={"gradient"}
+                            width={"60%"}
+                            to={"../verifySignup"}
+                        >
+                            Next
+                        </Button>
                     </ButtonContainer>
 
                 </Password>
-                          
+
             </Container>
-     
-  
+
+
         </>
     );
-  }
+}
 
-  const Container = styled.div<{ $isDarkMode: boolean }>`
+const Container = styled.div<{ $isDarkMode: boolean }>`
     z-index: 1;
     flex: 2;
     width: 100%;
@@ -123,8 +137,8 @@ export default function Age() {
     //   gap: 1rem;
 `;
 
-   
-  const TextContainer = styled.div`
+
+const TextContainer = styled.div`
     flex: 0.7;
     display: flex;
     flex-direction: column;
@@ -133,7 +147,7 @@ export default function Age() {
     width: 100%;
     // gap: 0.8rem;
 `
-  const Credential = styled.div`
+const Credential = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
@@ -143,7 +157,7 @@ export default function Age() {
     // background-color:green;
   `
 
-  const CredentialTextContainer = styled.div`
+const CredentialTextContainer = styled.div`
     flex: 1;
     display: flex;
     align-items: flex-start;
@@ -153,7 +167,7 @@ export default function Age() {
    
   `
 
-  const InputContainer = styled.div`
+const InputContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -162,7 +176,7 @@ export default function Age() {
     width: 100%;
   `
 
-  const Password = styled.div`
+const Password = styled.div`
     flex: 2;
     display: flex;
     align-items: center;
@@ -183,7 +197,7 @@ const DateText = styled.div`
     // background-color: blue;
 `
 
-  const DatePickerContainer = styled.div`
+const DatePickerContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction:column;
@@ -193,8 +207,8 @@ const DateText = styled.div`
     // background-color: pink;
 `
 
- 
-  const ButtonContainer = styled.div`
+
+const ButtonContainer = styled.div`
     flex: 0.9;
     display: flex;
     align-items: center;

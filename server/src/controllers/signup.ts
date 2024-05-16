@@ -1,13 +1,13 @@
 // creating a controller to signup a user
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User from '../models/user_model';
+import User from '../models/userModel';
  // import body parser
 
 // signup controller
 export const signup = async (req: Request, res: Response) => {
     // get the user details from the request body
-    const { firstName, lastName, email, password, username, phoneNumber } = req.body;
+    const { fullName, email, password, username, phoneNumber } = req.body;
     // check if the user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -18,8 +18,7 @@ export const signup = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     // create a new user
     const user = new User({
-        firstName,
-        lastName,
+        fullName,
         email,
         password: hashedPassword,
         username,
