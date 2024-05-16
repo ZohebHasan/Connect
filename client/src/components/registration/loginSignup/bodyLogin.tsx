@@ -14,7 +14,7 @@ const Body: React.FC = () => {
             <Poster />
             <LoginBody>
                 <LoginContainer>
-                    <Login/>
+                    <Login />
                 </LoginContainer>
                 <BottomLogin flex={1.5} />
             </LoginBody>
@@ -30,6 +30,9 @@ const LoginContainer = styled.div`
     width: 70%;
     @media (max-width: 1920px) {  
         width: 60%; 
+    }
+    @media (max-width: 1440px) {  
+        width: 70%;
     }
     display: flex;
     flex-direction: column;

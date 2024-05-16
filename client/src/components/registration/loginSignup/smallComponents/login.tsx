@@ -1,17 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import { useLanguage } from '../../../../contexts/Language/Language';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { transLogin } from '../../../../translations/loginSignup/login/login';
 
+import { useLogin } from '../../../../contexts/login/loginContext';
 
 import Text from "../../../ConnectUI_web/common/texts/static"
-import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
-import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
+
 import Button from "../../../ConnectUI_web/common/buttons/button1"
-import SocialLoginButtons from '../elements/socialButtons';
+
+
+import SocialLoginButtons from '../elements/socialButtonsLogin';
 import OrDivider from '../elements/orDivider';
+
+
+import Credentials from "./loginCredentials"
 
 
 const LoginText: React.FC = () => {
@@ -27,29 +33,6 @@ const LoginText: React.FC = () => {
     );
 }
 
-
-const Credentials: React.FC = () => {
-    const { language } = useLanguage();
-
-    let id = "Phone, email, or username"
-    let pass = "Password"
-
-    if (transLogin && transLogin[language]) {
-        const { id: idVal, pass: passVal } = transLogin[language];
-        id = idVal;
-        pass = passVal;
-    }
-    return (
-        <CredentialContainer>
-            <NormalInput id={""} label={id} />
-            <HiddenInput id={""} label={pass} />
-        </CredentialContainer>
-    );
-}
-
-
-
-
 interface Translations {
     signIn: string;
     signUp: string;
@@ -58,35 +41,36 @@ interface Translations {
 const Login: React.FC = () => {
     const { language } = useLanguage();
     const { isDarkMode } = useDarkMode();
+    const { handleSubmit } = useLogin();
+
 
     let signIn = "Sign in";
     let signUp = "Create an account";
 
     if (transLogin && transLogin[language]) {
-        const { signIn: signInVal, signUp: signUpVal } = transLogin[language] as Translations;
+        const {signIn: signInVal, signUp: signUpVal} = transLogin[language] as Translations;
         signIn = signInVal;
         signUp = signUpVal;
     }
-
+   
     return (
         <>
             <LoginText />
             <LoginContainer $isDarkMode={isDarkMode}>
                 <Credentials />
                 <ButtonContainer>
-                    <Button to="twoStep" variant="gradient" width="58%">
+                    <Button 
+                        onClick={handleSubmit} 
+                        variant="gradient" 
+                        width="70%"
+                    >
                         {signIn}
                     </Button>
                 </ButtonContainer>
 
-                <SocialLoginButtons 
-                    flex = {1} 
-                    text = {"Sign in with"}
-                    toLoginApple= {"signInWithApple"}
-                    toLoginGoogle= {"signInWithGoogle"}
-                    toLoginMicrosoft= {"signInWithMicrosoft"} />
-
-                <OrDivider flex={0.5}/>
+                <SocialLoginButtons flex={1}/>
+          
+                <OrDivider flex={0.5} />
 
                 <ButtonContainer>
                     <Button to="signup" variant="gradient" width="70%">
@@ -110,16 +94,6 @@ const TextContainer = styled.div`
     width: 100%;
 `
 
-const CredentialContainer = styled.div`
-    flex: 1.5;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 15px;
-`;
 
 
 const LoginContainer = styled.div<{ $isDarkMode: boolean }>`

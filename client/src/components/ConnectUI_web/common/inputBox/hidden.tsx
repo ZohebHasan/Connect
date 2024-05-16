@@ -12,17 +12,34 @@ interface HiddenInputProps {
   id: string;
   label: string;
   width?: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const HiddenInput: React.FC<HiddenInputProps> = ({ id, label, width }) => {
+const HiddenInput: React.FC<HiddenInputProps> = ({ id, label, value, onChange, width }) => {
   const [showPassword, setShowPassword] = useState(false);
   const { isDarkMode } = useDarkMode();
-  const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const inputType = showPassword ? "text" : "password";
+
+  const inputId = `input-${id}`;
+  
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
 
   return (
     <InputContainer width = {width}>
-      <InputField type={inputType} id={id} $isDarkMode={isDarkMode} placeholder = {""}/>
+      <InputField 
+          type={inputType} 
+          id={id} 
+          $isDarkMode={isDarkMode} 
+          placeholder = {""}
+          value={value}
+          onChange={handleChange}
+  
+      />
       <Label htmlFor={id} $isDarkMode={isDarkMode}>
         {label}
       </Label>

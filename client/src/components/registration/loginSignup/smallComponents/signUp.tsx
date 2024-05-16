@@ -7,7 +7,10 @@ import { useLanguage } from '../../../../contexts/Language/Language';
 import Text from "../../../ConnectUI_web/common/texts/static"
 import Button from "../../../ConnectUI_web/common/buttons/button1"
 import OrDivider from '../elements/orDivider';
-import SocialSignupButtons from '../elements/socialButtons';
+import SocialSignupButtons from '../elements/socialButtonsSignup';
+
+
+
 
 const SignupEmailText: React.FC = () => {
     return (
@@ -40,22 +43,13 @@ export default function SignupNonEmailContainer() {
         <>
             <SignupEmailText/>
             <SignupContainer $isDarkMode={isDarkMode}>    
-                <SocialSignupButtons 
-                        flex = {1} 
-                        text= {"Sign up with"} 
-                        // toSignupApple= {"signupWithApple"}
-                        // toSignupGoogle= {"signupWithGoogle"}
-                        // toSignupMicrosoft= {"signupWithMicrosoft"}
-                        toSignupApple= {"/userInfoEmail"}
-                        toSignupGoogle= {"/userInfoEmail"}
-                        toSignupMicrosoft= {"/userInfoEmail"}
-                        />      
+                <SocialSignupButtons flex = {1}/>      
                 <OrDivider flex={0}/>
                 <ButtonContainer>
                     <Button 
                         variant="gradient" 
                         width="80%"
-                        to = {"/userCredentials"}>
+                        to = {"/signup/userCredentials"}>
                         sign up with email OR phone
                     </Button>
                 </ButtonContainer>           

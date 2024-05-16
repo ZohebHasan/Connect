@@ -22,7 +22,9 @@ const HeaderSelectLang: React.FC = () => {
                   <DarkLightToggle />
               </DarkLightToggleContainer>
               <OptionButtonContainer>
+                <OptionButtonWrapper>
                   <OptionButton/>
+                </OptionButtonWrapper>   
               </OptionButtonContainer>
           </HeaderContainer>
         </>
@@ -31,8 +33,10 @@ const HeaderSelectLang: React.FC = () => {
 
 export default HeaderSelectLang;
 
+
+
 const LogoContainer = styled.div`
-  flex: 4.3;
+  flex: 5.5;
   display:flex;
   align-items: center;
   position: relative;
@@ -40,6 +44,7 @@ const LogoContainer = styled.div`
   z-index: 3;         
   padding-top: 0.1875rem; 
   padding-bottom: 0.1875rem; 
+  // background-color:blue;
   
 `;
 
@@ -48,12 +53,31 @@ const DarkLightToggleContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  // background-color:pink;
 `;
 
-const OptionButtonContainer = styled.div`
-  flex: 1;
+const OptionButtonWrapper = styled.div`
   display: flex;
+  width: 60%;
+  align-items: center;
   justify-content: flex-end;
-  align-items:center;
-  margin-right: 0.3rem;
+  
+`
+const OptionButtonContainer = styled.div`
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform-origin: center; // Ensure this is applied universally
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.05);
+    transform-origin: center; // Redefine it here to avoid any overrides
+  }
+
+  &:active {
+    transform: scale(1.00);
+  }
 `;
