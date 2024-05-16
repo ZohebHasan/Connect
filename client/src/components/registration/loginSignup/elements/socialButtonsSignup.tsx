@@ -47,7 +47,7 @@ const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({ fle
   return (
     <SocialButtons $flex={flex}>
       <Text size={"17px"} variant={"normal"} fontWeight={"100"}>
-        Sign in with:
+        Sign up with:
       </Text>
 
       <MicrosoftButton onClick={handleMicrosoftLogin}>

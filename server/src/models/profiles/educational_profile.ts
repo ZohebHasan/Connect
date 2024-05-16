@@ -1,6 +1,6 @@
 // creating an educational profile schema using mongoose
 import { Schema, model } from 'mongoose';
-import User from '../user_model';
+import User from '../userModel';
 // Educational:
 // school: string
 // degree: string

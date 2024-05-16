@@ -7,8 +7,6 @@ import LoginBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
 import Login from './smallComponents/login';
 import BottomLogin from './smallComponents/bottom';
 
-import { LoginProvider } from '../../../contexts/login/loginContext';
-
 
 const Body: React.FC = () => {
     return (
@@ -16,9 +14,7 @@ const Body: React.FC = () => {
             <Poster />
             <LoginBody>
                 <LoginContainer>
-                    <LoginProvider>
-                        <Login/>
-                    </LoginProvider>
+                    <Login />
                 </LoginContainer>
                 <BottomLogin flex={1.5} />
             </LoginBody>

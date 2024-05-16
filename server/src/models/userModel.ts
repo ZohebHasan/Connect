@@ -5,8 +5,7 @@
 import { Schema, model } from 'mongoose';
 // creating the user interface 
 interface User {
-    firstName: string;
-    lastName: string;
+    fullName: string;
     email: string;
     password: string;
     username: string;
@@ -18,14 +17,13 @@ interface User {
 // creating the user schema
 
 const schema = new Schema<User>({
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    fullName: { type: String, required: true },
+    email: { type: String, required: false, unique: true },
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
-    phoneNumber: { type: String, required: false },
+    phoneNumber: { type: String, required: false, unique: true },
 });
 
 // export the user model

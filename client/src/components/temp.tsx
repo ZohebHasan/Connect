@@ -41,13 +41,8 @@ const UserInfo = () => {
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        const names = fullName.split(' ');
-        const firstName = names[0];
-        const lastName = names.slice(1).join(' ');
-
         const userData = {
-            firstName,
-            lastName,
+            fullName,
             email,
             password,
             username,
@@ -62,6 +57,28 @@ const UserInfo = () => {
         }
     };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     return (
         <StyledForm onSubmit={handleSubmit}>
             <StyledInput

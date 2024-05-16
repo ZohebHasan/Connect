@@ -12,6 +12,7 @@ import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
 
+
 const VerificationText: React.FC = () => {
     return (
         <TextContainer>
@@ -39,15 +40,16 @@ const TextContainer = styled.div`
 
 const Verification: React.FC = () => {
     const {isDarkMode} = useDarkMode();
-    const {language} = useLanguage(); //need to be implemented
+    const {language} = useLanguage(); 
     const [code, setCode] = useState('');
+
+
 
     const handleCodeChange = (input: string) =>{
         setCode(input);
     }
     
    
-    let id = "z*********al@gmail.com"
     return (
         <>
             <VerificationText/>
@@ -61,7 +63,7 @@ const Verification: React.FC = () => {
          
                 <BodyTextContainer>
                     <Text size={"15px"} variant={"transparent"} fontWeight={"200"}>
-                        A code has been sent to {id}
+                        A code has been sent to Some credential
                     </Text>
                 </BodyTextContainer>    
               

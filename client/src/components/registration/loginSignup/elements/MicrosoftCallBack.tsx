@@ -2,17 +2,17 @@ import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const GoogleCallback: React.FC = () => {
+const MicrosoftCallback: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
     const code = query.get('code');
-    console.log("code is: " + code);
-  
+    console.log("Code received from Microsoft: ", code);
+
     if (code) {
-      axios.post('http://localhost:3000/auth/google/callback', { code })
+      axios.post('http://localhost:3001/auth/microsoft/callback', { code })
         .then(response => {
           console.log('User data:', response.data);
           navigate('/home', { state: { user: response.data } });
@@ -20,14 +20,14 @@ const GoogleCallback: React.FC = () => {
         .catch(error => {
           console.error('Error during authentication:', error);
         });
-    }
+    }                                                                                                                                                                                                                                                               
   }, [location, navigate]);
 
   return (
     <div>
-      <p>Authenticating from google</p>
+      <p>Authenticating from microsoft</p>
     </div>
   );
 };
 
-export default GoogleCallback;
+export default MicrosoftCallback;
