@@ -20,8 +20,5 @@ const parseIdentifier = (identifier: string) => {
     if (identifier.includes('@')) {
         return { email: identifier.toLowerCase() };
     }
-    if (isNaN(parseInt(identifier))) {
-        return { username: identifier.toLowerCase() };
-    }
     return { phoneNumber: identifier };
 }
