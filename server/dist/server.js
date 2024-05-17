@@ -7,6 +7,10 @@ const express_1 = __importDefault(require("express"));
 const mongoDB_1 = require("./database/mongoDB");
 const login_1 = __importDefault(require("./routers/login"));
 const signup_1 = __importDefault(require("./routers/signup"));
+const personal_profile_1 = __importDefault(require("./routers/personal_profile"));
+const educational_profile_1 = __importDefault(require("./routers/educational_profile"));
+const professional_profile_1 = __importDefault(require("./routers/professional_profile"));
+const valid_identifier_1 = require("./controllers/valid_identifier");
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
@@ -28,3 +32,7 @@ app.listen(PORT, () => {
 });
 app.use(login_1.default);
 app.use(signup_1.default);
+app.use(personal_profile_1.default);
+app.use(educational_profile_1.default);
+app.use(professional_profile_1.default);
+app.use(valid_identifier_1.validIdentifier);

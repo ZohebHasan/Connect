@@ -12,6 +12,7 @@ import signupRouter from './routers/signup';
 import personalProfileRouter from './routers/personal_profile';
 import educationalProfileRouter from './routers/educational_profile';
 import professionalProfileRouter from './routers/professional_profile';
+import { validIdentifier } from './controllers/valid_identifier';
 
 import bodyParser from 'body-parser';
 
@@ -58,3 +59,5 @@ app.use(personalProfileRouter);
  app.use(educationalProfileRouter);
 // use the professional profile router
 app.use(professionalProfileRouter);
+// use the valid identifier router
+app.use(validIdentifier);
