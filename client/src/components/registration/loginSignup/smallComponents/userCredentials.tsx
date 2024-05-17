@@ -26,31 +26,47 @@ const CredentialText: React.FC = () => {
     );
 }
 
-const DisplayErrorMessages = () => {
+const DisplayUserIdError = () => {
     const {
         errors,
-        userIdEmptyError,
-        passwordEmptyError } = useSignup();
+        userIdEmptyError, 
+    } = useSignup();
 
     let errorMessage = null;
 
-    if (userIdEmptyError && passwordEmptyError) {
-        errorMessage = <ErrorMessage>User id and password fields are empty</ErrorMessage>;
+    if (userIdEmptyError ) {
+        errorMessage = <ErrorMessage>Please enter your email address or phone number.</ErrorMessage>;
     }
-    else if (passwordEmptyError) {
-        errorMessage = <ErrorMessage>Password field is empty</ErrorMessage>;
+    else if ((errors.emailError && errors.phoneError)) {
+        errorMessage = <ErrorMessage>Please enter a valid Email or phone number.</ErrorMessage>;
     }
-    else if (userIdEmptyError) {
-        errorMessage = <ErrorMessage>User id field is empty</ErrorMessage>;
+    return (
+        <>
+            {errorMessage}
+        </>
+    );
+}
+
+const DisplayPasswordError = () => {
+    const {
+        errors,
+        passwordEmptyError,
+        confirmPasswordEmptyError
+    } = useSignup();
+
+    let errorMessage = null;
+
+    if (passwordEmptyError) {
+        errorMessage = <ErrorMessage>Please enter a password.</ErrorMessage>;
     }
-    else if ((errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError) {
-        errorMessage = <ErrorMessage>Incorrect user id and password</ErrorMessage>;
+    else if(confirmPasswordEmptyError){
+        errorMessage = <ErrorMessage>Please Confirm your password.</ErrorMessage>;
     }
-    else if (errors.emailError && errors.phoneError && errors.usernameError) {
-        errorMessage = <ErrorMessage>Incorrect user id</ErrorMessage>;
+    else if (errors.passwordNotMatchError){
+        errorMessage = <ErrorMessage>Passwords do not match.</ErrorMessage>;
     }
     else if (errors.passwordError) {
-        errorMessage = <ErrorMessage>Incorrect Password</ErrorMessage>;
+        errorMessage = <ErrorMessage>Password is too weak, please enter a stronger password.</ErrorMessage>;
     }
 
     return (
@@ -58,7 +74,9 @@ const DisplayErrorMessages = () => {
             {errorMessage}
         </>
     );
-};
+}
+
+
 
 export default function Credentials() {
     const { language } = useLanguage();
@@ -75,11 +93,7 @@ export default function Credentials() {
         handlePasswordChange,
         handleConfirmPasswordChange,
 
-        errors,
-        userIdEmptyError,
-        passwordEmptyError,
-        confirmPasswordEmptyError,
-
+      
         handleCredentialSubmit
     } = useSignup();
 
@@ -106,6 +120,8 @@ export default function Credentials() {
                             onChange={handleUserIdChange}
                         />
                     </InputContainer>
+                    <DisplayUserIdError/>
+               
                 </Credential>
 
                 <Password>
@@ -114,29 +130,28 @@ export default function Credentials() {
                             Account password
                         </Text>
                     </DateText>
-                    <DatePickerContainer>
+                    <PasswordContainer>
                         <HiddenInput
-                            id={""}
+                            id={"passwordSignup"}
                             label={"Password"}
                             width={"75%"}
                             value={password}
                             onChange={handlePasswordChange}
                         />
                         <HiddenInput
-                            id={""}
+                            id={"passwordSignup"}
                             label={"Confirm Password"}
                             width={"75%"}
                             value={confirmPassword}
                             onChange={handleConfirmPasswordChange}
                         />
-                    </DatePickerContainer>
-
+                    </PasswordContainer>
+                    <DisplayPasswordError/>
                     <ButtonContainer>
                         <Button
                             variant={"gradient"}
                             width={"60%"}
-                            to={"../verifySignup"}
-                            // onClick={handleCredentialSubmit}
+                            onClick={handleCredentialSubmit}
                         >
                             Next
                         </Button>
@@ -227,7 +242,7 @@ const DateText = styled.div`
     // background-color: blue;
 `
 
-const DatePickerContainer = styled.div`
+const PasswordContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction:column;

@@ -23,28 +23,49 @@ const validateUsername = (username: string): boolean => {
 const validatePassword = (password: string): boolean => /\d/.test(password) && password.length >= 6;
 
 interface AuthContextType {
+
     fullName: string;
     userId: string;
+    userName: string;
     password: string;
     confirmPassword: string;
 
     handleFullNameChange: (input: string) => void;
     handleUserIdChange: (input: string) => void;
+    handleUserNameChange: (input: string) => void;
     handlePasswordChange: (password: string) => void;
     handleConfirmPasswordChange: (confirmPassword: string) => void;
 
-
     handleFullNameError: () => void;
     handleUserIdError: () => void;
+    handleUserNameError: () => void;
     handlePasswordError: () => void;
-    
-    errors: { fullNameError: boolean, usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean };
-    setErrors: (errors: { fullNameError: boolean, usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
-    
+    handlePasswordMismatchError: () => void;
+
+    errors: {
+        fullNameError: boolean,
+        usernameError: boolean;
+        emailError: boolean;
+        phoneError: boolean;
+        passwordError: boolean;
+        passwordNotMatchError: boolean
+    };
+
+    setErrors: (
+        errors: {
+            fullNameError: boolean,
+            usernameError: boolean;
+            emailError: boolean;
+            phoneError: boolean;
+            passwordError: boolean;
+            passwordNotMatchError: boolean
+        }) => void;
+
+    userIdEmptyError: boolean;
+    userNameEmptyError: boolean;
     fullNameEmptyError: boolean;
     passwordEmptyError: boolean;
     confirmPasswordEmptyError: boolean;
-    userIdEmptyError: boolean;
 
     handleCredentialSubmit: () => void;
     handleFullSubmit: () => void;
@@ -54,16 +75,19 @@ interface AuthContextType {
 export const SignupContext = createContext<AuthContextType | undefined>(undefined);
 
 export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
     const [fullName, setFullName] = useState('');
-    const [userId, setUserId] = useState(''); 
-    const [userName, setUserName] = useState(''); //incomplete
+    const [userId, setUserId] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [age, setAge] = useState(); //incomplete
 
-    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false });
+    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false });
+
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
+    const [userNameEmptyError, setUserNameEmptyError] = useState(false); //incomplete
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
     const [confirmPasswordEmptyError, setConfirmPasswordEmptyError] = useState(false);
 
@@ -79,20 +103,29 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handleUserIdChange = (input: string) => {
         setUserId(input);
-        setErrors(prev => ({ ...prev, usernameError: false, emailError: false, phoneError: false }));
+        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false }));
         setUserIdEmptyError(false);
+        setPasswordEmptyError(false);
+        setConfirmPasswordEmptyError(false);
+
+    };
+
+    const handleUserNameChange = (input: string) => {
+        setUserName(input);
+        setErrors(prev => ({ ...prev, usernameError: false }));
+        setUserNameEmptyError(false);
     };
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        setErrors(prev => ({ ...prev, passwordError: false }));
+        setErrors(prev => ({ ...prev, passwordError: false, passwordNotMatchError: false }));
         setPasswordEmptyError(false);
     };
 
     const handleConfirmPasswordChange = (confirmPassword: string) => {
         setConfirmPassword(confirmPassword);
-        //setErrors...
-        //setconfirmpasswordemptyerror..
+        setErrors(prev => ({ ...prev, confirmPasswordError: false }));
+        setConfirmPasswordEmptyError(false);
     }
 
     //handling the errors
@@ -103,15 +136,26 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const handleUserIdError = () => {
         setErrors(prev => ({
             ...prev,
-            usernameError: !validateUsername(userId),
             emailError: !validateEmail(userId),
             phoneError: !validatePhone(userId)
         }));
     };
 
+    const handleUserNameError = () => {
+        setErrors(prev => ({
+            ...prev,
+            usernameError: !validateUsername(userName)
+        }));
+    };
+
+    const handlePasswordMismatchError = () => {
+        setErrors(prev => ({ ...prev, passwordNotMatchError: !(password === confirmPassword) }));
+    }
+
     const handlePasswordError = () => {
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     };
+
 
     //handling the empty input errors
     const handleFullnameEmpty = () => {
@@ -122,14 +166,28 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setUserIdEmptyError(true);
     };
 
+    const handleUserNameEmpty = () => {
+        setUserNameEmptyError(true);
+    };
+
     const handlePasswordEmpty = () => {
         setPasswordEmptyError(true);
     };
 
+    const handleConfirmPasswordEmpty = () => {
+        setConfirmPasswordEmptyError(true);
+    };
+
+
     //validating all crendentials
     const validateCredentials = () => {
+        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password))
+    }
+
+    const validateUserInfo = () => {
         return (validateFullName(fullName) && validatePassword(password)) &&
-            (validateEmail(userId) || validatePhone(userId) || validateUsername(userId));
+            (validateUsername(userName)) &&
+            (validateEmail(userId) || validatePhone(userId));
     };
 
 
@@ -140,15 +198,35 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         } else {
             handleUserIdError();
         }
+        if (password === '') {
+            handlePasswordEmpty();
+        }
+        else if (confirmPassword === '') {
+            handleConfirmPasswordEmpty();
+        }
+        else {
+            handlePasswordMismatchError();
+        }
+        if (errors.passwordNotMatchError) {
+        }
+        else {
+            handlePasswordError();
+        }
 
-        if (userId === '') {
+
+        if (!validateCredentials()) {
+            console.log("Incorrectly formatted credentials, unable to make an HTTP request");
             return;
         }
 
+
         setLoading(true);
+        const initialPayload = {
+            identifier: userId
+        };
 
         try {
-            const response = await axios.post('http://localhost:8000/check-identifier', { identifier: userId });
+            const response = await axios.post('http://localhost:8000/check-identifier', initialPayload);
             console.log('Identifier check successful:', response.data);
             navigate('../verifySignup');
         } catch (error) {
@@ -165,32 +243,43 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         } else {
             handleFullNameError();
         }
-
         if (userId === '') {
             handleUserIdEmpty();
+            return;
         } else {
             handleUserIdError();
         }
-
         if (password === '') {
             handlePasswordEmpty();
-        } else {
+            return;
+        }
+        else if (confirmPassword === '') {
+            handleConfirmPasswordEmpty();
+            return;
+        }
+        else {
+            handlePasswordMismatchError();
+        }
+        if (errors.passwordNotMatchError) {
+            return;
+        }
+        else {
             handlePasswordError();
         }
 
-        if (!validateCredentials()) {
-            console.log("Incorrectly formatted credentials, unable to make an HTTP request");
+        if (!validateUserInfo()) {
+            console.log("Incorrectly formatted userinfo, unable to make an HTTP request");
             return;
         }
 
         setLoading(true);
 
         const payload = {
-            fullName,
+            fullName: validateFullName(fullName) ? fullName : '',
+            username: validateUsername(userName) ? userName : '',
             email: validateEmail(userId) ? userId : '',
-            username: validateUsername(userId) ? userId : '',
             phoneNumber: validatePhone(userId) ? userId : '',
-            password
+            password: validatePassword(password) ? password : ''
         };
 
         try {
@@ -205,12 +294,36 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     return (
         <SignupContext.Provider value={{
-            fullName, userId, password, confirmPassword,
-            handleFullNameChange, handleUserIdChange, handlePasswordChange, handleConfirmPasswordChange,
-            handleFullNameError, handleUserIdError, handlePasswordError,
-            errors, setErrors,
-            fullNameEmptyError, userIdEmptyError, passwordEmptyError, confirmPasswordEmptyError,
-            handleCredentialSubmit, handleFullSubmit, loading
+            fullName,
+            userId,
+            userName,
+            password,
+            confirmPassword,
+
+            handleFullNameChange,
+            handleUserIdChange,
+            handleUserNameChange,
+            handlePasswordChange,
+            handleConfirmPasswordChange,
+
+            handleFullNameError,
+            handleUserIdError,
+            handleUserNameError,
+            handlePasswordError,
+            handlePasswordMismatchError,
+
+            errors,
+            setErrors,
+
+            fullNameEmptyError,
+            userIdEmptyError,
+            userNameEmptyError,
+            passwordEmptyError,
+            confirmPasswordEmptyError,
+
+            handleCredentialSubmit,
+            handleFullSubmit,
+            loading,
         }}>
             {children}
         </SignupContext.Provider>
