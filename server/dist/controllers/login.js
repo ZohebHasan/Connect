@@ -1,8 +1,4 @@
 "use strict";
-// // creating a controller for login
-// import { Request, Response } from 'express';
-// import bcrypt from 'bcrypt';
-// import User from '../models/user_model';
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -18,15 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const user_model_1 = __importDefault(require("../models/user_model"));
+const userModel_1 = __importDefault(require("../models/userModel"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { identifier, password } = req.body;
-    // parse the identifier and password from the request body
     if (!identifier || !password) {
         return res.status(400).json({ message: 'Identifier and password are required' });
     }
     const userIdentifier = parseIdentifier(identifier);
-    const user = yield user_model_1.default.findOne(userIdentifier);
+    const user = yield userModel_1.default.findOne(userIdentifier);
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }

@@ -62,7 +62,7 @@
 
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import User from "../models/user_model";
+import User from "../models/userModel"
 
 
 export const login = async(req: Request, res: Response) =>{
@@ -76,8 +76,6 @@ export const login = async(req: Request, res: Response) =>{
     const user = await User.findOne(userIdentifier);
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
-
-  
         
         }
     const validPassword = await bcrypt.compare(password, user.password);

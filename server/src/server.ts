@@ -9,6 +9,9 @@ import loginRouter from './routers/login';
 
 import signupRouter from './routers/signup';
 
+import personalProfileRouter from './routers/personal_profile';
+import educationalProfileRouter from './routers/educational_profile';
+import professionalProfileRouter from './routers/professional_profile';
 
 import bodyParser from 'body-parser';
 
@@ -49,4 +52,9 @@ app.listen(PORT,() => {
 app.use(loginRouter);
 // use the signup router
 app.use(signupRouter);
-// use the body parser
+// use the personal profile router
+app.use(personalProfileRouter);
+// use the educational profile router
+ app.use(educationalProfileRouter);
+// use the professional profile router
+app.use(professionalProfileRouter);

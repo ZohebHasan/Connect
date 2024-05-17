@@ -14,40 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const user_model_1 = __importDefault(require("../models/user_model"));
-// import body parser
-// signup controller
+const userModel_1 = __importDefault(require("../models/userModel"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // get the user details from the request body
-    const { firstName, lastName, email, password, username, phoneNumber } = req.body;
-    // check if the user already exists
+    const { fullName, email, password, username, phoneNumber } = req.body;
     const userExists2 = isUnique(email, username, phoneNumber);
     if (!userExists2) {
         return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
     }
-    // hash the password
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
-    // create a new user
-    const user = new user_model_1.default({
-        firstName,
-        lastName,
+    const user = new userModel_1.default({
+        fullName,
         email,
         password: hashedPassword,
         username,
         phoneNumber
     });
-    // save the user
     yield user.save();
-    // // create a token
-    // const token = jwt.sign({ userId: user._id }, JWT_SECRET);
-    // // send the token and user details
-    // res.status(201).json({ token, user });
     res.status(201).json({ user });
 });
 exports.signup = signup;
 const isUnique = (email, username, phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
-    const exists = yield user_model_1.default.findOne({
+    const exists = yield userModel_1.default.findOne({
         $or: [
             { email },
             { username },
