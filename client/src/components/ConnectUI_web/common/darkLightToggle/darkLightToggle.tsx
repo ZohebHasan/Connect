@@ -3,6 +3,9 @@ import styled, { css } from 'styled-components';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { useSidebar } from '../../../../contexts/SideBarOpen/SidebarContext';
 
+import Sun from "./assets/sun.png"
+import Moon from "./assets/moon.png"
+
 const DarkLightToggle: React.FC = () => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
   const { addProtectedRef, removeProtectedRef } = useSidebar();
@@ -23,9 +26,9 @@ const DarkLightToggle: React.FC = () => {
 
   return (
     <ToggleContainer onClick={toggleDarkMode} $darkMode={isDarkMode} ref={darkLightToggleRef}>
-      <Icon type="sun" $darkMode={isDarkMode}>&#9728;</Icon>
+      <SunIcon src = {Sun} $darkMode={isDarkMode}/>
       <ToggleCircle $darkMode={isDarkMode}></ToggleCircle>
-      <Icon type="moon" $darkMode={isDarkMode}>&#9789;</Icon>
+      <MoonIcon src = {Moon} $darkMode={isDarkMode}/>
     </ToggleContainer>
   );
 };
@@ -60,14 +63,14 @@ const ToggleCircle = styled.div<{ $darkMode?: boolean }>`
 
 
 const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
-  width: 4.0625rem;  // Standard width
-  height: 1.6875rem;  // Standard height
+  width: 4rem;  
+  height: 1.6875rem;  
   border-radius: 1.25rem;
   position: relative;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: ${({ $darkMode }) => $darkMode ? 'white' : 'black'};
   transition: background-color 0.3s ease-in-out;
   z-index: 5;
@@ -87,20 +90,34 @@ const ToggleContainer = styled.div<{ $darkMode?: boolean }>`
 `;
 
 
-const Icon = styled.span<{ type: 'sun' | 'moon'; $darkMode?: boolean }>`
-  font-size: 1.375rem; 
-  z-index: 1;
+const SunIcon = styled.img<{ $darkMode?: boolean }>`
+  width: 1.25rem;
+  height: 1.25rem;
+  background-size: cover;
   position: absolute;
-  color: ${({ type, $darkMode }) => type === 'sun' ? ($darkMode ? 'black' : 'transparent') : 'white'};
-  opacity: ${({ type, $darkMode }) => type === 'moon' && $darkMode ? '0' : '1'};
-  right: ${({ type }) => type === 'moon' ? '0.4375rem' : 'auto'}; 
-  left: ${({ type }) => type === 'sun' ? '0.3125rem' : 'auto'}; 
-  // top: -0.15rem;
-  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+  right: : auto;
+  left: 0.3125rem;
+  // top: 0.3rem;
+  transition: opacity 0.3s ease-in-out;
 
-  @media (max-width: 1280px) { 
-    font-size: 1.1rem; 
+  @media (max-width: 1280px) {
+    width: 1.1rem;
+    height: 1.1rem;
   }
-
 `;
 
+const MoonIcon = styled.img<{ $darkMode?: boolean }>`
+  width: 1.03rem;
+  height: 1.03rem;
+  background-size: cover;
+  position: absolute;
+  right: 0.4375rem;
+  left: auto;
+  // top: 0.3rem;
+  transition: opacity 0.3s ease-in-out;
+
+  @media (max-width: 1280px) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+`;

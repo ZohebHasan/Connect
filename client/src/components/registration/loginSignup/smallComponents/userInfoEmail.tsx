@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
@@ -43,6 +43,11 @@ const NoticeText: React.FC = () => {
 export default function Age() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
+    const [userName, setUserName] = useState('');
+
+    const handleUserName = (input: string) =>{
+        setUserName(input)
+    }
     return (
         <>
             <UserInfoText/>
@@ -55,7 +60,13 @@ export default function Age() {
                         </Text>
                     </InfoText>  
                     <InputContainer>
-                        <NormalInput id={""} label={"username "} width= {"75%"}/>     
+                        <NormalInput 
+                            id={""} 
+                            label={"username "} 
+                            width= {"75%"}
+                            value= {userName}
+                            onChange={handleUserName}
+                        />     
                     </InputContainer>
                 </UserInfo>
 

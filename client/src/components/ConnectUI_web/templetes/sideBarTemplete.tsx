@@ -38,7 +38,7 @@ export default Sidebar;
 const StyledSidebar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boolean }>`
   ${({ $isSidebarOpen, $isDarkMode }) => `
     height: ${$isSidebarOpen ? 'calc(100% - 15px)' : '0'};
-    width: 300px;
+    width: 350px;
     border-bottom-right-radius: ${$isSidebarOpen ? '0%' : '50%'};
     border-bottom-left-radius: ${$isSidebarOpen ? '0%' : '50%'};
     transform: scaleY(${$isSidebarOpen ? '1' : '0'});

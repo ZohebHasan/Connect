@@ -50,7 +50,7 @@ const Body: React.FC= () => {
        
         setTimeout(() => {
           navigate('/home');
-        }, 700);
+        }, 350);
       };
     
     
