@@ -35,7 +35,6 @@ const TextContainer = styled.div`
 
 `
 
-
 export default function SignupNonEmailContainer() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
