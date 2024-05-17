@@ -3,7 +3,7 @@ import express from 'express';
 const router = express.Router();
 
 // import the login controller
-import { login } from '../src/controllers/login';
+import { login } from '../controllers/login';
 
 router.post('/login', login);
 

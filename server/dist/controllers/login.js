@@ -14,28 +14,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const user_model_1 = __importDefault(require("../models/user_model"));
-// login controller
+const userModel_1 = __importDefault(require("../models/userModel"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // get the user details from the request body
-    const { email, password } = req.body;
-    // check if email or username is provided
-    if (!email) {
-        return res.status(400).json({ message: 'Email is required' });
+    const { identifier, password } = req.body;
+    if (!identifier || !password) {
+        return res.status(400).json({ message: 'Identifier and password are required' });
     }
-    // check if the user exists
-    const user = yield user_model_1.default.findOne({ email });
+    const userIdentifier = parseIdentifier(identifier);
+    const user = yield userModel_1.default.findOne(userIdentifier);
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }
-    // check if the password is correct
     const validPassword = yield bcrypt_1.default.compare(password, user.password);
     if (!validPassword) {
         return res.status(400).json({ message: 'Invalid password' });
     }
-    // create a token
-    // const token = jwt.sign({ userId: user._id }, JWT_SECRET);
-    // send the token and user details
-    res.status(200).json({ user });
+    res.status(200).json({ user: user });
 });
 exports.login = login;
+const parseIdentifier = (identifier) => {
+    if (identifier.includes('@')) {
+        return { email: identifier.toLowerCase() };
+    }
+    if (isNaN(parseInt(identifier))) {
+        return { username: identifier.toLowerCase() };
+    }
+    return { phoneNumber: identifier };
+};

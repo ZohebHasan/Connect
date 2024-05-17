@@ -12,71 +12,63 @@ import { useLogin } from '../../../../contexts/login/loginContext';
 
 
 const DisplayErrorMessages = () => {
-    const {  
-        errors,  
-        userIdEmptyError, 
-        passwordEmptyError } = useLogin();
+  const {
+    errors,
+    userIdEmptyError,
+    passwordEmptyError } = useLogin();
 
-    let errorMessage = null;
+  let errorMessage = null;
 
-    // console.log("Email Error: ", errors.emailError);
-    // console.log("Phone Error: ", errors.phoneError);
-    // console.log("Username Error: ", errors.usernameError);
-    // console.log("Password Error: ", errors.passwordError);
-    // console.log("All errors: ", (errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError);
-    // console.log("User ID errors: ", (errors.emailError && errors.phoneError && errors.usernameError));
+  if (userIdEmptyError && passwordEmptyError) {
+    errorMessage = <ErrorMessage>User id and password fields are empty</ErrorMessage>;
+  }
+  else if (passwordEmptyError) {
+    errorMessage = <ErrorMessage>Password field is empty</ErrorMessage>;
+  }
+  else if (userIdEmptyError) {
+    errorMessage = <ErrorMessage>User id field is empty</ErrorMessage>;
+  }
+  else if ((errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError) {
+    errorMessage = <ErrorMessage>Incorrect user id and password</ErrorMessage>;
+  }
+  else if (errors.emailError && errors.phoneError && errors.usernameError) {
+    errorMessage = <ErrorMessage>Incorrect user id</ErrorMessage>;
+  }
+  else if (errors.passwordError) {
+    errorMessage = <ErrorMessage>Incorrect Password</ErrorMessage>;
+  }
 
-
-    if (userIdEmptyError && passwordEmptyError) {
-      errorMessage = <ErrorMessage>User id and password fields are empty</ErrorMessage>;
-    } 
-    else if (passwordEmptyError) {
-      errorMessage = <ErrorMessage>Password field is empty</ErrorMessage>;
-    } 
-    else if (userIdEmptyError) {
-      errorMessage = <ErrorMessage>User id field is empty</ErrorMessage>;
-    } 
-    else if ((errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError) {
-      errorMessage = <ErrorMessage>Incorrect user id and password</ErrorMessage>;
-    } 
-    else if (errors.emailError && errors.phoneError && errors.usernameError) {
-      errorMessage = <ErrorMessage>Incorrect user id</ErrorMessage>;
-    } 
-    else if (errors.passwordError) {
-      errorMessage = <ErrorMessage>Incorrect Password</ErrorMessage>;
-    }
-  
-    return (
-      <>
-        {errorMessage}
-      </>
-    );
-  };
+  return (
+    <>
+      {errorMessage}
+    </>
+  );
+};
 
 const Credentials: React.FC = () => {
-    const { 
-        userId,
-        password, 
-        handleUserIdChange, 
-        handlePasswordChange} = useLogin();
+  const {
+    userId,
+    password,
+    handleUserIdChange,
+    handlePasswordChange } = useLogin();
 
-    return (
-        <CredentialContainer>
-            <NormalInput
-                id="username"
-                label={"Phone, email, or username"}
-                value={userId}
-                onChange={handleUserIdChange}
-            />
-            <HiddenInput
-                id={""}
-                label={"Password"}
-                value={password}
-                onChange={handlePasswordChange}
-            />
-            <DisplayErrorMessages/>     
-        </CredentialContainer>
-    );
+  return (
+    <CredentialContainer>
+      <NormalInput
+        id="username"
+        label={"Phone, email, or username"}
+        value={userId}
+        onChange={handleUserIdChange}
+      />
+      <HiddenInput
+        id={"password"}
+        label={"Password"}
+        value={password}
+        onChange={handlePasswordChange}
+      />
+      <DisplayErrorMessages />
+    </CredentialContainer>
+  );
 }
 
 export default Credentials;
@@ -101,6 +93,8 @@ const ErrorMessage = styled.div`
     font-size: 14px;
     animation: ${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both; 
 `
+
+
 const CredentialContainer = styled.div`
     flex: 1.5;
     align-items: center;

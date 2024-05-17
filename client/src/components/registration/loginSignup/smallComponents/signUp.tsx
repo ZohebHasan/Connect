@@ -7,7 +7,7 @@ import { useLanguage } from '../../../../contexts/Language/Language';
 import Text from "../../../ConnectUI_web/common/texts/static"
 import Button from "../../../ConnectUI_web/common/buttons/button1"
 import OrDivider from '../elements/orDivider';
-import SocialSignupButtons from '../elements/socialButtons';
+import SocialSignupButtons from '../elements/socialButtonsSignup';
 
 
 
@@ -35,7 +35,6 @@ const TextContainer = styled.div`
 
 `
 
-
 export default function SignupNonEmailContainer() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
@@ -43,23 +42,13 @@ export default function SignupNonEmailContainer() {
         <>
             <SignupEmailText/>
             <SignupContainer $isDarkMode={isDarkMode}>    
-                <SocialSignupButtons 
-                        flex = {1} 
-                        text= {"Sign up with"} 
-                        // toSignupApple= {"signupWithApple"}
-                        // toSignupGoogle= {"signupWithGoogle"}
-                        // toSignupMicrosoft= {"signupWithMicrosoft"}
-                        toSignupApple= {"/userInfoEmail"}
-                        toSignupGoogle= {"/userInfoEmail"} 
-                        /// google login component
-                        toSignupMicrosoft= {"/userInfoEmail"}
-                        />      
+                <SocialSignupButtons flex = {1}/>      
                 <OrDivider flex={0}/>
                 <ButtonContainer>
                     <Button 
                         variant="gradient" 
                         width="80%"
-                        to = {"/userCredentials"}>
+                        to = {"/signup/userCredentials"}>
                         sign up with email OR phone
                     </Button>
                 </ButtonContainer>           

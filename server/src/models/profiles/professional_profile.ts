@@ -7,7 +7,7 @@
 // skils[]: strings
 // company(s)[]: string
 import { Schema, model } from 'mongoose';
-import User from '../user_model';
+import User from '../userModel';
 // creating the user interface
 interface Professional {
     user: typeof User;

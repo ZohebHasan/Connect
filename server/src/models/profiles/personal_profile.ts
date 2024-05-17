@@ -7,7 +7,7 @@
 // age: int
 
 import { Schema, model } from 'mongoose';
-import User from '../user_model';
+import User from '../userModel';
 // creating the user interface
 interface Personal {
     user: typeof User;
