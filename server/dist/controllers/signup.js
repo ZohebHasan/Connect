@@ -17,9 +17,9 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fullName, email, password, username, phoneNumber } = req.body;
-    const userExists = yield userModel_1.default.findOne({ email });
-    if (userExists) {
-        return res.status(400).json({ message: 'User already exists' });
+    const userExists2 = isUnique(email, username, phoneNumber);
+    if (!userExists2) {
+        return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
     }
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
@@ -34,3 +34,16 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.status(201).json({ user });
 });
 exports.signup = signup;
+const isUnique = (email, username, phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
+    const exists = yield userModel_1.default.findOne({
+        $or: [
+            { email },
+            { username },
+            { phoneNumber }
+        ]
+    });
+    if (!exists) {
+        return true;
+    }
+    return false;
+});
