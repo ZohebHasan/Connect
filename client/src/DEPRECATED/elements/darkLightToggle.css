@@ -1,0 +1,110 @@
+/* 
+.toggleContainer{
+    width: 65px;
+    height: 27px;
+    border-radius: 20px;   
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s;
+    background-color: black;
+    transition: background-color 0.3s ease-in-out; 
+    z-index: 5;
+  }
+  
+  
+.body:not(.dark-mode) .toggleContainer {
+    background-color: black; 
+}
+  
+
+
+.toggle-circle {
+  position: absolute;
+  left: 5px; 
+  width: 21px;
+  height: 21px;
+  border-radius: 200px;
+  background-color: #FDB813; 
+  z-index: 6; 
+  transition: background-color 0.2s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;
+}
+.toggleContainer:hover .toggle-circle {
+  width: 29px;
+  transition: background-color 0.4s ease-in-out, width 0.2s ease-in-out;
+}
+
+ .toggleContainer:active .toggle-circle {
+  background-color: rgb(109, 109, 109);
+  transition: background-color 0.4s ease-in-out, width 0.2s ease-in-out;
+}
+
+.toggle-circle:hover {
+  width: 29px; 
+  background-color: darkgrey;
+}
+
+.toggle-circle:active {
+
+  background-color: darkgrey;
+}
+
+.toggleContainer .icon { 
+  font-size: 22px;
+  z-index: 1;
+  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out; 
+}
+
+
+.moon-icon {
+  position: absolute;
+  right: 7px;
+  
+  color: white;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sun-icon {
+  position: absolute;
+  left: 5px;
+  color:black;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+body.dark-mode .toggleContainer {
+  background-color: white; 
+  transition: background-color 0.3s ease-in-out;
+}
+
+body.dark-mode .toggleContainer .toggle-circle {
+  left: auto; 
+  right: 5px; 
+  background-color: rgb(109, 109, 109);
+  transition: background-color 0.4s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;}
+
+body.dark-mode .toggleContainer  .toggle-circle:hover {
+  width: 31px;
+  background-color: #FDB813; 
+  transition: background-color 0.4s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;
+}
+
+body.dark-mode .toggleContainer  .toggle-circle:active {
+  background-color: #FDB813; 
+  transition: background-color 0.4s ease-in-out, left 0.2s ease-in-out, width 0.2s ease-in-out;
+}
+
+body.dark-mode  .toggleContainer .moon-icon {
+  opacity: 0; 
+  transition: opacity 0.3s ease-in-out;
+
+}
+
+body.dark-mode  .toggleContainer .sun-icon {
+  opacity: 1; 
+  color: black;
+  transition: opacity 0.3s ease-in-out;
+} */

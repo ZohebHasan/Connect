@@ -1,0 +1,56 @@
+/* 
+.agreementHeader{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: background-color 0.1s ease-in-out; 
+  margin-top: 15px;
+  position: relative;
+  z-index: 3;
+}
+
+body.dark-mode  .agreementHeader {
+  background-color: rgba(52, 52, 52, 0.4); 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+}
+
+body:not(.dark-mode)  .agreementHeader {
+  background-color: rgba(255, 255, 255, 0.5); 
+  transition: opacity 0.1s background-color 0.1s ease-in-out; 
+}
+
+.agreementHeader .logo{
+    flex: 8;
+    align-items: center;
+    position: relative;
+    background-color: transparent;
+    padding-left: 20px;
+    z-index: 3;
+  }
+
+.logo img {
+    width: 40px; 
+    height: auto; 
+    opacity: 0; 
+    transition: transform 0.5s, opacity 0.5s; 
+    mix-blend-mode: multiply;
+    background-color: transparent; 
+  }
+  
+  .agreementHeader.toggleBar{
+    flex:3;
+    align-items: center;
+    justify-content: center;
+    padding-left: 30px;
+  
+  }
+  
+   .agreementHeader .optionBar{
+    flex: 1;
+    padding: 0px 20px 0px 5px; 
+  }
+  
+   */
