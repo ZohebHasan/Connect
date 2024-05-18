@@ -17,7 +17,7 @@ import bodyParser from 'body-parser';
 
 // import the google Oauth router
 import googleOauthRouter from './routers/google_Oauth';
-
+import googleOauthCallBackRouter from './routers/google_Oauth_Callback';
 import cors from 'cors';
 
 import dotenv from 'dotenv';
@@ -69,3 +69,5 @@ app.use(professionalProfileRouter);
 app.use(validIdentifier);
 // use the google Oauth router
 app.use(googleOauthRouter);
+// use the google Oauth callback router
+app.use(googleOauthCallBackRouter);
