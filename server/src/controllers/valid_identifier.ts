@@ -8,10 +8,11 @@ export const validIdentifier =  async (req: Request, res: Response) => {
     }
     const userIdentifier = parseIdentifier(identifier);
     const user = await User.findOne(userIdentifier);
-    if (!user) {
-        return res.status(400).json({ message: 'User does not exist' });
+    if (user) {
+        return res.status(400).json({ message: 'User does exist' });
         }
-    res.status(200).json({ user: user });
+    res.status(200)
+    .send(true);
 
 }
 
