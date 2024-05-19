@@ -106,15 +106,15 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     //input change
     const handleFullNameChange = (input: string) => {
         setFullName(input);
-        setErrors(prev => ({ ...prev, fullNameError: false, emailError: false, phoneError: false }));
+        setErrors(prev => ({ ...prev, fullNameError: false }));
         setFullNameEmptyError(false);
-        setUserIdEmptyError(false);
+  
 
     };
 
     const handleUserIdChange = (input: string) => {
         setUserId(input);
-        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false }));
+        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false }));
         setUserIdEmptyError(false);
         setPasswordEmptyError(false);
         setAccountExistsError(false);
@@ -128,7 +128,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        setErrors(prev => ({ ...prev, passwordError: false, passwordNotMatchError: false }));
+        setErrors(prev => ({ ...prev, passwordError: false}));
         setPasswordEmptyError(false);
     };
 
