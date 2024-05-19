@@ -64,9 +64,9 @@ interface AuthContextType {
     dateOfBirthEmptyError: boolean;
     sessionResetError: boolean;
 
-    handleCredentialSubmit: () => void;
+    handleSubmit: () => void;
     handleAgeNavigation: () => void;
-    handleFullSubmit: () => void;
+    // handleFullSubmit: () => void;
     loading: boolean;
 }
 
@@ -237,10 +237,11 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             } else {
                 setIsUnderEighteen(false);
                 if (age < 18) {
-                    //add all the safety features
-                }
-                else {
-
+                    setProfileEncryption(true);
+                    setRestricted(true);
+                    setDataProtection(true);
+                    setCensor(true);
+                    setContentMonitization(true);
                 }
                 navigate("./userInfo")
             }
@@ -251,10 +252,10 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
 
     //intial submit button, just to check if the credential contains in the database
-    const handleCredentialSubmit = async () => {
+    const handleSubmit = async () => {
         if (!dateOfBirth) {
             setSessionResetError(true);
-            
+
             setTimeout(() => {
                 navigate("./ageVerification");
                 setSessionResetError(false);
@@ -280,61 +281,19 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         else {
             handlePasswordError();
         }
-
-
-        if (!validateCredentials()) {
-            console.log("Incorrectly formatted credentials, unable to make an HTTP request");
-            return;
-        }
-
-
-        setLoading(true);
-        const initialPayload = {
-            identifier: userId
-        };
-
-
-        try {
-            const response = await axios.post('http://localhost:8000/validIdentifier', initialPayload);
-            console.log(response)
-            if (response.status === 400) {
-                console.log("an user does not exists")
+        if (dateOfBirth) {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+            if (age < 13) {
+                return
             }
-            handleAccountExistsError();
-
-        } catch (error) {
-            navigate('./idVerification');
-            setLoading(false);
-
+            else {
+                if (!validateCredentials()) {
+                    console.log("Inavlid Credentials")
+                    return;
+                }
+            }
         }
-    };
-
-
-
-    //final submit button, sends out all of the credentials
-    const handleFullSubmit = async () => {
-        if (fullName === '') {
-            handleFullnameEmpty();
-        } else {
-            handleFullNameError();
-        }
-        if (userId === '') {
-            handleUserIdEmpty();
-            return;
-        } else {
-            handleUserIdError();
-        }
-        if (password === '') {
-            handlePasswordEmpty();
-            return;
-        }
-
         else {
-            handlePasswordError();
-        }
-
-        if (!validateUserInfo()) {
-            console.log("Incorrectly formatted userinfo, unable to make an HTTP request");
             return;
         }
 
@@ -342,21 +301,87 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
         const payload = {
             fullName: validateFullName(fullName) ? fullName : '',
-            username: validateUsername(userName) ? userName : '',
             email: validateEmail(userId) ? userId : '',
             phoneNumber: validatePhone(userId) ? userId : '',
-            password: validatePassword(password) ? password : ''
+            password: validatePassword(password) ? password : '',
+            dateProtection: dataProtection,
+            profileEncryption: profileEncryption,
+            contentMonitization: contentMonitization,
+            censor: censor,
+            restricted: restricted,
         };
 
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
             console.log('Signup successful:', response.data);
-            navigate('/dashboard');
+            navigate('/idVerification');
         } catch (error) {
             console.error('Signup error:', error);
             setLoading(false);
         }
     };
+
+
+
+ 
+    // const handleFullSubmit = async () => {
+    //     if (!dateOfBirth) {
+    //         setSessionResetError(true);
+
+    //         setTimeout(() => {
+    //             navigate("./ageVerification");
+    //             setSessionResetError(false);
+    //             console.log("Data of Birth is empty");
+    //         }, 1000);
+    //     }
+    //     if (fullName !== '') {
+    //         handleFullNameError();
+    //     }
+    //     else {
+    //         handleFullnameEmpty();
+    //     }
+
+    //     if (userId === '') {
+    //         handleUserIdEmpty();
+    //     }
+    //     else {
+    //         handleUserIdError();
+    //     }
+    //     if (password === '') {
+    //         handlePasswordEmpty();
+    //     }
+    //     else {
+    //         handlePasswordError();
+    //     }
+
+
+    //     if (!validateCredentials()) {
+    //         console.log("Incorrectly formatted credentials, unable to make an HTTP request");
+    //         return;
+    //     }
+
+
+    //     setLoading(true);
+
+    //     setLoading(true);
+
+    //     const payload = {
+    //         fullName: validateFullName(fullName) ? fullName : '',
+    //         username: validateUsername(userName) ? userName : '',
+    //         email: validateEmail(userId) ? userId : '',
+    //         phoneNumber: validatePhone(userId) ? userId : '',
+    //         password: validatePassword(password) ? password : ''
+    //     };
+
+    //     try {
+    //         const response = await axios.post('http://localhost:8000/signup', payload);
+    //         console.log('Signup successful:', response.data);
+    //         navigate('/dashboard');
+    //     } catch (error) {
+    //         console.error('Signup error:', error);
+    //         setLoading(false);
+    //     }
+    // };
 
     return (
         <SignupContext.Provider value={{
@@ -387,9 +412,9 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             underThirteenError,
             dateOfBirthEmptyError,
 
-            handleCredentialSubmit,
+            handleSubmit,
             handleAgeNavigation,
-            handleFullSubmit,
+            // handleFullSubmit,
             loading,
         }}>
             {children}
