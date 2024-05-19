@@ -21,10 +21,13 @@ const validIdentifier = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     const userIdentifier = parseIdentifier(identifier);
     const user = yield userModel_1.default.findOne(userIdentifier);
+
+
     if (user){
         return res.status(400).json({ message: 'An user already exist' });
     }
-    res.status(200).send(true);
+    res.status(200)
+        .send(true);
 });
 exports.validIdentifier = validIdentifier;
 const parseIdentifier = (identifier) => {
