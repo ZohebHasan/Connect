@@ -11,6 +11,7 @@ import Button from '../../../ConnectUI_web/common/buttons/button1';
 import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
+import { useSignup } from '../../../../contexts/signup/signupContext';
 
 const VerificationText: React.FC = () => {
     return (
@@ -46,6 +47,7 @@ const Verification: React.FC = () => {
         setCode(input);
     }
    
+    const {userId} = useSignup();
     let id = "something"
     return (
         <>
@@ -53,14 +55,14 @@ const Verification: React.FC = () => {
             <VerificationContainer $isDarkMode={isDarkMode}>    
                 
                 <HeaderTextContainer>
-                    <Text size={"30px"} variant={"normal"} fontWeight={"300"}>
-                         Two step verification
+                    <Text size={"1.4rem"} variant={"normal"} fontWeight={"300"}>
+                        User id verification
                     </Text>
                 </HeaderTextContainer>
          
                 <BodyTextContainer>
-                    <Text size={"15px"} variant={"transparent"} fontWeight={"200"}>
-                        We sent a code to {id}
+                    <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
+                        We just sent a code to {userId}
                     </Text>
                 </BodyTextContainer>    
               
@@ -82,7 +84,7 @@ const Verification: React.FC = () => {
                     <Button variant = {"normal"} width= {"50%"}>
                         Send it again(20)
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"} to = {"/userInfoNonEmail"}>
+                    <Button variant = {"gradient"} width= {"50%"} to = {"../ageVerification"}>
                         Next
                     </Button>
                 </VerificBtnContainer>

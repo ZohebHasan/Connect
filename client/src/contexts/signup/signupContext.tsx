@@ -23,79 +23,129 @@ const validateUsername = (username: string): boolean => {
 const validatePassword = (password: string): boolean => /\d/.test(password) && password.length >= 6;
 
 interface AuthContextType {
+
     fullName: string;
     userId: string;
+    userName: string;
     password: string;
-    confirmPassword: string;
+    dateOfBirth: Date | null;
+
+    isUnderEighteen: boolean;
 
     handleFullNameChange: (input: string) => void;
     handleUserIdChange: (input: string) => void;
+    handleUserNameChange: (input: string) => void;
     handlePasswordChange: (password: string) => void;
-    handleConfirmPasswordChange: (confirmPassword: string) => void;
+    handleDateOfBirthChange: (dateOfBirth: Date | null) => void;
+
+    triggerDateOfBirthErrors: () => void;
 
 
-    handleFullNameError: () => void;
-    handleUserIdError: () => void;
-    handlePasswordError: () => void;
-    
-    errors: { fullNameError: boolean, usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean };
-    setErrors: (errors: { fullNameError: boolean, usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
-    
+
+
+
+
+    errors: {
+        fullNameError: boolean,
+        usernameError: boolean;
+        emailError: boolean;
+        phoneError: boolean;
+        passwordError: boolean;
+
+    };
+
+
+    underThirteenError: boolean;
+    userIdEmptyError: boolean;
+    userNameEmptyError: boolean;
     fullNameEmptyError: boolean;
     passwordEmptyError: boolean;
-    confirmPasswordEmptyError: boolean;
-    userIdEmptyError: boolean;
+    accountExistsError: boolean;
+    dateOfBirthEmptyError: boolean;
+    sessionResetError: boolean;
 
-    handleCredentialSubmit: () => void;
-    handleFullSubmit: () => void;
+    handleSubmit: () => void;
+    handleAgeNavigation: () => void;
+    // handleFullSubmit: () => void;
     loading: boolean;
 }
 
 export const SignupContext = createContext<AuthContextType | undefined>(undefined);
 
 export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
     const [fullName, setFullName] = useState('');
-    const [userId, setUserId] = useState(''); 
-    const [userName, setUserName] = useState(''); //incomplete
+    const [userId, setUserId] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [age, setAge] = useState(); //incomplete
-    
+    const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
+
     const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false });
+
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
+    const [userNameEmptyError, setUserNameEmptyError] = useState(false); //incomplete
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
-    const [confirmPasswordEmptyError, setConfirmPasswordEmptyError] = useState(false);
+    const [sessionResetError, setSessionResetError] = useState(false)
 
+    const [dateOfBirthEmptyError, setDateOfBirthEmptyError] = useState(false);
+    const [underThirteenError, setUnderThirteenError] = useState(false);
+    const [isUnderEighteen, setIsUnderEighteen] = useState(false);
+
+    const [accountExistsError, setAccountExistsError] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const [dataProtection, setDataProtection] = useState(true);
+    const [profileEncryption, setProfileEncryption] = useState(true);
+    const [contentMonitization, setContentMonitization] = useState(true);
+    const [censor, setCensor] = useState(false);
+    const [restricted, setRestricted] = useState(false);
+
 
     //input change
     const handleFullNameChange = (input: string) => {
         setFullName(input);
-        setErrors(prev => ({ ...prev, fullNameError: false }));
+        setErrors(prev => ({ ...prev, fullNameError: false, emailError: false, phoneError: false }));
         setFullNameEmptyError(false);
+        setUserIdEmptyError(false);
+
     };
 
     const handleUserIdChange = (input: string) => {
         setUserId(input);
-        setErrors(prev => ({ ...prev, usernameError: false, emailError: false, phoneError: false }));
+        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false }));
         setUserIdEmptyError(false);
+        setPasswordEmptyError(false);
+        setAccountExistsError(false);
+    };
+
+    const handleUserNameChange = (input: string) => {
+        setUserName(input);
+        setErrors(prev => ({ ...prev, usernameError: false }));
+        setUserNameEmptyError(false);
     };
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        setErrors(prev => ({ ...prev, passwordError: false }));
+        setErrors(prev => ({ ...prev, passwordError: false, passwordNotMatchError: false }));
         setPasswordEmptyError(false);
     };
 
-    const handleConfirmPasswordChange = (confirmPassword: string) => {
-        setConfirmPassword(confirmPassword);
-        //setErrors...
-        //setconfirmpasswordemptyerror..
+
+
+    const handleDateOfBirthChange = (date: Date | null) => {
+        setDateOfBirth(date);
+        setDateOfBirthEmptyError(false);
+        setUnderThirteenError(false);
+    };
+
+    const triggerDateOfBirthErrors = () => {
+        setDateOfBirthEmptyError(false);
+        setUnderThirteenError(false);
     }
 
-    //handling the errors
+
     const handleFullNameError = () => {
         setErrors(prev => ({ ...prev, fullNameError: !validateFullName(fullName) }));
     };
@@ -103,17 +153,25 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const handleUserIdError = () => {
         setErrors(prev => ({
             ...prev,
-            usernameError: !validateUsername(userId),
             emailError: !validateEmail(userId),
             phoneError: !validatePhone(userId)
         }));
     };
 
+    const handleUserNameError = () => {
+        setErrors(prev => ({
+            ...prev,
+            usernameError: !validateUsername(userName)
+        }));
+    };
+
+
+
     const handlePasswordError = () => {
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     };
 
-    //handling the empty input errors
+
     const handleFullnameEmpty = () => {
         setFullNameEmptyError(true);
     };
@@ -122,95 +180,242 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setUserIdEmptyError(true);
     };
 
+    const handleUserNameEmpty = () => {
+        setUserNameEmptyError(true);
+    };
+
     const handlePasswordEmpty = () => {
         setPasswordEmptyError(true);
     };
 
-    //validating all crendentials
+
+    const handleAccountExistsError = () => {
+        setAccountExistsError(true);
+    }
+
+    const handlesessionResetError = () => {
+        setSessionResetError(true);
+    }
+
     const validateCredentials = () => {
+        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password) && validateFullName(fullName))
+    }
+
+    const validateUserPersonalInfo = () => {
+        return (validateUsername(userName) && validateFullName(fullName) && validatePassword(password));
+    }
+    const validateUserInfo = () => {
         return (validateFullName(fullName) && validatePassword(password)) &&
-            (validateEmail(userId) || validatePhone(userId) || validateUsername(userId));
+            (validateUsername(userName)) &&
+            (validateEmail(userId) || validatePhone(userId));
     };
+
+    const handleAgeNavigation = () => {
+        // if (!validateCredentials()) {
+        //     setSessionResetError(true);
+        //     console.log(sessionResetError);
+
+        //     setTimeout(() => {
+        //         navigate("./userInfo");
+        //         setSessionResetError(false);
+        //         console.log("user fields are empty");
+        //     }, 1000);
+        // }
+        if (!dateOfBirth) {
+            setDateOfBirthEmptyError(true);
+        }
+        else {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+            if (age < 13) {
+                setUnderThirteenError(true);
+            }
+            else {
+                setUnderThirteenError(false);
+            }
+            if (age < 18) {
+                setIsUnderEighteen(true);
+            } else {
+                setIsUnderEighteen(false);
+                if (age < 18) {
+                    setProfileEncryption(true);
+                    setRestricted(true);
+                    setDataProtection(true);
+                    setCensor(true);
+                    setContentMonitization(true);
+                }
+                navigate("./userInfo")
+            }
+        }
+    }
+
+
 
 
     //intial submit button, just to check if the credential contains in the database
-    const handleCredentialSubmit = async () => {
-        if (userId === '') {
-            handleUserIdEmpty();
-        } else {
-            handleUserIdError();
+    const handleSubmit = async () => {
+        if (!dateOfBirth) {
+            setSessionResetError(true);
+
+            setTimeout(() => {
+                navigate("./ageVerification");
+                setSessionResetError(false);
+                console.log("user fields are empty");
+            }, 1000);
         }
-
-        if (userId === '') {
-            return;
-        }
-
-        setLoading(true);
-
-        try {
-            const response = await axios.post('http://localhost:8000/check-identifier', { identifier: userId });
-            console.log('Identifier check successful:', response.data);
-            navigate('/verifySignup');
-        } catch (error) {
-            console.error('Identifier check error:', error);
-            setLoading(false);
-        }
-    };
-
-
-    //final submit button, sends out all of the credentials
-    const handleFullSubmit = async () => {
-        if (fullName === '') {
-            handleFullnameEmpty();
-        } else {
+        if (fullName !== '') {
             handleFullNameError();
         }
+        else {
+            handleFullnameEmpty();
+        }
 
         if (userId === '') {
             handleUserIdEmpty();
-        } else {
+        }
+        else {
             handleUserIdError();
         }
-
         if (password === '') {
             handlePasswordEmpty();
-        } else {
+        }
+        else {
             handlePasswordError();
         }
-
-        if (!validateCredentials()) {
-            console.log("Incorrectly formatted credentials, unable to make an HTTP request");
+        if (dateOfBirth) {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+            if (age < 13) {
+                return
+            }
+            else {
+                if (!validateCredentials()) {
+                    console.log("Inavlid Credentials")
+                    return;
+                }
+            }
+        }
+        else {
             return;
         }
 
         setLoading(true);
 
         const payload = {
-            fullName,
+            fullName: validateFullName(fullName) ? fullName : '',
             email: validateEmail(userId) ? userId : '',
-            username: validateUsername(userId) ? userId : '',
             phoneNumber: validatePhone(userId) ? userId : '',
-            password
+            password: validatePassword(password) ? password : '',
+            dateProtection: dataProtection,
+            profileEncryption: profileEncryption,
+            contentMonitization: contentMonitization,
+            censor: censor,
+            restricted: restricted,
         };
 
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
             console.log('Signup successful:', response.data);
-            navigate('/dashboard');
+            navigate('/idVerification');
         } catch (error) {
             console.error('Signup error:', error);
             setLoading(false);
         }
     };
 
+
+
+ 
+    // const handleFullSubmit = async () => {
+    //     if (!dateOfBirth) {
+    //         setSessionResetError(true);
+
+    //         setTimeout(() => {
+    //             navigate("./ageVerification");
+    //             setSessionResetError(false);
+    //             console.log("Data of Birth is empty");
+    //         }, 1000);
+    //     }
+    //     if (fullName !== '') {
+    //         handleFullNameError();
+    //     }
+    //     else {
+    //         handleFullnameEmpty();
+    //     }
+
+    //     if (userId === '') {
+    //         handleUserIdEmpty();
+    //     }
+    //     else {
+    //         handleUserIdError();
+    //     }
+    //     if (password === '') {
+    //         handlePasswordEmpty();
+    //     }
+    //     else {
+    //         handlePasswordError();
+    //     }
+
+
+    //     if (!validateCredentials()) {
+    //         console.log("Incorrectly formatted credentials, unable to make an HTTP request");
+    //         return;
+    //     }
+
+
+    //     setLoading(true);
+
+    //     setLoading(true);
+
+    //     const payload = {
+    //         fullName: validateFullName(fullName) ? fullName : '',
+    //         username: validateUsername(userName) ? userName : '',
+    //         email: validateEmail(userId) ? userId : '',
+    //         phoneNumber: validatePhone(userId) ? userId : '',
+    //         password: validatePassword(password) ? password : ''
+    //     };
+
+    //     try {
+    //         const response = await axios.post('http://localhost:8000/signup', payload);
+    //         console.log('Signup successful:', response.data);
+    //         navigate('/dashboard');
+    //     } catch (error) {
+    //         console.error('Signup error:', error);
+    //         setLoading(false);
+    //     }
+    // };
+
     return (
         <SignupContext.Provider value={{
-            fullName, userId, password, confirmPassword,
-            handleFullNameChange, handleUserIdChange, handlePasswordChange, handleConfirmPasswordChange,
-            handleFullNameError, handleUserIdError, handlePasswordError,
-            errors, setErrors,
-            fullNameEmptyError, userIdEmptyError, passwordEmptyError, confirmPasswordEmptyError,
-            handleCredentialSubmit, handleFullSubmit, loading
+            fullName,
+            userId,
+            userName,
+            password,
+            dateOfBirth,
+
+            isUnderEighteen,
+
+            handleFullNameChange,
+            handleUserIdChange,
+            handleUserNameChange,
+            handlePasswordChange,
+            triggerDateOfBirthErrors,
+            sessionResetError,
+
+            handleDateOfBirthChange,
+
+            errors,
+
+            fullNameEmptyError,
+            userIdEmptyError,
+            userNameEmptyError,
+            passwordEmptyError,
+            accountExistsError,
+            underThirteenError,
+            dateOfBirthEmptyError,
+
+            handleSubmit,
+            handleAgeNavigation,
+            // handleFullSubmit,
+            loading,
         }}>
             {children}
         </SignupContext.Provider>
