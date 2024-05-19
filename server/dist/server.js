@@ -13,8 +13,6 @@ const professional_profile_1 = __importDefault(require("./routers/professional_p
 const valid_identifier_1 = require("./controllers/valid_identifier");
 const body_parser_1 = __importDefault(require("body-parser"));
 const google_Oauth_1 = __importDefault(require("./routers/google_Oauth"));
-
-const google_Oauth_Callback_1 = __importDefault(require("./routers/google_Oauth_Callback"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
@@ -42,5 +40,3 @@ app.use(educational_profile_1.default);
 app.use(professional_profile_1.default);
 app.use(valid_identifier_1.validIdentifier);
 app.use(google_Oauth_1.default);
-
-app.use(google_Oauth_Callback_1.default);

@@ -234,15 +234,15 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             }
             if (age < 18) {
                 setIsUnderEighteen(true);
-            } else {
+                setProfileEncryption(true);
+                setRestricted(true);
+                setDataProtection(true);
+                setCensor(true);
+                setContentMonitization(true);
+                navigate("./userInfo")
+            } 
+            else {
                 setIsUnderEighteen(false);
-                if (age < 18) {
-                    setProfileEncryption(true);
-                    setRestricted(true);
-                    setDataProtection(true);
-                    setCensor(true);
-                    setContentMonitization(true);
-                }
                 navigate("./userInfo")
             }
         }
@@ -298,6 +298,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
 
         setLoading(true);
+        const age = new Date().getFullYear() - dateOfBirth.getFullYear();
 
         const payload = {
             fullName: validateFullName(fullName) ? fullName : '',
@@ -309,16 +310,20 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             contentMonitization: contentMonitization,
             censor: censor,
             restricted: restricted,
+            age: age,
+            dateOfBirth: dateOfBirth ? dateOfBirth : null
+           
         };
 
 
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
             console.log('Signup successful:', response.data);
-            navigate('/idVerification');
+            navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);
             setLoading(false);
+            handleAccountExistsError();
         }
     };
 

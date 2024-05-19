@@ -1,53 +1,77 @@
-// creating a controller to signup a user
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/userModel';
- // import body parser
 
-// signup controller
-export const signup = async (req: Request, res: Response) => {
-    // get the user details from the request body
-    const { fullName, email, password, username, phoneNumber } = req.body;
-    // check if the user already exists
-   
-    const userExists2 = isUnique(email, username, phoneNumber);
-    if (!userExists2) {
-        return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
+
+const generateUsername = async (fullName: string) => {
+    const baseUsername = fullName.replace(/\s+/g, '').toLowerCase();
+    let suffix = 0;
+    let uniqueUsername = baseUsername;
+
+    const exists = await User.findOne({ username: uniqueUsername });
+    if (!exists) {
+        return uniqueUsername; 
     }
-    // hash the password
+
+    while (await User.findOne({ username: uniqueUsername })) {
+        suffix++;
+        uniqueUsername = `${baseUsername}${suffix}`;
+    }
+
+    return uniqueUsername;
+};
+
+
+// Signup controller
+export const signup = async (req: Request, res: Response) => {
+    const { 
+        fullName,
+        email, 
+        phoneNumber,
+        password, 
+        dataProtection,
+        profileEncryption,
+        contentMonitization,
+        censor,
+        restricted,
+        age,
+        dateOfBirth
+    } = req.body;
+
+    const userExists = await isUnique(email, phoneNumber);
+    if (!userExists) {
+        return res.status(400).json({ message: 'Please sign up with a different username, email, or phone number' });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    // create a new user
+
+    const username = await generateUsername(fullName);
     const user = new User({
         fullName,
         email,
+        phoneNumber,
         password: hashedPassword,
         username,
-        phoneNumber
+        dataProtection,
+        profileEncryption,
+        contentMonitization,
+        censor,
+        restricted,
+        age,
+        dob: dateOfBirth,
     });
-    // save the user
-    await user.save();
-    // // create a token
-    // const token = jwt.sign({ userId: user._id }, JWT_SECRET);
-    // // send the token and user details
-    // res.status(201).json({ token, user });
-    res.status(201).json({ user });
 
+    await user.save();
+    res.status(201).json({ user });
 };
 
-const isUnique = async (email: string, username: string, phoneNumber: string) =>  {
-    
-    const exists =  await User.findOne({
-        $or: [
-            { email },
-            { username },
+const isUnique = async (email: string, phoneNumber: string) =>  {
+    const exists = await User.findOne({
+        $or:[
+            { email }, 
             { phoneNumber }
         ]
     });
-    if(!exists){
-        return true;
-    }
-    return false;
-
-
-}
+    return !exists;
+};

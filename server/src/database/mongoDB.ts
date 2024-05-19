@@ -5,6 +5,7 @@ import { ConnectOptions } from "mongoose";
 dotenv.config();
 const connection_string ='mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.ny9wvom.mongodb.net/Connect_Test?retryWrites=true&w=majority';
 
+
 // Function to connect to MongoDB
 export const connectToMongoDB = async () => {
     try {
@@ -14,3 +15,5 @@ export const connectToMongoDB = async () => {
         console.error('Error connecting to MongoDB: ', error);
     }
 };
+
+

@@ -9,5 +9,4 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const router = express_1.default.Router();
 router.get("/google/Oauth/v2/callback", google_Oauth_Callback_1.googleOauthCallBack);
-
 exports.default = router;

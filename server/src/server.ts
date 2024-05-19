@@ -1,7 +1,7 @@
 
 import express, {Request, Response} from 'express';
 
-// import { connectToMongoDB } from './database/mongoDB';
+
 import { connectToMongoDB } from './database/mongoDB';
 
 import loginRouter from './routers/login';
