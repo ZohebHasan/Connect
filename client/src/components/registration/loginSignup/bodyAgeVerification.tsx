@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BodyContainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import Poster from './smallComponents/poster';
 import HalfBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
-import UserInfo from './smallComponents/userInfoNonEmail';
+import UserInfo from './smallComponents/ageVerification';
 import Bottom from './smallComponents/bottom';
 import DatePicker from './elements/datePicker';
 
@@ -26,8 +26,8 @@ const Body: React.FC = () => {
 export default Body;
 
 const Container = styled.div`
-    flex: 8;
-    width: 70%;
+    flex: 3;
+    width: 80%;
     @media (max-width: 1920px) {  
         width: 60%; 
     }

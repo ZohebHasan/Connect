@@ -8,10 +8,11 @@ export const validIdentifier =  async (req: Request, res: Response) => {
     }
     const userIdentifier = parseIdentifier(identifier);
     const user = await User.findOne(userIdentifier);
-    if (!user) {
-        return res.status(400).json({ message: 'User does not exist' });
-        }
-    res.status(200).json({ user: user });
+    if (user) {
+        console.log("user exists")
+        return res.status(400).json({ message: 'An user already exist' });
+    }
+    res.status(200).send(true);
 
 }
 
@@ -19,9 +20,6 @@ export const validIdentifier =  async (req: Request, res: Response) => {
 const parseIdentifier = (identifier: string) => {
     if (identifier.includes('@')) {
         return { email: identifier.toLowerCase() };
-    }
-    if (isNaN(parseInt(identifier))) {
-        return { username: identifier.toLowerCase() };
     }
     return { phoneNumber: identifier };
 }

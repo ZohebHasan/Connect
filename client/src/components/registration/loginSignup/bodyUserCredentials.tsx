@@ -17,7 +17,7 @@ const Body: React.FC = () => {
                 <Container>
                     <UserCredentials />
                 </Container>   
-                <Bottom flex={1.7} />
+                <Bottom flex={1} />
             </HalfBody>
         </BodyContainer>
     );

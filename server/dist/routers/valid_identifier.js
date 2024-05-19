@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const valid_identifier_1 = require("../controllers/valid_identifier");
 const router = express_1.default.Router();
-router.post('/valididentifier', valid_identifier_1.validIdentifier);
+router.post('/validIdentifier', valid_identifier_1.validIdentifier);
 exports.default = router;
