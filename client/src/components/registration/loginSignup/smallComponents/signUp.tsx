@@ -48,7 +48,7 @@ export default function SignupNonEmailContainer() {
                     <Button 
                         variant="gradient" 
                         width="80%"
-                        to = {"/signup/userCredentials"}>
+                        to = {"../ageVerification"}>
                         sign up with email OR phone
                     </Button>
                 </ButtonContainer>           

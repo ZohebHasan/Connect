@@ -28,19 +28,22 @@ interface AuthContextType {
     userId: string;
     userName: string;
     password: string;
-    confirmPassword: string;
+    dateOfBirth: Date | null;
+
+    isUnderEighteen: boolean;
 
     handleFullNameChange: (input: string) => void;
     handleUserIdChange: (input: string) => void;
     handleUserNameChange: (input: string) => void;
     handlePasswordChange: (password: string) => void;
-    handleConfirmPasswordChange: (confirmPassword: string) => void;
+    handleDateOfBirthChange: (dateOfBirth: Date | null) => void;
 
-    handleFullNameError: () => void;
-    handleUserIdError: () => void;
-    handleUserNameError: () => void;
-    handlePasswordError: () => void;
-    handlePasswordMismatchError: () => void;
+    triggerDateOfBirthErrors: () => void;
+
+
+
+
+
 
     errors: {
         fullNameError: boolean,
@@ -48,27 +51,22 @@ interface AuthContextType {
         emailError: boolean;
         phoneError: boolean;
         passwordError: boolean;
-        passwordNotMatchError: boolean
+
     };
 
-    setErrors: (
-        errors: {
-            fullNameError: boolean,
-            usernameError: boolean;
-            emailError: boolean;
-            phoneError: boolean;
-            passwordError: boolean;
-            passwordNotMatchError: boolean
-        }) => void;
 
+    underThirteenError: boolean;
     userIdEmptyError: boolean;
     userNameEmptyError: boolean;
     fullNameEmptyError: boolean;
     passwordEmptyError: boolean;
-    confirmPasswordEmptyError: boolean;
+    accountExistsError: boolean;
+    dateOfBirthEmptyError: boolean;
+    sessionResetError: boolean;
 
-    handleCredentialSubmit: () => void;
-    handleFullSubmit: () => void;
+    handleSubmit: () => void;
+    handleAgeNavigation: () => void;
+    // handleFullSubmit: () => void;
     loading: boolean;
 }
 
@@ -80,34 +78,46 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [userId, setUserId] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [age, setAge] = useState(); //incomplete
+    const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
 
-    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false });
+    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false });
 
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
     const [userNameEmptyError, setUserNameEmptyError] = useState(false); //incomplete
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
-    const [confirmPasswordEmptyError, setConfirmPasswordEmptyError] = useState(false);
+    const [sessionResetError, setSessionResetError] = useState(false)
 
+    const [dateOfBirthEmptyError, setDateOfBirthEmptyError] = useState(false);
+    const [underThirteenError, setUnderThirteenError] = useState(false);
+    const [isUnderEighteen, setIsUnderEighteen] = useState(false);
+
+    const [accountExistsError, setAccountExistsError] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const [dataProtection, setDataProtection] = useState(true);
+    const [profileEncryption, setProfileEncryption] = useState(true);
+    const [contentMonitization, setContentMonitization] = useState(true);
+    const [censor, setCensor] = useState(false);
+    const [restricted, setRestricted] = useState(false);
+
 
     //input change
     const handleFullNameChange = (input: string) => {
         setFullName(input);
         setErrors(prev => ({ ...prev, fullNameError: false }));
         setFullNameEmptyError(false);
+  
+
     };
 
     const handleUserIdChange = (input: string) => {
         setUserId(input);
-        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false, passwordNotMatchError: false }));
+        setErrors(prev => ({ ...prev, emailError: false, phoneError: false, passwordError: false }));
         setUserIdEmptyError(false);
         setPasswordEmptyError(false);
-        setConfirmPasswordEmptyError(false);
-
+        setAccountExistsError(false);
     };
 
     const handleUserNameChange = (input: string) => {
@@ -118,17 +128,24 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        setErrors(prev => ({ ...prev, passwordError: false, passwordNotMatchError: false }));
+        setErrors(prev => ({ ...prev, passwordError: false}));
         setPasswordEmptyError(false);
     };
 
-    const handleConfirmPasswordChange = (confirmPassword: string) => {
-        setConfirmPassword(confirmPassword);
-        setErrors(prev => ({ ...prev, confirmPasswordError: false }));
-        setConfirmPasswordEmptyError(false);
+
+
+    const handleDateOfBirthChange = (date: Date | null) => {
+        setDateOfBirth(date);
+        setDateOfBirthEmptyError(false);
+        setUnderThirteenError(false);
+    };
+
+    const triggerDateOfBirthErrors = () => {
+        setDateOfBirthEmptyError(false);
+        setUnderThirteenError(false);
     }
 
-    //handling the errors
+
     const handleFullNameError = () => {
         setErrors(prev => ({ ...prev, fullNameError: !validateFullName(fullName) }));
     };
@@ -148,16 +165,13 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }));
     };
 
-    const handlePasswordMismatchError = () => {
-        setErrors(prev => ({ ...prev, passwordNotMatchError: !(password === confirmPassword) }));
-    }
+
 
     const handlePasswordError = () => {
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     };
 
 
-    //handling the empty input errors
     const handleFullnameEmpty = () => {
         setFullNameEmptyError(true);
     };
@@ -174,121 +188,143 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setPasswordEmptyError(true);
     };
 
-    const handleConfirmPasswordEmpty = () => {
-        setConfirmPasswordEmptyError(true);
-    };
 
-
-    //validating all crendentials
-    const validateCredentials = () => {
-        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password))
+    const handleAccountExistsError = () => {
+        setAccountExistsError(true);
     }
 
+    const handlesessionResetError = () => {
+        setSessionResetError(true);
+    }
+
+    const validateCredentials = () => {
+        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password) && validateFullName(fullName))
+    }
+
+    const validateUserPersonalInfo = () => {
+        return (validateUsername(userName) && validateFullName(fullName) && validatePassword(password));
+    }
     const validateUserInfo = () => {
         return (validateFullName(fullName) && validatePassword(password)) &&
             (validateUsername(userName)) &&
             (validateEmail(userId) || validatePhone(userId));
     };
 
+    const handleAgeNavigation = () => {
+        // if (!validateCredentials()) {
+        //     setSessionResetError(true);
+        //     console.log(sessionResetError);
+
+        //     setTimeout(() => {
+        //         navigate("./userInfo");
+        //         setSessionResetError(false);
+        //         console.log("user fields are empty");
+        //     }, 1000);
+        // }
+        if (!dateOfBirth) {
+            setDateOfBirthEmptyError(true);
+        }
+        else {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+            if (age < 13) {
+                setUnderThirteenError(true);
+                return;
+            }
+            else {
+                setUnderThirteenError(false);
+            }
+            if (age < 18) {
+                setIsUnderEighteen(true);
+                setProfileEncryption(true);
+                setRestricted(true);
+                setDataProtection(true);
+                setCensor(true);
+                setContentMonitization(true);
+                navigate("./userInfo")
+            } 
+            else {
+                setIsUnderEighteen(false);
+                navigate("./userInfo")
+            }
+        }
+    }
+
+
+
 
     //intial submit button, just to check if the credential contains in the database
-    const handleCredentialSubmit = async () => {
-        if (userId === '') {
-            handleUserIdEmpty();
-        } else {
-            handleUserIdError();
-        }
-        if (password === '') {
-            handlePasswordEmpty();
-        }
-        else if (confirmPassword === '') {
-            handleConfirmPasswordEmpty();
-        }
-        else {
-            handlePasswordMismatchError();
-        }
-        if (errors.passwordNotMatchError) {
-        }
-        else {
-            handlePasswordError();
-        }
+    const handleSubmit = async () => {
+        if (!dateOfBirth) {
+            setSessionResetError(true);
 
-
-        if (!validateCredentials()) {
-            console.log("Incorrectly formatted credentials, unable to make an HTTP request");
-            return;
+            setTimeout(() => {
+                navigate("./ageVerification");
+                setSessionResetError(false);
+                console.log("user fields are empty");
+            }, 1000);
         }
-
-
-        setLoading(true);
-        const initialPayload = {
-            identifier: userId
-        };
-
-        try {
-            const response = await axios.post('http://localhost:8000/check-identifier', initialPayload);
-            console.log('Identifier check successful:', response.data);
-            navigate('../verifySignup');
-        } catch (error) {
-            console.error('Identifier check error:', error);
-            setLoading(false);
-        }
-    };
-
-
-    //final submit button, sends out all of the credentials
-    const handleFullSubmit = async () => {
-        if (fullName === '') {
-            handleFullnameEmpty();
-        } else {
+        if (fullName !== '') {
             handleFullNameError();
         }
+        else {
+            handleFullnameEmpty();
+        }
+
         if (userId === '') {
             handleUserIdEmpty();
-            return;
-        } else {
+        }
+        else {
             handleUserIdError();
         }
         if (password === '') {
             handlePasswordEmpty();
-            return;
-        }
-        else if (confirmPassword === '') {
-            handleConfirmPasswordEmpty();
-            return;
-        }
-        else {
-            handlePasswordMismatchError();
-        }
-        if (errors.passwordNotMatchError) {
-            return;
         }
         else {
             handlePasswordError();
         }
-
-        if (!validateUserInfo()) {
-            console.log("Incorrectly formatted userinfo, unable to make an HTTP request");
+        if (dateOfBirth) {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+            if (age < 13) {
+                return
+            }
+            else {
+                if (!validateCredentials()) {
+                    console.log("Inavlid Credentials")
+                    return;
+                }
+            }
+        }
+        else {
             return;
         }
 
         setLoading(true);
+        const age = new Date().getFullYear() - dateOfBirth.getFullYear();
 
         const payload = {
             fullName: validateFullName(fullName) ? fullName : '',
-            username: validateUsername(userName) ? userName : '',
             email: validateEmail(userId) ? userId : '',
             phoneNumber: validatePhone(userId) ? userId : '',
-            password: validatePassword(password) ? password : ''
+            password: validatePassword(password) ? password : '',
+            dateProtection: dataProtection,
+            profileEncryption: profileEncryption,
+            contentMonitization: contentMonitization,
+            censor: censor,
+            restricted: restricted,
+            age: age,
+            dateOfBirth: dateOfBirth ? dateOfBirth : null
+           
         };
+
 
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
             console.log('Signup successful:', response.data);
-            navigate('/dashboard');
+            navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);
             setLoading(false);
+            handleAccountExistsError();
         }
     };
 
@@ -298,31 +334,32 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             userId,
             userName,
             password,
-            confirmPassword,
+            dateOfBirth,
+
+            isUnderEighteen,
 
             handleFullNameChange,
             handleUserIdChange,
             handleUserNameChange,
             handlePasswordChange,
-            handleConfirmPasswordChange,
+            triggerDateOfBirthErrors,
+            sessionResetError,
 
-            handleFullNameError,
-            handleUserIdError,
-            handleUserNameError,
-            handlePasswordError,
-            handlePasswordMismatchError,
+            handleDateOfBirthChange,
 
             errors,
-            setErrors,
 
             fullNameEmptyError,
             userIdEmptyError,
             userNameEmptyError,
             passwordEmptyError,
-            confirmPasswordEmptyError,
+            accountExistsError,
+            underThirteenError,
+            dateOfBirthEmptyError,
 
-            handleCredentialSubmit,
-            handleFullSubmit,
+            handleSubmit,
+            handleAgeNavigation,
+            // handleFullSubmit,
             loading,
         }}>
             {children}

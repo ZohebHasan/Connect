@@ -1,9 +1,8 @@
 
 import express, {Request, Response} from 'express';
 
-// import { connectToMongoDB } from './database/mongoDB';
-import { connectToMongoDB } from './database/mongoDB';
 
+import { connectToMongoDB } from './database/mongoDB';
 
 import loginRouter from './routers/login';
 
@@ -12,11 +11,19 @@ import signupRouter from './routers/signup';
 import personalProfileRouter from './routers/personal_profile';
 import educationalProfileRouter from './routers/educational_profile';
 import professionalProfileRouter from './routers/professional_profile';
+import { validIdentifier } from './controllers/valid_identifier';
 
 import bodyParser from 'body-parser';
 
-
+// import the google Oauth router
+import googleOauthRouter from './routers/google_Oauth';
+import googleOauthCallBackRouter from './routers/google_Oauth_Callback';
 import cors from 'cors';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+
 
 const app = express();
 const PORT:Number=8000;
@@ -45,7 +52,7 @@ app.listen(PORT,() => {
     // connect to MongoDB
     connectToMongoDB();
 
-})
+});
 
 
 // use the login router
@@ -58,3 +65,9 @@ app.use(personalProfileRouter);
  app.use(educationalProfileRouter);
 // use the professional profile router
 app.use(professionalProfileRouter);
+// use the valid identifier router
+app.use(validIdentifier);
+// use the google Oauth router
+app.use(googleOauthRouter);
+// use the google Oauth callback router
+// app.use(googleOauthCallBackRouter);

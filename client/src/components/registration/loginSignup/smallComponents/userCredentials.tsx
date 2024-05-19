@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import { useLanguage } from '../../../../contexts/Language/Language';
@@ -17,29 +18,33 @@ const CredentialText: React.FC = () => {
     return (
         <TextContainer>
             <Text size={"3rem"} variant={"normal"} fontWeight={"500"}>
-                Let's setup your
+                Let's get to know
             </Text>
             <Text size={"3rem"} variant={"gradient"} fontWeight={"500"}>
-                Account.
+                you.
             </Text>
         </TextContainer>
     );
 }
 
-const DisplayUserIdError = () => {
+
+
+const DisplayFullNameError = () => {
     const {
         errors,
-        userIdEmptyError, 
+        fullNameEmptyError,
+
     } = useSignup();
 
     let errorMessage = null;
 
-    if (userIdEmptyError ) {
-        errorMessage = <ErrorMessage>Please enter your email address or phone number.</ErrorMessage>;
+    if (fullNameEmptyError) {
+        errorMessage = <ErrorMessage>Please enter your name.</ErrorMessage>;
     }
-    else if ((errors.emailError && errors.phoneError)) {
-        errorMessage = <ErrorMessage>Please enter a valid Email or phone number.</ErrorMessage>;
+    else if (errors.fullNameError) {
+        errorMessage = <ErrorMessage>Please enter a valid name.</ErrorMessage>;
     }
+ 
     return (
         <>
             {errorMessage}
@@ -47,11 +52,41 @@ const DisplayUserIdError = () => {
     );
 }
 
+
+
+const DisplayUserIdError = () => {
+    const {
+        errors,
+        userIdEmptyError,
+    
+        accountExistsError
+
+    } = useSignup();
+
+    let errorMessage = null;
+
+    if (userIdEmptyError) {
+        errorMessage = <ErrorMessage>Please enter your email or phone number.</ErrorMessage>;
+    }
+    else if (errors.emailError && errors.phoneError) {
+        errorMessage = <ErrorMessage>Please enter a valid email or phone number.</ErrorMessage>;
+    }
+    else if (accountExistsError) {
+        errorMessage = <ErrorMessage>Uh oh, seems like an account already exists.</ErrorMessage>;
+    }
+
+    return (
+        <>
+            {errorMessage}
+        </>
+    );
+}
+
+
 const DisplayPasswordError = () => {
     const {
         errors,
         passwordEmptyError,
-        confirmPasswordEmptyError
     } = useSignup();
 
     let errorMessage = null;
@@ -59,16 +94,9 @@ const DisplayPasswordError = () => {
     if (passwordEmptyError) {
         errorMessage = <ErrorMessage>Please enter a password.</ErrorMessage>;
     }
-    else if(confirmPasswordEmptyError){
-        errorMessage = <ErrorMessage>Please Confirm your password.</ErrorMessage>;
-    }
-    else if (errors.passwordNotMatchError){
-        errorMessage = <ErrorMessage>Passwords do not match.</ErrorMessage>;
-    }
     else if (errors.passwordError) {
         errorMessage = <ErrorMessage>Password is too weak, please enter a stronger password.</ErrorMessage>;
     }
-
     return (
         <>
             {errorMessage}
@@ -85,16 +113,16 @@ export default function Credentials() {
 
 
     const {
+        fullName,
         userId,
         password,
-        confirmPassword,
 
+        handleFullNameChange,
         handleUserIdChange,
         handlePasswordChange,
-        handleConfirmPasswordChange,
 
-      
-        handleCredentialSubmit
+        handleSubmit
+
     } = useSignup();
 
     const handleAge = (input: string) => {
@@ -106,11 +134,24 @@ export default function Credentials() {
             <Container $isDarkMode={isDarkMode}>
 
                 <Credential>
+
                     <CredentialTextContainer>
                         <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
-                            Account credential
+                            User information
                         </Text>
                     </CredentialTextContainer>
+                    <InputContainer>
+                        <NormalInput
+                            id={""}
+                            label={"Full Name"}
+                            width={"75%"}
+                            value={fullName}
+                            onChange={handleFullNameChange}
+                        />
+                    </InputContainer>
+                    <ErrorMessageContainer>
+                        <DisplayFullNameError />
+                    </ErrorMessageContainer>
                     <InputContainer>
                         <NormalInput
                             id={""}
@@ -119,15 +160,20 @@ export default function Credentials() {
                             value={userId}
                             onChange={handleUserIdChange}
                         />
+
+
                     </InputContainer>
-                    <DisplayUserIdError/>
-               
+                    <ErrorMessageContainer>
+                        <DisplayUserIdError />
+                    </ErrorMessageContainer>
+                  
+
                 </Credential>
 
                 <Password>
                     <DateText>
                         <Text size={"1.5rem"} variant={"normal"} fontWeight={"200"}>
-                            Account password
+                            User password
                         </Text>
                     </DateText>
                     <PasswordContainer>
@@ -138,33 +184,77 @@ export default function Credentials() {
                             value={password}
                             onChange={handlePasswordChange}
                         />
-                        <HiddenInput
-                            id={"passwordSignup"}
-                            label={"Confirm Password"}
-                            width={"75%"}
-                            value={confirmPassword}
-                            onChange={handleConfirmPasswordChange}
-                        />
+
                     </PasswordContainer>
-                    <DisplayPasswordError/>
+                    <ErrorMessageContainer>
+                        <DisplayPasswordError />
+                    </ErrorMessageContainer>
+                </Password>
+
+                <BottomContainer>
+                    <AgreementContainer>
+                        <Text variant={"normal"} fontWeight={"300"} size={"15px"}>
+                            By signing up, you're agreeing to Connect’s <StyledLink to="/privacy" $isDarkMode={isDarkMode}>terms of services</StyledLink> and privacy, user, data, and child safety
+                            <StyledLink to="/privacy" $isDarkMode={isDarkMode}> policies</StyledLink>
+                        </Text>
+                    </AgreementContainer>
                     <ButtonContainer>
                         <Button
                             variant={"gradient"}
-                            width={"60%"}
-                            onClick={handleCredentialSubmit}
+                            width={"90%"}
+                            onClick={handleSubmit}
                         >
-                            Next
+                            Sign up
                         </Button>
                     </ButtonContainer>
-
-                </Password>
-
+                </BottomContainer>
             </Container>
-
-
         </>
     );
 }
+
+const ErrorMessageContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+
+`
+
+const BottomContainer = styled.div`
+    flex: 1.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    // background-color:red;
+`;
+
+const AgreementContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    justify-content: center;
+
+`
+
+const StyledLink = styled(Link) <{ $isDarkMode: boolean }>`
+  color: #C33764; 
+  text-decoration: none; 
+  font-weight: 500; 
+  transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
+
+  &:hover, &:focus {
+    color: #0056b3; /* Darker blue on hover for visual feedback */
+    text-decoration: underline; /* Add underline on hover for clarity */
+  }
+
+  &:active {
+    color: #004085; /* Even darker blue when active/clicked */
+  }
+`;
 
 const Container = styled.div<{ $isDarkMode: boolean }>`
     z-index: 1;
@@ -184,16 +274,17 @@ const Container = styled.div<{ $isDarkMode: boolean }>`
 
 
 const TextContainer = styled.div`
-    flex: 0.7;
+    flex: 0.4;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
-    // gap: 0.8rem;
+
+    gap: 0.8rem;
 `
 const Credential = styled.div`
-    flex: 1;
+    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +304,7 @@ const CredentialTextContainer = styled.div`
   `
 
 const InputContainer = styled.div`
-    flex: 1;
+    flex: 0.5;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -222,7 +313,7 @@ const InputContainer = styled.div`
   `
 
 const Password = styled.div`
-    flex: 2;
+    flex: 1.2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,10 +345,11 @@ const PasswordContainer = styled.div`
 
 
 const ButtonContainer = styled.div`
-    flex: 0.9;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 90%;
     // background-color:red;
 `
