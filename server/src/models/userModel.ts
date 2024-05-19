@@ -28,7 +28,7 @@ const schema = new Schema<User>({
     fullName: { type: String, required: true },
     email: { type: String, required: false, unique: true },
     password: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, unique: true }, 
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, required: false, unique: true },

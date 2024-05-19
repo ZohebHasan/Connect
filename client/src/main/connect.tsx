@@ -30,6 +30,8 @@ import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
 
+// import TestPage from "./kamrul"
+
 export default function Connect(): React.ReactElement {
     return (
         <Router>
@@ -75,6 +77,7 @@ function RoutesWrapper() {
 
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
+            {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
             <Route path="/login/signup" element={<SignupPage />} />
             
             <Route
