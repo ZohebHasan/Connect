@@ -8,26 +8,26 @@
 
 import { Schema, model } from 'mongoose';
 import User from '../userModel';
+
 // creating the user interface
 interface Personal {
     user: typeof User;
-    full_name: string;
+    full_name: typeof User.schema.obj.fullName;
     hobbies: string[];
     interest: string[];
     bio: string;
-    // profile_pic: string; // media --> picture // need to be introduced later 
-    age: number;
+    profile_pic: string; // media --> picture // need to be introduced later 
+    age: typeof User.schema.obj.age;
 }
 // creating the user schema
 const schema = new Schema<Personal>({
-    // reference to the user
     user: { type: Schema.Types.ObjectId, ref: 'User' },
-    full_name: { type: String, required: true },
+    full_name: User.schema.obj.fullName,
     hobbies: { type: [String], required: false },
     interest: { type: [String], required: false },
     bio: { type: String, required: false },
-    // profile_pic: { type: String, required: false },
-    age: { type: Number, required: false }
+    profile_pic: { type: String, required: false },
+    age: User.schema.obj.age
 });
 // export the personal profile model
 export default model('Personal', schema);

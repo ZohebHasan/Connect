@@ -9,10 +9,10 @@ export const validIdentifier =  async (req: Request, res: Response) => {
     const userIdentifier = parseIdentifier(identifier);
     const user = await User.findOne(userIdentifier);
     if (user) {
-        console.log("user exists")
-        return res.status(400).json({ message: 'An user already exist' });
-    }
-    res.status(200).send(true);
+        return res.status(400).json({ message: 'User does exist' });
+        }
+    res.status(200)
+    .send(true);
 
 }
 
