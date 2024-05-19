@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist", // Output directory for all emitted files
+    "rootDir": "./src", // Root directory of the source files, helps with structure preservation in 'outDir'
+    "jsx": "react-jsx",
+    "allowJs": true, // Allows JavaScript files to be compiled
+    "checkJs": false, // Set to true if you want TypeScript to type-check JS files
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true, // Skip type checking of declaration files (*.d.ts)
+    "sourceMap": true // Enable source map generation
+  },
+  "include": [
+    "src/**/*",
+    "src/app/App.tsx"
+, "types"  ],
+  "exclude": [
+    "node_modules", // Standard practice to exclude node_modules
+    "dist" // Exclude the output directory from the source file list
+  ]
+}
