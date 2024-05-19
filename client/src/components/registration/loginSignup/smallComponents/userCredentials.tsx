@@ -121,7 +121,7 @@ export default function Credentials() {
         handleUserIdChange,
         handlePasswordChange,
 
-        handleCredentialSubmit
+        handleSubmit
 
     } = useSignup();
 
@@ -202,7 +202,7 @@ export default function Credentials() {
                         <Button
                             variant={"gradient"}
                             width={"90%"}
-                            onClick={handleCredentialSubmit}
+                            onClick={handleSubmit}
                         >
                             Sign up
                         </Button>

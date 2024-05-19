@@ -311,6 +311,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             restricted: restricted,
         };
 
+
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
             console.log('Signup successful:', response.data);
@@ -320,68 +321,6 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             setLoading(false);
         }
     };
-
-
-
- 
-    // const handleFullSubmit = async () => {
-    //     if (!dateOfBirth) {
-    //         setSessionResetError(true);
-
-    //         setTimeout(() => {
-    //             navigate("./ageVerification");
-    //             setSessionResetError(false);
-    //             console.log("Data of Birth is empty");
-    //         }, 1000);
-    //     }
-    //     if (fullName !== '') {
-    //         handleFullNameError();
-    //     }
-    //     else {
-    //         handleFullnameEmpty();
-    //     }
-
-    //     if (userId === '') {
-    //         handleUserIdEmpty();
-    //     }
-    //     else {
-    //         handleUserIdError();
-    //     }
-    //     if (password === '') {
-    //         handlePasswordEmpty();
-    //     }
-    //     else {
-    //         handlePasswordError();
-    //     }
-
-
-    //     if (!validateCredentials()) {
-    //         console.log("Incorrectly formatted credentials, unable to make an HTTP request");
-    //         return;
-    //     }
-
-
-    //     setLoading(true);
-
-    //     setLoading(true);
-
-    //     const payload = {
-    //         fullName: validateFullName(fullName) ? fullName : '',
-    //         username: validateUsername(userName) ? userName : '',
-    //         email: validateEmail(userId) ? userId : '',
-    //         phoneNumber: validatePhone(userId) ? userId : '',
-    //         password: validatePassword(password) ? password : ''
-    //     };
-
-    //     try {
-    //         const response = await axios.post('http://localhost:8000/signup', payload);
-    //         console.log('Signup successful:', response.data);
-    //         navigate('/dashboard');
-    //     } catch (error) {
-    //         console.error('Signup error:', error);
-    //         setLoading(false);
-    //     }
-    // };
 
     return (
         <SignupContext.Provider value={{
