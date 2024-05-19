@@ -33,15 +33,13 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonitization, censor, restricted, age, dateOfBirth } = req.body;
     const userExists = yield isUnique(email, phoneNumber);
     if (!userExists) {
-        return res.status(400).json({ message: 'Please sign up with a different username, email, or phone number' });
+        return res.status(400).json({ message: 'Please sign up with a different email or phone number.' });
     }
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
     const username = yield generateUsername(fullName);
-    const user = new userModel_1.default({
+    let userData = {
         fullName,
-        email,
-        phoneNumber,
         password: hashedPassword,
         username,
         dataProtection,
@@ -51,7 +49,14 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         restricted,
         age,
         dob: dateOfBirth,
-    });
+    };
+    if (email && email.trim() !== "") {
+        userData.email = email.toLowerCase();
+    }
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        userData.phoneNumber = phoneNumber;
+    }
+    const user = new userModel_1.default(userData);
     yield user.save();
     res.status(201).json({ user });
 });
