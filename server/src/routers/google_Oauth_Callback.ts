@@ -4,5 +4,5 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const router = express.Router();
-router.get(process.env.GOOGLE_REDIRECT_URI as string, googleOauthCallBack);
+router.get("/google/Oauth/v2/callback", googleOauthCallBack);
 export default router;
