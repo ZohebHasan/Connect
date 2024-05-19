@@ -21,14 +21,28 @@ const generateUsername = async (fullName: string) => {
     return uniqueUsername;
 };
 
+interface UserData {
+    fullName: string;
+    password: string;
+    username: string;
+    dataProtection: boolean; // Consider specifying more precise types instead of 'any'
+    profileEncryption: any;
+    contentMonitization: any;
+    censor: any;
+    restricted: any;
+    age: any;
+    dob: any;
+    email?: string; // Optional property
+    phoneNumber?: string; // Optional property
+}
 
 // Signup controller
 export const signup = async (req: Request, res: Response) => {
     const { 
         fullName,
-        email, 
+        email,
         phoneNumber,
-        password, 
+        password,
         dataProtection,
         profileEncryption,
         contentMonitization,
@@ -40,17 +54,15 @@ export const signup = async (req: Request, res: Response) => {
 
     const userExists = await isUnique(email, phoneNumber);
     if (!userExists) {
-        return res.status(400).json({ message: 'Please sign up with a different username, email, or phone number' });
+        return res.status(400).json({ message: 'Please sign up with a different email or phone number.' });
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     const username = await generateUsername(fullName);
-    const user = new User({
+
+    let userData: UserData = {
         fullName,
-        email,
-        phoneNumber,
         password: hashedPassword,
         username,
         dataProtection,
@@ -60,18 +72,35 @@ export const signup = async (req: Request, res: Response) => {
         restricted,
         age,
         dob: dateOfBirth,
-    });
+    };
 
+    if (email && email.trim() !== "") {
+        userData.email = email.toLowerCase();
+    }
+
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        userData.phoneNumber = phoneNumber;
+    }
+
+    const user = new User(userData);
     await user.save();
     res.status(201).json({ user });
 };
 
 const isUnique = async (email: string, phoneNumber: string) =>  {
-    const exists = await User.findOne({
-        $or:[
-            { email }, 
-            { phoneNumber }
-        ]
-    });
-    return !exists;
+    const userIdentifier = parseIdentifier(email, phoneNumber);
+    const user = await User.findOne(userIdentifier);
+
+    if (!user) {
+        return true;
+    }
+    return false;
 };
+
+const parseIdentifier = (email: string, phoneNumber: string) => {
+    if (email.includes('@')) {
+        return { email: email.toLowerCase() };
+    }
+    
+    return { phoneNumber: phoneNumber};
+}

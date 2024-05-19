@@ -15,40 +15,58 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userModel_1 = __importDefault(require("../models/userModel"));
+const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, function* () {
+    const baseUsername = fullName.replace(/\s+/g, '').toLowerCase();
+    let suffix = 0;
+    let uniqueUsername = baseUsername;
+    const exists = yield userModel_1.default.findOne({ username: uniqueUsername });
+    if (!exists) {
+        return uniqueUsername;
+    }
+    while (yield userModel_1.default.findOne({ username: uniqueUsername })) {
+        suffix++;
+        uniqueUsername = `${baseUsername}${suffix}`;
+    }
+    return uniqueUsername;
+});
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonitization, censor, restricted, dateOfBirth } = req.body;
-    const userExists2 = isUnique(email, phoneNumber);
-    if (!userExists2) {
-        return res.status(400).json({ message: 'Please sign up with a different username, email or phonenumber' });
+    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonitization, censor, restricted, age, dateOfBirth } = req.body;
+    const userExists = yield isUnique(email, phoneNumber);
+    if (!userExists) {
+        return res.status(400).json({ message: 'Please sign up with a different username, email, or phone number' });
     }
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
+    const username = yield generateUsername(fullName);
     const user = new userModel_1.default({
-        fullName: fullName,
-        email: email,
+        fullName,
+        email,
+        phoneNumber,
         password: hashedPassword,
-        username: Math.random(),
-        dataProtection: dataProtection,
-        profileEncryption: profileEncryption,
-        contentMonitization: contentMonitization,
-        censor: censor,
-        restricted: restricted,
+        username,
+        dataProtection,
+        profileEncryption,
+        contentMonitization,
+        censor,
+        restricted,
+        age,
         dob: dateOfBirth,
-        phoneNumber: phoneNumber
     });
     yield user.save();
     res.status(201).json({ user });
 });
 exports.signup = signup;
 const isUnique = (email, phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
-    const exists = yield userModel_1.default.findOne({
-        $or: [
-            { email },
-            { phoneNumber }
-        ]
-    });
-    if (!exists) {
+    const userIdentifier = parseIdentifier(email, phoneNumber);
+    const user = yield userModel_1.default.findOne(userIdentifier);
+    if (!user) {
         return true;
     }
     return false;
 });
+const parseIdentifier = (email, phoneNumber) => {
+    if (email.includes('@')) {
+        return { email: email.toLowerCase() };
+    }
+    return { phoneNumber: phoneNumber };
+};

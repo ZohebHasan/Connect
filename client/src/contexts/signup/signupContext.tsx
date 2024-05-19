@@ -228,6 +228,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             const age = new Date().getFullYear() - dateOfBirth.getFullYear();
             if (age < 13) {
                 setUnderThirteenError(true);
+                return;
             }
             else {
                 setUnderThirteenError(false);
