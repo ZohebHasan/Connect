@@ -29,7 +29,7 @@ interface UserData {
     contentMonetization: boolean;
     censor: boolean;
     restricted: boolean;
-    age: any;
+    age: number;
     dob: Date;
     email?: string; 
     phoneNumber?: string; 
@@ -67,7 +67,7 @@ export const signup = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const username = await generateUsername(fullName);
 
-    let userData: UserData = {
+    let userData: Partial<UserData> = {
         fullName,
         password: hashedPassword,
         username,
@@ -80,10 +80,10 @@ export const signup = async (req: Request, res: Response) => {
         dob: dateOfBirth,
     };
 
-    // Add email or phone number based on what is provided
+    // Conditionally add email and phoneNumber only if they are provided and not empty
     if (email && email.trim() !== "") {
         userData.email = email.toLowerCase();
-    } 
+    }
     if (phoneNumber && phoneNumber.trim() !== "") {
         userData.phoneNumber = phoneNumber;
     }
