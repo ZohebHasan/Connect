@@ -55,7 +55,7 @@ async function managePreKeys(currentPreKeyCount: number, lastPreKeyId: number): 
 
 // Function to upload keys to the server
 async function uploadKeysToServer(preKeys: PreKeyPairType[]): Promise<void> {
-    const client = new MongoClient(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(MONGODB_URI);
 
     try {
         await client.connect();
@@ -78,4 +78,3 @@ async function uploadKeysToServer(preKeys: PreKeyPairType[]): Promise<void> {
 }
 
 export { generateKeys, generateAdditionalPreKeys, managePreKeys, uploadKeysToServer };
-
