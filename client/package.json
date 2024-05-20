@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@privacyresearch/libsignal-protocol-typescript": "^0.0.16",
     "@signalapp/libsignal-client": "^0.46.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

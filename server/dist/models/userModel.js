@@ -3,12 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const schema = new mongoose_1.Schema({
     fullName: { type: String, required: true },
-    email: { type: String, required: false, unique: true },
+    email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
-    phoneNumber: { type: String, required: false, unique: true },
+    phoneNumber: { type: String, unique: true, sparse: true },
     dataProtection: { type: Boolean, default: true },
     profileEncryption: { type: Boolean, default: true },
     contentMonitization: { type: Boolean, default: true },
