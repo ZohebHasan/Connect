@@ -1,0 +1,54 @@
+Performing an ecryption schema that upholds decentralization protocols is highly difficult.
+
+hence.. why i'm writing this...
+
+Databases/Storage Platforms:
+
+MongoDB - For storing both sensitive and non-sensitive information like user attributes, settings, media, 
+preferences, etc. A good plaform that is readily accessible and modifiable.
+
+Storj - A decentralized platform that stores our MongoDB 
+
+Hyperledger Fabric - For storing encrypted keys, encrypted IV's and salts of the encrypted and hashed data.
+Really good for Enterprises and has permissioned blockchains features with enhanced privacy controls compard
+to ethereum.  
+
+Encryption Schema:
+1. We use the inputUser.jsx (suseptible to name change) class to input the user's information
+2. We then convert this information into a json file that gets read by the encryption/hashing algorithm
+3. Once the information has been encrypted and hashed the json file of the users sensitive information
+gets immidiately deleted. Then, four files get created
+    1. A file representing the encrypted information
+    2. A file representing the encrypted keys and IV
+    3. A file representing the key-encryption key that decrypts the encrypted keys and encrypted IV's
+    4. A file representing the salt associated with the password
+4. We send the file holding the encrypted information to our mongoDB database where it resides in our storej platform 
+5. Then we send the files holding the encrypted keys, encrypted IV's and salt to our hyperledger fabric blockchain 
+6. We personally must hold on to the KEK used to decrypt the encrypted keys and encrypted IV' using
+   a hardware security module (HSM) or secure key management service
+
+
+Decryption Schema:
+1. Upon a user needing a retrieval of any of the encrypted information we visit both the mongodb (from storej)
+and hyperledger fabric databases to retrieve the encrypted information, the encrypted keys, and the encrypted IV's
+2. We then use the KEK to decrypt both the encrypted keys and encrypted IV's
+3. Then we decrypt the information using the decrypted keys and decrypted IV's (I know im being redundant)
+4. We link them together for as long as the user is logged in 
+5. Upon logout, we simply revoke the accessible sensitive information
+
+
+
+Questions:
+Why do we need two databases along with a platform? And why do we separate the keys/salts with the encrypted information?
+
+   -MongoDB on one hand plays a crucial role in our architecture, even with Hyperledger handling encrypted keys,
+    IV's and salts, Storj is storing our MongoDB, it excels in managing large volumes of data
+    with flexibility, scalability, and powerful querying capabilities. 
+
+    Storj on the other hand provides decentralized cloud object storage that's secure and encrypted, 
+    where we store our MongoDB. For a decentralized system, it's essential to minimize dependencies on specific
+    centralized services to avoid central points of control or failure. Hence why we're using Hyperledger to 
+    store the keys/salts.
+
+    Now for storing our encrypted keys, encrypted IV's and salts, Hyperledger fabric has permissioned blockchains 
+    features with enhanced privacy controls compard to ethereum. 

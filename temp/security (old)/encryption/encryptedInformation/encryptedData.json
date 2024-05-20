@@ -1,0 +1,15 @@
+{
+    "accountCreated": "Date",
+    "security": {
+        "address": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "dob": "O1kQvUgq7ictIX0PUQvbeg==\n",
+        "email": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "fullName": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "hashedPassword": "7FB3DD9CDE75AB9C0666586B34C869006F11FD7CEB05986F9B27659F53200FDE",
+        "lastLogin": "O1kQvUgq7ictIX0PUQvbeg==\n",
+        "phoneNumber": "BiVZzW0tYQv9LZaskaxXQw==\n",
+        "status": "BswUj606J9hTRWjDg2WQlQ==\n",
+        "twoFactorAuthentication": "L1nL0duPyVGnGJfd5NMXHA==\n"
+    },
+    "username": "String"
+}

@@ -1,0 +1,17 @@
+libcrypto++-dev
+libcrypto++-doc
+libcrypto++-utils
+nlohmann-json3-devclang
+libclang-dev
+cmake
+make
+protobuf-compiler
+git
+cargo
+jq
+clang
+libclang-dev
+cmake
+make
+protobuf-compiler
+git
