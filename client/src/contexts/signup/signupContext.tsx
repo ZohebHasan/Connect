@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const validateFullName = (fullName: string): boolean => {
     const validChars = /^[a-zA-Z\s]+$/.test(fullName);
     const noLeadingTrailing = /^[a-zA-Z][a-zA-Z\s]*[a-zA-Z]$/.test(fullName);
@@ -39,10 +41,6 @@ interface AuthContextType {
     handleDateOfBirthChange: (dateOfBirth: Date | null) => void;
 
     triggerDateOfBirthErrors: () => void;
-
-
-
-
 
 
     errors: {
@@ -297,7 +295,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         else {
             return;
         }
-
+       // we can assume that it's the time to make the api call and send data
         setLoading(true);
         const age = new Date().getFullYear() - dateOfBirth.getFullYear();
 
@@ -313,8 +311,8 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             restricted: restricted,
             age: age,
             dateOfBirth: dateOfBirth ? dateOfBirth : null
-           
         };
+        
 
 
         try {
