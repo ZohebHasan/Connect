@@ -33,7 +33,8 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 
-# C++
+# Debian
 
 # Install C++ requirements
-sudo apt-get install -y $(cat cpprequirements.txt)
+# sudo apt-get install -y $(cat debianrequirements.txt)
+
