@@ -30,43 +30,47 @@ const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, functio
     return uniqueUsername;
 });
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonitization, censor, restricted, age, dateOfBirth } = req.body;
-    const userExists = yield isUnique(email, phoneNumber);
-    if (!userExists) {
-        return res.status(400).json({ message: 'Please sign up with a different username, email, or phone number' });
+    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth } = req.body;
+    if (!email && !phoneNumber) {
+        return res.status(400).json({ message: 'Please provide either an email or a phone number.' });
+    }
+    const userIdentifier = parseIdentifier(email, phoneNumber);
+    const userExists = yield userModel_1.default.findOne(userIdentifier);
+    if (userExists) {
+        return res.status(400).json({ message: 'User with the provided email or phone number already exists.' });
     }
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
     const username = yield generateUsername(fullName);
-    const user = new userModel_1.default({
+    let userData = {
         fullName,
-        email,
-        phoneNumber,
         password: hashedPassword,
         username,
         dataProtection,
         profileEncryption,
-        contentMonitization,
+        contentMonetization,
         censor,
         restricted,
         age,
         dob: dateOfBirth,
-    });
+    };
+    if (email && email.trim() !== "") {
+        userData.email = email.toLowerCase();
+    }
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        userData.phoneNumber = phoneNumber;
+    }
+    const user = new userModel_1.default(userData);
     yield user.save();
     res.status(201).json({ user });
 });
 exports.signup = signup;
-const isUnique = (email, phoneNumber) => __awaiter(void 0, void 0, void 0, function* () {
-    const userIdentifier = parseIdentifier(email, phoneNumber);
-    const user = yield userModel_1.default.findOne(userIdentifier);
-    if (!user) {
-        return true;
-    }
-    return false;
-});
 const parseIdentifier = (email, phoneNumber) => {
-    if (email.includes('@')) {
+    if (email && email.trim() !== "") {
         return { email: email.toLowerCase() };
     }
-    return { phoneNumber: phoneNumber };
+    else if (phoneNumber && phoneNumber.trim() !== "") {
+        return { phoneNumber };
+    }
+    return {};
 };

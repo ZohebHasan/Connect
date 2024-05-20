@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/userModel';
 
-
 const generateUsername = async (fullName: string) => {
     const baseUsername = fullName.replace(/\s+/g, '').toLowerCase();
     let suffix = 0;
@@ -25,18 +24,17 @@ interface UserData {
     fullName: string;
     password: string;
     username: string;
-    dataProtection: boolean; // Consider specifying more precise types instead of 'any'
-    profileEncryption: any;
-    contentMonitization: any;
-    censor: any;
-    restricted: any;
+    dataProtection: boolean; 
+    profileEncryption: boolean;
+    contentMonetization: boolean;
+    censor: boolean;
+    restricted: boolean;
     age: any;
-    dob: any;
-    email?: string; // Optional property
-    phoneNumber?: string; // Optional property
+    dob: Date;
+    email?: string; 
+    phoneNumber?: string; 
 }
 
-// Signup controller
 export const signup = async (req: Request, res: Response) => {
     const { 
         fullName,
@@ -45,16 +43,24 @@ export const signup = async (req: Request, res: Response) => {
         password,
         dataProtection,
         profileEncryption,
-        contentMonitization,
+        contentMonetization,
         censor,
         restricted,
         age,
         dateOfBirth
     } = req.body;
 
-    const userExists = await isUnique(email, phoneNumber);
-    if (!userExists) {
-        return res.status(400).json({ message: 'Please sign up with a different email or phone number.' });
+    // Ensure that either email or phone number is provided
+    if (!email && !phoneNumber) {
+        return res.status(400).json({ message: 'Please provide either an email or a phone number.' });
+    }
+
+    // Use parseIdentifier to determine uniqueness based on provided email or phoneNumber
+    const userIdentifier = parseIdentifier(email, phoneNumber);
+    const userExists = await User.findOne(userIdentifier);
+
+    if (userExists) {
+        return res.status(400).json({ message: 'User with the provided email or phone number already exists.' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -67,17 +73,17 @@ export const signup = async (req: Request, res: Response) => {
         username,
         dataProtection,
         profileEncryption,
-        contentMonitization,
+        contentMonetization,
         censor,
         restricted,
         age,
         dob: dateOfBirth,
     };
 
+    // Add email or phone number based on what is provided
     if (email && email.trim() !== "") {
         userData.email = email.toLowerCase();
-    }
-
+    } 
     if (phoneNumber && phoneNumber.trim() !== "") {
         userData.phoneNumber = phoneNumber;
     }
@@ -87,20 +93,11 @@ export const signup = async (req: Request, res: Response) => {
     res.status(201).json({ user });
 };
 
-const isUnique = async (email: string, phoneNumber: string) =>  {
-    const userIdentifier = parseIdentifier(email, phoneNumber);
-    const user = await User.findOne(userIdentifier);
-
-    if (!user) {
-        return true;
-    }
-    return false;
-};
-
-const parseIdentifier = (email: string, phoneNumber: string) => {
-    if (email.includes('@')) {
+const parseIdentifier = (email?: string, phoneNumber?: string) => {
+    if (email && email.trim() !== "") {
         return { email: email.toLowerCase() };
+    } else if (phoneNumber && phoneNumber.trim() !== "") {
+        return { phoneNumber };
     }
-    
-    return { phoneNumber: phoneNumber};
+    return {};
 }
