@@ -10,7 +10,7 @@ const signedPreKeySchema = new mongoose_1.Schema({
     publicKey: { type: String, required: true },
     signature: { type: String, required: true }
 });
-const schema = new mongoose_1.Schema({
+const userSchema = new mongoose_1.Schema({
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
@@ -30,6 +30,8 @@ const schema = new mongoose_1.Schema({
         registrationId: { type: Number, required: true },
         preKeys: [preKeySchema],
         signedPreKey: signedPreKeySchema
-    }
+    },
+    verificationToken: { type: String },
+    verificationTokenExpires: { type: Date }
 });
-exports.default = (0, mongoose_1.model)('User', schema);
+exports.default = (0, mongoose_1.model)('User', userSchema);

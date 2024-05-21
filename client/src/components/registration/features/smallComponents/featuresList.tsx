@@ -4,12 +4,29 @@ import styled from 'styled-components';
 import Text from '../../../ConnectUI_web/common/texts/static';
 import Toggle from "../../../ConnectUI_web/common/buttons/toggle";
 
+import { useSignup } from '../../../../contexts/signup/signupContext';
+
 const Features: React.FC = () => {
 
   const [dataProtectionMode, setDataProtectionMode] = useState(true);
   const [endtoendEncryption, setEndtoEndEncryption] = useState(true);
   const [censorMode, setCensorMode] = useState(false);
   const [restrictedMode, setRestrictedMode] = useState(false);
+
+  const {
+    dataProtection,
+    profileEncryption,
+    contentMonitization,
+    censor,
+    restricted,
+
+    handleDataProtectionChange,
+    handleProfileEncryptionChange,
+    handleContentMonitizationChange,
+    handleCensorChange,
+    handleRestrictedChange,
+
+  } = useSignup();
 
   return (
     <FeaturesList>
@@ -26,7 +43,7 @@ const Features: React.FC = () => {
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={dataProtectionMode} toggleOn={() => setDataProtectionMode(!dataProtectionMode)} />
+              <Toggle isOn={dataProtection} toggleOn={handleDataProtectionChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size= {"0.9375 rem"}>
@@ -46,7 +63,7 @@ const Features: React.FC = () => {
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={endtoendEncryption} toggleOn={() => setEndtoEndEncryption(!endtoendEncryption)} />
+              <Toggle isOn={profileEncryption} toggleOn={handleProfileEncryptionChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>
@@ -66,7 +83,7 @@ const Features: React.FC = () => {
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={endtoendEncryption} toggleOn={() => setEndtoEndEncryption(!endtoendEncryption)} />
+              <Toggle isOn={contentMonitization} toggleOn={handleContentMonitizationChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>
@@ -84,7 +101,7 @@ const Features: React.FC = () => {
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={censorMode} toggleOn={() => setCensorMode(!censorMode)} />
+              <Toggle isOn={censor} toggleOn={handleCensorChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>
@@ -107,7 +124,7 @@ const Features: React.FC = () => {
               </BetaContainer>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={restrictedMode} toggleOn={() => setRestrictedMode(!restrictedMode)} />
+              <Toggle isOn={restricted} toggleOn={handleRestrictedChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>

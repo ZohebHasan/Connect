@@ -16,13 +16,10 @@ function FeaturesText() {
     return (
         <TextContainer>
             <Text size= {"3rem"} variant={"normal"} fontWeight={"400"}>
-                Connect's five
+                Know your user
             </Text>
-            <Text size= {"3rem"} variant={"gradient"} fontWeight={"500"}>
-              revolutionary
-            </Text>
-            <Text size = {"3rem"} variant={"normal"} fontWeight={"400"}>
-                features.
+            <Text size = {"3rem"} variant={"gradient"} fontWeight={"400"}>
+                priviledges.
             </Text>
         </TextContainer>
     );

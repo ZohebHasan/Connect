@@ -3,19 +3,21 @@ import { createGlobalStyle } from 'styled-components';
 import { LanguageProvider } from '../contexts/Language/Language'
 import { DarkModeProvider } from '../contexts/DarkMode/DarkMode';
 import { SidebarProvider } from '../contexts/SideBarOpen/SidebarContext';
-
+import { AuthProvider } from '../contexts/authentication/authContext';
 
 const App: React.FC = () => {
   return (
     <>
-      <LanguageProvider>
-        <DarkModeProvider>
-          <SidebarProvider>
-            <GlobalStyle />
-            <Connect />
-          </SidebarProvider>
-        </DarkModeProvider>
-      </LanguageProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <DarkModeProvider>
+            <SidebarProvider>
+              <GlobalStyle />
+              <Connect />
+            </SidebarProvider>
+          </DarkModeProvider>
+        </LanguageProvider>
+      </AuthProvider>
     </>
   );
 };

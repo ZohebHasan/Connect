@@ -1,17 +1,17 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 interface PreKey {
     keyId: number;
-    publicKey: string; // base64 encoded string
+    publicKey: string;
 }
 
 interface SignedPreKey {
     keyId: number;
-    publicKey: string; // base64 encoded string
-    signature: string; // base64 encoded string
+    publicKey: string;
+    signature: string;
 }
 
-interface User {
+interface User extends Document {
     fullName: string;
     email?: string;
     password: string;
@@ -27,11 +27,13 @@ interface User {
     age: number;
     dob: Date;
     keys: {
-        identityPublicKey: string; // base64 encoded string
+        identityPublicKey: string;
         registrationId: number;
         preKeys: Types.DocumentArray<PreKey>;
         signedPreKey: SignedPreKey;
     };
+    verificationToken?: string;
+    verificationTokenExpires?: Date;
 }
 
 const preKeySchema = new Schema<PreKey>({
@@ -45,7 +47,7 @@ const signedPreKeySchema = new Schema<SignedPreKey>({
     signature: { type: String, required: true }
 });
 
-const schema = new Schema<User>({
+const userSchema = new Schema<User>({
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
@@ -65,7 +67,9 @@ const schema = new Schema<User>({
         registrationId: { type: Number, required: true },
         preKeys: [preKeySchema],
         signedPreKey: signedPreKeySchema
-    }
+    },
+    verificationToken: { type: String },
+    verificationTokenExpires: { type: Date }
 });
 
-export default model<User>('User', schema);
+export default model<User>('User', userSchema);

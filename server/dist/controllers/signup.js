@@ -14,7 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userModel_1 = __importDefault(require("../models/userModel"));
+const JWT_SECRET = 'cc706162797cd87082129948fea3a4b5373a8c614a80af35436cd0bc7bf131afb77fbde0e2bed8f2466197345e3dd2205a812b3f18cb7c5685160416dfef65f8';
+const JWT_REFRESH_SECRET = '3577a4135cad0bb08c5e5529282265604c9ccec70ea2392090aeab7371d02068e81084d4839c420fee1a4eb3d02c59b58d95f81c9b4d9bd093b389572217a556';
 const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, function* () {
     const baseUsername = fullName.replace(/\s+/g, '').toLowerCase();
     let suffix = 0;
@@ -42,7 +45,6 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
     const username = yield generateUsername(fullName);
-    console.log('Keys received:', keys);
     const userData = {
         fullName,
         password: hashedPassword,
@@ -76,7 +78,11 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const user = new userModel_1.default(userData);
     yield user.save();
-    res.status(201).json({ user });
+    const token = jsonwebtoken_1.default.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    const refreshToken = jsonwebtoken_1.default.sign({ id: user._id }, JWT_REFRESH_SECRET, { expiresIn: '7d' });
+    res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 1 * 60 * 60 * 1000 });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 });
+    res.status(201).json({ message: 'User registered successfully', user });
 });
 exports.signup = signup;
 const parseIdentifier = (email, phoneNumber) => {
