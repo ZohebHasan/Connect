@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Conna_v1 from "./asset/conna_v1.webm";
+import Conna from "./asset/conna_v3.webm";
 
 const ConnaButton: React.FC = () => {
   return (
     <VideoContainer>
       <video autoPlay loop muted>
-        <source src={Conna_v1} type="video/webm" />
+        <source src={Conna} type="video/webm" />
         Your browser does not support the video tag.
       </video>
     </VideoContainer>

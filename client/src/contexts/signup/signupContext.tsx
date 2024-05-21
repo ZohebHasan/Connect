@@ -33,6 +33,12 @@ interface AuthContextType {
     password: string;
     dateOfBirth: Date | null;
 
+    dataProtection: boolean;
+    profileEncryption: boolean;
+    contentMonitization: boolean;
+    censor: boolean;
+    restricted: boolean;
+
     isUnderEighteen: boolean;
 
     handleFullNameChange: (input: string) => void;
@@ -40,6 +46,12 @@ interface AuthContextType {
     handleUserNameChange: (input: string) => void;
     handlePasswordChange: (password: string) => void;
     handleDateOfBirthChange: (dateOfBirth: Date | null) => void;
+
+    handleDataProtectionChange: () => void;
+    handleProfileEncryptionChange: () => void;
+    handleContentMonitizationChange: () => void;
+    handleCensorChange: () => void;
+    handleRestrictedChange: () => void;
 
     triggerDateOfBirthErrors: () => void;
 
@@ -65,8 +77,10 @@ interface AuthContextType {
 
     handleSubmit: () => void;
     handleAgeNavigation: () => void;
-    // handleFullSubmit: () => void;
+    handleVerification: () => void;
     loading: boolean;
+
+    token: string | null;
 }
 
 export const SignupContext = createContext<AuthContextType | undefined>(undefined);
@@ -100,6 +114,29 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [contentMonitization, setContentMonitization] = useState(true);
     const [censor, setCensor] = useState(false);
     const [restricted, setRestricted] = useState(false);
+
+    const [token, setToken] = useState<string | null>(null);
+
+    //features change
+    const handleDataProtectionChange = () => {
+        setDataProtection(prev => !prev);
+    };
+
+    const handleProfileEncryptionChange = () => {
+        setProfileEncryption(prev => !prev);
+    };
+
+    const handleContentMonitizationChange = () => {
+        setContentMonitization(prev => !prev);
+    };
+
+    const handleCensorChange = () => {
+        setCensor(prev => !prev);
+    };
+
+    const handleRestrictedChange = () => {
+        setRestricted(prev => !prev);
+    };
 
 
     //input change
@@ -209,6 +246,9 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             (validateEmail(userId) || validatePhone(userId));
     };
 
+
+
+
     const handleAgeNavigation = () => {
         if (!dateOfBirth) {
             setDateOfBirthEmptyError(true);
@@ -240,7 +280,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const handleSubmit = async () => {
         if (!dateOfBirth) {
             setSessionResetError(true);
-    
+
             setTimeout(() => {
                 navigate("./ageVerification");
                 setSessionResetError(false);
@@ -252,7 +292,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         } else {
             handleFullnameEmpty();
         }
-    
+
         if (userId === '') {
             handleUserIdEmpty();
         } else {
@@ -276,14 +316,14 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         } else {
             return;
         }
-    
+
         setLoading(true);
         const age = new Date().getFullYear() - dateOfBirth.getFullYear();
-    
+
         // Generate keys
         const keys = await generateKeys();
         const serverReadyKeys = await prepareKeysForServer(keys);
-    
+
         const payload = {
             fullName: validateFullName(fullName) ? fullName : '',
             email: validateEmail(userId) ? userId : '',
@@ -298,16 +338,21 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             dateOfBirth: dateOfBirth ? dateOfBirth : null,
             keys: serverReadyKeys,
         };
-    
+
         try {
-            const response = await axios.post('http://localhost:8000/signup', payload);
-    
+            const response = await axios.post('http://localhost:8000/signup', payload, {
+                withCredentials: true // To include cookies in the request
+            });
+
             console.log('Signup successful:', response.data);
-    
+
+            // Save JWT token
+            setToken(response.data.token);
+
             await saveToIndexedDB('identityKeyPair', keys.identityKeyPair);
             await saveToIndexedDB('signedPreKey', keys.signedPreKey);
             await saveToIndexedDB('senderKey', keys.senderKey);
-    
+
             navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);
@@ -315,7 +360,32 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             handleAccountExistsError();
         }
     };
-    
+
+
+
+    const handleVerification = async () => {
+        if (dateOfBirth !== null) {
+            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+
+            if (age < 18) {
+                navigate("./profiles")
+            }
+            else {
+                navigate("./features")
+            }
+        }
+    }
+
+    const handleFeaturesSubmit = async () => {
+        const payload = {
+            dateProtection: dataProtection,
+            profileEncryption: profileEncryption,
+            contentMonitization: contentMonitization,
+            censor: censor,
+            restricted: restricted,
+
+        };
+    }
 
 
     return (
@@ -326,6 +396,12 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             password,
             dateOfBirth,
 
+            dataProtection,
+            profileEncryption,
+            contentMonitization,
+            censor,
+            restricted,
+
             isUnderEighteen,
 
             handleFullNameChange,
@@ -334,6 +410,12 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             handlePasswordChange,
             triggerDateOfBirthErrors,
             sessionResetError,
+
+            handleDataProtectionChange,
+            handleProfileEncryptionChange,
+            handleContentMonitizationChange,
+            handleCensorChange,
+            handleRestrictedChange,
 
             handleDateOfBirthChange,
 
@@ -349,8 +431,9 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
             handleSubmit,
             handleAgeNavigation,
-            // handleFullSubmit,
+            handleVerification,
             loading,
+            token, // Add token here
         }}>
             {children}
         </SignupContext.Provider>

@@ -11,8 +11,8 @@ import Button from '../../../ConnectUI_web/common/buttons/button1';
 import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
 
+import { useSignup } from '../../../../contexts/signup/signupContext';
 const VerificationText: React.FC = () => {
     return (
         <TextContainer>
@@ -46,7 +46,9 @@ const Verification: React.FC = () => {
     const handleCodeChange = (input: string) =>{
         setCode(input);
     }
-   
+    const{ handleVerification } = useSignup();
+
+
     const {userId} = useSignup();
     let id = "something"
     return (
@@ -84,7 +86,7 @@ const Verification: React.FC = () => {
                     <Button variant = {"normal"} width= {"50%"}>
                         Send it again(20)
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"} to = {"../ageVerification"}>
+                    <Button variant = {"gradient"} width= {"50%"} onClick={handleVerification}>
                         Next
                     </Button>
                 </VerificBtnContainer>
