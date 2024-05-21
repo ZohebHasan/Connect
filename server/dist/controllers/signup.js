@@ -34,7 +34,6 @@ const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, functio
 });
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth, keys } = req.body;
-    console.log('Received payload:', req.body);
     if (!email && !phoneNumber) {
         return res.status(400).json({ message: 'Please provide either an email or a phone number.' });
     }

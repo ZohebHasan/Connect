@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Conna from "./asset/conna_v3.webm";
+import Conna from "./asset/conna_final.webm";
 
 const ConnaButton: React.FC = () => {
   return (

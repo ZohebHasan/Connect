@@ -29,13 +29,16 @@ import DemoLogin from "../components/temp2";
 import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
+import ProtectedRoute from '../protectedRoute';
 
 // import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-            <ConnectInner />
+        
+                <ConnectInner />
+   
         </Router>
     );
 }
@@ -72,14 +75,14 @@ function RoutesWrapper() {
     return (
         <Routes>
             {/* this two below are for testing */}
-            <Route path="/auth/google/callback" element={<GoogleCallBack />} /> 
+            <Route path="/auth/google/callback" element={<GoogleCallBack />} />
             <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} />
 
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
             <Route path="/login/signup" element={<SignupPage />} />
-            
+
             <Route
                 path="/login/*"
                 element={
@@ -91,7 +94,7 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-            
+
             <Route
                 path="/signup/*"
                 element={
@@ -102,8 +105,8 @@ function RoutesWrapper() {
                             <Route path="/idVerification" element={<VerificationSignup />} />
                             <Route path="/ageVerification" element={<DateOfBirth />} />
                             {/* <Route path="/agreement" element={<AgreementPage />} /> */}
-                            <Route path="/features" element={<FeaturesPage />} />
-                            <Route path="/profiles" element={<ProfilesPage />} />
+                            <Route path="/features" element={<ProtectedRoute><FeaturesPage/></ProtectedRoute>} />
+                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage/></ProtectedRoute>} />
                         </Routes>
                     </SignupProvider>
                 }

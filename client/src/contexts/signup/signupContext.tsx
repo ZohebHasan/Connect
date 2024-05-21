@@ -3,85 +3,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { generateKeys, prepareKeysForServer } from './keyGeneration';
 import { saveToIndexedDB } from './indexedDBhelpers'; // Import the IndexedDB helper function
-
-
-const validateFullName = (fullName: string): boolean => {
-    const validChars = /^[a-zA-Z\s]+$/.test(fullName);
-    const noLeadingTrailing = /^[a-zA-Z][a-zA-Z\s]*[a-zA-Z]$/.test(fullName);
-    const noConsecutiveSpaces = !(/[\s]{2,}/.test(fullName));
-    const lengthValid = fullName.length >= 1 && fullName.length <= 50;
-    return validChars && noLeadingTrailing && noConsecutiveSpaces && lengthValid;
-};
-
-const validateEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const validatePhone = (phone: string): boolean => /^\d{10}$/.test(phone.replace(/[^0-9]/g, ''));
-const validateUsername = (username: string): boolean => {
-    const validChars = /^[a-zA-Z0-9._]+$/.test(username);
-    const noConsecutiveDots = !/\.\./.test(username);
-    const noStartEndDot = !/^\.|\.+$/.test(username);
-    const lengthValid = username.length >= 1 && username.length <= 30;
-    const hasLetters = /[a-zA-Z]/.test(username);
-    return validChars && noConsecutiveDots && noStartEndDot && lengthValid && hasLetters;
-};
-const validatePassword = (password: string): boolean => /\d/.test(password) && password.length >= 6;
-
-interface AuthContextType {
-
-    fullName: string;
-    userId: string;
-    userName: string;
-    password: string;
-    dateOfBirth: Date | null;
-
-    dataProtection: boolean;
-    profileEncryption: boolean;
-    contentMonitization: boolean;
-    censor: boolean;
-    restricted: boolean;
-
-    isUnderEighteen: boolean;
-
-    handleFullNameChange: (input: string) => void;
-    handleUserIdChange: (input: string) => void;
-    handleUserNameChange: (input: string) => void;
-    handlePasswordChange: (password: string) => void;
-    handleDateOfBirthChange: (dateOfBirth: Date | null) => void;
-
-    handleDataProtectionChange: () => void;
-    handleProfileEncryptionChange: () => void;
-    handleContentMonitizationChange: () => void;
-    handleCensorChange: () => void;
-    handleRestrictedChange: () => void;
-
-    triggerDateOfBirthErrors: () => void;
-
-
-    errors: {
-        fullNameError: boolean,
-        usernameError: boolean;
-        emailError: boolean;
-        phoneError: boolean;
-        passwordError: boolean;
-
-    };
-
-
-    underThirteenError: boolean;
-    userIdEmptyError: boolean;
-    userNameEmptyError: boolean;
-    fullNameEmptyError: boolean;
-    passwordEmptyError: boolean;
-    accountExistsError: boolean;
-    dateOfBirthEmptyError: boolean;
-    sessionResetError: boolean;
-
-    handleSubmit: () => void;
-    handleAgeNavigation: () => void;
-    handleVerification: () => void;
-    loading: boolean;
-
-    token: string | null;
-}
+import { useAuth } from '../authentication/authContext'; // Import useAuth hook
+import { validateEmail, validateFullName, validatePassword, validatePhone, validateUsername } from './validator';
+import { AuthContextType } from './contextTypes';
 
 export const SignupContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -116,7 +40,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [restricted, setRestricted] = useState(false);
 
     const [token, setToken] = useState<string | null>(null);
-
+    const { setUser } = useAuth(); // Access setUser from AuthContext
     //features change
     const handleDataProtectionChange = () => {
         setDataProtection(prev => !prev);
@@ -348,6 +272,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
             // Save JWT token
             setToken(response.data.token);
+            setUser(response.data.user); // Set the authenticated user
 
             await saveToIndexedDB('identityKeyPair', keys.identityKeyPair);
             await saveToIndexedDB('signedPreKey', keys.signedPreKey);
@@ -383,9 +308,26 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             contentMonitization: contentMonitization,
             censor: censor,
             restricted: restricted,
-
         };
-    }
+    
+        try {
+            
+            const response = await axios.post('http://localhost:8000/editFeaturesSignup', payload, {
+                withCredentials: true, // Ensure cookies are included
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // Handle the successful response
+            console.log('Features updated successfully:', response.data);
+    
+        } catch (error) {
+            // Handle any errors that occur during the request
+            console.error('Error updating features:', error);
+        }
+    };
+    
 
 
     return (

@@ -1,4 +1,4 @@
-const cryptoLib = require('crypto');
+import cryptoLib from 'crypto';
 
 const generateSecret = () => {
     return cryptoLib.randomBytes(64).toString('hex');
