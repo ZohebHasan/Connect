@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { generateKeys, prepareKeysForServer } from './keyGeneration';
+import { saveToIndexedDB } from './indexedDBhelpers'; // Import the IndexedDB helper function
 
 
 const validateFullName = (fullName: string): boolean => {
@@ -106,7 +107,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setFullName(input);
         setErrors(prev => ({ ...prev, fullNameError: false }));
         setFullNameEmptyError(false);
-  
+
 
     };
 
@@ -126,7 +127,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
-        setErrors(prev => ({ ...prev, passwordError: false}));
+        setErrors(prev => ({ ...prev, passwordError: false }));
         setPasswordEmptyError(false);
     };
 
@@ -209,16 +210,6 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
 
     const handleAgeNavigation = () => {
-        // if (!validateCredentials()) {
-        //     setSessionResetError(true);
-        //     console.log(sessionResetError);
-
-        //     setTimeout(() => {
-        //         navigate("./userInfo");
-        //         setSessionResetError(false);
-        //         console.log("user fields are empty");
-        //     }, 1000);
-        // }
         if (!dateOfBirth) {
             setDateOfBirthEmptyError(true);
         }
@@ -239,22 +230,17 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 setCensor(true);
                 setContentMonitization(true);
                 navigate("./userInfo")
-            } 
+            }
             else {
                 setIsUnderEighteen(false);
                 navigate("./userInfo")
             }
         }
     }
-
-
-
-
-    //intial submit button, just to check if the credential contains in the database
     const handleSubmit = async () => {
         if (!dateOfBirth) {
             setSessionResetError(true);
-
+    
             setTimeout(() => {
                 navigate("./ageVerification");
                 setSessionResetError(false);
@@ -263,42 +249,41 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
         if (fullName !== '') {
             handleFullNameError();
-        }
-        else {
+        } else {
             handleFullnameEmpty();
         }
-
+    
         if (userId === '') {
             handleUserIdEmpty();
-        }
-        else {
+        } else {
             handleUserIdError();
         }
         if (password === '') {
             handlePasswordEmpty();
-        }
-        else {
+        } else {
             handlePasswordError();
         }
         if (dateOfBirth) {
             const age = new Date().getFullYear() - dateOfBirth.getFullYear();
             if (age < 13) {
-                return
-            }
-            else {
+                return;
+            } else {
                 if (!validateCredentials()) {
-                    console.log("Inavlid Credentials")
+                    console.log("Invalid Credentials");
                     return;
                 }
             }
-        }
-        else {
+        } else {
             return;
         }
-       // we can assume that it's the time to make the api call and send data
+    
         setLoading(true);
         const age = new Date().getFullYear() - dateOfBirth.getFullYear();
-
+    
+        // Generate keys
+        const keys = await generateKeys();
+        const serverReadyKeys = await prepareKeysForServer(keys);
+    
         const payload = {
             fullName: validateFullName(fullName) ? fullName : '',
             email: validateEmail(userId) ? userId : '',
@@ -310,14 +295,19 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             censor: censor,
             restricted: restricted,
             age: age,
-            dateOfBirth: dateOfBirth ? dateOfBirth : null
+            dateOfBirth: dateOfBirth ? dateOfBirth : null,
+            keys: serverReadyKeys,
         };
-        
-
-
+    
         try {
             const response = await axios.post('http://localhost:8000/signup', payload);
+    
             console.log('Signup successful:', response.data);
+    
+            await saveToIndexedDB('identityKeyPair', keys.identityKeyPair);
+            await saveToIndexedDB('signedPreKey', keys.signedPreKey);
+            await saveToIndexedDB('senderKey', keys.senderKey);
+    
             navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);
@@ -325,6 +315,8 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             handleAccountExistsError();
         }
     };
+    
+
 
     return (
         <SignupContext.Provider value={{

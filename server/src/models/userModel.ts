@@ -1,6 +1,16 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
-// creating the user interface 
+interface PreKey {
+    keyId: number;
+    publicKey: string; // base64 encoded string
+}
+
+interface SignedPreKey {
+    keyId: number;
+    publicKey: string; // base64 encoded string
+    signature: string; // base64 encoded string
+}
+
 interface User {
     fullName: string;
     email?: string;
@@ -8,32 +18,54 @@ interface User {
     username: string;
     dateCreated: Date;
     lastLogin: Date;
-    phoneNumber?: string;    
+    phoneNumber?: string;
     dataProtection: boolean;
     profileEncryption: boolean;
-    contentMonitization: boolean;
+    contentMonetization: boolean;
     censor: boolean;
     restricted: boolean;
     age: number;
     dob: Date;
+    keys: {
+        identityPublicKey: string; // base64 encoded string
+        registrationId: number;
+        preKeys: Types.DocumentArray<PreKey>;
+        signedPreKey: SignedPreKey;
+    };
 }
 
-// creating the user schema
+const preKeySchema = new Schema<PreKey>({
+    keyId: { type: Number, required: true },
+    publicKey: { type: String, required: true }
+});
+
+const signedPreKeySchema = new Schema<SignedPreKey>({
+    keyId: { type: Number, required: true },
+    publicKey: { type: String, required: true },
+    signature: { type: String, required: true }
+});
+
 const schema = new Schema<User>({
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
-    username: { type: String, required: true, unique: true }, 
+    username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, unique: true, sparse: true },
     dataProtection: { type: Boolean, default: true },
     profileEncryption: { type: Boolean, default: true },
-    contentMonitization: { type: Boolean, default: true },
+    contentMonetization: { type: Boolean, default: true },
     censor: { type: Boolean, default: false },
     restricted: { type: Boolean, default: false },
     age: { type: Number, required: false },
-    dob: { type: Date, required: false }
+    dob: { type: Date, required: false },
+    keys: {
+        identityPublicKey: { type: String, required: true },
+        registrationId: { type: Number, required: true },
+        preKeys: [preKeySchema],
+        signedPreKey: signedPreKeySchema
+    }
 });
 
 export default model<User>('User', schema);
