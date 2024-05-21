@@ -30,7 +30,7 @@ const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, functio
     return uniqueUsername;
 });
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth } = req.body;
+    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth, keys } = req.body;
     if (!email && !phoneNumber) {
         return res.status(400).json({ message: 'Please provide either an email or a phone number.' });
     }
@@ -42,7 +42,8 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcrypt_1.default.genSalt(10);
     const hashedPassword = yield bcrypt_1.default.hash(password, salt);
     const username = yield generateUsername(fullName);
-    let userData = {
+    console.log('Keys received:', keys);
+    const userData = {
         fullName,
         password: hashedPassword,
         username,
@@ -53,13 +54,20 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         restricted,
         age,
         dob: dateOfBirth,
+        keys: {
+            identityPublicKey: convertToBase64(keys.identityPublicKey),
+            registrationId: keys.registrationId,
+            preKeys: keys.preKeys.map((pk) => ({
+                keyId: pk.keyId,
+                publicKey: convertToBase64(pk.publicKey)
+            })),
+            signedPreKey: {
+                keyId: keys.signedPreKey.keyId,
+                publicKey: convertToBase64(keys.signedPreKey.publicKey),
+                signature: convertToBase64(keys.signedPreKey.signature)
+            }
+        }
     };
-    if (email && email.trim() !== "") {
-        userData.email = email.toLowerCase();
-    }
-    if (phoneNumber && phoneNumber.trim() !== "") {
-        userData.phoneNumber = phoneNumber;
-    }
     const user = new userModel_1.default(userData);
     yield user.save();
     res.status(201).json({ user });
@@ -73,4 +81,15 @@ const parseIdentifier = (email, phoneNumber) => {
         return { phoneNumber };
     }
     return {};
+};
+const convertToBase64 = (data) => {
+    if (typeof data === 'string') {
+        return Buffer.from(data).toString('base64');
+    }
+    else if (data instanceof ArrayBuffer) {
+        return Buffer.from(new Uint8Array(data)).toString('base64');
+    }
+    else {
+        throw new TypeError(`Invalid data type for conversion to base64: ${typeof data}`);
+    }
 };

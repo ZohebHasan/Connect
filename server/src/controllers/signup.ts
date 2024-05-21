@@ -32,7 +32,20 @@ interface UserData {
     age: number;
     dob: Date;
     email?: string; 
-    phoneNumber?: string; 
+    phoneNumber?: string;
+    keys: {
+        identityPublicKey: string;
+        registrationId: number;
+        preKeys: Array<{
+            keyId: number;
+            publicKey: string;
+        }>;
+        signedPreKey: {
+            keyId: number;
+            publicKey: string;
+            signature: string;
+        };
+    };
 }
 
 export const signup = async (req: Request, res: Response) => {
@@ -47,7 +60,8 @@ export const signup = async (req: Request, res: Response) => {
         censor,
         restricted,
         age,
-        dateOfBirth
+        dateOfBirth,
+        keys
     } = req.body;
 
     // Ensure that either email or phone number is provided
@@ -67,7 +81,11 @@ export const signup = async (req: Request, res: Response) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const username = await generateUsername(fullName);
 
-    let userData: Partial<UserData> = {
+    // Log keys for debugging
+    console.log('Keys received:', keys);
+
+    // Validate and convert keys
+    const userData: UserData = {
         fullName,
         password: hashedPassword,
         username,
@@ -78,15 +96,20 @@ export const signup = async (req: Request, res: Response) => {
         restricted,
         age,
         dob: dateOfBirth,
+        keys: {
+            identityPublicKey: convertToBase64(keys.identityPublicKey),
+            registrationId: keys.registrationId,
+            preKeys: keys.preKeys.map((pk: { keyId: number; publicKey: ArrayBuffer | string; }) => ({
+                keyId: pk.keyId,
+                publicKey: convertToBase64(pk.publicKey)
+            })),
+            signedPreKey: {
+                keyId: keys.signedPreKey.keyId,
+                publicKey: convertToBase64(keys.signedPreKey.publicKey),
+                signature: convertToBase64(keys.signedPreKey.signature)
+            }
+        }
     };
-
-    // Conditionally add email and phoneNumber only if they are provided and not empty
-    if (email && email.trim() !== "") {
-        userData.email = email.toLowerCase();
-    }
-    if (phoneNumber && phoneNumber.trim() !== "") {
-        userData.phoneNumber = phoneNumber;
-    }
 
     const user = new User(userData);
     await user.save();
@@ -100,4 +123,14 @@ const parseIdentifier = (email?: string, phoneNumber?: string) => {
         return { phoneNumber };
     }
     return {};
+}
+
+const convertToBase64 = (data: ArrayBuffer | string): string => {
+    if (typeof data === 'string') {
+        return Buffer.from(data).toString('base64');
+    } else if (data instanceof ArrayBuffer) {
+        return Buffer.from(new Uint8Array(data)).toString('base64');
+    } else {
+        throw new TypeError(`Invalid data type for conversion to base64: ${typeof data}`);
+    }
 }
