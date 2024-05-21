@@ -110,6 +110,13 @@ export const signup = async (req: Request, res: Response) => {
             }
         }
     };
+    if (email && email.trim() !== "") {
+        userData.email = email.toLowerCase();
+    }
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        userData.phoneNumber = phoneNumber;
+    }
+
 
     const user = new User(userData);
     await user.save();
@@ -134,3 +141,42 @@ const convertToBase64 = (data: ArrayBuffer | string): string => {
         throw new TypeError(`Invalid data type for conversion to base64: ${typeof data}`);
     }
 }
+
+
+
+
+
+//     let userData: Partial<UserData> = {
+//         fullName,
+//         password: hashedPassword,
+//         username,
+//         dataProtection,
+//         profileEncryption,
+//         contentMonetization,
+//         censor,
+//         restricted,
+//         age,
+//         dob: dateOfBirth,
+//     };
+
+//     // Conditionally add email and phoneNumber only if they are provided and not empty
+//     if (email && email.trim() !== "") {
+//         userData.email = email.toLowerCase();
+//     }
+//     if (phoneNumber && phoneNumber.trim() !== "") {
+//         userData.phoneNumber = phoneNumber;
+//     }
+
+//     const user = new User(userData);
+//     await user.save();
+//     res.status(201).json({ user });
+// };
+
+// const parseIdentifier = (email?: string, phoneNumber?: string) => {
+//     if (email && email.trim() !== "") {
+//         return { email: email.toLowerCase() };
+//     } else if (phoneNumber && phoneNumber.trim() !== "") {
+//         return { phoneNumber };
+//     }
+//     return {};
+// }

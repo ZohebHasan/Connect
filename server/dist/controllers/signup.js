@@ -68,6 +68,12 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
         }
     };
+    if (email && email.trim() !== "") {
+        userData.email = email.toLowerCase();
+    }
+    if (phoneNumber && phoneNumber.trim() !== "") {
+        userData.phoneNumber = phoneNumber;
+    }
     const user = new userModel_1.default(userData);
     yield user.save();
     res.status(201).json({ user });
