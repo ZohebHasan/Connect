@@ -73,7 +73,7 @@ const Login: React.FC = () => {
                 <OrDivider flex={0.5} />
 
                 <ButtonContainer>
-                    <Button to="signup" variant="gradient" width="70%">
+                    <Button to="/signup" variant="gradient" width="70%">
                         {signUp}
                     </Button>
                 </ButtonContainer>

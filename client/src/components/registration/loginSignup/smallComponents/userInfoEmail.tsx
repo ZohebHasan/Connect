@@ -10,6 +10,8 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 import DatePicker from '../elements/datePicker';
 import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
 
+import { useSignup } from '../../../../contexts/signup/signupContext';
+
 const UserInfoText: React.FC = () => {
     return (
         <TextContainer>
@@ -40,14 +42,23 @@ const NoticeText: React.FC = () => {
 
 
 
-export default function Age() {
+export default function UserPersonalInfo() {
     const {language} = useLanguage(); 
     const {isDarkMode} = useDarkMode();
-    const [userName, setUserName] = useState('');
 
-    const handleUserName = (input: string) =>{
-        setUserName(input)
-    }
+    const {
+        fullName,
+        userName, 
+        dateOfBirth,
+
+        handleUserNameChange,
+        handleFullNameChange,
+        handleDateOfBirthChange,
+    } = useSignup();
+
+
+
+   
     return (
         <>
             <UserInfoText/>
@@ -65,7 +76,7 @@ export default function Age() {
                             label={"username "} 
                             width= {"75%"}
                             value= {userName}
-                            onChange={handleUserName}
+                            onChange={handleUserNameChange}
                         />     
                     </InputContainer>
                 </UserInfo>

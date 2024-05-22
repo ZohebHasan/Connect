@@ -14,7 +14,7 @@ import AgreementPage from "../pages/loginSignup/agreement";
 import FeaturesPage from "../pages/loginSignup/features";
 import ProfilesPage from "../pages/loginSignup/profiles";
 import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
-import UserInfoNonEmail from "../pages/loginSignup/userInfoNonEmail";
+import DateOfBirth from "../pages/loginSignup/ageVerification";
 import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 
 import UserCredentials from "../pages/loginSignup/userCredentials";
@@ -29,11 +29,16 @@ import DemoLogin from "../components/temp2";
 import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
+import ProtectedRoute from '../protectedRoute';
+
+// import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-            <ConnectInner />
+        
+                <ConnectInner />
+   
         </Router>
     );
 }
@@ -70,13 +75,14 @@ function RoutesWrapper() {
     return (
         <Routes>
             {/* this two below are for testing */}
-            <Route path="/auth/google/callback" element={<GoogleCallBack />} /> 
+            <Route path="/auth/google/callback" element={<GoogleCallBack />} />
             <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} />
 
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
+            {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
             <Route path="/login/signup" element={<SignupPage />} />
-            
+
             <Route
                 path="/login/*"
                 element={
@@ -88,24 +94,24 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-            
+
             <Route
                 path="/signup/*"
                 element={
                     <SignupProvider>
                         <Routes>
-                            <Route path="/userCredentials" element={<UserCredentials />} />
-                            <Route path="/verifySignup" element={<VerificationSignup />} />
-                            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
+                            <Route path="/" element={<SignupPage />} />
+                            <Route path="/userInfo" element={<UserCredentials />} />
+                            <Route path="/idVerification" element={<VerificationSignup />} />
+                            <Route path="/ageVerification" element={<DateOfBirth />} />
+                            {/* <Route path="/agreement" element={<AgreementPage />} /> */}
+                            <Route path="/features" element={<ProtectedRoute><FeaturesPage/></ProtectedRoute>} />
+                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage/></ProtectedRoute>} />
                         </Routes>
                     </SignupProvider>
                 }
             />
-
-            <Route path="/agreement" element={<AgreementPage />} />
-            <Route path="/features" element={<FeaturesPage />} />
-            <Route path="/profiles" element={<ProfilesPage />} />
-            <Route path="/userInfoNonEmail" element={<UserInfoNonEmail />} />
+            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
             <Route path="/home" element={<Feed />} />
         </Routes>
     );

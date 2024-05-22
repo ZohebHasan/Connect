@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BodyContainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import Poster from './smallComponents/poster'
 import VerificationBody from '../../ConnectUI_web/containers/loginSignup/halfBody';
-import Verification from './smallComponents/verificationSignup';
+import Verification from './smallComponents/idVerification';
 import BottomVerification from './smallComponents/bottom';
 
 
