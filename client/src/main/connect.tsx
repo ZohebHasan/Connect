@@ -29,7 +29,7 @@ import DemoLogin from "../components/temp2";
 import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
-import ProtectedRoute from '../protectedRoute';
+import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
 
 // import TestPage from "./kamrul"
 

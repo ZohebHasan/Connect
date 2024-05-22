@@ -1,6 +1,5 @@
-// src/authContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { checkSession } from './authHelpers';
+import { checkSession, refreshAuthToken } from '../../services/authHelpers';
 
 interface AuthContextType {
     user: any;
@@ -11,14 +10,26 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSession = async () => {
-            const sessionUser = await checkSession();
-            setUser(sessionUser);
-            setLoading(false);
+            try {
+                let sessionUser = await checkSession();
+                if (!sessionUser) {
+                    // If session check failed, try to refresh the token
+                    console.log("Waiting for refreshing")
+                    await refreshAuthToken();
+              
+                    sessionUser = await checkSession();
+                }
+                setUser(sessionUser);
+            } catch (error) {
+                console.error('Session check failed:', error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchSession();

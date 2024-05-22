@@ -16,7 +16,9 @@ const professional_profile_1 = __importDefault(require("./routers/professional_p
 const valid_identifier_1 = require("./controllers/valid_identifier");
 const google_Oauth_1 = __importDefault(require("./routers/google_Oauth"));
 const google_Oauth_Callback_1 = __importDefault(require("./routers/google_Oauth_Callback"));
-const requireAuth_1 = __importDefault(require("./middleware/requireAuth"));
+const authMiddleware_1 = require("./middleware/authMiddleware");
+const refresh_1 = __importDefault(require("./routers/refresh"));
+const authRouter_1 = __importDefault(require("./routers/authRouter"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 8000;
@@ -33,11 +35,13 @@ app.listen(PORT, () => {
     console.log('The application is listening on port http://localhost:' + PORT);
     (0, mongoDB_1.connectToMongoDB)();
 });
+app.use('/auth', authRouter_1.default);
 app.use('/login', login_1.default);
 app.use('/signup', signup_1.default);
-app.use('/personal_profile', requireAuth_1.default, personal_profile_1.default);
-app.use('/educational_profile', requireAuth_1.default, educational_profile_1.default);
-app.use('/professional_profile', requireAuth_1.default, professional_profile_1.default);
-app.use('/valid_identifier', requireAuth_1.default, valid_identifier_1.validIdentifier);
+app.use('/personal_profile', authMiddleware_1.authenticate, personal_profile_1.default);
+app.use('/educational_profile', authMiddleware_1.authenticate, educational_profile_1.default);
+app.use('/professional_profile', authMiddleware_1.authenticate, professional_profile_1.default);
+app.use('/valid_identifier', authMiddleware_1.authenticate, valid_identifier_1.validIdentifier);
 app.use('/google_oauth', google_Oauth_1.default);
 app.use('/google_oauth_callback', google_Oauth_Callback_1.default);
+app.use('/refresh-token', refresh_1.default);
