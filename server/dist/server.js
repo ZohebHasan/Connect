@@ -19,6 +19,7 @@ const google_Oauth_Callback_1 = __importDefault(require("./routers/google_Oauth_
 const authMiddleware_1 = require("./middleware/authMiddleware");
 const refresh_1 = __importDefault(require("./routers/refresh"));
 const authRouter_1 = __importDefault(require("./routers/authRouter"));
+const featuresSignup_1 = __importDefault(require("./routers/featuresSignup"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 8000;
@@ -45,3 +46,4 @@ app.use('/valid_identifier', authMiddleware_1.authenticate, valid_identifier_1.v
 app.use('/google_oauth', google_Oauth_1.default);
 app.use('/google_oauth_callback', google_Oauth_Callback_1.default);
 app.use('/refresh-token', refresh_1.default);
+app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.default);

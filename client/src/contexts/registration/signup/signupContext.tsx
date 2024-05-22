@@ -1,16 +1,16 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import { generateKeys, prepareKeysForServer } from './keyGeneration';
 import { saveToIndexedDB } from './indexedDBhelpers'; // Import the IndexedDB helper function
-import { useAuth } from '../authentication/authContext'; // Import useAuth hook
+import { useAuth } from '../../authentication/authContext'; // Import useAuth hook
 import { validateEmail, validateFullName, validatePassword, validatePhone, validateUsername } from './validator';
 import { AuthContextType } from './contextTypes';
 
 export const SignupContext = createContext<AuthContextType | undefined>(undefined);
 
 export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-
     const [fullName, setFullName] = useState('');
     const [userId, setUserId] = useState('');
     const [userName, setUserName] = useState('');
@@ -21,9 +21,9 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
-    const [userNameEmptyError, setUserNameEmptyError] = useState(false); //incomplete
+    const [userNameEmptyError, setUserNameEmptyError] = useState(false);
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
-    const [sessionResetError, setSessionResetError] = useState(false)
+    const [sessionResetError, setSessionResetError] = useState(false);
 
     const [dateOfBirthEmptyError, setDateOfBirthEmptyError] = useState(false);
     const [underThirteenError, setUnderThirteenError] = useState(false);
@@ -35,13 +35,36 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const [dataProtection, setDataProtection] = useState(true);
     const [profileEncryption, setProfileEncryption] = useState(true);
-    const [contentMonitization, setContentMonitization] = useState(true);
+    const [contentMonetization, setContentMonetization] = useState(true);
     const [censor, setCensor] = useState(false);
     const [restricted, setRestricted] = useState(false);
 
     const [token, setToken] = useState<string | null>(null);
-    const { setUser } = useAuth(); // Access setUser from AuthContext
-    //features change
+    const { setUser } = useAuth();
+
+    const setCookie = (name: string, value: string, days: number) => {
+        Cookies.set(name, value, { expires: days });
+    };
+
+    const getCookie = (name: string): string | undefined => {
+        return Cookies.get(name);
+    };
+
+    useEffect(() => {
+        const storedDataProtection = getCookie('dataProtection');
+        const storedProfileEncryption = getCookie('profileEncryption');
+        const storedContentMonetization = getCookie('contentMonetization');
+        const storedCensor = getCookie('censor');
+        const storedRestricted = getCookie('restricted');
+
+        setDataProtection(storedDataProtection !== undefined ? storedDataProtection === 'true' : true);
+        setProfileEncryption(storedProfileEncryption !== undefined ? storedProfileEncryption === 'true' : true);
+        setContentMonetization(storedContentMonetization !== undefined ? storedContentMonetization === 'true' : true);
+        setCensor(storedCensor !== undefined ? storedCensor === 'true' : false);
+        setRestricted(storedRestricted !== undefined ? storedRestricted === 'true' : false);
+    }, []);
+
+    // Features change handlers
     const handleDataProtectionChange = () => {
         setDataProtection(prev => !prev);
     };
@@ -50,8 +73,8 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setProfileEncryption(prev => !prev);
     };
 
-    const handleContentMonitizationChange = () => {
-        setContentMonitization(prev => !prev);
+    const handleContentMonetizationChange = () => {
+        setContentMonetization(prev => !prev);
     };
 
     const handleCensorChange = () => {
@@ -62,14 +85,11 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setRestricted(prev => !prev);
     };
 
-
-    //input change
+    // Input change handlers
     const handleFullNameChange = (input: string) => {
         setFullName(input);
         setErrors(prev => ({ ...prev, fullNameError: false }));
         setFullNameEmptyError(false);
-
-
     };
 
     const handleUserIdChange = (input: string) => {
@@ -92,8 +112,6 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setPasswordEmptyError(false);
     };
 
-
-
     const handleDateOfBirthChange = (date: Date | null) => {
         setDateOfBirth(date);
         setDateOfBirthEmptyError(false);
@@ -103,8 +121,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const triggerDateOfBirthErrors = () => {
         setDateOfBirthEmptyError(false);
         setUnderThirteenError(false);
-    }
-
+    };
 
     const handleFullNameError = () => {
         setErrors(prev => ({ ...prev, fullNameError: !validateFullName(fullName) }));
@@ -125,12 +142,9 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }));
     };
 
-
-
     const handlePasswordError = () => {
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     };
-
 
     const handleFullnameEmpty = () => {
         setFullNameEmptyError(true);
@@ -148,42 +162,37 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setPasswordEmptyError(true);
     };
 
-
     const handleAccountExistsError = () => {
         setAccountExistsError(true);
-    }
+    };
 
     const handlesessionResetError = () => {
         setSessionResetError(true);
-    }
+    };
 
     const validateCredentials = () => {
-        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password) && validateFullName(fullName))
-    }
+        return ((validateEmail(userId) || validatePhone(userId)) && validatePassword(password) && validateFullName(fullName));
+    };
 
     const validateUserPersonalInfo = () => {
         return (validateUsername(userName) && validateFullName(fullName) && validatePassword(password));
-    }
+    };
+
     const validateUserInfo = () => {
         return (validateFullName(fullName) && validatePassword(password)) &&
             (validateUsername(userName)) &&
             (validateEmail(userId) || validatePhone(userId));
     };
 
-
-
-
     const handleAgeNavigation = () => {
         if (!dateOfBirth) {
             setDateOfBirthEmptyError(true);
-        }
-        else {
+        } else {
             const age = new Date().getFullYear() - dateOfBirth.getFullYear();
             if (age < 13) {
                 setUnderThirteenError(true);
                 return;
-            }
-            else {
+            } else {
                 setUnderThirteenError(false);
             }
             if (age < 18) {
@@ -192,15 +201,15 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
                 setRestricted(true);
                 setDataProtection(true);
                 setCensor(true);
-                setContentMonitization(true);
-                navigate("./userInfo")
-            }
-            else {
+                setContentMonetization(true);
+                navigate("./userInfo");
+            } else {
                 setIsUnderEighteen(false);
-                navigate("./userInfo")
+                navigate("./userInfo");
             }
         }
-    }
+    };
+
     const handleSubmit = async () => {
         if (!dateOfBirth) {
             setSessionResetError(true);
@@ -255,7 +264,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             password: validatePassword(password) ? password : '',
             dateProtection: dataProtection,
             profileEncryption: profileEncryption,
-            contentMonitization: contentMonitization,
+            contentMonetization: contentMonetization,
             censor: censor,
             restricted: restricted,
             age: age,
@@ -286,49 +295,47 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         }
     };
 
-
-
     const handleVerification = async () => {
         if (dateOfBirth !== null) {
             const age = new Date().getFullYear() - dateOfBirth.getFullYear();
 
             if (age < 18) {
-                navigate("./profiles")
-            }
-            else {
-                navigate("./features")
+                navigate("./profiles");
+            } else {
+                navigate("./features");
             }
         }
-    }
+    };
 
     const handleFeaturesSubmit = async () => {
         const payload = {
-            dateProtection: dataProtection,
-            profileEncryption: profileEncryption,
-            contentMonitization: contentMonitization,
-            censor: censor,
-            restricted: restricted,
+            dataProtection,
+            profileEncryption,
+            contentMonetization,
+            censor,
+            restricted,
         };
-    
+
         try {
-            
-            const response = await axios.post('http://localhost:8000/editFeaturesSignup', payload, {
-                withCredentials: true, // Ensure cookies are included
+            const response = await axios.post('http://localhost:8000/changeFeatures', payload, {
+                withCredentials: true, 
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-    
-            // Handle the successful response
-            console.log('Features updated successfully:', response.data);
-    
+
+            // Set cookies with new state values
+            setCookie('dataProtection', dataProtection.toString(), 7);
+            setCookie('profileEncryption', profileEncryption.toString(), 7);
+            setCookie('contentMonetization', contentMonetization.toString(), 7);
+            setCookie('censor', censor.toString(), 7);
+            setCookie('restricted', restricted.toString(), 7);
+            navigate("./profiles")
         } catch (error) {
-            // Handle any errors that occur during the request
+            
             console.error('Error updating features:', error);
         }
     };
-    
-
 
     return (
         <SignupContext.Provider value={{
@@ -340,7 +347,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
             dataProtection,
             profileEncryption,
-            contentMonitization,
+            contentMonetization,
             censor,
             restricted,
 
@@ -355,7 +362,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
             handleDataProtectionChange,
             handleProfileEncryptionChange,
-            handleContentMonitizationChange,
+            handleContentMonetizationChange,
             handleCensorChange,
             handleRestrictedChange,
 
@@ -376,6 +383,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             handleVerification,
             loading,
             token, // Add token here
+            handleFeaturesSubmit
         }}>
             {children}
         </SignupContext.Provider>
@@ -385,7 +393,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 export const useSignup = () => {
     const context = useContext(SignupContext);
     if (context === undefined) {
-        throw new Error('useLogin must be used within a LoginProvider');
+        throw new Error('useSignup must be used within a SignupProvider');
     }
     return context;
 };

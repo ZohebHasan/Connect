@@ -7,7 +7,7 @@ export interface AuthContextType {
 
     dataProtection: boolean;
     profileEncryption: boolean;
-    contentMonitization: boolean;
+    contentMonetization: boolean;
     censor: boolean;
     restricted: boolean;
 
@@ -21,7 +21,7 @@ export interface AuthContextType {
 
     handleDataProtectionChange: () => void;
     handleProfileEncryptionChange: () => void;
-    handleContentMonitizationChange: () => void;
+    handleContentMonetizationChange: () => void;
     handleCensorChange: () => void;
     handleRestrictedChange: () => void;
 
@@ -48,6 +48,7 @@ export interface AuthContextType {
     handleAgeNavigation: () => void;
     handleVerification: () => void;
     loading: boolean;
+    handleFeaturesSubmit: () => void;
 
     token: string | null;
 }

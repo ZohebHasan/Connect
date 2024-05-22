@@ -12,6 +12,7 @@ interface SignedPreKey {
 }
 
 export interface UserType extends Document {
+    id: string; // Add this field to indicate the presence of _id
     fullName: string;
     email?: string;
     password: string;

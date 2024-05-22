@@ -16,6 +16,7 @@ import googleOauthCallBackRouter from './routers/google_Oauth_Callback';
 import { authenticate } from './middleware/authMiddleware';
 import refreshRouter from './routers/refresh';
 import authRouter from './routers/authRouter';
+import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
 
 dotenv.config();
 
@@ -53,3 +54,6 @@ app.use('/google_oauth_callback', googleOauthCallBackRouter);
 
 // Refresh token route
 app.use('/refresh-token', refreshRouter);
+
+// Add the featuresSignup route
+app.use('/changeFeatures', authenticate, featuresSignupRouter);
