@@ -31,7 +31,7 @@ import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
 
-// import TestPage from "./kamrul"
+import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -63,7 +63,7 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
-                {backgroundComponent}
+                {/* {backgroundComponent} */}
                 <RoutesWrapper />
             </PageContainer>
             <Copyright />
@@ -79,8 +79,8 @@ function RoutesWrapper() {
             <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} />
 
             <Route path="/" element={<Intro />} />
-            <Route path="/selectLanguage" element={<SelectLanguagePage />} />
-            {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
+            {/* <Route path="/selectLanguage" element={<SelectLanguagePage />} /> */}
+            <Route path="/selectLanguage" element={<TestPage/>} />
             <Route path="/login/signup" element={<SignupPage />} />
 
             <Route

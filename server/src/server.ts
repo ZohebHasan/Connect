@@ -17,6 +17,7 @@ import { authenticate } from './middleware/authMiddleware';
 import refreshRouter from './routers/refresh';
 import authRouter from './routers/authRouter';
 import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
+import googleAuthRouter from './routers/google'; // Ensure correct import
 
 dotenv.config();
 
@@ -57,3 +58,4 @@ app.use('/refresh-token', refreshRouter);
 
 // Add the featuresSignup route
 app.use('/changeFeatures', authenticate, featuresSignupRouter);
+app.use('/google', googleAuthRouter); // Ensure correct route
