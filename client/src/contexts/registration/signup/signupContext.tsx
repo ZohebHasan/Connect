@@ -2,8 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { generateKeys, prepareKeysForServer } from './keyGeneration';
-import { saveToIndexedDB } from './indexedDBhelpers'; // Import the IndexedDB helper function
+import { generateKeys, prepareKeysForServer } from '../../keyGeneration';
+import { saveToIndexedDB } from '../../indexedDBhelpers'; // Import the IndexedDB helper function
 import { useAuth } from '../../authentication/authContext'; // Import useAuth hook
 import { validateEmail, validateFullName, validatePassword, validatePhone, validateUsername } from './validator';
 import { AuthContextType } from './contextTypes';

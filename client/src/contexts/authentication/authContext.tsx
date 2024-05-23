@@ -3,14 +3,17 @@ import { checkSession, refreshAuthToken } from '../../services/authHelpers';
 
 interface AuthContextType {
     user: any;
+    token: string | null;
     loading: boolean;
     setUser: React.Dispatch<React.SetStateAction<any>>;
+    setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<any>(null);
+    const [token, setToken] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,7 +24,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                     // If session check failed, try to refresh the token
                     console.log("Waiting for refreshing")
                     await refreshAuthToken();
-              
                     sessionUser = await checkSession();
                 }
                 setUser(sessionUser);
@@ -36,7 +38,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, loading, setUser }}>
+        <AuthContext.Provider value={{ user, token, loading, setUser, setToken }}>
             {children}
         </AuthContext.Provider>
     );
