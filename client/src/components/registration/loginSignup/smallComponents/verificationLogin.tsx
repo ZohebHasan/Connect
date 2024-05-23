@@ -11,6 +11,7 @@ import Button from '../../../ConnectUI_web/common/buttons/button1';
 import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
+import { useLogin } from '../../../../contexts/login/loginContext';
 
 
 const VerificationText: React.FC = () => {
@@ -43,7 +44,7 @@ const Verification: React.FC = () => {
     const {language} = useLanguage(); 
     const [code, setCode] = useState('');
 
-
+    const {userId} = useLogin();
 
     const handleCodeChange = (input: string) =>{
         setCode(input);

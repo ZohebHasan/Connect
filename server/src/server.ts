@@ -10,9 +10,6 @@ import signupRouter from './routers/signup';
 import personalProfileRouter from './routers/personal_profile';
 import educationalProfileRouter from './routers/educational_profile';
 import professionalProfileRouter from './routers/professional_profile';
-import { validIdentifier } from './controllers/valid_identifier';
-import googleOauthRouter from './routers/google_Oauth';
-import googleOauthCallBackRouter from './routers/google_Oauth_Callback';
 import { authenticate } from './middleware/authMiddleware';
 import refreshRouter from './routers/refresh';
 import authRouter from './routers/authRouter';
@@ -48,14 +45,11 @@ app.use('/signup', signupRouter);
 app.use('/personal_profile', authenticate, personalProfileRouter);
 app.use('/educational_profile', authenticate, educationalProfileRouter);
 app.use('/professional_profile', authenticate, professionalProfileRouter);
-app.use('/valid_identifier', authenticate, validIdentifier);
 
-app.use('/google_oauth', googleOauthRouter);
-app.use('/google_oauth_callback', googleOauthCallBackRouter);
 
 // Refresh token route
 app.use('/refresh-token', refreshRouter);
 
 // Add the featuresSignup route
 app.use('/changeFeatures', authenticate, featuresSignupRouter);
-app.use('/google', googleAuthRouter); // Ensure correct route
+app.use('/google', googleAuthRouter); 

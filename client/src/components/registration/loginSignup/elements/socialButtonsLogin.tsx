@@ -1,6 +1,7 @@
 import React from "react";
+import axios from "axios";
+
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import Text from "../../../ConnectUI_web/common/texts/static";
 import MicrosoftLogo from "../assets/microsoft.png";
 import AppleLogo from "../assets/appleLogoBlack.png";
@@ -12,14 +13,20 @@ interface SocialLoginSignupButtonsProps {
 
 const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({ flex }) => {
 
-  const handleGoogleLogin = () => {
-    const googleAuthUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
-    const clientId = "907262819056-kohknc54tiiima4gdehjfc7r2k5fri9u.apps.googleusercontent.com";
-    const redirectUri = 'http://localhost:3000/auth/google/callback';
-    const scope = 'profile email';
-    const responseType = 'code';
-    const authUrl = `${googleAuthUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}`;
-    window.location.href = authUrl;
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/google/auth");
+      const data = response.data;
+      console.log(data);
+      const authUrl = data.url;
+      window.location.href = authUrl;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
 
   const handleMicrosoftLogin = () => {

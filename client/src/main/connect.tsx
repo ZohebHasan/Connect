@@ -20,8 +20,7 @@ import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 import UserCredentials from "../pages/loginSignup/userCredentials";
 import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
-import GoogleCallBack from '../components/registration/loginSignup/elements/GoogleCallBack';
-import MicrosoftCallback from '../components/registration/loginSignup/elements/MicrosoftCallBack';
+
 
 import DemoSignup from "../components/temp";
 import DemoLogin from "../components/temp2";
@@ -63,7 +62,7 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
-                {/* {backgroundComponent} */}
+                {backgroundComponent}
                 <RoutesWrapper />
             </PageContainer>
             <Copyright />
@@ -74,13 +73,12 @@ function ConnectInner() {
 function RoutesWrapper() {
     return (
         <Routes>
-            {/* this two below are for testing */}
-            <Route path="/auth/google/callback" element={<GoogleCallBack />} />
-            <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} />
+
+
 
             <Route path="/" element={<Intro />} />
-            {/* <Route path="/selectLanguage" element={<SelectLanguagePage />} /> */}
-            <Route path="/selectLanguage" element={<TestPage/>} />
+            <Route path="/selectLanguage" element={<SelectLanguagePage />} />
+            {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
             <Route path="/login/signup" element={<SignupPage />} />
 
             <Route
