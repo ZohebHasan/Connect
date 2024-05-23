@@ -1,10 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
+
 const StoryScroller: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
+
+  const {isDarkMode} = useDarkMode();
 
   const updateButtons = () => {
     const container = containerRef.current;
@@ -48,57 +52,57 @@ const StoryScroller: React.FC = () => {
       </NavButton>
       <StoryContainer ref={containerRef}>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="white" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="red" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="pink" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="yellow" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="pink" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="green" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="orange" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="white" />
           </InnerBorder>
         </Border>
         <Border>
-          <InnerBorder>
+          <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
         </Border>
@@ -161,9 +165,9 @@ interface NavButtonProps {
   `;
   
   
-const InnerBorder = styled.div`
-  background-color: black;
-  padding: 2px; /* Adjusted padding for the inner border */
+const InnerBorder = styled.div<{$isDarkMode: boolean}>`
+background-color: ${props => (props.$isDarkMode ? 'black' : 'white')}; /* Conditionally set background color */
+padding: 2px; 
   border-radius: 50%;
   display: flex;
   align-items: center;
