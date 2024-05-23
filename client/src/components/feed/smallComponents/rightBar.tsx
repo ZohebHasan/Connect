@@ -25,5 +25,5 @@ export default RightBar;
 
 const Temp = styled.div`
     width: 100%;
-    // background-color: blue;
+    background-color: blue;
 `

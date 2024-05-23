@@ -45,6 +45,8 @@ const StyledProfileBar = styled.div<{ $isProfileBarOpen?: boolean; $isDarkMode?:
     opacity: ${$isProfileBarOpen ? '1' : '0'};
     background-color: ${$isDarkMode ? 'rgba(48, 48, 48, 0.9)' : 'rgba(230, 230, 230, 0.9)'};
   `}
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
   position: absolute;
   backdrop-filter: blur(3px);
   overflow-x: hidden;
