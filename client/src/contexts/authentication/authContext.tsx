@@ -22,7 +22,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 let sessionUser = await checkSession();
                 if (!sessionUser) {
                     // If session check failed, try to refresh the token
-                    console.log("Waiting for refreshing")
                     await refreshAuthToken();
                     sessionUser = await checkSession();
                 }

@@ -9,13 +9,15 @@ const JWT_REFRESH_SECRET = '3577a4135cad0bb08c5e5529282265604c9ccec70ea2392090ae
 export const login = async (req: Request, res: Response) => {
     const { identifier, password } = req.body;
 
+
     if (!identifier || !password) {
+        console.log('Missing identifier or password');
         return res.status(400).json({ message: 'Identifier and password are required' });
     }
 
     const userIdentifier = parseIdentifier(identifier);
-    const user = await User.findOne(userIdentifier);
 
+    const user = await User.findOne(userIdentifier);
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }
@@ -34,7 +36,7 @@ export const login = async (req: Request, res: Response) => {
     // Send JWT token and Refresh Token as cookies
     res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 1 * 60 * 60 * 1000 }); //1 hour
     res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: false, maxAge: 6 * 30 * 24 * 60 * 60 * 1000 }); //6 months
-   
+
     res.status(200).json({ message: 'Login successful', user });
 };
 

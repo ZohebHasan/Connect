@@ -27,6 +27,7 @@ interface AuthContextType {
     errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean };
     passwordEmptyError: boolean;
     userIdEmptyError: boolean;
+    incorrectCredentials: boolean;
     setErrors: (errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
     handleSubmit: () => void;
     loading: boolean;
@@ -42,6 +43,7 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [incorrectCredentials, setIncorrectCredentials] = useState(false);
     const { setUser, setToken } = useAuth(); 
 
   
@@ -56,6 +58,7 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         setUserIdEmptyError(false);
         setPasswordEmptyError(false);
+        setIncorrectCredentials(false);
     };
 
     const handlePasswordChange = (password: string) => {
@@ -68,6 +71,7 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         });
         setUserIdEmptyError(false);
         setPasswordEmptyError(false);
+        setIncorrectCredentials(false);
     };
 
     // Error handling
@@ -79,14 +83,18 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             passwordError: false
         });
     };
+    const handlePasswordError = () => {
+        setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
+    };
+
+   
+ 
+
     const handleUserIdEmpty = () => {
         setUserIdEmptyError(true);
     };
     const handlePasswordEmpty = () => {
         setPasswordEmptyError(true);
-    };
-    const handlePasswordError = () => {
-        setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
     };
 
     const validateCredentials = () => {
@@ -162,6 +170,7 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         } catch (error) {
             console.error('Login error:', error);
             setLoading(false);
+            setIncorrectCredentials(true);
         }
     };
 
@@ -171,7 +180,7 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             handleUserIdChange, handlePasswordChange,
             handleUserIdError, handlePasswordError,
             errors, setErrors, handleSubmit, loading,
-            userIdEmptyError, passwordEmptyError
+            userIdEmptyError, passwordEmptyError, incorrectCredentials
         }}>
             {children}
         </LoginContext.Provider>
