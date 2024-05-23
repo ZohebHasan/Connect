@@ -10,10 +10,12 @@ import Option from '../elements/optionButton';
 import UserProfile from '../elements/userProfile';
 
 import OptionBar from "../elements/optionBar"
+import ProfileBar from "../elements/profileBar"
 
 import CreateButton from '../elements/createButton';
-const LeftBar: React.FC = () => {
+import { ProfileProvider } from '../../../contexts/feed/profilesContext';
 
+const LeftBar: React.FC = () => {
 
     const { isDarkMode } = useDarkMode();
     const [activeButtons, setActiveButtons] = useState({
@@ -43,31 +45,34 @@ const LeftBar: React.FC = () => {
 
     return (
         <>
-            <LeftBarContainer flexDirection="column" flex={1.6}>
-                <OptionBar />
-                <Container>
-                    <LogoContainer>
-                        <Logo />
-                    </LogoContainer>
+      
+                <LeftBarContainer flexDirection="column" flex={1.6}>
+                    <OptionBar />
+                    <ProfileBar />
+                    <Container>
+                        <LogoContainer>
+                            <Logo />
+                        </LogoContainer>
 
-                    <ButtonsContainer>
-                        <LeftBarButtons
-                            activeButtons={activeButtons}
-                            toggleActive={toggleActive}
-                        />
-                    </ButtonsContainer>
-                    <CreateButtonContainer>
-                        <CreateButton
-                            activeButtons={activeButtons}
-                            toggleActive={toggleActive}
-                        />
-                    </CreateButtonContainer>
-                    <BottomButtonContainer>
-                        <UserProfile />
-                        <Option />
-                    </BottomButtonContainer>
-                </Container>
-            </LeftBarContainer>
+                        <ButtonsContainer>
+                            <LeftBarButtons
+                                activeButtons={activeButtons}
+                                toggleActive={toggleActive}
+                            />
+                        </ButtonsContainer>
+                        <CreateButtonContainer>
+                            <CreateButton
+                                activeButtons={activeButtons}
+                                toggleActive={toggleActive}
+                            />
+                        </CreateButtonContainer>
+                        <BottomButtonContainer>
+                            <UserProfile />
+                            <Option />
+                        </BottomButtonContainer>
+                    </Container>
+                </LeftBarContainer>
+         
         </>
     );
 };

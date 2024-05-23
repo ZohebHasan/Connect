@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 
@@ -9,20 +9,34 @@ import OpenLight from "../assets/openLight.png"
 import OpenDark from "../assets/openDark.png"
 
 import ProfilesListButton from "../containers/buttonLogo";
-
+import { useProfile } from '../../../contexts/feed/profilesContext';
 const UserProfile: React.FC = () => {
     const { isDarkMode } = useDarkMode();
+    const { isProfilesbarOpen, toggleProfilesbar, addProtectedRef, removeProtectedRef } = useProfile();
     const [openProfiles, setOpenProfiles] = useState(false);
+    const optionBtnRef = useRef<HTMLImageElement>(null);
 
     const toggleOpenProfiles = () => {
         setOpenProfiles(prevOpenProfiles => !prevOpenProfiles);
     }
+    useEffect(() => {
+        if (optionBtnRef.current) {
+          addProtectedRef(optionBtnRef);
+        }
+    
+        return () => {
+          if (optionBtnRef.current) {
+            removeProtectedRef(optionBtnRef);
+          }
+        };
+      }, [optionBtnRef, addProtectedRef, removeProtectedRef]);
 
     return (
         <>
             <ProfileListButtonContainer
                 $isDarkMode={isDarkMode}
-                onClick={toggleOpenProfiles}
+                onClick={toggleProfilesbar}
+                ref = {optionBtnRef}
             >
                 <ButtonWrapper>
                     <ProfilesListButton
@@ -30,7 +44,7 @@ const UserProfile: React.FC = () => {
                         lightModeLogo={OpenLight}
                         activeDarkLogo={CloseDark}
                         activeLightLogo={CloseLight}
-                        isActive={openProfiles}
+                        isActive={isProfilesbarOpen}
                         size={1.5}
                     />
                 </ButtonWrapper>
@@ -50,16 +64,18 @@ const ProfileListButtonContainer = styled.div<{ $isDarkMode: boolean }>`
     height: 100%; 
     border-radius: 0.5rem;
     margin: 0.2rem;
+    position: relative;
+    z-index: 4;
 
     &:hover {
         color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'};
-        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#333' : '#eee'};
+        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#565454' : '#a0a0a0'};
         opacity: 0.7;
         transform: scale(1.05); 
     }
     
     &:active {
-        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#ccc'};
+        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'};
         transform: scale(1.00);
     }
     transition: transform 0.2s ease-in-out, color 0.3s, opacity 0.3s ease-in-out;

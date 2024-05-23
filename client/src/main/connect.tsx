@@ -29,15 +29,15 @@ import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
-
+import { ProfileProvider } from '../contexts/feed/profilesContext';
 import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-        
-                <ConnectInner />
-   
+
+            <ConnectInner />
+
         </Router>
     );
 }
@@ -103,14 +103,24 @@ function RoutesWrapper() {
                             <Route path="/idVerification" element={<VerificationSignup />} />
                             <Route path="/ageVerification" element={<DateOfBirth />} />
                             {/* <Route path="/agreement" element={<AgreementPage />} /> */}
-                            <Route path="/features" element={<ProtectedRoute><FeaturesPage/></ProtectedRoute>} />
-                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage/></ProtectedRoute>} />
+                            <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
+                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
                         </Routes>
                     </SignupProvider>
                 }
             />
-            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
-            <Route path="/home" element={<Feed />} />
+            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} /> */}
+
+            <Route
+                path="/*"
+                element={
+                    <ProfileProvider>
+                        <Routes>
+                            <Route path="/home" element={<Feed />} />
+                        </Routes>
+                    </ProfileProvider>
+                }
+            />
         </Routes>
     );
 }
