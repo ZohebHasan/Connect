@@ -54,4 +54,5 @@ app.use('/refresh-token', refreshRouter);
 // Add the featuresSignup route
 app.use('/changeFeatures', authenticate, featuresSignupRouter);
 app.use('/google', googleAuthRouter); 
-app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
+app.use( microsoftAuthRouter); // Ensure correct route
+

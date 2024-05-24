@@ -7,7 +7,7 @@ import { useStoriesPage } from '../../../contexts/stories/storiesContext';
 
 const StoryScroller: React.FC = () => {
 
-  // const {toggle}
+  const {toggleStoriesPage} = useStoriesPage();
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
@@ -52,62 +52,63 @@ const StoryScroller: React.FC = () => {
   };
 
   return (
+
     <StoryScrollerWrapper>
       <NavButton position="left" isVisible={showLeftButton} onClick={scrollLeft}>
         <NavButtonSvg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></NavButtonSvg>
       </NavButton>
-      <StoryContainer ref={containerRef}>
-        <Border>
+      <StoryContainer ref={containerRef} >
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="white" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="red" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="pink" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="yellow" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="pink" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="green" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="orange" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="white" />
           </InnerBorder>
         </Border>
-        <Border>
+        <Border onClick={toggleStoriesPage}>
           <InnerBorder $isDarkMode = {isDarkMode}>
             <Story bgColor="blue" />
           </InnerBorder>
@@ -123,7 +124,7 @@ const StoryScroller: React.FC = () => {
 export default StoryScroller;
 
 
-const StoryScrollerWrapper = styled.div`
+const StoryScrollerWrapper = styled.div` 
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -137,6 +138,7 @@ const Border = styled.div`
   align-items: center;
   justify-content: center;
   margin: 10px;
+  cursor: pointer;
 `;
 
 
