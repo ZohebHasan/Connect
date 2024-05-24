@@ -12,7 +12,7 @@ const StoryScroller: React.FC = () => {
       container.addEventListener('wheel', handleWheel);
 
       // Start with the first story centered
-      scrollToActiveStory(0);
+      scrollToActiveStory(0, 0);
 
       return () => {
         container.removeEventListener('wheel', handleWheel);
@@ -20,7 +20,7 @@ const StoryScroller: React.FC = () => {
     }
   }, []);
 
-  const scrollToActiveStory = (index: number) => {
+  const scrollToActiveStory = (index: number, offset: number) => {
     const container = containerRef.current;
     if (container) {
       const story = container.children[index + 1] as HTMLElement; // Adjust for the placeholder
@@ -28,7 +28,7 @@ const StoryScroller: React.FC = () => {
       if (story) {
         const containerCenter = container.offsetWidth / 2;
         const storyCenter = story.offsetLeft + story.offsetWidth / 2;
-        const scrollPosition = storyCenter - containerCenter;
+        const scrollPosition = storyCenter - containerCenter + offset;
         container.scrollTo({
           left: scrollPosition,
           behavior: 'smooth',
@@ -40,7 +40,7 @@ const StoryScroller: React.FC = () => {
   const scrollLeft = () => {
     setActiveIndex((prevIndex) => {
       const newIndex = Math.max(prevIndex - 1, 0);
-      scrollToActiveStory(newIndex);
+      scrollToActiveStory(newIndex, 100);
       return newIndex;
     });
   };
@@ -48,30 +48,34 @@ const StoryScroller: React.FC = () => {
   const scrollRight = () => {
     setActiveIndex((prevIndex) => {
       const newIndex = Math.min(prevIndex + 1, 14); // Assuming 15 stories
-      scrollToActiveStory(newIndex);
+      scrollToActiveStory(newIndex, -100);
       return newIndex;
     });
   };
 
   return (
     <Wrapper>
-      <NavButton className="left" onClick={scrollLeft}>
-        &#9664;
-      </NavButton>
+      {activeIndex > 0 && (
+        <NavButton className="left" onClick={scrollLeft}>
+          &#9664;
+        </NavButton>
+      )}
       <CenteredContainer>
         <StoryContainer ref={containerRef}>
-          <PlaceholderStory>.</PlaceholderStory>
+          <PlaceholderStory />
           {[...Array(15)].map((_, index) => (
             <Story key={index} isActive={index === activeIndex}>
               Story {index + 1}
             </Story>
           ))}
-          <PlaceholderStory>.</PlaceholderStory>
+          <PlaceholderStory />
         </StoryContainer>
       </CenteredContainer>
-      <NavButton className="right" onClick={scrollRight}>
-        &#9654;
-      </NavButton>
+      {activeIndex < 14 && (
+        <NavButton className="right" onClick={scrollRight}>
+          &#9654;
+        </NavButton>
+      )}
     </Wrapper>
   );
 };
@@ -80,9 +84,9 @@ export default StoryScroller;
 
 const Wrapper = styled.div`
   position: relative;
-  width: 100%;
+  width: 60%;
   overflow: hidden;
-  background-color: red;
+
   align-items: center;
   justify-content: center;
 `;
@@ -130,7 +134,7 @@ const PlaceholderStory = styled.div`
   width: 500px;
   margin: 10px;
   border-radius: 16px;
-  background-color: blue;
+
 `;
 
 const NavButton = styled.button`
