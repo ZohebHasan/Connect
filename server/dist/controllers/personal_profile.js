@@ -25,13 +25,13 @@ const personalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function
         return res.status(400).json({ message: 'User does not exist' });
     }
     const newProfile = new personal_profile_1.default({
-        user: user,
-        full_name,
+        user: user._id,
+        full_name: user.fullName,
         hobbies,
         interests,
         bio,
         profile_pic,
-        age
+        age: user.age
     });
     yield newProfile.save();
     res.status(200).json({ profile: newProfile });
