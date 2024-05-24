@@ -29,14 +29,20 @@ const SocialLoginSignupButtons: React.FC<SocialLoginSignupButtonsProps> = ({ fle
     }
   };
 
-  const handleMicrosoftLogin = () => {
-    const microsoftAuthUrl = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
-    const clientId = "e7dda04b-ea85-414c-b401-0222e7ebc5b4";
-    const redirectUri = 'http://localhost:3000/auth/microsoft/callback';
-    const scope = 'openid profile email';
-    const responseType = 'code';
-    const authUrl = `${microsoftAuthUrl}?client_id=${clientId}&response_type=${responseType}&redirect_uri=${redirectUri}&scope=${scope}`;
-    window.location.href = authUrl;
+  const handleMicrosoftLogin = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/microsoft/auth");
+      const data = response.data;
+      console.log(data);
+      const authUrl = data.url;
+      window.location.href = authUrl;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios error:", error.response?.data || error.message);
+      } else {
+        console.error("Unexpected error:", error);
+      }
+    }
   };
   const handleAppleLogin = () => {
     const appleAuthUrl = 'https://appleid.apple.com/auth/authorize';

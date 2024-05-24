@@ -1,18 +1,19 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSidebar } from '../../../contexts/SideBarOpen/SidebarContext';
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
+import { useStoriesPage } from '../../../contexts/stories/storiesContext';
 
 const Sidebar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { isDarkMode } = useDarkMode();
+  const {isStoriesPageOpen } = useStoriesPage();
 
  
 
   return (
 
-    <StyledStoryBar $isSidebarOpen={true} $isDarkMode={isDarkMode}>
+    <StyledStoryBar $isSidebarOpen={isStoriesPageOpen} $isDarkMode={isDarkMode}>
    
-      <ElementsContainer $isSidebarOpen={true}>
+      <ElementsContainer $isSidebarOpen={isStoriesPageOpen}>
         {children} 
       </ElementsContainer>
     </StyledStoryBar>
@@ -24,7 +25,7 @@ export default Sidebar;
 const StyledStoryBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boolean }>`
   ${({ $isSidebarOpen, $isDarkMode }) => `
     height: ${$isSidebarOpen ? '100%' : '0'};
-    width: 88.5rem;
+    width: 88.3rem;
     border-top-right-radius: ${$isSidebarOpen ? '0%' : '50%'};
     border-top-left-radius: ${$isSidebarOpen ? '20px' : '50%'};
     transform: scaleY(${$isSidebarOpen ? '1' : '0'});
@@ -57,6 +58,7 @@ const ElementsContainer = styled.div<{ $isSidebarOpen?: boolean }>`
     align-items: center;
     justify-content: center;
     // background-color:red;
+    position: relative;
    
    
 `;
