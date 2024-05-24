@@ -17,6 +17,18 @@
 }
  */
 
- .test{
-  background-color: rgba(85, 85, 85, 0.5);
+ .Backgroundcolor {
+  background-color: #565656;
+  background-color: rgb(197, 197, 197);
+
+  }
+
+ .hover{
+  color: #838383;
+  color: #969696;
+ }
+
+ .active{
+  color: #919191;
+  color: #595858;
  }

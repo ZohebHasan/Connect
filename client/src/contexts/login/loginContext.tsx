@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState } from 'react';
-
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import { getFromIndexedDB, saveToIndexedDB } from '../indexedDBhelpers';
+import { generateKeys, prepareKeysForServer } from '../keyGeneration'; // Ensure correct import paths
+import { useAuth } from '../authentication/authContext'; // Ensure correct import path
 
 const validateEmail = (email: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const validatePhone = (phone: string): boolean => /^\d{10}$/.test(phone.replace(/[^0-9]/g, ''));
@@ -16,7 +17,6 @@ const validateUsername = (username: string): boolean => {
 };
 const validatePassword = (password: string): boolean => /\d/.test(password) && password.length >= 6;
 
-
 interface AuthContextType {
     userId: string;
     password: string;
@@ -25,13 +25,12 @@ interface AuthContextType {
     handleUserIdError: () => void;
     handlePasswordError: () => void;
     errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean };
-  
     passwordEmptyError: boolean;
-    userIdEmptyError:  boolean;
+    userIdEmptyError: boolean;
+    incorrectCredentials: boolean;
     setErrors: (errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
     handleSubmit: () => void;
     loading: boolean;
-    
 }
 
 export const LoginContext = createContext<AuthContextType | undefined>(undefined);
@@ -40,13 +39,14 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ usernameError: false, emailError: false, phoneError: false, passwordError: false });
-    const [userIdEmptyError, setuserIdEmptyError] = useState(false);
+    const [userIdEmptyError, setUserIdEmptyError] = useState(false);
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [incorrectCredentials, setIncorrectCredentials] = useState(false);
+    const { setUser, setToken } = useAuth(); 
 
-
-    //error state managing
+  
     const handleUserIdChange = (input: string) => {
         setUserId(input);
         setErrors({
@@ -56,10 +56,10 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             passwordError: errors.passwordError
         });
 
-        setuserIdEmptyError(false);
+        setUserIdEmptyError(false);
         setPasswordEmptyError(false);
+        setIncorrectCredentials(false);
     };
-
 
     const handlePasswordChange = (password: string) => {
         setPassword(password);
@@ -69,11 +69,12 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             phoneError: errors.phoneError,
             passwordError: false
         });
-        setuserIdEmptyError(false);
+        setUserIdEmptyError(false);
         setPasswordEmptyError(false);
-
+        setIncorrectCredentials(false);
     };
-    //error handling
+
+    // Error handling
     const handleUserIdError = () => {
         setErrors({
             usernameError: !validateUsername(userId),
@@ -81,83 +82,95 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             phoneError: !validatePhone(userId),
             passwordError: false
         });
-    }
-    const handleUserIdEmpty = () => {
-        setuserIdEmptyError(true);
-
-    }
-    const handlePasswordEmpty = () => {
-        setPasswordEmptyError(true);
-        
-    }
-
+    };
     const handlePasswordError = () => {
         setErrors(prev => ({ ...prev, passwordError: !validatePassword(password) }));
-    }
+    };
 
-    // console.log("Email Error context: ", errors.emailError);
-    // console.log("Phone Error context: ", errors.phoneError);
-    // console.log("Username Error context: ", errors.usernameError);
-    // console.log("Password Error context: ", errors.passwordError);
-    // console.log("All errors context: ", (errors.emailError && errors.phoneError && errors.usernameError) && errors.passwordError);
-    // console.log("User ID errors context: ", (errors.emailError && errors.phoneError && errors.usernameError));
+   
+ 
 
+    const handleUserIdEmpty = () => {
+        setUserIdEmptyError(true);
+    };
+    const handlePasswordEmpty = () => {
+        setPasswordEmptyError(true);
+    };
 
     const validateCredentials = () => {
         return (validateEmail(userId) || validatePhone(userId) || validateUsername(userId)) && validatePassword(password);
     };
 
     const handleSubmit = async () => {
-        if(userId != '') {
+        if (userId !== '') {
             handleUserIdError();
-        }
-        else{
+        } else {
             handleUserIdEmpty();
         }
 
-        if(password != ''){
+        if (password !== '') {
             handlePasswordError();
-        }
-        else{
+        } else {
             handlePasswordEmpty();
         }
-        if(userId === '' && password === ''){
+
+        if (userId === '' && password === '') {
             handleUserIdEmpty();
             handlePasswordEmpty();
             return;
         }
-      
-      
+
         if (!validateCredentials()) {
-            console.log("incorrectly formatted credentials, unable to make an http request")
+            console.log("incorrectly formatted credentials, unable to make an http request");
             return;
         }
-        
+
         setLoading(true);
 
-        //KAMRUL LOOK AT HERE! This is only working for email, but the payload below is compatable for any type [email, phonenumber, username]
-        // const payload = {
-        //     // username: validateUsername(userId) ? userId.toLowerCase() : undefined,
-        //     email: validateEmail(userId) ? userId.toLowerCase() : undefined,
-        //     // phone: validatePhone(userId) ? userId : undefined,  
-        //     password
-        // };
-
-        // KAMRUL LOOK AT HERE!But this code is not working even though it should. 
-
         const payload = {
-            identifier: userId.trim(),  
+            identifier: userId.trim(),
             password
         };
 
-        console.log(payload)
+        console.log(payload);
         try {
-            const response = await axios.post('http://localhost:8000/login', payload);
+            const response = await axios.post('http://localhost:8000/login', payload, {
+                withCredentials: true // Ensure cookies are included
+            });
+
             console.log('Login successful:', response.data);
+
+            // Save JWT token in local state or context
+            setToken(response.data.token);
+            setUser(response.data.user);
+
+            // // Check if keys are already stored in IndexedDB
+            // const identityKeyPair = await getFromIndexedDB('identityKeyPair');
+            // const signedPreKey = await getFromIndexedDB('signedPreKey');
+            // const senderKey = await getFromIndexedDB('senderKey');
+
+            // // If keys are missing, generate new keys and send them to the server
+            // if (!identityKeyPair || !signedPreKey || !senderKey) {
+            //     const keys = await generateKeys();
+            //     const serverReadyKeys = await prepareKeysForServer(keys);
+
+            //     // Send the new keys to the server
+            //     await axios.post('http://localhost:8000/api/auth/updateKeys', {
+            //         userId: response.data.user._id,
+            //         keys: serverReadyKeys
+            //     });
+
+            //     // Save new keys to IndexedDB
+            //     await saveToIndexedDB('identityKeyPair', keys.identityKeyPair);
+            //     await saveToIndexedDB('signedPreKey', keys.signedPreKey);
+            //     await saveToIndexedDB('senderKey', keys.senderKey);
+            // }
+
             navigate('twoStep');
         } catch (error) {
             console.error('Login error:', error);
             setLoading(false);
+            setIncorrectCredentials(true);
         }
     };
 
@@ -166,8 +179,8 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             userId, password,
             handleUserIdChange, handlePasswordChange,
             handleUserIdError, handlePasswordError,
-            errors, setErrors, handleSubmit, loading, 
-            userIdEmptyError, passwordEmptyError
+            errors, setErrors, handleSubmit, loading,
+            userIdEmptyError, passwordEmptyError, incorrectCredentials
         }}>
             {children}
         </LoginContext.Provider>
@@ -181,5 +194,3 @@ export const useLogin = () => {
     }
     return context;
 };
-
-

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Text from '../../../ConnectUI_web/common/texts/static';
 import Toggle from "../../../ConnectUI_web/common/buttons/toggle";
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 
 const Features: React.FC = () => {
 
@@ -16,13 +16,13 @@ const Features: React.FC = () => {
   const {
     dataProtection,
     profileEncryption,
-    contentMonitization,
+    contentMonetization,
     censor,
     restricted,
 
     handleDataProtectionChange,
     handleProfileEncryptionChange,
-    handleContentMonitizationChange,
+    handleContentMonetizationChange,
     handleCensorChange,
     handleRestrictedChange,
 
@@ -83,7 +83,7 @@ const Features: React.FC = () => {
               </Text>
             </FeatureTextContainer>
             <FeatureToggleContainer>
-              <Toggle isOn={contentMonitization} toggleOn={handleContentMonitizationChange} />
+              <Toggle isOn={contentMonetization} toggleOn={handleContentMonetizationChange} />
             </FeatureToggleContainer>
           </Feature>
           <Text variant="transparent" fontWeight={"300"} size={"0.9375 rem"}>

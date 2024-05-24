@@ -12,7 +12,7 @@ import DatePicker from '../elements/datePicker';
 import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
 import HiddenInput from '../../../ConnectUI_web/common/inputBox/hidden';
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 
 const CredentialText: React.FC = () => {
     return (

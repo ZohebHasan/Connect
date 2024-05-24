@@ -11,7 +11,8 @@ interface SignedPreKey {
     signature: string;
 }
 
-interface User extends Document {
+export interface UserType extends Document {
+    id: string; // Add this field to indicate the presence of _id
     fullName: string;
     email?: string;
     password: string;
@@ -47,7 +48,7 @@ const signedPreKeySchema = new Schema<SignedPreKey>({
     signature: { type: String, required: true }
 });
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<UserType>({
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
@@ -72,4 +73,6 @@ const userSchema = new Schema<User>({
     verificationTokenExpires: { type: Date }
 });
 
-export default model<User>('User', userSchema);
+const User = model<UserType>('User', userSchema);
+
+export default User;

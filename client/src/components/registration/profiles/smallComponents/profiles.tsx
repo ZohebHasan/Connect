@@ -187,11 +187,11 @@ const ProfessionalContainer = styled(CommonStyle)<{$isDarkMode: boolean, isSelec
     height: 70%;
 
     border: ${({ isSelected, $isDarkMode }) => 
-            isSelected ? `3px solid ${$isDarkMode ? '#519fd2' : '#68c3ff'}` 
-                       : `0.1px solid ${$isDarkMode ? '#519fd2' : '#68c3ff'}`};
+            isSelected ? `3px solid #40c6ff` 
+                       : `0.1px solid #40c6ff`};
     border-top: ${({ isSelected, $isDarkMode }) => 
-            isSelected ? `17px solid ${$isDarkMode ? '#519fd2' : '#68c3ff'}` 
-                       : `0.1px solid ${$isDarkMode ? '#519fd2' : '#68c3ff'}`};
+            isSelected ? `17px solid #40c6ff` 
+                       : `0.1px solid #40c6ff`};
     border-radius: ${({ isSelected }) => 
             isSelected ? '30px 30px 15px 15px' 
                        : '15px'};
@@ -204,11 +204,11 @@ const PersonalContainer = styled(CommonStyle)<{$isDarkMode: boolean, isSelected:
 
 
     border: ${({ isSelected, $isDarkMode }) => 
-        isSelected ? `3px solid ${$isDarkMode ? '#da74c9' : '#fc6dbc'}` 
-                : `0.1px solid ${$isDarkMode ? '#da74c9' : '#fc6dbc'}`};
+        isSelected ? `3px solid #e41d81;` 
+                : `0.1px solid #e41d81`};
     border-top: ${({ isSelected, $isDarkMode }) => 
-        isSelected ? `17px solid ${$isDarkMode ? '#da74c9' : '#fc6dbc'}` 
-                : `0.1px solid ${$isDarkMode ? '#da74c9' : '#fc6dbc'}`};
+        isSelected ? `17px solid #e41d81` 
+                : `0.1px solid #e41d81`};
     border-radius: ${({ isSelected }) => 
         isSelected ? '30px 30px 15px 15px' 
                 : '15px'};
@@ -219,11 +219,11 @@ const SchoolContainer = styled(CommonStyle)<{$isDarkMode: boolean, isSelected: b
     height: 70%;
 
     border: ${({ isSelected, $isDarkMode }) => 
-        isSelected ? `3px solid ${$isDarkMode ? '#b89ae3' : '#a075dd'}` 
-                : `0.1px solid ${$isDarkMode ? '#b89ae3' : '#a075dd'}`};
+        isSelected ? `3px solid #a260e8` 
+                : `0.1px solid #a260e8`};
     border-top: ${({ isSelected, $isDarkMode }) => 
-        isSelected ? `17px solid ${$isDarkMode ? '#b89ae3' : '#a075dd'}` 
-                : `0.1px solid ${$isDarkMode ? '#b89ae3' : '#a075dd'}`};
+        isSelected ? `17px solid #a260e8` 
+                : `0.1px solid #a260e8`};
     border-radius: ${({ isSelected }) => 
         isSelected ? '30px 30px 15px 15px' 
                 : '15px'};

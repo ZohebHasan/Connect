@@ -10,7 +10,7 @@ import Button from "../../../ConnectUI_web/common/buttons/button1"
 import DatePicker from '../elements/datePicker';
 import NormalInput from '../../../ConnectUI_web/common/inputBox/normal';
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 
 const UserInfoText: React.FC = () => {
     return (

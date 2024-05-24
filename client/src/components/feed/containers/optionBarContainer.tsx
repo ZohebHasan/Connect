@@ -12,7 +12,7 @@ const Sidebar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     if (sideBarRef.current) {
       addProtectedRef(sideBarRef);
     }
-    
+  
     return () => {
       if (sideBarRef.current) {
         removeProtectedRef(sideBarRef);
@@ -42,7 +42,7 @@ const StyledSidebar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boole
     border-top-left-radius: ${$isSidebarOpen ? '20px' : '50%'};
     transform: scaleY(${$isSidebarOpen ? '1' : '0'});
     opacity: ${$isSidebarOpen ? '1' : '0'};
-    background-color: ${$isDarkMode ? 'rgba(48, 48, 48, 0.9)' : 'rgba(230, 230, 230, 0.4)'};
+    background-color: ${$isDarkMode ? 'rgba(48, 48, 48, 0.9)' : 'rgba(230, 230, 230, 0.9)'};
   `}
   border-bottom-left-radius: 20px ;
   position: absolute;
@@ -52,7 +52,7 @@ const StyledSidebar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boole
   transition: height 0.7s ease-out, transform 0.7s ease-out, opacity 0.8s ease-in-out, border-radius 0.8s ease-out;
   display: flex;
   flex-direction: column;
-  z-index: 3;
+  z-index: 5;
   transform-origin: bottom;
   top: auto;  
   bottom: 0;   

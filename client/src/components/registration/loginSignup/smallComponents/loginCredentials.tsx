@@ -15,7 +15,8 @@ const DisplayErrorMessages = () => {
   const {
     errors,
     userIdEmptyError,
-    passwordEmptyError } = useLogin();
+    passwordEmptyError,
+    incorrectCredentials } = useLogin();
 
   let errorMessage = null;
 
@@ -36,6 +37,9 @@ const DisplayErrorMessages = () => {
   }
   else if (errors.passwordError) {
     errorMessage = <ErrorMessage>Incorrect Password</ErrorMessage>;
+  }
+  else if(incorrectCredentials){
+    errorMessage = <ErrorMessage>Incorrect user id or password</ErrorMessage>;
   }
 
   return (
