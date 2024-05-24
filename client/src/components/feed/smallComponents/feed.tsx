@@ -6,8 +6,6 @@ import FeedContainer from '../../ConnectUI_web/templetes/bodyTemplete';
 import StoryScroller from '../elements/storyBar';
 
 const MainFeed: React.FC= () => {
-  
-      
 
     return (
         <>
