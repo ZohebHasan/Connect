@@ -12,7 +12,7 @@ import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 const VerificationText: React.FC = () => {
     return (
         <TextContainer>
