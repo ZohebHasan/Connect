@@ -10,8 +10,12 @@ import Logo from "../../ConnectUI_web/common/logo/logo"
 import CloseDark from "../assets/closeDark.png"
 import CloseLight from "../assets/closeLight.png"
 
+import { useStoriesPage } from '../../../contexts/stories/storiesContext';
+
 const StoriesContainer: React.FC = () => {
     const { isDarkMode } = useDarkMode();
+
+    const { toggleStoriesPage } = useStoriesPage();
 
     return (
         <Stories>
@@ -24,7 +28,7 @@ const StoriesContainer: React.FC = () => {
                 </LogoContainer>
                 <ClosingButtonContainer>
                     <ClosingButtonWrapper>
-                        <ClosingButton src={isDarkMode ? CloseDark : CloseLight} />
+                        <ClosingButton src={isDarkMode ? CloseDark : CloseLight} onClick={toggleStoriesPage}/>
                     </ClosingButtonWrapper>
 
                 </ClosingButtonContainer>
@@ -52,6 +56,8 @@ const ClosingButtonContainer = styled.div`
     /* background-color: blue; */
     flex: 1;
     width: 100%;  
+
+
 `
 
 
@@ -73,7 +79,16 @@ const LogoContainer = styled.div`
 const ClosingButton = styled.img`
     width: 2rem;
     height: 2rem;
-    
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+      transform: scale(1.10);
+    }
+  
+    &:active {
+      transform: scale(1.00);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
 `
 
 const OptionsWrapper = styled.div`

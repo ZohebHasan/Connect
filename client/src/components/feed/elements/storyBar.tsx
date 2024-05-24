@@ -2,11 +2,17 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
+import { useStoriesPage } from '../../../contexts/stories/storiesContext';
+
 
 const StoryScroller: React.FC = () => {
+
+  // const {toggle}
+
   const containerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
+
 
   const {isDarkMode} = useDarkMode();
 
