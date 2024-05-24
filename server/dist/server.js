@@ -18,6 +18,7 @@ const refresh_1 = __importDefault(require("./routers/refresh"));
 const authRouter_1 = __importDefault(require("./routers/authRouter"));
 const featuresSignup_1 = __importDefault(require("./routers/featuresSignup"));
 const google_1 = __importDefault(require("./routers/google"));
+const microsoft_1 = __importDefault(require("./routers/microsoft"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 8000;
@@ -43,3 +44,4 @@ app.use('/professional_profile', authMiddleware_1.authenticate, professional_pro
 app.use('/refresh-token', refresh_1.default);
 app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.default);
 app.use('/google', google_1.default);
+app.use('/microsoft', microsoft_1.default);
