@@ -10,9 +10,9 @@ import SelectedLight from "../assets/selectedLight.png"
 import NotSelectedLight from "../assets/notSelectedLight.png"
 import NotSelectedDark from "../assets/notSelectedDark.png"
 
-import PersonalPhoto from "../assets/personal.jpeg";
-import ProfessionalPhoto from "../assets/professional.jpeg";
-import SchoolPhoto from "../assets/school.jpeg";
+import PersonalPhoto from "../dummies/personal.jpeg";
+import ProfessionalPhoto from "../dummies/professional.jpeg";
+import SchoolPhoto from "../dummies/school.jpeg";
 
 
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';

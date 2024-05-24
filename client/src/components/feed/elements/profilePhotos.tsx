@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import PersonalPhoto from "../assets/personal.jpeg";
-import ProfessionalPhoto from "../assets/professional.jpeg";
-import SchoolPhoto from "../assets/school.jpeg";
+import PersonalPhoto from "../dummies/personal.jpeg";
+import ProfessionalPhoto from "../dummies/professional.jpeg";
+import SchoolPhoto from "../dummies/school.jpeg";
 
 import VideoDark from "../../ConnectUI_web/backgrounds/background1/assets/background1DarkMonitor.mp4"
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';

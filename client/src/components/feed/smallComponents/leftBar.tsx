@@ -45,7 +45,7 @@ const LeftBar: React.FC = () => {
 
     return (
         <>
-      
+            {/* <ProfileProvider> */}
                 <LeftBarContainer flexDirection="column" flex={1.6}>
                     <OptionBar />
                     <ProfileBar />
