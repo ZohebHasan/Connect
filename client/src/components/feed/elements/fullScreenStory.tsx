@@ -47,7 +47,7 @@ const StoryScroller: React.FC = () => {
 
   const scrollRight = () => {
     setActiveIndex((prevIndex) => {
-      const newIndex = Math.min(prevIndex + 1, 14); // Assuming 15 stories
+      const newIndex = Math.min(prevIndex + 1, 14);
       scrollToActiveStory(newIndex, -100);
       return newIndex;
     });
@@ -85,8 +85,8 @@ export default StoryScroller;
 const Wrapper = styled.div`
   position: relative;
   width: 60%;
+  /* height: 50rem; */
   overflow: hidden;
-
   align-items: center;
   justify-content: center;
 `;

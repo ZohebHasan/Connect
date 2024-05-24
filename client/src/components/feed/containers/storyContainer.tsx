@@ -24,7 +24,7 @@ export default Sidebar;
 const StyledStoryBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: boolean }>`
   ${({ $isSidebarOpen, $isDarkMode }) => `
     height: ${$isSidebarOpen ? '100%' : '0'};
-    width: 88.5rem;
+    width: 88.3rem;
     border-top-right-radius: ${$isSidebarOpen ? '0%' : '50%'};
     border-top-left-radius: ${$isSidebarOpen ? '20px' : '50%'};
     transform: scaleY(${$isSidebarOpen ? '1' : '0'});
@@ -57,6 +57,7 @@ const ElementsContainer = styled.div<{ $isSidebarOpen?: boolean }>`
     align-items: center;
     justify-content: center;
     // background-color:red;
+    position: relative;
    
    
 `;

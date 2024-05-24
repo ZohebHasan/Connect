@@ -116,7 +116,7 @@ function RoutesWrapper() {
                 element={
                     <ProfileProvider>
                         <Routes>
-                            <Route path="/home" element={<Feed />} />
+                            <Route path="/home" element={<ProtectedRoute> <Feed /></ProtectedRoute>} />
                         </Routes>
                     </ProfileProvider>
                 }
