@@ -70,7 +70,7 @@ const StoryScroller: React.FC = () => {
           {[...Array(15)].map((_, index) => (
             <Story key={index} isActive={index === activeIndex}>
 
-              <StoryTemplete />
+             <StoryTemplete/>
 
 
             </Story>
@@ -125,7 +125,7 @@ const Story = styled.div<{ isActive: boolean }>`
   height: ${(props) => (props.isActive ? '704.55px' : '352.275px')};
   margin: 10px;
   border-radius: 16px;
-  background-color: ${(props) => (props.isActive ? '#ccc' : '#999')};
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
