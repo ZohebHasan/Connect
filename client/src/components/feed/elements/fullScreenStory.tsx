@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+
+import StoryTemplete from './story';
+
+
 const StoryScroller: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -65,7 +69,10 @@ const StoryScroller: React.FC = () => {
           <PlaceholderStory />
           {[...Array(15)].map((_, index) => (
             <Story key={index} isActive={index === activeIndex}>
-              Story {index + 1}
+
+             <StoryTemplete/>
+
+
             </Story>
           ))}
           <PlaceholderStory />
@@ -81,6 +88,9 @@ const StoryScroller: React.FC = () => {
 };
 
 export default StoryScroller;
+
+
+
 
 const Wrapper = styled.div`
   position: relative;
@@ -123,7 +133,8 @@ const Story = styled.div<{ isActive: boolean }>`
   font-weight: bold;
   color: #333;
   transition: transform 0.5s ease, background-color 0.5s ease, width 0.5s ease, height 0.5s ease, font-size 0.5s ease;
-
+  display: flex;
+  flex-direction: column;
   &.active {
     transform: scale(1);
   }

@@ -11,9 +11,9 @@ const MainFeed: React.FC= () => {
         <>
             <FeedContainer flexDirection= {"column"} flex = {4}>
                 <StoryScroller/>
-                <Temp>
+                {/* <Temp>
                     .
-                </Temp>
+                </Temp> */}
             </FeedContainer>
 
         </>
