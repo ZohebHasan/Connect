@@ -38,10 +38,10 @@ app.listen(PORT, () => {
 app.use('/auth', authRouter_1.default);
 app.use('/login', login_1.default);
 app.use('/signup', signup_1.default);
-app.use('/personal_profile', authMiddleware_1.authenticate, personal_profile_1.default);
+app.use('/personal_profile', personal_profile_1.default);
 app.use('/educational_profile', authMiddleware_1.authenticate, educational_profile_1.default);
 app.use('/professional_profile', authMiddleware_1.authenticate, professional_profile_1.default);
 app.use('/refresh-token', refresh_1.default);
 app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.default);
 app.use('/google', google_1.default);
-app.use(microsoft_1.default);
+app.use('/microsoft', microsoft_1.default);

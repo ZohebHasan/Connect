@@ -11,7 +11,7 @@ import User from '../userModel';
 
 // creating the user interface
 interface Personal {
-    user: typeof User;
+    user_id: typeof User;
     full_name: typeof User.schema.obj.fullName;
     hobbies: string[];
     interest: string[];
@@ -21,13 +21,13 @@ interface Personal {
 }
 // creating the user schema
 const schema = new Schema<Personal>({
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    full_name: User.schema.obj.fullName,
+    user_id: { type: Schema.Types.ObjectId, ref: 'User' },
+    full_name: { type: String, required: false },
     hobbies: { type: [String], required: false },
     interest: { type: [String], required: false },
     bio: { type: String, required: false },
     profile_pic: { type: String, required: false },
-    age: User.schema.obj.age
+    age: { type: Number, required: false }
 });
 // export the personal profile model
 export default model('Personal', schema);

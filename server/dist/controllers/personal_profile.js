@@ -16,8 +16,8 @@ exports.personalProfile = void 0;
 const personal_profile_1 = __importDefault(require("../models/profiles/personal_profile"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const personalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { full_name, hobbies, interests, bio, profile_pic, age, user_id } = req.body;
-    if (!full_name || !hobbies || !interests || !bio || !profile_pic || !age) {
+    const { user_id } = req.body;
+    if (!user_id) {
         return res.status(400).json({ message: 'All fields are required' });
     }
     const user = yield userModel_1.default.findById(user_id);
@@ -25,12 +25,12 @@ const personalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function
         return res.status(400).json({ message: 'User does not exist' });
     }
     const newProfile = new personal_profile_1.default({
-        user: user._id,
+        user,
         full_name: user.fullName,
-        hobbies,
-        interests,
-        bio,
-        profile_pic,
+        hobbies: [],
+        interest: [],
+        bio: "",
+        profile_pic: "",
         age: user.age
     });
     yield newProfile.save();
