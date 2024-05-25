@@ -11,14 +11,9 @@ export const personalProfile = async (req: Request, res: Response) => {
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }
+
     const newProfile =  new personal_profile({
-        user_id,
-        full_name: user.fullName,
-        hobbies: [],
-        interest: [],
-        bio: "",
-        profile_pic: "",
-        age: user.age
+        user: user
     });
     await newProfile.save();
     res.status(200).json({ profile: newProfile });
