@@ -25,4 +25,5 @@ export default MainFeed;
 const Temp = styled.div`
     width: 100%;
     background-color: red;
+    
 `

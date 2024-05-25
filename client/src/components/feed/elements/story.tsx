@@ -51,7 +51,6 @@ const StoryTemplete: React.FC = () => {
                         {/* </PlayButtonContainer> */}
                         <OptionButtonContainer>
                             <OptionButton src={isDarkMode ? StoryOptionDark : StoryOptionLight} />
-
                         </OptionButtonContainer>
 
                     </ControlAndOptions>

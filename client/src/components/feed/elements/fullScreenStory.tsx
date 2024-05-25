@@ -70,7 +70,7 @@ const StoryScroller: React.FC = () => {
           {[...Array(15)].map((_, index) => (
             <Story key={index} isActive={index === activeIndex}>
 
-             <StoryTemplete/>
+              <StoryTemplete />
 
 
             </Story>
