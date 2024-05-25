@@ -18,7 +18,21 @@ export const checkSession = async () => {
         });
         return response.data;
     } catch (error) {
-
         return null;
     }
+};
+
+export const scheduleTokenRefresh = () => {
+    // Refresh the token 5 minutes before it expires
+    const refreshInterval = 55 * 60 * 1000; // 55 minutes
+
+    setTimeout(async () => {
+        try {
+            await refreshAuthToken();
+            // Token refreshed successfully
+            scheduleTokenRefresh(); // Schedule the next refresh
+        } catch (error) {
+            console.error('Failed to refresh token:', error);
+        }
+    }, refreshInterval);
 };

@@ -9,7 +9,6 @@ import RightBar from './smallComponents/rightBar';
 
 import Stories from "./elements/stories"
 
-import { StoriesPageProvider } from '../../contexts/stories/storiesContext';
 
 const Body: React.FC = () => {
 
@@ -17,14 +16,14 @@ const Body: React.FC = () => {
 
     return (
         <>
-            <StoriesPageProvider>
-                <Bodycontainer flexDirection="row">
-                    <Stories />
-                    <LeftBar />
-                    <MainFeed />
-                    <RightBar />
-                </Bodycontainer>
-            </StoriesPageProvider>
+
+            <Bodycontainer flexDirection="row">
+                <Stories />
+                <LeftBar />
+                <MainFeed />
+                <RightBar />
+            </Bodycontainer>
+
         </>
     );
 };

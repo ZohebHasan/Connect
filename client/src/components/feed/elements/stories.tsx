@@ -22,7 +22,7 @@ const StoriesContainer: React.FC = () => {
             <TopContainer>
                 <LogoContainer>
                     <LogoWrapper>
-                        <Logo size={2} />
+                        <Logo size={1.5} />
                     </LogoWrapper>
 
                 </LogoContainer>
@@ -77,8 +77,8 @@ const LogoContainer = styled.div`
 
 
 const ClosingButton = styled.img`
-    width: 2rem;
-    height: 2rem;
+    width: 1.5;
+    height: 1.5rem;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
