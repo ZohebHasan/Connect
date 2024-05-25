@@ -11,9 +11,9 @@ const MainFeed: React.FC= () => {
         <>
             <FeedContainer flexDirection= {"column"} flex = {4}>
                 <StoryScroller/>
-                <Temp>
+                {/* <Temp>
                     .
-                </Temp>
+                </Temp> */}
             </FeedContainer>
 
         </>
@@ -25,4 +25,5 @@ export default MainFeed;
 const Temp = styled.div`
     width: 100%;
     background-color: red;
+    
 `
