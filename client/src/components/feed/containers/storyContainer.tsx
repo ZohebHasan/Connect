@@ -26,13 +26,12 @@ const StyledStoryBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: bool
   ${({ $isSidebarOpen, $isDarkMode }) => `
     height: ${$isSidebarOpen ? '100%' : '0'};
     width: 88.3rem;
-    border-top-right-radius: ${$isSidebarOpen ? '0%' : '50%'};
-    border-top-left-radius: ${$isSidebarOpen ? '20px' : '50%'};
+    // border-bottom-right-radius: ${$isSidebarOpen ? '0%' : '100%'};
+    // border-bottom-left-radius: ${$isSidebarOpen ? '0%' : '100%'};
     transform: scaleY(${$isSidebarOpen ? '1' : '0'});
     opacity: ${$isSidebarOpen ? '1' : '0'};
     background-color: ${$isDarkMode ? 'rgba(48, 48, 48, 0.9)' : 'rgba(230, 230, 230, 0.9)'};
   `}
-  border-bottom-left-radius: 20px ;
   position: absolute;
   backdrop-filter: blur(3px);
   overflow-x: hidden;
@@ -41,9 +40,9 @@ const StyledStoryBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: bool
   display: flex;
   flex-direction: column;
   z-index: 5;
-  transform-origin: bottom;
-  top: auto;  
-  bottom: 0;   
+  transform-origin: top;
+  top: 0;  
+  bottom: auto;   
 `;
 
 

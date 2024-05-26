@@ -2,5 +2,5 @@
 import express from 'express';
 const router = express.Router();
 import { educationalProfile } from '../controllers/educational_profile';
-router.post('/educational_profile', educationalProfile);
+router.post('/', educationalProfile);
 export default router;
