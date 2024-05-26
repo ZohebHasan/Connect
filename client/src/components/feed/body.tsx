@@ -9,15 +9,18 @@ import RightBar from './smallComponents/rightBar';
 
 import Stories from "./elements/stories"
 
+import { useStories } from '../../contexts/stories/storiesContext';
 
 const Body: React.FC = () => {
 
+    const {isStoriesPageOpen} = useStories();
 
 
     return (
         <>
 
             <Bodycontainer flexDirection="row">
+                
                 <Stories />
                 <LeftBar />
                 <MainFeed />

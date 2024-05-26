@@ -1,25 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
-import { useStoriesPage } from '../../../contexts/stories/storiesContext';
-
-import Zoheb from "../dummies/personal.jpeg";
-import Fahim from "../dummies/Fahim.jpg";
-import Adnan from "../dummies/Adnan.jpeg";
-import Faysal from "../dummies/Faysal.jpg";
-import Faisal from "../dummies/Faisal.jpeg";
-import Priyanka from "../dummies/Priyanka.jpeg";
-import Yodahe from "../dummies/Yodahe.jpg";
-import Puja from "../dummies/Puja.jpeg";
-
+import { useStories } from '../../../contexts/stories/storiesContext';
 import Text from '../../ConnectUI_web/common/texts/static';
-
 import AddStoryDark from "../assets/addStoryDark.png";
 import AddStoryLight from "../assets/addStoryLight.png";
 
 const StoryScroller: React.FC = () => {
-  const { toggleStoriesPage } = useStoriesPage();
+  const { toggleStoriesPage, users, scrollLeft, scrollRight } = useStories();
   const containerRef = useRef<HTMLDivElement>(null);
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(true);
@@ -47,20 +35,6 @@ const StoryScroller: React.FC = () => {
     };
   }, []);
 
-  const scrollLeft = () => {
-    const container = containerRef.current;
-    if (container) {
-      container.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    const container = containerRef.current;
-    if (container) {
-      container.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-  };
-
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return `${text.substring(0, maxLength)}...`;
@@ -73,109 +47,40 @@ const StoryScroller: React.FC = () => {
       </NavButton>
 
       <StoriesList ref={containerRef}>
-        
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Zoheb} />
-              </InnerBorder>
-            </Border>
-            <AddBorder $isDarkMode={isDarkMode}>
-              <AddIcon src={isDarkMode ? AddStoryDark : AddStoryLight} />
-            </AddBorder>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>My stories</Text>
-        </StoryContainer>
-
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Priyanka} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-      
-            <Text variant="transparent" size='0.8rem' fontWeight='300'>
-              {truncateText('@priyankamukherjeemuhahahahahhaha', 11)}
+        {/* Render the first user's story (logged-in user) */}
+        {users.length > 0 && (
+          <StoryContainer>
+            <MainUser>
+              <Border onClick={() => toggleStoriesPage(0)}>
+                <InnerBorder $isDarkMode={isDarkMode}>
+                  <Story src={users[0].src} />
+                </InnerBorder>
+              </Border>
+              <AddBorder $isDarkMode={isDarkMode}>
+                <AddIcon src={isDarkMode ? AddStoryDark : AddStoryLight} />
+              </AddBorder>
+            </MainUser>
+            <Text variant="transparent" size="0.8rem" fontWeight="300">
+              My stories
             </Text>
+          </StoryContainer>
+        )}
 
-        </StoryContainer>
-
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Fahim} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@mehrabhossain', 11)}
-          </Text>
-        </StoryContainer>
-
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Yodahe} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@yodahe', 11)}
-          </Text>
-        </StoryContainer>
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Adnan} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@adnanzarif', 11)}
-          </Text>
-        </StoryContainer>
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Faysal} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@faysalahmed', 11)}
-          </Text>
-        </StoryContainer>
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Faisal} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@faisalhossain', 11)}
-          </Text>
-        </StoryContainer>
-        <StoryContainer>
-          <MainUser>
-            <Border onClick={toggleStoriesPage}>
-              <InnerBorder $isDarkMode={isDarkMode}>
-                <Story src={Puja} />
-              </InnerBorder>
-            </Border>
-          </MainUser>
-          <Text variant="transparent" size='0.8rem' fontWeight='300'>
-            {truncateText('@pujadas', 11)}
-          </Text>
-        </StoryContainer>
+        {/* Render other users' stories */}
+        {users.slice(1).map((user, index) => (
+          <StoryContainer key={user.id}>
+            <MainUser>
+              <Border onClick={() => toggleStoriesPage(index + 1)}>
+                <InnerBorder $isDarkMode={isDarkMode}>
+                  <Story src={user.src} />
+                </InnerBorder>
+              </Border>
+            </MainUser>
+            <Text variant="transparent" size="0.8rem" fontWeight="300">
+              {truncateText(user.username, 11)}
+            </Text>
+          </StoryContainer>
+        ))}
       </StoriesList>
 
       <NavButton position="right" isVisible={showRightButton} onClick={scrollRight}>
@@ -187,72 +92,10 @@ const StoryScroller: React.FC = () => {
 
 export default StoryScroller;
 
-
-
-const MainUser = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-`;
-
-const AddIcon = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  flex-shrink: 0;
-`;
-
-const AddBorder = styled.div<{ $isDarkMode: boolean }>`
-  background-color: ${props => (props.$isDarkMode ? 'black' : 'white')};
-  padding: 2px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  cursor: pointer;
-  &:hover {
-    transform: scale(1.10);
-  }
-  &:active {
-    transform: scale(1.00);
-  }
-  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
-`;
-
-const StoryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 const StoryScrollerWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-`;
-
-const Border = styled.div`
-  background: linear-gradient(to right, #662D8C, #ED1E79);
-  padding: 3px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 5px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.10);
-  }
-  &:active {
-    transform: scale(1.00);
-  }
-  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
 `;
 
 interface NavButtonProps {
@@ -285,6 +128,52 @@ const NavButtonSvg = styled.svg`
   height: 1.7rem;
 `;
 
+const StoriesList = styled.div`
+  display: flex;
+  transition: transform 0.5s ease;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 15px;
+  gap: 1rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const StoryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MainUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
+const Border = styled.div`
+  background: linear-gradient(to right, #662D8C, #ED1E79);
+  padding: 3px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.10);
+  }
+  &:active {
+    transform: scale(1.00);
+  }
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
 const InnerBorder = styled.div<{ $isDarkMode: boolean }>`
   background-color: ${props => (props.$isDarkMode ? 'black' : 'white')};
   padding: 2px;
@@ -301,15 +190,29 @@ const Story = styled.img`
   flex-shrink: 0;
 `;
 
-const StoriesList = styled.div`
+const AddIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+`;
+
+const AddBorder = styled.div<{ $isDarkMode: boolean }>`
+  background-color: ${props => (props.$isDarkMode ? 'black' : 'white')};
+  padding: 2px;
+  border-radius: 50%;
   display: flex;
-  transition: transform 0.5s ease;
-  overflow-x: scroll;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  padding: 15px;
-  gap: 1rem;
-  &::-webkit-scrollbar {
-    display: none;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.10);
   }
+  &:active {
+    transform: scale(1.00);
+  }
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
 `;
