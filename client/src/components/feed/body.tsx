@@ -9,22 +9,26 @@ import RightBar from './smallComponents/rightBar';
 
 import Stories from "./elements/stories"
 
-import { StoriesPageProvider } from '../../contexts/stories/storiesContext';
+import { useStories } from '../../contexts/stories/storiesContext';
+
 
 const Body: React.FC = () => {
 
+    const {isStoriesPageOpen} = useStories();
 
+    
 
     return (
         <>
-            <StoriesPageProvider>
-                <Bodycontainer flexDirection="row">
-                    <Stories />
-                    <LeftBar />
-                    <MainFeed />
-                    <RightBar />
-                </Bodycontainer>
-            </StoriesPageProvider>
+
+            <Bodycontainer flexDirection="row">
+
+                <Stories />
+                <LeftBar />
+                <MainFeed />
+                <RightBar />
+            </Bodycontainer>
+
         </>
     );
 };

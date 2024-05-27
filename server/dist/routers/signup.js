@@ -7,4 +7,5 @@ const express_1 = __importDefault(require("express"));
 const signup_1 = require("../controllers/signup");
 const router = express_1.default.Router();
 router.post('/', signup_1.signup);
+router.post('/send-verification-email', signup_1.sendVerificationEmailController);
 exports.default = router;

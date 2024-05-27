@@ -1,18 +1,39 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import { useStories } from '../../../contexts/stories/storiesContext'; // Ensure the path is correct
+import StoryTemplete from './story';
 
 const StoryScroller: React.FC = () => {
+  const { users, activeIndex, setActiveIndex } = useStories();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const storiesRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const scrollToActiveStory = useCallback((index: number) => {
+    const container = containerRef.current;
+    const story = storiesRef.current[index];
+
+    if (container && story) {
+      const containerCenter = container.offsetWidth / 2;
+      const storyCenter = story.offsetLeft + story.offsetWidth / 2;
+      const scrollPosition = storyCenter - containerCenter;
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    scrollToActiveStory(activeIndex);
+  }, [activeIndex, scrollToActiveStory]);
 
   useEffect(() => {
     const container = containerRef.current;
+
     if (container) {
       const handleWheel = (event: WheelEvent) => event.preventDefault();
       container.addEventListener('wheel', handleWheel);
-
-      // Start with the first story centered
-      scrollToActiveStory(0, 0);
 
       return () => {
         container.removeEventListener('wheel', handleWheel);
@@ -20,59 +41,52 @@ const StoryScroller: React.FC = () => {
     }
   }, []);
 
-  const scrollToActiveStory = (index: number, offset: number) => {
-    const container = containerRef.current;
-    if (container) {
-      const story = container.children[index + 1] as HTMLElement; // Adjust for the placeholder
-
-      if (story) {
-        const containerCenter = container.offsetWidth / 2;
-        const storyCenter = story.offsetLeft + story.offsetWidth / 2;
-        const scrollPosition = storyCenter - containerCenter + offset;
-        container.scrollTo({
-          left: scrollPosition,
-          behavior: 'smooth',
-        });
-      }
-    }
-  };
-
-  const scrollLeft = () => {
-    setActiveIndex((prevIndex) => {
+  const handleScrollLeft = () => {
+    setActiveIndex((prevIndex: number) => {
       const newIndex = Math.max(prevIndex - 1, 0);
-      scrollToActiveStory(newIndex, 100);
+      scrollToActiveStory(newIndex);
       return newIndex;
     });
   };
 
-  const scrollRight = () => {
-    setActiveIndex((prevIndex) => {
-      const newIndex = Math.min(prevIndex + 1, 14);
-      scrollToActiveStory(newIndex, -100);
+  const handleScrollRight = () => {
+    setActiveIndex((prevIndex: number) => {
+      const newIndex = Math.min(prevIndex + 1, users.length - 1);
+      scrollToActiveStory(newIndex);
       return newIndex;
     });
+  };
+
+  const handleStoryClick = (index: number) => {
+    setActiveIndex(index);
+    scrollToActiveStory(index);
   };
 
   return (
     <Wrapper>
       {activeIndex > 0 && (
-        <NavButton className="left" onClick={scrollLeft}>
+        <NavButton className="left" onClick={handleScrollLeft}>
           &#9664;
         </NavButton>
       )}
       <CenteredContainer>
         <StoryContainer ref={containerRef}>
-          <PlaceholderStory />
-          {[...Array(15)].map((_, index) => (
-            <Story key={index} isActive={index === activeIndex}>
-              Story {index + 1}
+          {/* <PlaceholderStory /> */}
+          {users.map((user, index) => (
+            <Story
+              key={user.id}
+              ref={(el) => (storiesRef.current[index] = el)}
+              isActive={index === activeIndex}
+              onClick={() => handleStoryClick(index)}
+            >
+              <StoryTemplete userName={user.username} userPhoto={user.src} isActive={index === activeIndex} />
             </Story>
           ))}
-          <PlaceholderStory />
+          {/* <PlaceholderStory /> */}
         </StoryContainer>
       </CenteredContainer>
-      {activeIndex < 14 && (
-        <NavButton className="right" onClick={scrollRight}>
+      {activeIndex < users.length - 1 && (
+        <NavButton className="right" onClick={handleScrollRight}>
           &#9654;
         </NavButton>
       )}
@@ -85,8 +99,8 @@ export default StoryScroller;
 const Wrapper = styled.div`
   position: relative;
   width: 60%;
-  /* height: 50rem; */
   overflow: hidden;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;
@@ -99,7 +113,6 @@ const CenteredContainer = styled.div`
 
 const StoryContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   overflow-x: auto;
   scrollbar-width: none;
@@ -115,7 +128,7 @@ const Story = styled.div<{ isActive: boolean }>`
   height: ${(props) => (props.isActive ? '704.55px' : '352.275px')};
   margin: 10px;
   border-radius: 16px;
-  background-color: ${(props) => (props.isActive ? '#ccc' : '#999')};
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,10 +136,7 @@ const Story = styled.div<{ isActive: boolean }>`
   font-weight: bold;
   color: #333;
   transition: transform 0.5s ease, background-color 0.5s ease, width 0.5s ease, height 0.5s ease, font-size 0.5s ease;
-
-  &.active {
-    transform: scale(1);
-  }
+  cursor: pointer;
 `;
 
 const PlaceholderStory = styled.div`
@@ -134,7 +144,6 @@ const PlaceholderStory = styled.div`
   width: 500px;
   margin: 10px;
   border-radius: 16px;
-
 `;
 
 const NavButton = styled.button`

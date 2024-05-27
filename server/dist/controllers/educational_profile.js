@@ -16,24 +16,16 @@ exports.educationalProfile = void 0;
 const educational_profile_1 = __importDefault(require("../models/profiles/educational_profile"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const educationalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { school, degree, major, grad, schoolEmail, user_id } = req.body;
-    if (!school || !degree || !major || !grad || !schoolEmail) {
-        return res.status(400).json({ message: 'All fields are required' });
+    const { user_id } = req.body;
+    if (!user_id) {
+        return res.status(400).json({ message: 'user_id required' });
     }
     const user = yield userModel_1.default.findById(user_id);
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }
-    if (!parseEmail(schoolEmail)) {
-        return res.status(400).json({ message: 'Invalid email' });
-    }
     const newProfile = new educational_profile_1.default({
-        user: user,
-        school,
-        degree,
-        major,
-        grad,
-        schoolEmail
+        user: user
     });
     yield newProfile.save();
     res.status(200).json({ profile: newProfile });

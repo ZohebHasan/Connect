@@ -28,9 +28,10 @@ import DemoLogin from "../components/temp2";
 
 import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
-//import { SignupProvider } from '../contexts/signup/signupContext';
-
-// import TestPage from "./kamrul"
+import { SignupProvider } from '../contexts/registration/signup/signupContext';
+import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
+import { ProfileProvider } from '../contexts/feed/profiles/profilesContext';
+import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
     return (
@@ -95,7 +96,7 @@ function RoutesWrapper() {
             <Route
                 path="/signup/*"
                 element={
-                    // <SignupProvider>
+                    <SignupProvider>
                         <Routes>
                             <Route path="/" element={<SignupPage />} />
                             <Route path="/userInfo" element={<UserCredentials />} />
@@ -105,7 +106,21 @@ function RoutesWrapper() {
                             <Route path="/features" element={<FeaturesPage />} />
                             <Route path="/profiles" element={<ProfilesPage />} />
                         </Routes>
-                    // </SignupProvider>
+                    </SignupProvider>
+                }
+            />
+            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} /> */}
+
+            <Route
+                path="/*"
+                element={
+                    <ProfileProvider>
+                        <Routes>
+                            {/* <Route path="/home" element={<ProtectedRoute> <Feed /></ProtectedRoute>} /> */}
+                            <Route path="/home" element={ <Feed />} />
+
+                        </Routes>
+                    </ProfileProvider>
                 }
             />
             <Route path="/userInfoEmail" element={<UserInfoEmail />} />

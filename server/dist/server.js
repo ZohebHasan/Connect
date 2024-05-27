@@ -44,4 +44,4 @@ app.use('/professional_profile', authMiddleware_1.authenticate, professional_pro
 app.use('/refresh-token', refresh_1.default);
 app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.default);
 app.use('/google', google_1.default);
-app.use(microsoft_1.default);
+app.use('/microsoft', microsoft_1.default);

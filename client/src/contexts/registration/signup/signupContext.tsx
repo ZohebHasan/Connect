@@ -287,6 +287,12 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             await saveToIndexedDB('signedPreKey', keys.signedPreKey);
             await saveToIndexedDB('senderKey', keys.senderKey);
 
+
+            const email = payload.email;
+            await axios.post('http://localhost:8000/signup/send-verification-email', { email });
+      
+            
+
             navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);

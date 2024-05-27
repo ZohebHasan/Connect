@@ -16,7 +16,7 @@ import SchoolPhoto from "../dummies/school.jpeg";
 
 
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
-import { useProfile } from '../../../contexts/feed/profilesContext';
+import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
 
 
 type ButtonKey = 'home' | 'search' | 'notifications' | 'inbox' | 'trending' | 'clips';

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel';
+import { sendVerificationEmail, generateVerificationToken } from '../services/emailServices';
 
 const JWT_SECRET = 'cc706162797cd87082129948fea3a4b5373a8c614a80af35436cd0bc7bf131afb77fbde0e2bed8f2466197345e3dd2205a812b3f18cb7c5685160416dfef65f8';
 const JWT_REFRESH_SECRET = '3577a4135cad0bb08c5e5529282265604c9ccec70ea2392090aeab7371d02068e81084d4839c420fee1a4eb3d02c59b58d95f81c9b4d9bd093b389572217a556'; 
@@ -153,3 +154,18 @@ const convertToBase64 = (data: ArrayBuffer | string): string => {
         throw new TypeError(`Invalid data type for conversion to base64: ${typeof data}`);
     }
 }
+
+export const sendVerificationEmailController = async (req: Request, res: Response) => {
+    const { email } = req.body;
+    if (!email) {
+        return res.status(400).send('Email is required');
+    }
+
+    const verificationToken = generateVerificationToken();
+    try {
+        await sendVerificationEmail(email, verificationToken);
+        res.status(200).send({ message: 'Verification email sent', token: verificationToken });
+    } catch (error) {
+        res.status(500).send({ error: 'Failed to send verification email' });
+    }
+};

@@ -43,9 +43,9 @@ app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 
 // Protect routes with JWT middleware
-app.use('/personal_profile', authenticate, personalProfileRouter);
-app.use('/educational_profile', authenticate, educationalProfileRouter);
-app.use('/professional_profile', authenticate, professionalProfileRouter);
+app.use('/personal_profile',authenticate, personalProfileRouter); // for testing purposes : added back the authenticate middleware
+app.use('/educational_profile',authenticate, educationalProfileRouter); // for testing purposes : removed the authenticate middleware
+app.use('/professional_profile',authenticate, professionalProfileRouter); // for testing purposes : removed the authenticate middleware
 
 
 // Refresh token route
@@ -54,5 +54,5 @@ app.use('/refresh-token', refreshRouter);
 // Add the featuresSignup route
 app.use('/changeFeatures', authenticate, featuresSignupRouter);
 app.use('/google', googleAuthRouter); 
-app.use( microsoftAuthRouter); // Ensure correct route
+app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 
