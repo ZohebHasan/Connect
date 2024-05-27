@@ -22,10 +22,12 @@ const MainFeed: React.FC = () => {
 
                     <FeedWrapper>
                         <FeedHeader />
-
                         <StoryScroller />
                     </FeedWrapper>
                 </FilterProvider>
+                <PostContainer>
+
+                </PostContainer>
 
 
             </FeedContainer>
@@ -35,6 +37,14 @@ const MainFeed: React.FC = () => {
 };
 
 export default MainFeed;
+
+const PostContainer = styled.div`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    width: 100%;
+`;
 
 const FilterBarContainer = styled.div`
     display: flex;
