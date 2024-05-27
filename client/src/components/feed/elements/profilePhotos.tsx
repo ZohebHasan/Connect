@@ -8,7 +8,7 @@ import SchoolPhoto from "../dummies/school.jpeg";
 import VideoDark from "../../ConnectUI_web/backgrounds/background1/assets/background1DarkMonitor.mp4"
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 
-import { useProfile } from '../../../contexts/feed/profilesContext';
+import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
 
 
 // const StyledVideo = styled.video`

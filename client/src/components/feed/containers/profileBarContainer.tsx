@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
-import { useProfile } from '../../../contexts/feed/profilesContext';
+import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
 
 const ProfileBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { isProfilesbarOpen, toggleProfilesbar, addProtectedRef, removeProtectedRef } = useProfile();
