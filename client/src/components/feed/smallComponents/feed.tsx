@@ -25,6 +25,7 @@ const MainFeed: React.FC = () => {
                         <StoryScroller />
                     </FeedWrapper>
                 </FilterProvider>
+                
                 <PostContainer>
 
                 </PostContainer>

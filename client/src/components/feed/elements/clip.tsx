@@ -33,85 +33,73 @@ const StoryTemplete: React.FC<StoryTempleteProps> = ({ userName, userPhoto, isAc
 
     return (
         <>
-            {isActive ? (
-                <>
-                    <StoryTempleteContainer>
+
+            <StoryTempleteContainer>
 
 
-                        <Top>
-                            <DurationContainer>
-                                <DurationBarWrapper>
-                                    <DurationBar />
-                                </DurationBarWrapper>
-                            </DurationContainer>
-                            <HeaderContainer>
-                                <UserAndTimeContainer>
-                                    <Wrapper>
-                                        <User>
-                                            <AvatarContainer>
-                                                <Avatar src={userPhoto} />
-                                            </AvatarContainer>
-                                            <UserNameContainer>
-                                                <UserName>{truncateText(userName, 11)}</UserName>
-                                            </UserNameContainer>
-                                        </User>
-                                        <UploadTimeContainer>
-                                            <UploadTime>2h ago</UploadTime>
-                                        </UploadTimeContainer>
-                                    </Wrapper>
-                                </UserAndTimeContainer>
-                                <ControlAndOptions>
-                                    <MuteButtonContainer>
-                                        <SmallIconButton src={isMute ? MuteIcon : SoundIcon} />
-                                    </MuteButtonContainer>
-                                    <PlayButtonContainer>
-                                        <PlayPauseButton src={isPlaying ? PlayDark : PauseDark} />
-                                    </PlayButtonContainer>
-                                    <OptionButtonContainer>
-                                        <OptionButtonWrapper>
-                                            <MediumIconButton src={StoryOptionDark} />
-                                        </OptionButtonWrapper>
-                                    </OptionButtonContainer>
-                                </ControlAndOptions>
-                            </HeaderContainer>
-                        </Top>
-                        <Bottom>
-                            <BottomWrapper>
-                                <EmptyContainer />
-                                <ButtonsContainer>
-                                    <ReactIconContainer>
-                                        <IconButton src={liked ? Liked : NotLikedDark} />
-                                    </ReactIconContainer>
-                                    <ShareIconContainer>
-                                        <IconButton src={ShareIcon} />
-                                    </ShareIconContainer>
-                                </ButtonsContainer>
-                                <ReplyBoxContainer>
-                                    <StoryReplyBox
-                                        id="story-reply"
-                                        label="Reply to user"
-                                        value={reply}
-                                        onChange={handleReplyChange}
-                                        width="90%"
-                                    />
-                                </ReplyBoxContainer>
-                            </BottomWrapper>
-                        </Bottom>
-                    </StoryTempleteContainer>
-                </>
-            ) : (
-                <InactiveStoryContainer>
-                    <InactiveAvatarContainer>
-                        <Avatar src={userPhoto} />
-                    </InactiveAvatarContainer>
-                    <InactiveUploadTimeContainer>
-                        <UserName>{truncateText(userName, 11)}</UserName>
-                        <UploadTime>2h ago</UploadTime>
-                    </InactiveUploadTimeContainer>
-                </InactiveStoryContainer>
+                <Top>
+                    <DurationContainer>
+                        <DurationBarWrapper>
+                            <DurationBar />
+                        </DurationBarWrapper>
+                    </DurationContainer>
+                    <HeaderContainer>
+                        <UserAndTimeContainer>
+                            <Wrapper>
+                                <User>
+                                    <AvatarContainer>
+                                        <Avatar src={userPhoto} />
+                                    </AvatarContainer>
+                                    <UserNameContainer>
+                                        <UserName>{truncateText(userName, 11)}</UserName>
+                                    </UserNameContainer>
+                                </User>
+                                <UploadTimeContainer>
+                                    <UploadTime>2h ago</UploadTime>
+                                </UploadTimeContainer>
+                            </Wrapper>
+                        </UserAndTimeContainer>
+                        <ControlAndOptions>
+                            <MuteButtonContainer>
+                                <SmallIconButton src={isMute ? MuteIcon : SoundIcon} />
+                            </MuteButtonContainer>
+                            <PlayButtonContainer>
+                                <PlayPauseButton src={isPlaying ? PlayDark : PauseDark} />
+                            </PlayButtonContainer>
+                            <OptionButtonContainer>
+                                <OptionButtonWrapper>
+                                    <MediumIconButton src={StoryOptionDark} />
+                                </OptionButtonWrapper>
+                            </OptionButtonContainer>
+                        </ControlAndOptions>
+                    </HeaderContainer>
+                </Top>
 
-            )}
+                <Bottom>
+                    <BottomWrapper>
+                        <EmptyContainer />
+                        <ButtonsContainer>
+                            <ReactIconContainer>
+                                <IconButton src={liked ? Liked : NotLikedDark} />
+                            </ReactIconContainer>
+                            <ShareIconContainer>
+                                <IconButton src={ShareIcon} />
+                            </ShareIconContainer>
+                        </ButtonsContainer>
+                        <ReplyBoxContainer>
+                            <StoryReplyBox
+                                id="story-reply"
+                                label="Reply to user"
+                                value={reply}
+                                onChange={handleReplyChange}
+                                width="90%"
+                            />
+                        </ReplyBoxContainer>
+                    </BottomWrapper>
+                </Bottom>
+            </StoryTempleteContainer>
         </>
+
     );
 };
 
@@ -126,31 +114,6 @@ const StoryTempleteContainer = styled.div`
     overflow: hidden;
 `
 
-const InactiveUploadTimeContainer = styled.div`
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.3rem;
-`
-
-
-const InactiveAvatarContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-const InactiveStoryContainer = styled.div`
-    flex: 1;    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.9rem
-
-`
 
 const fillAnimation = keyframes`
   from {
