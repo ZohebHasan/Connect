@@ -16,42 +16,45 @@ import SchoolPhoto from "../dummies/school.jpeg";
 
 
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
-import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
+
+import { useFilter } from '../../../contexts/feed/filters/filtersContext';
 
 
-type ButtonKey = 'home' | 'search' | 'notifications' | 'inbox' | 'trending' | 'clips';
 
 
-interface LeftBarButtonsProps {
-    activeButtons: {
-        home: boolean;
-        search: boolean;
-        notifications: boolean;
-        inbox: boolean;
-        trending: boolean;
-        clips: boolean;
-    };
-    toggleActive: (buttonKey: ButtonKey) => void;
-}
-
-
-const LeftBarButtons: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleActive }) => {
+const LeftBarButtons: React.FC = () => {
     const { isDarkMode } = useDarkMode();
 
-    const {isActivePersonal, isActiveProfessional, isActiveSchool, handleProfileChange} = useProfile();
+    const somefunction = () => {
+
+    }
+    const {handleFiltersChange, isActiveBalanced, isActiveProfessional, isActiveSchool, isActivePersonal} = useFilter();
 
     return (
         <>
-
-            <ButtonLink  $isDarkMode={isDarkMode} onClick={() => handleProfileChange('personal')}>
+            <ButtonLink $isDarkMode={isDarkMode} onClick={() => handleFiltersChange("balanced")}>
                 <ButtonWrapper>
                     <LogoContainer>
 
-                        <Border profileType={"personal"}>
-                            <Photo
-                                src={PersonalPhoto}
+                        
+                        <Text size={"1.1rem"} variant={"normal"} fontWeight={"300"}>Balanced </Text>
+                        <SelectLogoContainer>
+                            <SelectLogo
+                                darkModeLogo={NotSelectedDark}
+                                lightModeLogo={NotSelectedLight}
+                                activeDarkLogo={SelectedDark}
+                                activeLightLogo={SelectedLight}
+                                isActive={isActiveBalanced}
+                                size={1.5}
                             />
-                        </Border>
+                        </SelectLogoContainer>
+                    </LogoContainer>
+                </ButtonWrapper>
+            </ButtonLink>
+
+            <ButtonLink $isDarkMode={isDarkMode} onClick={() => handleFiltersChange("personal")}>
+                <ButtonWrapper>
+                    <LogoContainer>
                         <Text size={"1.1rem"} variant={"personal"} fontWeight={"300"}>Personal</Text>
                         <SelectLogoContainer>
                             <SelectLogo
@@ -67,14 +70,9 @@ const LeftBarButtons: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleAc
                 </ButtonWrapper>
             </ButtonLink>
 
-            <ButtonLink $isDarkMode={isDarkMode} onClick={() => handleProfileChange("school")}>
+            <ButtonLink $isDarkMode={isDarkMode} onClick={() => handleFiltersChange("school")}>
                 <ButtonWrapper>
                     <LogoContainer>
-                        <Border profileType={"school"}>
-                            <Photo
-                                src={SchoolPhoto}
-                            />
-                        </Border>
                         <Text size={"1.1rem"} variant={"school"} fontWeight={"300"}>School</Text>
                         <SelectLogoContainer>
                             <SelectLogo
@@ -89,14 +87,10 @@ const LeftBarButtons: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleAc
                     </LogoContainer>
                 </ButtonWrapper>
             </ButtonLink>
-            <ButtonLink  $isDarkMode={isDarkMode} onClick={() => handleProfileChange("professional")}>
+            <ButtonLink $isDarkMode={isDarkMode} onClick={() => handleFiltersChange("professional")}>
                 <ButtonWrapper>
                     <LogoContainer>
-                        <Border profileType={'professional'}>
-                            <Photo
-                                src={ProfessionalPhoto}
-                            />
-                        </Border>
+
                         <Text size={"1.1rem"} variant={"professional"} fontWeight={"300"}>Professional</Text>
                         <SelectLogoContainer>
                             <SelectLogo
@@ -111,14 +105,13 @@ const LeftBarButtons: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleAc
                     </LogoContainer>
                 </ButtonWrapper>
             </ButtonLink>
-
-
-
         </>
     );
 };
 
 export default LeftBarButtons;
+
+
 
 const SelectLogoContainer = styled.div`
     display: flex;

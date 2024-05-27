@@ -29,7 +29,7 @@ import Feed from "../pages/feed";
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
-import { ProfileProvider } from '../contexts/feed/profilesContext';
+import { ProfileProvider } from '../contexts/feed/profiles/profilesContext';
 import TestPage from "./kamrul"
 
 export default function Connect(): React.ReactElement {
