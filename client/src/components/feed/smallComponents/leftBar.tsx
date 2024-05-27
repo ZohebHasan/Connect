@@ -13,7 +13,7 @@ import OptionBar from "../elements/optionBar"
 import ProfileBar from "../elements/profileBar"
 
 import CreateButton from '../elements/createButton';
-import { ProfileProvider } from '../../../contexts/feed/profilesContext';
+import { ProfileProvider } from '../../../contexts/feed/profiles/profilesContext';
 
 const LeftBar: React.FC = () => {
 

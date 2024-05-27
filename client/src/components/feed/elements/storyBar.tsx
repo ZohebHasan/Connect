@@ -93,7 +93,7 @@ const StoryScroller: React.FC = () => {
 export default StoryScroller;
 
 const StoryScrollerWrapper = styled.div`
-  width: 100%;
+  width: 95%;
   overflow: hidden;
   position: relative;
 `;
@@ -134,7 +134,7 @@ const StoriesList = styled.div`
   overflow-x: scroll;
   scroll-behavior: smooth;
   scrollbar-width: none;
-  padding: 15px;
+  /* padding: 15px; */
   gap: 1rem;
   &::-webkit-scrollbar {
     display: none;
@@ -153,11 +153,12 @@ const MainUser = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  /* background-color: red; */
 `;
 
 const Border = styled.div`
   background: linear-gradient(to right, #662D8C, #ED1E79);
-  padding: 3px;
+  padding: 2.3px;
   border-radius: 50%;
   display: flex;
   align-items: center;
