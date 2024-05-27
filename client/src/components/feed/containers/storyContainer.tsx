@@ -38,8 +38,8 @@ const StyledStoryBar = styled.div<{ $isSidebarOpen?: boolean; $isDarkMode?: bool
     opacity: ${$isSidebarOpen ? '1' : '0'};
     background-color: ${$isDarkMode ? 'rgba(48, 48, 48, 0.9)' : 'rgba(230, 230, 230, 0.9)'};
     transform: ${$isSidebarOpen ? 'translateY(0)' : 'translateY(-100%)'};
-    transition: opacity 0.5s ease-in-out;
-    animation: ${!$isSidebarOpen && css`${fadeOutAndMove} 0.8s forwards`};
+    transition: opacity 0.3s ease-in-out;
+    animation: ${!$isSidebarOpen && css`${fadeOutAndMove} 0.5s forwards`};
   `}
   height: 100%;
   width: 88.3rem;

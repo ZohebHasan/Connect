@@ -51,7 +51,7 @@ const StyledProfileBar = styled.div<{ $isProfileBarOpen?: boolean; $isDarkMode?:
   backdrop-filter: blur(3px);
   overflow-x: hidden;
   overflow-y: hidden;
-  transition: height 0.7s ease-out, transform 0.7s ease-out, opacity 0.8s ease-in-out, border-radius 0.8s ease-out;
+  transition: height 0.5s ease-out, transform 0.3s ease-out, opacity 0.5s ease-in-out, border-radius 0.3s ease-out;
   display: flex;
   flex-direction: column;
   z-index: 3;
