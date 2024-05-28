@@ -10,27 +10,25 @@ import Logo from "../../ConnectUI_web/common/logo/logo"
 import CloseDark from "../assets/closeDark.png"
 import CloseLight from "../assets/closeLight.png"
 
-import { useStoriesPage } from '../../../contexts/stories/storiesContext';
+import { useStories } from '../../../contexts/stories/storiesContext';
 
 const StoriesContainer: React.FC = () => {
     const { isDarkMode } = useDarkMode();
 
-    const { toggleStoriesPage } = useStoriesPage();
+    const { toggleStoriesPage } = useStories();
 
     return (
         <Stories>
             <TopContainer>
                 <LogoContainer>
                     <LogoWrapper>
-                        <Logo size={2} />
+                        <Logo size={1.5} />
                     </LogoWrapper>
-
                 </LogoContainer>
                 <ClosingButtonContainer>
                     <ClosingButtonWrapper>
-                        <ClosingButton src={isDarkMode ? CloseDark : CloseLight} onClick={toggleStoriesPage}/>
+                        <ClosingButton src={isDarkMode ? CloseDark : CloseLight} onClick={() => toggleStoriesPage()} />
                     </ClosingButtonWrapper>
-
                 </ClosingButtonContainer>
             </TopContainer>
             <LargeStoryScroller />
@@ -45,27 +43,20 @@ const ClosingButtonWrapper = styled.div`
     width: 90%;
     align-items: center;
     justify-content: flex-end;
-    /* background-color: pink; */
-    
 `
-
 
 const ClosingButtonContainer = styled.div`
     display: flex;
     justify-content: center;
-    /* background-color: blue; */
     flex: 1;
-    width: 100%;  
-
-
+    width: 100%;
 `
 
-
 const LogoWrapper = styled.div`
-      width: 90%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 `
 
 const LogoContainer = styled.div`
@@ -75,10 +66,9 @@ const LogoContainer = styled.div`
     align-items: center;
 `
 
-
 const ClosingButton = styled.img`
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
@@ -98,9 +88,6 @@ const OptionsWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // background-color: red;
-  // width: 100%;
-
 `
 
 const OptionsContainer = styled.div`
@@ -108,11 +95,10 @@ const OptionsContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;  // Changed from center to flex-start to align children from top to bottom
+    justify-content: flex-start;
     max-height: 100%;
     width: 100%;
     overflow-y: auto;
-    // background-color: pink;
 `
 
 const TopContainer = styled.div`

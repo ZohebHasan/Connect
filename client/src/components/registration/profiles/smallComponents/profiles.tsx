@@ -155,7 +155,7 @@ const DescriptionWrapper = styled.div`
   gap: 15%;
 `
 const TextWrapper = styled.div`
-  diplay: flex:
+  display: flex;
   justify-content:flex-start;
   width:100%;
 `

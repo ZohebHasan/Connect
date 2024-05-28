@@ -9,16 +9,13 @@ import OpenLight from "../assets/openLight.png"
 import OpenDark from "../assets/openDark.png"
 
 import ProfilesListButton from "../containers/buttonLogo";
-import { useProfile } from '../../../contexts/feed/profilesContext';
+import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
 const UserProfile: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const { isProfilesbarOpen, toggleProfilesbar, addProtectedRef, removeProtectedRef } = useProfile();
-    const [openProfiles, setOpenProfiles] = useState(false);
+
     const optionBtnRef = useRef<HTMLImageElement>(null);
 
-    const toggleOpenProfiles = () => {
-        setOpenProfiles(prevOpenProfiles => !prevOpenProfiles);
-    }
     useEffect(() => {
         if (optionBtnRef.current) {
           addProtectedRef(optionBtnRef);
