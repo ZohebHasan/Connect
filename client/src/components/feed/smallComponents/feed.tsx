@@ -10,9 +10,6 @@ import StoryScroller from '../elements/storyBar';
 import FilterBar from "../elements/filterBar"
 import { FilterProvider } from '../../../contexts/feed/filters/filtersContext';
 
-import ClipTemplete from '../elements/clip';
-import ClipTempleteDemo from "../elements/clip"
-
 const MainFeed: React.FC = () => {
 
     return (
@@ -28,7 +25,7 @@ const MainFeed: React.FC = () => {
                         <FeedHeader />
                         <StoryScroller />
                         {/* <ClipTemplete userName='adnan'/> */}
-                        <ClipTempleteDemo userName='adnan'/>
+                        {/* <ClipTempleteDemo userName='adnan'/> */}
                     </FeedWrapper>
                 </FilterProvider>
           
