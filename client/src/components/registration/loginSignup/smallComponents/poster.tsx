@@ -69,10 +69,10 @@ const Poster: React.FC = () => {
               <GradientText $isDarkMode={isDarkMode} >{uncontrolled}</GradientText>{period}
             </Text> */}
             <Temp>
-              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"transparent"}>The</StyledText>
-              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Future</StyledText>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Privacy</StyledText>
               <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"transparent"}>is</StyledText>
-              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Here.</StyledText>
+              <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>no joke.</StyledText>
+              {/* <StyledText size ={"4rem"} fontWeight = {"500"} variant = {"normal"}>Here.</StyledText> */}
             </Temp>
             {/* <Temp>
               <StyledText size ={"6rem"} fontWeight = {"500"} variant = {"transparent"}>is</StyledText>

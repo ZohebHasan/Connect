@@ -7,13 +7,13 @@ import HeaderContainer from '../ConnectUI_web/templetes/headerTemplete'
 import Logo from '../ConnectUI_web/common/logo/logo'
 import DarkLightToggle from '../ConnectUI_web/common/darkLightToggle/darkLightToggle';
 import OptionButton from '../ConnectUI_web/common/optionButton/optionButton'
-import Sidebar from './optionBar';
+
 
 
 const HeaderSelectLang: React.FC = () => {
     return (
         <>
-          <Sidebar/>
+
           <HeaderContainer variant={"visible"}>
               <LogoContainer>
                   <Logo />

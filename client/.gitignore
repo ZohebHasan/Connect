@@ -1,6 +1,7 @@
  See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+/tfjs_env
 /node_modules
 /tfjs_env
 /.pnp

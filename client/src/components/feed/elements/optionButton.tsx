@@ -91,15 +91,15 @@ const OptionButtonContainer = styled.div<{$isDarkMode: boolean}>`
     cursor: pointer; 
     transition: transform 0.2s ease-in-out, color 0.3s, opacity 0.3s ease-in-out;
     position: relative;
-    z-index: 4;
+    z-index: 6;
     &:hover {
-      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#333' : '#eee'};
+      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#565454' : '#a0a0a0'};
       opacity: 0.7;
       transform: scale(1.05);
     }
   
     &:active {
-      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#ccc'};
+      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'};
       transform: scale(1.00);
     }
 `;

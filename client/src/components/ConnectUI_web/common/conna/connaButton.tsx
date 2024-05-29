@@ -1,30 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 
-//Will Change later when the animation is ready.
+import Conna from "./asset/conna_final.webm";
+
 const ConnaButton: React.FC = () => {
-  const {isDarkMode} = useDarkMode();
-
-  return(
-        <Conna $isDarkMode = {isDarkMode}> ConnaTemp </Conna>
+  return (
+    <VideoContainer>
+      <video autoPlay loop muted>
+        <source src={Conna} type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+    </VideoContainer>
   );
-   
 };
 
 export default ConnaButton;
 
+const VideoContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
 
-
-const Conna = styled.button <{$isDarkMode: boolean}>`
-  padding: 10px;
-  background-color:  ${({ $isDarkMode }) => $isDarkMode ? 'white' : '#212121'};
-  border: 1px solid #ccc; // Example styling
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: pink;
+  video {
+    width: 5rem;
+    height: auto;
+    background-color: transparent;
   }
 `;

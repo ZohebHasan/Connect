@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 
 
@@ -7,19 +7,28 @@ import LeftBar from './smallComponents/leftBar';
 import MainFeed from './smallComponents/feed';
 import RightBar from './smallComponents/rightBar';
 
+import Stories from "./elements/stories"
+
+import { useStories } from '../../contexts/stories/storiesContext';
 
 
-const Body: React.FC= () => {
-  
-      
+const Body: React.FC = () => {
+
+    const {isStoriesPageOpen} = useStories();
+
+    
 
     return (
         <>
+
             <Bodycontainer flexDirection="row">
-                <LeftBar/>
-                <MainFeed/>
-                <RightBar/>
+
+                <Stories />
+                <LeftBar />
+                <MainFeed />
+                <RightBar />
             </Bodycontainer>
+
         </>
     );
 };

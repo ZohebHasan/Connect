@@ -188,14 +188,14 @@ const ButtonLink = styled(Link) <{ $isDarkMode: boolean }>`
 
     &:hover {
       color: ${({ $isDarkMode }) => $isDarkMode ? 'white' : 'black'};
-      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#333' : '#eee'};  // subtle background change on hover
+      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#565454' : '#a0a0a0'};  // subtle background change on hover
       transition: color 0.3s, background-color 0.3s, opacity 0.3s ease-in-out;
-      opacity: 0.7;
+      opacity: 0.8;
       transform: scale(1.05); 
     }
   
     &:active {
-      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#ccc'};  // deeper background on click
+      background-color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'};  // deeper background on click
       transition: color 0.2s, background-color 0.2s;
       transform: scale(1.00);
     }

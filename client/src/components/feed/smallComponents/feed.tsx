@@ -1,19 +1,33 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import FeedContainer from '../../ConnectUI_web/templetes/bodyTemplete';
 
+import FeedHeader from '../elements/feedHeader';
+import FilterButtons from '../elements/feedFilter';
+import StoryScroller from '../elements/storyBar';
 
-const MainFeed: React.FC= () => {
-  
-      
+import FilterBar from "../elements/filterBar"
+import { FilterProvider } from '../../../contexts/feed/filters/filtersContext';
+
+const MainFeed: React.FC = () => {
 
     return (
         <>
-            <FeedContainer flexDirection= {"column"} flex = {4}>
-                <Temp>
-                    {/* . */}
-                </Temp>
+            <FeedContainer flexDirection={"column"} flex={4}>
+                <FilterProvider>
+                    <FilterBarContainer>
+                        <FilterBar />
+                    </FilterBarContainer>
+
+                    <FeedWrapper>
+                        <FeedHeader />
+
+                        <StoryScroller />
+                    </FeedWrapper>
+                </FilterProvider>
+
+
             </FeedContainer>
 
         </>
@@ -22,7 +36,23 @@ const MainFeed: React.FC= () => {
 
 export default MainFeed;
 
-const Temp = styled.div`
+const FilterBarContainer = styled.div`
+    display: flex;
+    width: 95%;
+    align-items: center;
+    justify-content: flex-end;
+    
+`
+
+
+const FeedWrapper = styled.div`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 2px solid rgba(235, 57, 137, 0.300);
+
     width: 100%;
-    // background-color: red;
+    
+    
 `
