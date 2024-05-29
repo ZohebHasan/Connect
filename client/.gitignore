@@ -3,7 +3,6 @@
 # dependencies
 /tfjs_env
 /node_modules
-/tfjs_env
 /.pnp
 .pnp.js
 
