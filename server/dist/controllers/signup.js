@@ -12,11 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sendVerificationEmailController = exports.signup = void 0;
+exports.signup = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const userModel_1 = __importDefault(require("../models/userModel"));
-const emailServices_1 = require("../services/emailServices");
 const JWT_SECRET = 'cc706162797cd87082129948fea3a4b5373a8c614a80af35436cd0bc7bf131afb77fbde0e2bed8f2466197345e3dd2205a812b3f18cb7c5685160416dfef65f8';
 const JWT_REFRESH_SECRET = '3577a4135cad0bb08c5e5529282265604c9ccec70ea2392090aeab7371d02068e81084d4839c420fee1a4eb3d02c59b58d95f81c9b4d9bd093b389572217a556';
 const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, function* () {
@@ -106,18 +105,3 @@ const convertToBase64 = (data) => {
         throw new TypeError(`Invalid data type for conversion to base64: ${typeof data}`);
     }
 };
-const sendVerificationEmailController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    if (!email) {
-        return res.status(400).send('Email is required');
-    }
-    const verificationToken = (0, emailServices_1.generateVerificationToken)();
-    try {
-        yield (0, emailServices_1.sendVerificationEmail)(email, verificationToken);
-        res.status(200).send({ message: 'Verification email sent', token: verificationToken });
-    }
-    catch (error) {
-        res.status(500).send({ error: 'Failed to send verification email' });
-    }
-});
-exports.sendVerificationEmailController = sendVerificationEmailController;

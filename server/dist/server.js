@@ -19,6 +19,7 @@ const authRouter_1 = __importDefault(require("./routers/authRouter"));
 const featuresSignup_1 = __importDefault(require("./routers/featuresSignup"));
 const google_1 = __importDefault(require("./routers/google"));
 const microsoft_1 = __importDefault(require("./routers/microsoft"));
+const verification_1 = __importDefault(require("./routers/verification"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 8000;
@@ -38,6 +39,7 @@ app.listen(PORT, () => {
 app.use('/auth', authRouter_1.default);
 app.use('/login', login_1.default);
 app.use('/signup', signup_1.default);
+app.use('/verification', verification_1.default);
 app.use('/personal_profile', authMiddleware_1.authenticate, personal_profile_1.default);
 app.use('/educational_profile', authMiddleware_1.authenticate, educational_profile_1.default);
 app.use('/professional_profile', authMiddleware_1.authenticate, professional_profile_1.default);

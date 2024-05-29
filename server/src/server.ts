@@ -16,6 +16,7 @@ import authRouter from './routers/authRouter';
 import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
 import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
+import verificationRouter from './routers/verification'
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.listen(PORT, () => {
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+app.use('/verification', verificationRouter)
 
 // Protect routes with JWT middleware
 app.use('/personal_profile',authenticate, personalProfileRouter); // for testing purposes : added back the authenticate middleware
