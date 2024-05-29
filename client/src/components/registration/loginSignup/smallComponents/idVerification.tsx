@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import React, {useState, useEffect} from 'react';
+import styled, {keyframes} from 'styled-components';
 
 
 import { useLanguage } from '../../../../contexts/Language/Language';
@@ -11,8 +11,8 @@ import Button from '../../../ConnectUI_web/common/buttons/button1';
 import PhoneIcon from '../assets/phoneIcon.gif'
 import Text from "../../../ConnectUI_web/common/texts/static"
 
-import { useSignup } from '../../../../contexts/signup/signupContext';
 
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 const VerificationText: React.FC = () => {
     return (
         <TextContainer>
@@ -35,7 +35,24 @@ const TextContainer = styled.div`
     justify-content: flex-start;
     width: 100%;
 `
+const DisplayWrongCodeError = () => {
+    const {
+        wrongCodeError,
 
+    } = useSignup();
+
+    let errorMessage = null;
+
+    if (wrongCodeError) {
+        errorMessage = <ErrorMessage>Please enter the correct code.</ErrorMessage>;
+    }
+ 
+    return (
+        <>
+            {errorMessage}
+        </>
+    );
+}
 
 
 const Verification: React.FC = () => {
@@ -44,11 +61,19 @@ const Verification: React.FC = () => {
     const [code, setCode] = useState('');
 
     const handleCodeChange = (input: string) =>{
+        setVerificationCode(input); 
         setCode(input);
     }
-   
-    const {userId} = useSignup();
-    let id = "something"
+    const{ handleVerification, setVerificationCode, userId, handleResendCode, resendTimer, resetResendTimer} = useSignup();
+    console.log(resendTimer);
+    useEffect(() => {
+        resetResendTimer(); // Reset the timer when the component mounts
+    }, []);
+
+    const handleVerify = () => {
+        
+        handleVerification(); 
+    }
     return (
         <>
             <VerificationText/>
@@ -79,12 +104,15 @@ const Verification: React.FC = () => {
                         <PhoneGIF src = {PhoneIcon}/>
                     </VerificAnim>
                 </InputAnimeContainer>
+                <ErrorMessageContainer>
+                    <DisplayWrongCodeError />
+                </ErrorMessageContainer>
 
                 <VerificBtnContainer>
-                    <Button variant = {"normal"} width= {"50%"}>
-                        Send it again(20)
+                    <Button variant = {resendTimer === 0 ? "gradient" : "normal"} width= {"50%"} onClick={handleResendCode}>
+                        Send it again ({resendTimer})
                     </Button>
-                    <Button variant = {"gradient"} width= {"50%"} to = {"../ageVerification"}>
+                    <Button variant = {"gradient"} width= {"50%"} onClick={handleVerify}>
                         Next
                     </Button>
                 </VerificBtnContainer>
@@ -164,4 +192,32 @@ const VerificAnim = styled.div`
 const PhoneGIF = styled.img`
   width: 40%;
   height: auto;
+`;
+
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-10px); }
+  20% { transform: translateX(10px); }
+  30% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  60% { transform: translateX(10px); }
+  70% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  90% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+`;
+
+const ErrorMessageContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+
+`;
+
+const ErrorMessage = styled.div`
+    color: red;
+    font-size: 14px;
+    animation: ${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both; 
 `;

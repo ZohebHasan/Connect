@@ -1,21 +1,30 @@
+import React, { useEffect } from 'react';
 import Connect from '../main/connect';
 import { createGlobalStyle } from 'styled-components';
 import { LanguageProvider } from '../contexts/Language/Language'
 import { DarkModeProvider } from '../contexts/DarkMode/DarkMode';
 import { SidebarProvider } from '../contexts/SideBarOpen/SidebarContext';
+import { AuthProvider } from '../contexts/authentication/authContext';
+import { scheduleTokenRefresh } from '../services/authHelpers';
 
 
 const App: React.FC = () => {
+  useEffect(() => {
+    scheduleTokenRefresh();
+}, []);
+
   return (
     <>
-      <LanguageProvider>
-        <DarkModeProvider>
-          <SidebarProvider>
-            <GlobalStyle />
-            <Connect />
-          </SidebarProvider>
-        </DarkModeProvider>
-      </LanguageProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <DarkModeProvider>
+            <SidebarProvider>
+              <GlobalStyle />
+              <Connect />
+            </SidebarProvider>
+          </DarkModeProvider>
+        </LanguageProvider>
+      </AuthProvider>
     </>
   );
 };

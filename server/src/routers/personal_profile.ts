@@ -2,5 +2,5 @@
 import express from "express";
 import { personalProfile } from "../controllers/personal_profile";
 const router = express.Router();
-router.post("/personal_profile", personalProfile);
+router.post("/", personalProfile);
 export default router;

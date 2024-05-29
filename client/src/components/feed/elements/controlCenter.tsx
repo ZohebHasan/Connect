@@ -149,7 +149,7 @@ const AccountCenter = styled(Link)<{$isDarkMode: boolean}>`
   flex-direction: column;
   align-items:center;
   justify-content:center;
-  background-color: grey;
+  background-color: ${({ $isDarkMode }) => $isDarkMode ? '#565656' : 'rgb(197, 197, 197)'};
   border-radius: 1rem;
   margin-top: 0.5rem;
   
@@ -161,14 +161,14 @@ const AccountCenter = styled(Link)<{$isDarkMode: boolean}>`
     color: inherit; /* Inherits color from parent, preventing blue color */
   }
   &:hover {
-    background-color: ${({ $isDarkMode }) => $isDarkMode ? '#333' : '#eee'};
-    opacity: 0.7;
+    background-color: ${({ $isDarkMode }) => $isDarkMode ? '#838383' : '#969696'};
+    opacity: 0.8;
     transform: scale(1.05);
     text-decoration: none; 
 }
 
  &:active {
-    background-color: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#ccc'}; 
+    background-color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'}; 
     transform: scale(1.00);
     color: inherit; 
 }

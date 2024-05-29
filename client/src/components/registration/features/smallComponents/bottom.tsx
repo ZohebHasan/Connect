@@ -1,19 +1,22 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-;
+
 import Button from '../../../ConnectUI_web/common/buttons/button1';
 import ConnaButton from '../../../ConnectUI_web/common/conna/connaButton';
 
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 
 
 const Bottom: React.FC= () => {
+
+  const {handleFeaturesSubmit} = useSignup();
     return(
         <BottomContainer>
             <ButtonContainer>
                 <Button variant= {"transparent"} 
                         width= {"30%"} 
-                        to={"/profiles"} 
+                        onClick={handleFeaturesSubmit}
                         >
                         Next
                 </Button>

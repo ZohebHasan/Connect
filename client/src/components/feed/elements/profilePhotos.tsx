@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import PersonalPhoto from "../assets/personal.jpeg";
-import ProfessionalPhoto from "../assets/professional.jpeg";
-import SchoolPhoto from "../assets/school.jpeg";
+import PersonalPhoto from "../dummies/personal.jpeg";
+import ProfessionalPhoto from "../dummies/professional.jpeg";
+import SchoolPhoto from "../dummies/school.jpeg";
 
 import VideoDark from "../../ConnectUI_web/backgrounds/background1/assets/background1DarkMonitor.mp4"
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 
-
+import { useProfile } from '../../../contexts/feed/profiles/profilesContext';
 
 
 // const StyledVideo = styled.video`
@@ -20,12 +20,12 @@ import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 //      border-radius: 50%;
 // `;
 interface ContentProps {
-  parentSize?:number;
-  childSize?: number;
+    parentSize?: number;
+    childSize?: number;
 }
 
-const ProfilePhotos: React.FC<ContentProps> = ({parentSize, childSize}) => {
-    const [activeProfile, setActiveProfile] = useState<'personal' | 'professional' | 'school'>('personal');
+const ProfilePhotos: React.FC<ContentProps> = ({ parentSize, childSize }) => {
+    const { activeProfile } = useProfile();
 
     const profiles = {
         personal: PersonalPhoto,
@@ -37,38 +37,38 @@ const ProfilePhotos: React.FC<ContentProps> = ({parentSize, childSize}) => {
         <>
             <ProfilePhotoContainer>
                 <PhotoContainer role="parent">
-                    <Border role="parent" profileType= {activeProfile}>
-                        <Photo 
-                            src={profiles[activeProfile]} 
-                            role = {'parent'}
-                            $parentSize={parentSize} 
-                            $childSize = {childSize}
+                    <Border role="parent" profileType={activeProfile}>
+                        <Photo
+                            src={profiles[activeProfile]}
+                            role={'parent'}
+                            $parentSize={parentSize}
+                            $childSize={childSize}
 
                         />
                         {/* <StyledVideo autoPlay loop muted playsInline controls={false}>
                             <source src={VideoDark} type="video/mp4" />
                         </StyledVideo> */}
-                    </Border>  
+                    </Border>
                 </PhotoContainer>
-                
+
                 <PhotoContainer role="child" position="top">
-                    <Border role="child" profileType= {activeProfile === 'personal' ? 'school' : 'personal'}>
-                        <Photo 
-                            src={activeProfile === 'personal' ? profiles['school'] : profiles['personal']} 
-                            role= {'child'}
-                            $parentSize={parentSize} 
-                            $childSize = {childSize}
+                    <Border role="child" profileType={activeProfile === 'personal' ? 'school' : 'personal'}>
+                        <Photo
+                            src={activeProfile === 'personal' ? profiles['school'] : profiles['personal']}
+                            role={'child'}
+                            $parentSize={parentSize}
+                            $childSize={childSize}
                         />
                     </Border>
                 </PhotoContainer>
-                
+
                 <PhotoContainer role="child" position="bottom">
-                    <Border role="child" profileType= {activeProfile === 'professional' ? 'school' : 'professional'}>
-                        <Photo 
-                            src={activeProfile === 'professional' ? profiles['school'] : profiles['professional']} 
-                            role= {'child'}
-                            $parentSize={parentSize} 
-                            $childSize = {childSize}
+                    <Border role="child" profileType={activeProfile === 'professional' ? 'school' : 'professional'}>
+                        <Photo
+                            src={activeProfile === 'professional' ? profiles['school'] : profiles['professional']}
+                            role={'child'}
+                            $parentSize={parentSize}
+                            $childSize={childSize}
                         />
                     </Border>
                 </PhotoContainer>
@@ -91,8 +91,8 @@ const ProfilePhotoContainer = styled.div`
 `
 
 interface PhotoContainerProps {
-  role: 'parent' | 'child';
-  position?: 'top' | 'bottom';
+    role: 'parent' | 'child';
+    position?: 'top' | 'bottom';
 }
 
 const PhotoContainer = styled.div<PhotoContainerProps>`
@@ -102,35 +102,35 @@ const PhotoContainer = styled.div<PhotoContainerProps>`
   width: 100%;
   height: 100%;
   align-items: ${({ role, position }) =>
-    role === 'parent'
-      ? 'center'
-      : position === 'top'
-      ? 'flex-start'
-      : 'flex-end'};
+        role === 'parent'
+            ? 'center'
+            : position === 'top'
+                ? 'flex-start'
+                : 'flex-end'};
   justify-content: ${({ role, position }) =>
-    role === 'parent'
-      ? 'flex-start'
-      : position === 'top'
-      ? 'flex-end'
-      : 'flex-end'};
+        role === 'parent'
+            ? 'flex-start'
+            : position === 'top'
+                ? 'flex-end'
+                : 'flex-end'};
 `;
 
 interface BorderProps {
-  role: 'parent' | 'child';
-  profileType: 'personal' | 'professional' | 'school';
+    role: 'parent' | 'child';
+    profileType: 'personal' | 'professional' | 'school';
 }
 
 const getBackgroundGradient = (profileType: string) => {
-  switch (profileType) {
-    case 'personal':
-      return 'linear-gradient(to right, #662D8C, #ED1E79)';
-    case 'professional':
-      return 'linear-gradient(to right, #2E3192, #1BFFFF)';
-    case 'school':
-      return 'linear-gradient(to right, #EA8D8D, #A890FE)';
-    default:
-      return ''; 
-  }
+    switch (profileType) {
+        case 'personal':
+            return 'linear-gradient(to right, #662D8C, #ED1E79)';
+        case 'professional':
+            return 'linear-gradient(to right, #2E3192, #1BFFFF)';
+        case 'school':
+            return 'linear-gradient(to right, #EA8D8D, #A890FE)';
+        default:
+            return '';
+    }
 };
 
 
@@ -147,19 +147,19 @@ const Border = styled.div<BorderProps>`
 const Photo = styled.img<{ role: 'parent' | 'child', $parentSize?: number, $childSize?: number }>`
     height: ${({ role, $parentSize, $childSize }) => {
         if (role === 'parent' && $parentSize) {
-            return `${$parentSize}rem`;  
+            return `${$parentSize}rem`;
         } else if (role === 'child' && $childSize) {
-            return `${$childSize}rem`; 
+            return `${$childSize}rem`;
         }
-        return role === 'parent' ? '2.5rem' : '2rem'; 
+        return role === 'parent' ? '2.5rem' : '2rem';
     }};
     width: ${({ role, $parentSize, $childSize }) => {
         if (role === 'parent' && $parentSize) {
-            return `${$parentSize}rem`; 
+            return `${$parentSize}rem`;
         } else if (role === 'child' && $childSize) {
-            return `${$childSize}rem`;  
+            return `${$childSize}rem`;
         }
-        return role === 'parent' ? '2.5rem' : '2rem';  
+        return role === 'parent' ? '2.5rem' : '2rem';
     }};
     border-radius: 50%;
 `;

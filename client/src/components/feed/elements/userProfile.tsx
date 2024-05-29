@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Profiles from "./profiles"
+import Profiles from "./profileButton"
 import { Link } from 'react-router-dom';
 import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
-import ProfilesButton from "./profilesButton"
+import ProfilesButton from "./profileBarButton"
 
 const UserProfile: React.FC = () => {
     const {isDarkMode} = useDarkMode();
@@ -45,20 +45,22 @@ const ProfilesContainer = styled(Link)<{$isDarkMode: boolean}>`
     color: inherit; 
     text-decoration: none; 
     background-color: transparent; 
+    position: relative;
+    z-index: 4;
 
     &:link, &:visited { 
         color: inherit; /* Inherits color from parent, preventing blue color */
     }
 
     &:hover {
-        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#333' : '#eee'};
-        opacity: 0.7;
+        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#565454' : '#a0a0a0'};
+        opacity: 0.8;
         transform: scale(1.05);
         text-decoration: none; 
     }
     
     &:active {
-        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#ccc'};
+        background-color: ${({ $isDarkMode }) => $isDarkMode ? '#919191' : '#595858'};
         transform: scale(1.00);
         color: inherit; 
     }

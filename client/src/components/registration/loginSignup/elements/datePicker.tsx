@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
-import { useSignup } from '../../../../contexts/signup/signupContext';
+import { useSignup } from '../../../../contexts/registration/signup/signupContext';
 
 const DatePicker: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -39,24 +39,7 @@ const DatePicker: React.FC = () => {
 
     <Picker $isDarkMode={isDarkMode} onClick={triggerDateOfBirthErrors}>
 
-      <LabelContainer active={active === 'date'} $isDarkMode={isDarkMode}>
-        <Label>Date</Label>
-        <Select
-          active={active === 'date'}
-          $isDarkMode={isDarkMode}
-          value={day ?? ''}
-          onChange={(e) => setDay(Number(e.target.value))}
-          onFocus={() => setActive('date')}
-          onBlur={() => setActive('')}
-        >
-          <option value="" disabled>DD</option>
-          {days.map(day => (
-            <option key={day} value={day}>
-              {day.toString().padStart(2, '0')}
-            </option>
-          ))}
-        </Select>
-      </LabelContainer>
+
 
       <LabelContainer active={active === 'month'} $isDarkMode={isDarkMode}>
         <Label>Month</Label>
@@ -76,7 +59,25 @@ const DatePicker: React.FC = () => {
           ))}
         </Select>
       </LabelContainer>
-
+      
+      <LabelContainer active={active === 'date'} $isDarkMode={isDarkMode}>
+        <Label>Day</Label>
+        <Select
+          active={active === 'date'}
+          $isDarkMode={isDarkMode}
+          value={day ?? ''}
+          onChange={(e) => setDay(Number(e.target.value))}
+          onFocus={() => setActive('date')}
+          onBlur={() => setActive('')}
+        >
+          <option value="" disabled>DD</option>
+          {days.map(day => (
+            <option key={day} value={day}>
+              {day.toString().padStart(2, '0')}
+            </option>
+          ))}
+        </Select>
+      </LabelContainer>
       <LabelContainer active={active === 'year'} $isDarkMode={isDarkMode}>
         <Label>Year</Label>
         <Select
