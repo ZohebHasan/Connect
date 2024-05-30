@@ -8,7 +8,7 @@ import personal_profile from "../../models/profiles/personal_profile";
 import Tags from "../../models/posts/tags";
 
 export const createPost = async (req: Request, res: Response) => {
-    const { tags, postDetail, location, media, censorable, isEighteenPlus } = req.body; // Add media and location later
+    const { tags, postDetail, location, censorable, isEighteenPlus } = req.body;
     console.log(location)
     if (!location) {
         return res.status(400).json({ message: 'Profile location is required' });
