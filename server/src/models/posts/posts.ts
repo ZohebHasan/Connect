@@ -17,17 +17,13 @@ interface Post {
     likeNum: number;
     dislikeNum: number;
     share: string;
-    // comments: typeof Comments; // need to make a schema for this
-    comments: Schema.Types.ObjectId[]; // need to make a schema for this
-    // location: typeof educational_profile | typeof personal_profile | typeof professional_profile;
-    location: Schema.Types.ObjectId;
+    comments: typeof Comments; // need to make a schema for this
+    location: typeof educational_profile | typeof personal_profile | typeof professional_profile;
     postdetail?: string
-    // media: typeof Chirp | typeof Clip | typeof Pixel | typeof Snip
-    media: Schema.Types.ObjectId[]
+    media: typeof Chirp | typeof Clip | typeof Pixel | typeof Snip
     censorable: boolean;
     isEighteenPlus: boolean
-    // tags: typeof Tags
-    tags: Schema.Types.ObjectId[]
+    tags: typeof Tags
 }
 
 const postSchema = new Schema<Post>({
@@ -38,7 +34,7 @@ const postSchema = new Schema<Post>({
     comments: [{type: Schema.Types.ObjectId, ref: "Comments", required: true}],
     location: {type: Schema.Types.ObjectId, enum: ["Educational", "Personal", "Professional"], required: true},
     postdetail: { type: String },
-    media: [{type: Schema.Types.ObjectId, enum: ["Chirp", "Clip", "Pixel", "Snip"], required: true}],
+    media: [{type: Schema.Types.ObjectId, enum: ["Chirp", "Clip", "Pixel", "Snip"], required: false}],
     censorable: {type: Boolean, required: true},
     isEighteenPlus: {type: Boolean, required: true},
     tags: [{type: Schema.Types.ObjectId, required: true, ref: "Tag"}]

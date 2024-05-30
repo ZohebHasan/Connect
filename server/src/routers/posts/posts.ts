@@ -1,5 +1,5 @@
 import express from 'express';
 const router = express.Router();
-import { posts } from '../../controllers/posts/posts';
-router.post('/', posts);
+import { createPost } from '../../controllers/posts/posts';
+router.post('/', createPost);
 export default router;
