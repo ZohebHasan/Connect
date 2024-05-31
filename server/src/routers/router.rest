@@ -1,0 +1,29 @@
+@hostname = http://localhost:8000
+
+### Making post for a specific user
+POST  http://localhost:8000/posts
+Content-Type: 'application/json'
+
+{
+    "media": "this is the media",
+    "postDetail": "this is details about the post",
+    "location": "665136ec240927829c79c29a",
+    "censorable": false,
+    "isEighteenPlus": true,
+    "tags": "This is a tag that is split",
+}
+
+### Making a comment inside a specific post
+
+POST http://localhost:8000/comments
+Content-Type: 'application/json'
+
+{
+    "post_id": ,
+    "ownedBy": ,
+    "body": 
+}
+###
+curl -X POST http://localhost:8000/posts \
+-H "Content-Type: application/json" \
+-d '{"media": "this is the media", "postDetail": "this is details about the post", "location": "665136ec240927829c79c29a", "censorable": false, "isEighteenPlus": true, "tags": "This is a tag that is split"}'

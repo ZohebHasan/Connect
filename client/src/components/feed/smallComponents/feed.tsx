@@ -21,14 +21,14 @@ const MainFeed: React.FC = () => {
                     </FilterBarContainer>
 
                     <FeedWrapper>
+
                         <FeedHeader />
                         <StoryScroller />
+                        {/* <ClipTemplete userName='adnan'/> */}
+                        {/* <ClipTempleteDemo userName='adnan'/> */}
                     </FeedWrapper>
                 </FilterProvider>
-                
-                <PostContainer>
-
-                </PostContainer>
+          
 
 
             </FeedContainer>
@@ -39,13 +39,7 @@ const MainFeed: React.FC = () => {
 
 export default MainFeed;
 
-const PostContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    width: 100%;
-`;
+
 
 const FilterBarContainer = styled.div`
     display: flex;
@@ -63,7 +57,5 @@ const FeedWrapper = styled.div`
     align-items: center;
     border-right: 2px solid rgba(235, 57, 137, 0.300);
 
-    width: 100%;
-    
-    
+    width: 100%
 `
