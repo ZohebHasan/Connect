@@ -94,7 +94,7 @@ const TextContainer = styled.div`
 `;
 
 const SeeMoreButton = styled.span<{ isDarkMode: boolean }>`
-  color: ${props => props.isDarkMode ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.6)'};
+  color: rgb(184, 27, 100);
   cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
