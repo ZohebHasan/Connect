@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const educational_profile_1 = require("../controllers/educational_profile");
-router.post('/educational_profile', educational_profile_1.educationalProfile);
+router.post('/', educational_profile_1.educationalProfile);
 exports.default = router;

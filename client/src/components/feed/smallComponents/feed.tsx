@@ -29,6 +29,7 @@ const MainFeed: React.FC = () => {
                     </FilterBarContainer>
 
                     <FeedWrapper>
+
                         <FeedHeader />
                         <StoryScroller />
                         <PersonalPost
@@ -75,7 +76,6 @@ const MainFeed: React.FC = () => {
                 </FilterProvider>
 
 
-
             </FeedContainer>
 
         </>
@@ -103,6 +103,5 @@ const FeedWrapper = styled.div`
     border-right: 2px solid rgba(235, 57, 137, 0.300);
     box-sizing: border-box;
     width: 100%;
-    
-    
+
 `
