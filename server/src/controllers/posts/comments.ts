@@ -2,39 +2,38 @@ import { Request, Response } from "express";
 import Comment from "../../models/posts/comments";
 import User from "../../models/userModel";
 import Post from "../../models/posts/posts";
-import { Types } from "mongoose";
 
 export const comments = async (req: Request, res: Response) => {
-    const { post_id, user_id, body } = req.body;
+    const { ownedBy, body } = req.body;
+    const { id } = req.params
 
-    if (!user_id) {
-        return res.status(400).json({ message: 'user_id is required' });
+    if (!ownedBy) {
+        return res.status(400).json({ message: 'ownedBy is required' });
     }
 
-    if (!post_id) {
+    if (!id) {
         return res.status(400).json({ message: 'post_id is required' });
     }
 
     try {
-        const user = await User.findById(user_id);
+        const user = await User.findById(ownedBy);
         if (!user) {
             return res.status(404).json({ message: 'User does not exist' });
         }
 
-        const post = await Post.findById(post_id);
+        const post = await Post.findById(id);
         if (!post) {
             return res.status(404).json({ message: 'Post does not exist' });
         }
 
         const newComment = new Comment({
-            post: post_id,
-            user: user_id,
-            comment: body
+            ownedBy,
+            body
         });
 
         await newComment.save();
 
-        post.comments.push(newComment._id as any);
+        // post.comments.push(newComment._id as any);
 
         await post.save();
         await post.populate('comments');
