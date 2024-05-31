@@ -4,7 +4,7 @@ import personal_profile from '../profiles/personal_profile';
 import professional_profile from '../profiles/professional_profile';
 import educational_profile from '../profiles/educational_profile';
 
-import Comments from "./comments"
+import Comments from "./comment"
 import Tags from './tags';
 
 import Chirp from './chirp';
