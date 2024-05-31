@@ -28,6 +28,8 @@ interface StyledTextProps {
 }
 
 const StyledText = styled.p<StyledTextProps>`
+    display: inline;
+    line-height: 1.6;
     font-size: ${({ $size }) => $size};
 
     @media (max-width: 1280px) { 

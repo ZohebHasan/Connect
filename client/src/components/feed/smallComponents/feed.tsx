@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
+import { FilterProvider } from '../../../contexts/feed/filters/filtersContext';
+
 import FeedContainer from '../../ConnectUI_web/templetes/bodyTemplete';
 
-import FeedHeader from '../elements/feedHeader';
-import FilterButtons from '../elements/feedFilter';
-import StoryScroller from '../elements/storyBar';
+import FeedHeader from '../elements/feed/feedHeader';
+import StoryScroller from '../elements/story/storyBar';
 
-import FilterBar from "../elements/filterBar"
-import { FilterProvider } from '../../../contexts/feed/filters/filtersContext';
+import FilterBar from "../elements/feed/filterBar"
+
+
+
+import PersonalPost from '../elements/posts/personalPostTemplate';
+import ProfessionalPost from '../elements/posts/professionalPostTemplate';
+import SchoolPost from '../elements/posts/schoolPostTemplate';
+
+
 
 const MainFeed: React.FC = () => {
 
     return (
         <>
-            <FeedContainer flexDirection={"column"} flex={4}>
+            <FeedContainer flexDirection={"column"} flex={3.5}>
                 <FilterProvider>
                     <FilterBarContainer>
                         <FilterBar />
@@ -23,12 +31,49 @@ const MainFeed: React.FC = () => {
                     <FeedWrapper>
                         <FeedHeader />
                         <StoryScroller />
+                        <PersonalPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"clip"}
+                        />
+                        <PersonalPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"post"}
+                        />
+
+                        <PersonalPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"chirp"}
+                        />
+                        <ProfessionalPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"chirp"}
+                        />
+                        <ProfessionalPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"post"}
+                        />
+
+                        <SchoolPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"chirp"}
+                        />
+                           <SchoolPost
+                            userName={'adnan'}
+                            isVarified={true}
+                            bodyType={"post"}
+                        />
+
+
+
                     </FeedWrapper>
                 </FilterProvider>
-                
-                <PostContainer>
 
-                </PostContainer>
 
 
             </FeedContainer>
@@ -39,13 +84,7 @@ const MainFeed: React.FC = () => {
 
 export default MainFeed;
 
-const PostContainer = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    width: 100%;
-`;
+
 
 const FilterBarContainer = styled.div`
     display: flex;
@@ -62,7 +101,7 @@ const FeedWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     border-right: 2px solid rgba(235, 57, 137, 0.300);
-
+    box-sizing: border-box;
     width: 100%;
     
     
