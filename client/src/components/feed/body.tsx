@@ -7,7 +7,7 @@ import LeftBar from './smallComponents/leftBar';
 import MainFeed from './smallComponents/feed';
 import RightBar from './smallComponents/rightBar';
 
-import Stories from "./elements/stories"
+import Stories from "./elements/story/stories"
 
 import { useStories } from '../../contexts/stories/storiesContext';
 
