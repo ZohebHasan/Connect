@@ -49,8 +49,8 @@ const SchoolHeader: React.FC<{ userName: string; isVarified: boolean }> = ({ use
                                         </TextContainer>
 
                                         <TextContainer>
-                                            <Text variant={"normal"} size={'1rem'} fontWeight="300">
-                                                in  CSE316
+                                            <Text variant={"normal"} size={'1rem'} fontWeight="400">
+                                                in CSE316
                                             </Text>
                                         </TextContainer>
                                         <Text variant={'transparent'} size={'1rem'} fontWeight="300">
