@@ -8,7 +8,7 @@ export const comments = async (req: Request, res: Response) => {
     const { id } = req.params
 
     if (!ownedBy) {
-        return res.status(400).json({ message: 'user_id is required' });
+        return res.status(400).json({ message: 'ownedBy is required' });
     }
 
     if (!id) {
@@ -28,7 +28,7 @@ export const comments = async (req: Request, res: Response) => {
 
         const newComment = new Comment({
             ownedBy,
-            comment: body
+            body
         });
 
         await newComment.save();

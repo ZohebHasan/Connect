@@ -6,7 +6,7 @@ const postSchema = new mongoose_1.Schema({
     likeNum: { type: Number, required: true },
     dislikeNum: { type: Number, required: true },
     share: { type: String, required: true },
-    comments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Comments", required: true }],
+    comments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Comments", required: false }],
     location: { type: mongoose_1.Schema.Types.ObjectId, enum: ["Educational", "Personal", "Professional"], required: true },
     postdetail: { type: String },
     media: [{ type: mongoose_1.Schema.Types.ObjectId, enum: ["Chirp", "Clip", "Pixel", "Snip"], required: false }],

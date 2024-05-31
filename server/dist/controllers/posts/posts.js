@@ -15,20 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPost = void 0;
 const posts_1 = __importDefault(require("../../models/posts/posts"));
 const educational_profile_1 = __importDefault(require("../../models/profiles/educational_profile"));
-const professional_profile_1 = __importDefault(require("../../models/profiles/professional_profile"));
-const personal_profile_1 = __importDefault(require("../../models/profiles/personal_profile"));
 const tags_1 = __importDefault(require("../../models/posts/tags"));
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { tags, postDetail, location, media, censorable, isEighteenPlus } = req.body;
+    const { tags, postDetail, location, censorable, isEighteenPlus } = req.body;
     console.log(location);
     if (!location) {
         return res.status(400).json({ message: 'Profile location is required' });
     }
     try {
         const education = yield educational_profile_1.default.findById(location);
-        const professional = yield professional_profile_1.default.findById(location);
-        const personal = yield personal_profile_1.default.findById(location);
-        if (!education || !professional || !personal) {
+        if (!education) {
             return res.status(404).json({ message: 'Profile does not exist' });
         }
         const inputTags = tags.trim().split(/\s+/).map((tag) => tag.toLowerCase());
@@ -42,7 +38,6 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             return tagList._id;
         })));
         const newPost = new posts_1.default({
-            media,
             postDetail,
             location,
             censorable,

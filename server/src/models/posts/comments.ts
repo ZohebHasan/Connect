@@ -1,10 +1,11 @@
 import { Schema, model} from 'mongoose';
 import User from '../userModel';
+import Post from '../../models/posts/posts'
 
 interface Comments {
-    ownedBy: typeof User
+    ownedBy: typeof User;
     body: string;
-    commentDate: Date
+    commentDate: Date;
 }
 
 const commentSchema = new Schema<Comments>({

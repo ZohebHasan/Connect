@@ -20,9 +20,9 @@ export const createPost = async (req: Request, res: Response) => {
 
     try {
         const education = await educational_profile.findById(location);
-        const professional = await professional_profile.findById(location);
-        const personal = await personal_profile.findById(location);
-        if (!education || !professional || !personal) {
+        // const professional = await professional_profile.findOne(location);
+        // const personal = await personal_profile.findOne(location);
+        if (!education) {
             return res.status(404).json({ message: 'Profile does not exist' });
         }
 

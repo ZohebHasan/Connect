@@ -31,7 +31,7 @@ const postSchema = new Schema<Post>({
     likeNum: { type: Number, required: true },
     dislikeNum: { type: Number, required: true },
     share: { type: String, required: true },
-    comments: [{type: Schema.Types.ObjectId, ref: "Comments", required: true}],
+    comments: [{type: Schema.Types.ObjectId, ref: "Comments", required: false}],
     location: {type: Schema.Types.ObjectId, enum: ["Educational", "Personal", "Professional"], required: true},
     postdetail: { type: String },
     media: [{type: Schema.Types.ObjectId, enum: ["Chirp", "Clip", "Pixel", "Snip"], required: false}],

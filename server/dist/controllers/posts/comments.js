@@ -20,7 +20,7 @@ const comments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ownedBy, body } = req.body;
     const { id } = req.params;
     if (!ownedBy) {
-        return res.status(400).json({ message: 'user_id is required' });
+        return res.status(400).json({ message: 'ownedBy is required' });
     }
     if (!id) {
         return res.status(400).json({ message: 'post_id is required' });
@@ -36,10 +36,9 @@ const comments = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const newComment = new comments_1.default({
             ownedBy,
-            comment: body
+            body
         });
         yield newComment.save();
-        post.comments.push(newComment._id);
         yield post.save();
         yield post.populate('comments');
         res.status(201).json({ comment: newComment });
