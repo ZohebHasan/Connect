@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Comment from "../../models/posts/comments";
+import Comment from "../../models/posts/comment";
 import User from "../../models/userModel";
-import Post from "../../models/posts/posts";
+import Post from "../../models/posts/post";
 
 export const comments = async (req: Request, res: Response) => {
     const { ownedBy, body } = req.body;

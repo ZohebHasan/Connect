@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Posts from "../../models/posts/posts";
+import Posts from "../../models/posts/post";
 
 import educational_profile from "../../models/profiles/educational_profile";
 import professional_profile from "../../models/profiles/professional_profile";

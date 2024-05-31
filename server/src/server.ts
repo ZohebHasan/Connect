@@ -16,8 +16,8 @@ import authRouter from './routers/authRouter';
 import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
 import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
-import postRouter from './routers/posts/posts'
-import commentRouter from './routers/posts/posts'
+import postRouter from './routers/posts/post'
+import commentRouter from './routers/posts/post'
 
 dotenv.config();
 
