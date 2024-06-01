@@ -41,7 +41,7 @@ const postSchema = new Schema<Post>({
 
     dateCreated: { type: Date, required: false, default: Date.now },
     ownedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String, required: false },
+    content: { type: Schema.Types.ObjectId, required: false },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     location: { type: Number, required: false },
     likes: { type: Number, required: false, default: 0 },

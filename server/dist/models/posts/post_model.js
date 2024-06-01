@@ -14,7 +14,7 @@ var location;
 const postSchema = new mongoose_2.Schema({
     dateCreated: { type: Date, required: false, default: Date.now },
     ownedBy: { type: mongoose_2.Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String, required: false },
+    content: { type: mongoose_2.Schema.Types.ObjectId, required: false },
     comments: [{ type: mongoose_2.Schema.Types.ObjectId, ref: 'Comment' }],
     location: { type: Number, required: false },
     likes: { type: Number, required: false, default: 0 },

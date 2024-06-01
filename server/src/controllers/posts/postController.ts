@@ -11,7 +11,7 @@ import ChirpModel from '../../models/posts/media/chirp_model';
 
 export const Post = async (req: Request, res: Response) => {
 
-    const { ownedBy, media_body } = req.body;
+    const { ownedBy, location, media_body } = req.body;
     const { media_type } = req.params
 
     const user = await User.findById(ownedBy);
@@ -21,37 +21,87 @@ export const Post = async (req: Request, res: Response) => {
         res.status(404).json("User does not exist")
     }
 
-    if(media_type === "pixel"){
-        try{
-            const file = media_body.file;
-            const caption = media_body.caption;
-            if(!file){
-                res.status(400).json("Media file is required");
+    switch(media_type){
+        case "pixel":
+            try{
+                const file = media_body.file;
+                const caption = media_body.caption;
+                if(!file){
+                    res.status(400).json("Media file is required");
+                }
+                media = new PixelsModel({
+                    file,
+                    caption,
+                    dateEdit: null
+                });
+                await media.save();
+            } catch(err){
+                res.status(400).json(err)
             }
-            media = new PixelsModel({
-                file,
-                caption,
-                dateEdit: null
-            });
-            await media.save();
-        } catch(err){
-            res.status(400).json(err)
-        }
-    }
-    else{
-        return res.status(400).json("Invalid media type");
+            break;
+        // case "chirp":
+        //     try{
+        //         const body = media_body.body;
+        //         if(!body){
+        //             res.status(400).json("Text is required");
+        //         }
+        //         media = new ChirpModel({
+        //             body,
+        //             dateEdit: null
+        //         });
+        //         await media.save();
+        //     } catch(err){
+        //         res.status(400).json(err)
+        //     }
+        //     break;
+        // case "snip":
+        //     try{
+        //         const file = media_body.file;
+        //         const caption = media_body.caption;
+        //         if(!file){
+        //             res.status(400).json("Media file is required");
+        //         }
+        //         media = new SnipModel({
+        //             file,
+        //             caption,
+        //             dateEdit: null
+        //         });
+        //         await media.save();
+        //     } catch(err){
+        //         res.status(400).json(err)
+        //     }
+        //     break;
+        // case "clip":
+        //     try{
+        //         const file = media_body.file;
+        //         const caption = media_body.caption;
+        //         if(!file){
+        //             res.status(400).json("Media file is required");
+        //         }
+        //         media = new ClipModel({
+        //             file,
+        //             caption,
+        //             dateEdit: null
+        //         });
+        //         await media.save();
+        //     } catch(err){
+        //         res.status(400).json(err)
+        //     }
+        //     break;
+        default:
+            res.send(400).json("Media file is not valid");
+            break;
     }
 
     try{
-        console.log(media)
         const post = new PostModel({
             ownedBy: user,
-            content: media,
+            location,
+            content: media?._id,
         })
         await post.save();
         res.status(200).json(post);
     } catch (err) {
         res.status(400).json(err);
     }
-
 }
