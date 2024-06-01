@@ -16,9 +16,8 @@ import authRouter from './routers/authRouter';
 import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
 import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
-import postRouter from './routers/posts/posts'
-import commentRouter from './routers/posts/posts'
 
+import postRouter from './routers/posts/post'
 dotenv.config();
 
 const app = express();
@@ -48,9 +47,7 @@ app.use('/signup', signupRouter);
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
 app.use('/educational_profile', educationalProfileRouter); // for testing purposes : removed the authenticate middleware
 app.use('/professional_profile', professionalProfileRouter); // for testing purposes : removed the authenticate middleware
-app.use('/posts', postRouter)
-app.use('/comments', commentRouter)
-
+app.use('/post', postRouter);
 
 // Refresh token route
 app.use('/refresh-token', refreshRouter);

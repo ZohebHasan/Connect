@@ -17,5 +17,5 @@ const clipSchema = new Schema<Clip>({
 });
 
 const ClipModel: Model<Clip> = mongoose.model('Clip', clipSchema);
-export default ClipModel;
 
+export default ClipModel;
