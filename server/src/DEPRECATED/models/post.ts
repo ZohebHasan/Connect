@@ -1,10 +1,10 @@
 // import { Schema, model} from 'mongoose';
 
-// // import personal_profile from '../profiles/personal_profile';
-// // import professional_profile from '../profiles/professional_profile';
-// // import educational_profile from '../profiles/educational_profile';
+// import personal_profile from '../profiles/personal_profile';
+// import professional_profile from '../profiles/professional_profile';
+// import educational_profile from '../profiles/educational_profile';
 
-// import Comments from "./comments"
+// import Comments from "./comment"
 // import Tags from './tags';
 
 // import Chirp from './chirp';
@@ -18,7 +18,7 @@
 //     dislikeNum: number;
 //     share: string;
 //     comments: typeof Comments; // need to make a schema for this
-//     // location: typeof educational_profile | typeof personal_profile | typeof professional_profile;
+//     location: typeof educational_profile | typeof personal_profile | typeof professional_profile;
 //     postdetail?: string
 //     media: typeof Chirp | typeof Clip | typeof Pixel | typeof Snip
 //     censorable: boolean;
@@ -32,7 +32,7 @@
 //     dislikeNum: { type: Number, required: true },
 //     share: { type: String, required: true },
 //     comments: [{type: Schema.Types.ObjectId, ref: "Comments", required: false}],
-//     // location: {type: Schema.Types.ObjectId, enum: ["Educational", "Personal", "Professional"], required: true},
+//     location: {type: Schema.Types.ObjectId, enum: ["Educational", "Personal", "Professional"], required: true},
 //     postdetail: { type: String },
 //     media: [{type: Schema.Types.ObjectId, enum: ["Chirp", "Clip", "Pixel", "Snip"], required: false}],
 //     censorable: {type: Boolean, required: true},

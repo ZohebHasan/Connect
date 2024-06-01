@@ -1,6 +1,6 @@
 // import { Schema, model} from 'mongoose';
 // import User from '../userModel';
-// import Post from '../../models/posts/posts'
+// import Post from './post'
 
 // interface Comments {
 //     ownedBy: typeof User;

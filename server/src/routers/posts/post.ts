@@ -1,5 +1,8 @@
 import express from 'express';
+import { Post } from '../../controllers/posts/postController';
+
 const router = express.Router();
-import { createPost } from '../../controllers/posts/post';
-router.post('/', createPost);
+
+router.post('/:media_type', Post);
+
 export default router;

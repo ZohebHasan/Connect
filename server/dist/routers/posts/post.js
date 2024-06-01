@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const postController_1 = require("../../controllers/posts/postController");
 const router = express_1.default.Router();
-const post_1 = require("../../controllers/posts/post");
-router.post('/', post_1.createPost);
+router.post('/:media_type', postController_1.Post);
 exports.default = router;
