@@ -12,9 +12,9 @@ interface Comment {
 }
 // this is the comment schema
 const commentSchema = new Schema<Comment>({
-    dateCommented: { type: Date, required: true },
+    dateCommented: { type: Date, required: false },
     ownedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-    body: { type: String, required: true }
+    body: { type: String, required: false}
 });
 
 // this is the comment model
