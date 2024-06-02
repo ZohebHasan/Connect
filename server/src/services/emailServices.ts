@@ -77,7 +77,10 @@ export const sendVerificationEmail = async (to: string, verificationToken: strin
     const emailContent = emailTemplate.replace('{{verification_code}}', verificationToken);
     const msg = {
         to,
-        from: 'no-reply@connect-platforms.com',
+        from: {
+          email: 'no_reply@mail.connect-platforms.com',
+          name: 'Connect'
+        },
         subject: 'Email Verification',
         html: emailContent,
     };
@@ -91,7 +94,7 @@ export const sendVerificationEmail = async (to: string, verificationToken: strin
     }
 };
 
-export const generateVerificationToken = (length: number = 6): string => {
+export const generateEmailVerificationToken = (length: number = 6): string => {
     const characters = '0123456789';
     let token = '';
     for (let i = 0; i < length; i++) {

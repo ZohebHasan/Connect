@@ -43,6 +43,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const [token, setToken] = useState<string | null>(null);
     const [verificationEmail, setVerificationEmail] = useState<string>(''); // Add state for email
+    const [verificationPhone, setVerificationPhone] = useState<string>('');
     const [verificationCode, setVerificationCodeState] = useState<string>('');
     const { setUser } = useAuth();
 
@@ -87,9 +88,15 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handleResendCode = async () => {
         if (resendTimer > 0) return; // Prevent resending if timer is not finished
+        setWrongCodeError(false); 
 
         try {
-            await axios.post('http://localhost:8000/verification', { email: verificationEmail });
+            console.log(verificationEmail, verificationPhone);
+            if (validateEmail(userId)) {
+                await axios.post('http://localhost:8000/verification/send_email', { email: verificationEmail });
+            } else if (validatePhone(userId)) {
+                await axios.post('http://localhost:8000/verification/send_sms', { phone: verificationPhone });
+            }
             setResendTimer(20); // Reset the timer to 20 seconds
         } catch (error) {
             console.error('Resend code error:', error);
@@ -319,10 +326,17 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             await saveToIndexedDB('signedPreKey', keys.signedPreKey);
             await saveToIndexedDB('senderKey', keys.senderKey);
 
-
-            const email = payload.email;
-            setVerificationEmail(email);
-            await axios.post('http://localhost:8000/verification', { email });
+            if (validateEmail(userId)) {
+                const email = payload.email;
+                setVerificationEmail(email);
+                console.log(email, verificationEmail);
+                await axios.post('http://localhost:8000/verification/send_email', { email });
+            } else if (validatePhone(userId)) {
+                const phone = `+91${payload.phoneNumber}`;
+                setVerificationPhone(phone);
+                console.log(phone, verificationPhone);
+                await axios.post('http://localhost:8000/verification/send_sms', { phone });
+            }
 
             navigate('./idVerification');
         } catch (error) {
@@ -334,8 +348,14 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const handleVerification = async () => {
         try {
-            const response = await axios.post('http://localhost:8000/verification/verify_code', { email: verificationEmail, code: verificationCode }); // New API call
-            console.log('Code verified:', response.data);
+            let response;
+            if (validateEmail(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_email', { email: verificationEmail, code: verificationCode });
+                console.log('Code verified:', response.data);
+            } else if (validatePhone(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_sms', { phone: verificationPhone, code: verificationCode });
+                console.log('Code verified:', response.data);
+            }
             if (dateOfBirth !== null) {
                 const age = new Date().getFullYear() - dateOfBirth.getFullYear();
                 if (age < 18) {

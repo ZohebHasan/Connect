@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
 import Copyright from '../components/ConnectUI_web/common/copyright/Copyright';
+import ImageAnalysis from '../contentRec/imageAnalysis';
 
 import Intro from '../pages/intro';
 import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
@@ -61,9 +62,12 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
-                {backgroundComponent}
+
+                {/* {backgroundComponent} */}
+                
                 <RoutesWrapper />
             </PageContainer>
+            {/* <ImageAnalysis /> */}
             <Copyright />
         </>
     );
@@ -75,7 +79,7 @@ function RoutesWrapper() {
             {/* this two below are for testing */}
             {/* <Route path="/auth/google/callback" element={<GoogleCallBack />} /> 
             <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} /> */}
-
+            
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}

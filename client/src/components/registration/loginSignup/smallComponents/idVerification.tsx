@@ -45,6 +45,8 @@ const DisplayWrongCodeError = () => {
 
     if (wrongCodeError) {
         errorMessage = <ErrorMessage>Please enter the correct code.</ErrorMessage>;
+    } else{
+        errorMessage = '';
     }
  
     return (
@@ -87,7 +89,7 @@ const Verification: React.FC = () => {
          
                 <BodyTextContainer>
                     <Text size={"1rem"} variant={"transparent"} fontWeight={"200"}>
-                        We just sent a code to {userId}
+                        We just sent a code to {userId}.
                     </Text>
                 </BodyTextContainer>    
               
