@@ -17,6 +17,7 @@ export const Post = async (req: Request, res: Response) => {
     const user = await User.findById(ownedBy);
 
     let media;
+    let content_type;
     if(!user){
         res.status(404).json("User does not exist")
     }
@@ -34,60 +35,64 @@ export const Post = async (req: Request, res: Response) => {
                     caption,
                     dateEdit: null
                 });
+                content_type = 1;
                 await media.save();
             } catch(err){
                 res.status(400).json(err)
             }
             break;
-        // case "chirp":
-        //     try{
-        //         const body = media_body.body;
-        //         if(!body){
-        //             res.status(400).json("Text is required");
-        //         }
-        //         media = new ChirpModel({
-        //             body,
-        //             dateEdit: null
-        //         });
-        //         await media.save();
-        //     } catch(err){
-        //         res.status(400).json(err)
-        //     }
-        //     break;
-        // case "snip":
-        //     try{
-        //         const file = media_body.file;
-        //         const caption = media_body.caption;
-        //         if(!file){
-        //             res.status(400).json("Media file is required");
-        //         }
-        //         media = new SnipModel({
-        //             file,
-        //             caption,
-        //             dateEdit: null
-        //         });
-        //         await media.save();
-        //     } catch(err){
-        //         res.status(400).json(err)
-        //     }
-        //     break;
-        // case "clip":
-        //     try{
-        //         const file = media_body.file;
-        //         const caption = media_body.caption;
-        //         if(!file){
-        //             res.status(400).json("Media file is required");
-        //         }
-        //         media = new ClipModel({
-        //             file,
-        //             caption,
-        //             dateEdit: null
-        //         });
-        //         await media.save();
-        //     } catch(err){
-        //         res.status(400).json(err)
-        //     }
-        //     break;
+        case "chirp":
+            try{
+                const body = media_body.body;
+                if(!body){
+                    res.status(400).json("Text is required");
+                }
+                media = new ChirpModel({
+                    body,
+                    dateEdit: null
+                });
+                content_type = 2;
+                await media.save();
+            } catch(err){
+                res.status(400).json(err)
+            }
+            break;
+        case "snip":
+            try{
+                const file = media_body.file;
+                const caption = media_body.caption;
+                if(!file){
+                    res.status(400).json("Media file is required");
+                }
+                media = new SnipModel({
+                    file,
+                    caption,
+                    dateEdit: null
+                });
+                content_type = 3;
+                await media.save();
+            } catch(err){
+                res.status(400).json(err)
+            }
+            break;
+        case "clip":
+            try{
+                const file = media_body.file;
+                const caption = media_body.caption;
+                if(!file){
+                    res.status(400).json("Media file is required");
+                }
+                media = new ClipModel({
+                    file,
+                    caption,
+                    dateEdit: null
+                });
+                content_type = 4;
+                await media.save();
+            } catch(err){
+                res.status(400).json(err)
+            }
+            break;
         default:
             res.send(400).json("Media file is not valid");
             break;
@@ -95,8 +100,9 @@ export const Post = async (req: Request, res: Response) => {
 
     try{
         const post = new PostModel({
-            ownedBy: user,
+            ownedBy: user?._id,
             location,
+            content_type,
             content: media?._id,
         })
         await post.save();

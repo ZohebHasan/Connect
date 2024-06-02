@@ -6,9 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const chirpSchema = new mongoose_2.Schema({
-    body: { type: String, required: false },
-    dateCreated: { type: Date, required: false },
-    maxLength: { type: Number, required: false }
+    body: { type: String, required: false, maxlength: 241 },
+    dateCreated: { type: Date, required: false, default: Date.now() },
 });
 const ChirpModel = mongoose_1.default.model('Chirp', chirpSchema);
 exports.default = ChirpModel;

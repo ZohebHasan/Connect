@@ -15,12 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Post = void 0;
 const userModel_1 = __importDefault(require("../../models/userModel"));
 const post_model_1 = __importDefault(require("../../models/posts/post_model"));
+const clip_model_1 = __importDefault(require("../../models/posts/media/clip_model"));
+const snip_model_1 = __importDefault(require("../../models/posts/media/snip_model"));
 const pixel_model_1 = __importDefault(require("../../models/posts/media/pixel_model"));
+const chirp_model_1 = __importDefault(require("../../models/posts/media/chirp_model"));
 const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { ownedBy, location, media_body } = req.body;
     const { media_type } = req.params;
     const user = yield userModel_1.default.findById(ownedBy);
     let media;
+    let content_type;
     if (!user) {
         res.status(404).json("User does not exist");
     }
@@ -37,6 +41,62 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     caption,
                     dateEdit: null
                 });
+                content_type = 1;
+                yield media.save();
+            }
+            catch (err) {
+                res.status(400).json(err);
+            }
+            break;
+        case "chirp":
+            try {
+                const body = media_body.body;
+                if (!body) {
+                    res.status(400).json("Text is required");
+                }
+                media = new chirp_model_1.default({
+                    body,
+                    dateEdit: null
+                });
+                content_type = 2;
+                yield media.save();
+            }
+            catch (err) {
+                res.status(400).json(err);
+            }
+            break;
+        case "snip":
+            try {
+                const file = media_body.file;
+                const caption = media_body.caption;
+                if (!file) {
+                    res.status(400).json("Media file is required");
+                }
+                media = new snip_model_1.default({
+                    file,
+                    caption,
+                    dateEdit: null
+                });
+                content_type = 3;
+                yield media.save();
+            }
+            catch (err) {
+                res.status(400).json(err);
+            }
+            break;
+        case "clip":
+            try {
+                const file = media_body.file;
+                const caption = media_body.caption;
+                if (!file) {
+                    res.status(400).json("Media file is required");
+                }
+                media = new clip_model_1.default({
+                    file,
+                    caption,
+                    dateEdit: null
+                });
+                content_type = 4;
                 yield media.save();
             }
             catch (err) {
@@ -49,8 +109,9 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const post = new post_model_1.default({
-            ownedBy: user,
+            ownedBy: user === null || user === void 0 ? void 0 : user._id,
             location,
+            content_type,
             content: media === null || media === void 0 ? void 0 : media._id,
         });
         yield post.save();
