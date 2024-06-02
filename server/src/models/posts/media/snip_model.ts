@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Model, Schema } from "mongoose";
 
 interface Snip{
-    file: string [];
+    file: string;
     dateEdit: Date;
     duration: number;
     caption: string;
@@ -10,7 +10,7 @@ interface Snip{
 }
 
 const snipSchema = new Schema<Snip>({
-    file: { type: [String], required: false},
+    file: { type: String, required: false},
     dateEdit: { type: Date, required: false },
     duration: { type: Number, required: false },
     caption: { type: String, required: false },

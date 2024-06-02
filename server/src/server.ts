@@ -18,6 +18,7 @@ import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
 
 import postRouter from './routers/posts/post'
+import commentRouter from './routers/posts/comment'
 dotenv.config();
 
 const app = express();
@@ -48,6 +49,7 @@ app.use('/personal_profile', personalProfileRouter); // for testing purposes : a
 app.use('/educational_profile', educationalProfileRouter); // for testing purposes : removed the authenticate middleware
 app.use('/professional_profile', professionalProfileRouter); // for testing purposes : removed the authenticate middleware
 app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 
 // Refresh token route
 app.use('/refresh-token', refreshRouter);

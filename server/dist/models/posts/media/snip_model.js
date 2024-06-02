@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const snipSchema = new mongoose_2.Schema({
-    file: { type: [String], required: false },
+    file: { type: String, required: false },
     dateEdit: { type: Date, required: false },
     duration: { type: Number, required: false },
     caption: { type: String, required: false },

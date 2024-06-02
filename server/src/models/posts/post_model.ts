@@ -1,6 +1,6 @@
 // this is the post model
 import mongoose from 'mongoose';
-import { Model, Schema } from 'mongoose';
+import { Model, Schema, Document } from 'mongoose';
 import User from '../userModel';
 
 
@@ -17,9 +17,16 @@ enum location{
     'personalProfile' = 3,
 }
 
+enum content_type{
+    'pixel' = 1,
+    'chirp' = 2,
+    'snip' = 3,
+    'clip' = 4
+}
 
 
-interface Post {
+
+interface Post{
     dateCreated: Date;
     ownedBy: typeof User; // User
     content: typeof ClipModel | typeof PixelsModel | typeof SnipModel | typeof ChirpModel; // Media
@@ -27,6 +34,7 @@ interface Post {
 
     comments: typeof CommentModel[]; // Comments
     location: location.educationalProfile | location.personalProfile | location.professionalProfile; // enum of profile location
+    content_type: content_type.pixel | content_type.chirp | content_type.snip | content_type.clip ; // enum of content_type
     likes: number;
     dislikes: number;
     views: number;
@@ -41,9 +49,10 @@ const postSchema = new Schema<Post>({
 
     dateCreated: { type: Date, required: false, default: Date.now },
     ownedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-    content: { type: String, required: false },
+    content: { type: Schema.Types.ObjectId, required: false },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     location: { type: Number, required: false },
+    content_type: { type: Number, required: false },
     likes: { type: Number, required: false, default: 0 },
     dislikes: { type: Number, required: false, default: 0},
     views: { type: Number, required: false, default: 0},
