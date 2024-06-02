@@ -16,6 +16,7 @@ interface Comment{
 }
 // this is the comment schema
 const commentSchema = new Schema<Comment>({
+
     dateCommented: { type: Date, required: true, default: Date.now() },
     ownedBy: { type: Schema.Types.ObjectId, ref: 'User' },
     parent: {type: Schema.Types.ObjectId, required: false},
