@@ -68,7 +68,6 @@ interface GreetingMessageProps {
 const GreetingMessage = styled.h1<GreetingMessageProps>`
   flex: 0 0 auto;
   align-self: flex-start;
-  height: 100px;
   font-size: 3rem;
   
   @media (max-width: 1280px) { 

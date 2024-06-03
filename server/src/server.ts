@@ -18,6 +18,8 @@ import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
 import verificationRouter from './routers/verification'
 
+import postRouter from './routers/posts/post'
+import commentRouter from './routers/posts/comment'
 dotenv.config();
 
 const app = express();
@@ -45,10 +47,11 @@ app.use('/signup', signupRouter);
 app.use('/verification', verificationRouter)
 
 // Protect routes with JWT middleware
-app.use('/personal_profile',authenticate, personalProfileRouter); // for testing purposes : added back the authenticate middleware
-app.use('/educational_profile',authenticate, educationalProfileRouter); // for testing purposes : removed the authenticate middleware
-app.use('/professional_profile',authenticate, professionalProfileRouter); // for testing purposes : removed the authenticate middleware
-
+app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
+app.use('/educational_profile', educationalProfileRouter); // for testing purposes : removed the authenticate middleware
+app.use('/professional_profile', professionalProfileRouter); // for testing purposes : removed the authenticate middleware
+app.use('/post', postRouter);
+app.use('/comment', commentRouter);
 
 // Refresh token route
 app.use('/refresh-token', refreshRouter);

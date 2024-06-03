@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-
 import styled from 'styled-components';
-import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
+
 
 import LeftBarContainer from '../../ConnectUI_web/templetes/bodyTemplete';
-import Logo from '../../ConnectUI_web/common/logo/logo';
-import LeftBarButtons from '../elements/leftBarButtons';
-import Option from '../elements/optionButton';
-import UserProfile from '../elements/userProfile';
+import ConnectLogo from '../../ConnectUI_web/common/logo/logo';
 
-import OptionBar from "../elements/optionBar"
-import ProfileBar from "../elements/profileBar"
+import LeftBarButtons from '../elements/leftBar/leftBarButtons';
+import Option from '../elements/leftBar/optionButton';
+import UserProfile from '../elements/leftBar/userProfile';
 
-import CreateButton from '../elements/createButton';
-import { ProfileProvider } from '../../../contexts/feed/profiles/profilesContext';
+import OptionBar from "../elements/leftBar/optionBar"
+import ProfileBar from "../elements/leftBar/profileBar"
+
+import CreateButton from '../elements/leftBar/createButton';
 
 const LeftBar: React.FC = () => {
 
-    const { isDarkMode } = useDarkMode();
+
     const [activeButtons, setActiveButtons] = useState({
         home: false,
         search: false,
@@ -51,7 +50,7 @@ const LeftBar: React.FC = () => {
                     <ProfileBar />
                     <Container>
                         <LogoContainer>
-                            <Logo />
+                            <ConnectLogo />
                         </LogoContainer>
 
                         <ButtonsContainer>
@@ -85,6 +84,8 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
+
     border-right: 1px solid rgba(235, 57, 137, 0.300);
 `
 
