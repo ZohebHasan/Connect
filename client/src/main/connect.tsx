@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
 import Copyright from '../components/ConnectUI_web/common/copyright/Copyright';
+import ImageAnalysis from '../contentRec/imageAnalysis';
 
 import Intro from '../pages/intro';
 import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
@@ -20,7 +21,8 @@ import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 import UserCredentials from "../pages/loginSignup/userCredentials";
 import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
-
+// import GoogleCallBack from '../components/registration/loginSignup/elements/GoogleCallBack';
+// import MicrosoftCallback from '../components/registration/loginSignup/elements/MicrosoftCallBack';
 
 import DemoSignup from "../components/temp";
 import DemoLogin from "../components/temp2";
@@ -35,9 +37,7 @@ import TestPage from "./kamrul"
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-
             <ConnectInner />
-
         </Router>
     );
 }
@@ -62,9 +62,12 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
-                {backgroundComponent}
+
+                {/* {backgroundComponent} */}
+                
                 <RoutesWrapper />
             </PageContainer>
+            {/* <ImageAnalysis /> */}
             <Copyright />
         </>
     );
@@ -73,14 +76,15 @@ function ConnectInner() {
 function RoutesWrapper() {
     return (
         <Routes>
-
-
-
+            {/* this two below are for testing */}
+            {/* <Route path="/auth/google/callback" element={<GoogleCallBack />} /> 
+            <Route path="/auth/microsoft/callback" element={<MicrosoftCallback />} /> */}
+            
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             {/* <Route path="/selectLanguage" element={<TestPage/>} /> */}
             <Route path="/login/signup" element={<SignupPage />} />
-
+            
             <Route
                 path="/login/*"
                 element={
@@ -92,7 +96,7 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-
+            
             <Route
                 path="/signup/*"
                 element={
@@ -103,8 +107,8 @@ function RoutesWrapper() {
                             <Route path="/idVerification" element={<VerificationSignup />} />
                             <Route path="/ageVerification" element={<DateOfBirth />} />
                             {/* <Route path="/agreement" element={<AgreementPage />} /> */}
-                            <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
-                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
+                            <Route path="/features" element={<FeaturesPage />} />
+                            <Route path="/profiles" element={<ProfilesPage />} />
                         </Routes>
                     </SignupProvider>
                 }
@@ -123,6 +127,8 @@ function RoutesWrapper() {
                     </ProfileProvider>
                 }
             />
+            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
+            <Route path="/home" element={<Feed />} />
         </Routes>
     );
 }
