@@ -17,13 +17,14 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [password, setPassword] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
 
-    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false });
+    const [errors, setErrors] = useState({ fullNameError: false, usernameError: false, emailError: false, phoneError: false, passwordError: false});
 
     const [fullNameEmptyError, setFullNameEmptyError] = useState(false);
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
     const [userNameEmptyError, setUserNameEmptyError] = useState(false);
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
     const [sessionResetError, setSessionResetError] = useState(false);
+    const [wrongCodeError, setWrongCodeError] = useState(false);
 
     const [dateOfBirthEmptyError, setDateOfBirthEmptyError] = useState(false);
     const [underThirteenError, setUnderThirteenError] = useState(false);
@@ -38,9 +39,17 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const [contentMonetization, setContentMonetization] = useState(true);
     const [censor, setCensor] = useState(false);
     const [restricted, setRestricted] = useState(false);
+    const [resendTimer, setResendTimer] = useState(20);
 
     const [token, setToken] = useState<string | null>(null);
+    const [verificationEmail, setVerificationEmail] = useState<string>(''); // Add state for email
+    const [verificationPhone, setVerificationPhone] = useState<string>('');
+    const [verificationCode, setVerificationCodeState] = useState<string>('');
     const { setUser } = useAuth();
+
+    const setVerificationCode = (code: string) => {
+        setVerificationCodeState(code); // Set the code in the state
+    };
 
     const setCookie = (name: string, value: string, days: number) => {
         Cookies.set(name, value, { expires: days });
@@ -63,6 +72,36 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setCensor(storedCensor !== undefined ? storedCensor === 'true' : false);
         setRestricted(storedRestricted !== undefined ? storedRestricted === 'true' : false);
     }, []);
+
+
+    const resetResendTimer = () => {
+        setResendTimer(20);
+    };
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (resendTimer > 0) {
+            timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+        }
+        return () => clearTimeout(timer);
+    }, [resendTimer]);
+
+    const handleResendCode = async () => {
+        if (resendTimer > 0) return; // Prevent resending if timer is not finished
+        setWrongCodeError(false); 
+
+        try {
+            console.log(verificationEmail, verificationPhone);
+            if (validateEmail(userId)) {
+                await axios.post('http://localhost:8000/verification/send_email', { email: verificationEmail });
+            } else if (validatePhone(userId)) {
+                await axios.post('http://localhost:8000/verification/send_sms', { phone: verificationPhone });
+            }
+            setResendTimer(20); // Reset the timer to 20 seconds
+        } catch (error) {
+            console.error('Resend code error:', error);
+        }
+    };
 
     // Features change handlers
     const handleDataProtectionChange = () => {
@@ -287,6 +326,18 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             await saveToIndexedDB('signedPreKey', keys.signedPreKey);
             await saveToIndexedDB('senderKey', keys.senderKey);
 
+            if (validateEmail(userId)) {
+                const email = payload.email;
+                setVerificationEmail(email);
+                console.log(email, verificationEmail);
+                await axios.post('http://localhost:8000/verification/send_email', { email });
+            } else if (validatePhone(userId)) {
+                const phone = `+91${payload.phoneNumber}`;
+                setVerificationPhone(phone);
+                console.log(phone, verificationPhone);
+                await axios.post('http://localhost:8000/verification/send_sms', { phone });
+            }
+
             navigate('./idVerification');
         } catch (error) {
             console.error('Signup error:', error);
@@ -296,13 +347,28 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
 
     const handleVerification = async () => {
-        if (dateOfBirth !== null) {
-            const age = new Date().getFullYear() - dateOfBirth.getFullYear();
-
-            if (age < 18) {
-                navigate("./profiles");
-            } else {
-                navigate("./features");
+        try {
+            let response;
+            if (validateEmail(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_email', { email: verificationEmail, code: verificationCode });
+                console.log('Code verified:', response.data);
+            } else if (validatePhone(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_sms', { phone: verificationPhone, code: verificationCode });
+                console.log('Code verified:', response.data);
+            }
+            if (dateOfBirth !== null) {
+                const age = new Date().getFullYear() - dateOfBirth.getFullYear();
+                if (age < 18) {
+                    navigate("./profiles");
+                } else {
+                    navigate("./features");
+                }
+            }
+            
+        }  catch (error: any) {
+            console.error('Code verification error:', error);
+            if(error.response.status === 400){
+                setWrongCodeError(true);
             }
         }
     };
@@ -377,10 +443,16 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             accountExistsError,
             underThirteenError,
             dateOfBirthEmptyError,
+            wrongCodeError,
 
             handleSubmit,
             handleAgeNavigation,
             handleVerification,
+            verificationCode,
+            setVerificationCode, 
+            handleResendCode,
+            resendTimer,
+            resetResendTimer,
             loading,
             token, // Add token here
             handleFeaturesSubmit
