@@ -33,7 +33,7 @@ const generateUsername = (fullName) => __awaiter(void 0, void 0, void 0, functio
     return uniqueUsername;
 });
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { fullName, email, phoneNumber, password, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth, keys } = req.body;
+    const { fullName, email, phoneNumber, password, verified, dataProtection, profileEncryption, contentMonetization, censor, restricted, age, dateOfBirth, keys } = req.body;
     if (!email && !phoneNumber) {
         return res.status(400).json({ message: 'Please provide either an email or a phone number.' });
     }
@@ -49,6 +49,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         fullName,
         password: hashedPassword,
         username,
+        verified,
         dataProtection,
         profileEncryption,
         contentMonetization,

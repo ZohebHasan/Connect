@@ -127,8 +127,8 @@ function RoutesWrapper() {
                     </ProfileProvider>
                 }
             />
-            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
-            <Route path="/home" element={<Feed />} />
+            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} />
+            <Route path="/home" element={<Feed />} /> */}
         </Routes>
     );
 }

@@ -16,6 +16,7 @@ const userSchema = new mongoose_1.Schema({
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
+    verified: { type: Boolean, default: false },
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, unique: true, sparse: true },
     dataProtection: { type: Boolean, default: true },
