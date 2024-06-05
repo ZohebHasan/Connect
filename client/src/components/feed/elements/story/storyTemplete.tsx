@@ -10,7 +10,7 @@ import StoryOptionDark from '../../assets/storyOptionsDark.png';
 import SoundIcon from '../../assets/soundIcon.png';
 import MuteIcon from '../../assets/muteIcon.png';
 
-import NotLikedDark from '../../assets/notLikedDark.png';
+import NotLikedDark from '../../assets/NotLikedDark.png';
 import Liked from '../../assets/likedIcon.png';
 
 import ShareIcon from '../../assets/share.png';

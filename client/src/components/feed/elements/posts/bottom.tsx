@@ -6,7 +6,7 @@ import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../ConnectUI_web/common/texts/static';
 
 
-import NotLikedDark from '../../assets/notLikedDark.png';
+import NotLikedDark from '../../assets/NotLikedDark.png';
 import NotLikedLight from '../../assets/notLikedLight.png';
 
 import LikedIcon from '../../assets/likedIcon.png';
