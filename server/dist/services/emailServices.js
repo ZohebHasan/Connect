@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateVerificationToken = exports.sendVerificationEmail = void 0;
+exports.generateEmailVerificationToken = exports.sendVerificationEmail = void 0;
 const mail_1 = __importDefault(require("@sendgrid/mail"));
 const crypto_1 = __importDefault(require("crypto"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -89,7 +89,10 @@ const sendVerificationEmail = (to, verificationToken) => __awaiter(void 0, void 
     const emailContent = emailTemplate.replace('{{verification_code}}', verificationToken);
     const msg = {
         to,
-        from: 'no-reply@connect-platforms.com',
+        from: {
+            email: 'no_reply@mail.connect-platforms.com',
+            name: 'Connect'
+        },
         subject: 'Email Verification',
         html: emailContent,
     };
@@ -103,7 +106,7 @@ const sendVerificationEmail = (to, verificationToken) => __awaiter(void 0, void 
     }
 });
 exports.sendVerificationEmail = sendVerificationEmail;
-const generateVerificationToken = (length = 6) => {
+const generateEmailVerificationToken = (length = 6) => {
     const characters = '0123456789';
     let token = '';
     for (let i = 0; i < length; i++) {
@@ -112,4 +115,4 @@ const generateVerificationToken = (length = 6) => {
     }
     return token;
 };
-exports.generateVerificationToken = generateVerificationToken;
+exports.generateEmailVerificationToken = generateEmailVerificationToken;

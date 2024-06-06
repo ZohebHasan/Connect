@@ -63,7 +63,7 @@ function ConnectInner() {
         <>
             <PageContainer>
 
-                {/* {backgroundComponent} */}
+                {backgroundComponent}
                 
                 <RoutesWrapper />
             </PageContainer>
@@ -127,8 +127,8 @@ function RoutesWrapper() {
                     </ProfileProvider>
                 }
             />
-            <Route path="/userInfoEmail" element={<UserInfoEmail />} />
-            <Route path="/home" element={<Feed />} />
+            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} />
+            <Route path="/home" element={<Feed />} /> */}
         </Routes>
     );
 }
