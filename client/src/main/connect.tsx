@@ -63,7 +63,7 @@ function ConnectInner() {
         <>
             <PageContainer>
 
-                {/* {backgroundComponent} */}
+                {backgroundComponent}
                 
                 <RoutesWrapper />
             </PageContainer>
