@@ -11,7 +11,7 @@ const Top: React.FC = () => {
     return (
       <TopContainer>
         <GreetingDropDownTextContainer>
-          <Greetings /> 
+          <Greetings/> 
           {/* <DropDownTextContainer> */}
             <DirectionText/> 
           {/* </DropDownTextContainer>            */}
