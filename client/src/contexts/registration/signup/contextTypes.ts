@@ -43,12 +43,18 @@ export interface AuthContextType {
     accountExistsError: boolean;
     dateOfBirthEmptyError: boolean;
     sessionResetError: boolean;
+    wrongCodeError: boolean;
 
     handleSubmit: () => void;
     handleAgeNavigation: () => void;
     handleVerification: () => void;
     loading: boolean;
     handleFeaturesSubmit: () => void;
+    setVerificationCode: (code: string) => void; 
+    verificationCode: string;
+    handleResendCode: () => void; // New method for resending code
+    resendTimer: number; // New state for resend timer
+    resetResendTimer: () => void;
 
     token: string | null;
 }

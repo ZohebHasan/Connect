@@ -16,6 +16,7 @@ import authRouter from './routers/authRouter';
 import featuresSignupRouter from './routers/featuresSignup'; // Import the featuresSignup router
 import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
+import verificationRouter from './routers/verification'
 
 import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
@@ -43,6 +44,7 @@ app.listen(PORT, () => {
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
+app.use('/verification', verificationRouter)
 
 // Protect routes with JWT middleware
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware

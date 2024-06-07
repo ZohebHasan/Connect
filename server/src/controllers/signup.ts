@@ -28,6 +28,7 @@ interface UserData {
     fullName: string;
     password: string;
     username: string;
+    verified: boolean;
     dataProtection: boolean; 
     profileEncryption: boolean;
     contentMonetization: boolean;
@@ -59,6 +60,7 @@ export const signup = async (req: Request, res: Response) => {
         email,
         phoneNumber,
         password,
+        verified,
         dataProtection,
         profileEncryption,
         contentMonetization,
@@ -91,6 +93,7 @@ export const signup = async (req: Request, res: Response) => {
         fullName,
         password: hashedPassword,
         username,
+        verified,
         dataProtection,
         profileEncryption,
         contentMonetization,
