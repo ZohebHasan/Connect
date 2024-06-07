@@ -69,6 +69,7 @@ const GreetingMessage = styled.h1<GreetingMessageProps>`
   flex: 0 0 auto;
   align-self: flex-start;
   font-size: 3rem;
+  height: 4rem;
   
   @media (max-width: 1280px) { 
     font-size: 2rem; 

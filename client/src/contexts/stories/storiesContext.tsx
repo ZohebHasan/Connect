@@ -1,13 +1,13 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
-import Zoheb from "../../components/feed/dummies/personal.jpeg";
-import Fahim from "../../components/feed/dummies/Fahim.jpg";
-import Adnan from "../../components/feed/dummies/Adnan.jpeg";
-import Faysal from "../../components/feed/dummies/Faysal.jpg";
-import Faisal from "../../components/feed/dummies/Faisal.jpeg";
-import Priyanka from "../../components/feed/dummies/Priyanka.jpeg";
-import Yodahe from "../../components/feed/dummies/Yodahe.jpg";
-import Puja from "../../components/feed/dummies/Puja.jpeg";
+import Zoheb from "../../components/main/dummies/personal.jpeg";
+import Fahim from "../../components/main/dummies/Fahim.jpg";
+import Adnan from "../../components/main/dummies/Adnan.jpeg";
+import Faysal from "../../components/main/dummies/Faysal.jpg";
+import Faisal from "../../components/main/dummies/Faisal.jpeg";
+import Priyanka from "../../components/main/dummies/Priyanka.jpeg";
+import Yodahe from "../../components/main/dummies/Yodahe.jpg";
+import Puja from "../../components/main/dummies/Puja.jpeg";
 
 interface User {
   id: number;
