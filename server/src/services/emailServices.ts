@@ -78,7 +78,7 @@ export const sendVerificationEmail = async (to: string, verificationToken: strin
     const msg = {
         to,
         from: {
-          email: 'no_reply@mail.connect-platforms.com',
+          email: 'no-reply@mail.connect-platforms.com',
           name: 'Connect'
         },
         subject: 'Email Verification',

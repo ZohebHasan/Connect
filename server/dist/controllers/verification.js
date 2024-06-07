@@ -8,46 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyPhoneCodeController = exports.sendVerificationSMSController = exports.verifyEmailCodeController = exports.sendVerificationEmailController = void 0;
 const emailServices_1 = require("../services/emailServices");
 const phoneServices_1 = require("../services/phoneServices");
-const verificationCodes = new Map();
-const sendVerificationEmailController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    if (!email) {
-        return res.status(400).send('Email is required');
-    }
-    const verificationToken = (0, emailServices_1.generateEmailVerificationToken)();
-    const timestamp = Date.now();
-    verificationCodes.set(email, { code: verificationToken, timestamp });
-    try {
-        yield (0, emailServices_1.sendVerificationEmail)(email, verificationToken);
-        res.status(200).send({ message: 'Verification email sent', token: verificationToken });
-    }
-    catch (error) {
-        res.status(500).send({ error: 'Failed to send verification email' });
-    }
-});
-exports.sendVerificationEmailController = sendVerificationEmailController;
-const verifyEmailCodeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, code } = req.body;
-    console.log(email, code);
-    const data = verificationCodes.get(email);
-    if (!data) {
-        return res.status(400).send({ message: 'Invalid code' });
-    }
-    const { code: storedCode, timestamp } = data;
-    console.log(storedCode, code);
-    const now = Date.now();
-    if (storedCode === code && now - timestamp <= 10 * 60 * 1000) {
-        verificationCodes.delete(email);
-        res.status(200).send({ message: 'Code verified successfully' });
-    }
-    else {
-        res.status(400).send({ message: 'Invalid code' });
-    }
-});
+const userModel_1 = __importDefault(require("../models/userModel"));
+
 exports.verifyEmailCodeController = verifyEmailCodeController;
 const sendVerificationSMSController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { phone } = req.body;
@@ -75,4 +44,3 @@ const verifyPhoneCodeController = (req, res) => __awaiter(void 0, void 0, void 0
         res.status(400).send({ message: 'Invalid code' });
     }
 });
-exports.verifyPhoneCodeController = verifyPhoneCodeController;
