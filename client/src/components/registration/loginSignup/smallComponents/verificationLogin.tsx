@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import React, {useState, useEffect} from 'react';
+import styled, {keyframes} from 'styled-components';
 
 
 import { useLanguage } from '../../../../contexts/Language/Language';
@@ -38,16 +38,45 @@ const TextContainer = styled.div`
 `
 
 
+const DisplayWrongCodeError = () => {
+    const {
+        wrongCodeError,
 
+    } = useLogin();
+
+    let errorMessage = null;
+
+    if (wrongCodeError) {
+        errorMessage = <ErrorMessage>Please enter the correct code.</ErrorMessage>;
+    } else{
+        errorMessage = '';
+    }
+ 
+    return (
+        <>
+            {errorMessage}
+        </>
+    );
+}
 const Verification: React.FC = () => {
     const {isDarkMode} = useDarkMode();
     const {language} = useLanguage(); 
     const [code, setCode] = useState('');
 
-    const {userId} = useLogin();
+    const{ handleVerification, setVerificationCode, userId, handleResendCode, resendTimer, resetResendTimer} = useLogin();
+    console.log(resendTimer);
 
     const handleCodeChange = (input: string) =>{
+        setVerificationCode(input); 
         setCode(input);
+    }
+    useEffect(() => {
+        resetResendTimer(); // Reset the timer when the component mounts
+    }, []);
+
+    const handleVerify = () => {
+        
+        handleVerification(); 
     }
     
    
@@ -64,7 +93,7 @@ const Verification: React.FC = () => {
          
                 <BodyTextContainer>
                     <Text size={"15px"} variant={"transparent"} fontWeight={"200"}>
-                        A code has been sent to Some credential
+                        A code has been sent to {userId}
                     </Text>
                 </BodyTextContainer>    
               
@@ -81,19 +110,23 @@ const Verification: React.FC = () => {
                         <PhoneGIF src = {PhoneIcon}/>
                     </VerificAnim>
                 </InputAnimeContainer>
+                <ErrorMessageContainer>
+                    <DisplayWrongCodeError />
+                </ErrorMessageContainer>
 
                 <VerificBtnContainer>
-                    <Button variant = {"normal"} width= {"50%"}>
-                        Send it again(20)
+                    <Button variant = {resendTimer === 0 ? "gradient" : "normal"}  width= {"50%"} onClick={handleResendCode}>
+                        Send it again({resendTimer})
                     </Button>
                     <Button 
                         variant = {"gradient"} 
                         width= {"50%"}
-                        to = {"/home"}
+                        onClick={handleVerify}
                         >
                         Sign in
                     </Button>
                 </VerificBtnContainer>
+                
           
             </VerificationContainer>
         </>
@@ -170,4 +203,32 @@ const VerificAnim = styled.div`
 const PhoneGIF = styled.img`
   width: 40%;
   height: auto;
+`;
+
+const shakeAnimation = keyframes`
+  0% { transform: translateX(0); }
+  10% { transform: translateX(-10px); }
+  20% { transform: translateX(10px); }
+  30% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  50% { transform: translateX(-10px); }
+  60% { transform: translateX(10px); }
+  70% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  90% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+`;
+
+const ErrorMessageContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75%;
+
+`;
+
+const ErrorMessage = styled.div`
+    color: red;
+    font-size: 14px;
+    animation: ${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both; 
 `;

@@ -14,6 +14,7 @@ import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
 import Copyright from '../components/ConnectUI_web/common/copyright/Copyright';
+import ImageAnalysis from '../contentRec/imageAnalysis';
 
 import Intro from '../pages/intro';
 import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
@@ -39,10 +40,9 @@ import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-            <Routes>
-                <Route path="/" element={<Intro />} />
-                <Route path="/*" element={<ConnectInner />} />
-            </Routes>
+
+            <ConnectInner />
+
         </Router>
     );
 }
@@ -74,9 +74,12 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
+
                 {backgroundComponent}
+                
                 <RoutesWrapper />
             </PageContainer>
+            {/* <ImageAnalysis /> */}
             <Copyright />
         </>
     );
@@ -85,10 +88,13 @@ function ConnectInner() {
 function RoutesWrapper() {
     return (
         <Routes>
+
+
+
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             <Route path="/login/signup" element={<SignupPage />} />
-
+            
             <Route
                 path="/login/*"
                 element={
@@ -100,7 +106,7 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-
+            
             <Route
                 path="/signup/*"
                 element={
@@ -110,6 +116,7 @@ function RoutesWrapper() {
                             <Route path="/userInfo" element={<UserCredentials />} />
                             <Route path="/idVerification" element={<VerificationSignup />} />
                             <Route path="/ageVerification" element={<DateOfBirth />} />
+                            {/* <Route path="/agreement" element={<AgreementPage />} /> */}
                             <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
                             <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
                         </Routes>
@@ -129,6 +136,8 @@ function RoutesWrapper() {
                     </ProfileProvider>
                 }
             />
+            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} />
+            <Route path="/home" element={<Feed />} /> */}
         </Routes>
     );
 }

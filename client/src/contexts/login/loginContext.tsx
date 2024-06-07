@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getFromIndexedDB, saveToIndexedDB } from '../indexedDBhelpers';
@@ -28,9 +28,16 @@ interface AuthContextType {
     passwordEmptyError: boolean;
     userIdEmptyError: boolean;
     incorrectCredentials: boolean;
+    wrongCodeError: boolean;
     setErrors: (errors: { usernameError: boolean; emailError: boolean; phoneError: boolean; passwordError: boolean }) => void;
     handleSubmit: () => void;
     loading: boolean;
+    handleVerification: () => void;
+    setVerificationCode: (code: string) => void; 
+    verificationCode: string;
+    handleResendCode: () => void; // New method for resending code
+    resendTimer: number; // New state for resend timer
+    resetResendTimer: () => void;
 }
 
 export const LoginContext = createContext<AuthContextType | undefined>(undefined);
@@ -41,12 +48,56 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [errors, setErrors] = useState({ usernameError: false, emailError: false, phoneError: false, passwordError: false });
     const [userIdEmptyError, setUserIdEmptyError] = useState(false);
     const [passwordEmptyError, setPasswordEmptyError] = useState(false);
+    const [wrongCodeError, setWrongCodeError] = useState(false);
+
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [incorrectCredentials, setIncorrectCredentials] = useState(false);
     const { setUser, setToken } = useAuth(); 
 
+
+    const [verificationEmail, setVerificationEmail] = useState<string>(''); // Add state for email
+    const [verificationPhone, setVerificationPhone] = useState<string>('');
+    const [verificationCode, setVerificationCodeState] = useState<string>('');
+    const [resendTimer, setResendTimer] = useState(20);
+
   
+
+    const setVerificationCode = (code: string) => {
+        setVerificationCodeState(code); // Set the code in the state
+    };
+
+    const resetResendTimer = () => {
+        setResendTimer(20);
+    };
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (resendTimer > 0) {
+            timer = setTimeout(() => setResendTimer(resendTimer - 1), 1000);
+        }
+        return () => clearTimeout(timer);
+    }, [resendTimer]);
+
+    const handleResendCode = async () => {
+        if (resendTimer > 0) return; // Prevent resending if timer is not finished
+        setWrongCodeError(false); 
+
+        try {
+            console.log(verificationEmail, verificationPhone);
+            if (validateEmail(userId)) {
+                await axios.post('http://localhost:8000/verification/send_email', { email: verificationEmail });
+            } else if (validatePhone(userId)) {
+                await axios.post('http://localhost:8000/verification/send_sms', { phone: verificationPhone });
+            }
+            setResendTimer(20); // Reset the timer to 20 seconds
+        } catch (error) {
+            console.error('Resend code error:', error);
+        }
+    };
+
+
     const handleUserIdChange = (input: string) => {
         setUserId(input);
         setErrors({
@@ -72,7 +123,9 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setUserIdEmptyError(false);
         setPasswordEmptyError(false);
         setIncorrectCredentials(false);
+
     };
+
 
     // Error handling
     const handleUserIdError = () => {
@@ -100,6 +153,30 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const validateCredentials = () => {
         return (validateEmail(userId) || validatePhone(userId) || validateUsername(userId)) && validatePassword(password);
     };
+
+    const handleVerification = async () => {
+        try {
+            let response;
+            if (validateEmail(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_email', { email: verificationEmail, code: verificationCode });
+                console.log('Code verified:', response.data);
+            } else if (validatePhone(userId)) {
+                response = await axios.post('http://localhost:8000/verification/verify_sms', { phone: verificationPhone, code: verificationCode });
+                console.log('Code verified:', response.data);
+            }
+            navigate("/home");
+            
+        }  catch (error: any) {
+            console.error('Code verification error:', error);
+            if(error.response.status === 400){
+                setWrongCodeError(true);
+            }
+        }
+    };
+
+
+
+
 
     const handleSubmit = async () => {
         if (userId !== '') {
@@ -166,6 +243,18 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             //     await saveToIndexedDB('senderKey', keys.senderKey);
             // }
 
+            if (validateEmail(userId)) {
+                const email = payload.identifier;
+                setVerificationEmail(email);
+                console.log(email, verificationEmail);
+                await axios.post('http://localhost:8000/verification/send_email', { email });
+            } else if (validatePhone(userId)) {
+                const phone = `+91${payload.identifier}`;
+                setVerificationPhone(phone);
+                console.log(phone, verificationPhone);
+                await axios.post('http://localhost:8000/verification/send_sms', { phone });
+            }
+
             navigate('twoStep');
         } catch (error) {
             console.error('Login error:', error);
@@ -180,7 +269,14 @@ export const LoginProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             handleUserIdChange, handlePasswordChange,
             handleUserIdError, handlePasswordError,
             errors, setErrors, handleSubmit, loading,
-            userIdEmptyError, passwordEmptyError, incorrectCredentials
+            userIdEmptyError, passwordEmptyError, incorrectCredentials,
+            wrongCodeError,
+            handleVerification,
+            verificationCode,
+            setVerificationCode, 
+            handleResendCode,
+            resendTimer,
+            resetResendTimer,
         }}>
             {children}
         </LoginContext.Provider>
