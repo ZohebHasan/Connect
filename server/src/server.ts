@@ -17,14 +17,13 @@ import featuresSignupRouter from './routers/featuresSignup'; // Import the featu
 import googleAuthRouter from './routers/google'; // Ensure correct import
 import microsoftAuthRouter from './routers/microsoft'; // Ensure correct import
 import verificationRouter from './routers/verification'
-
 import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
-dotenv.config();
+import text_extraction_router from './routers/tags_extraction/text_extraction_router';
 
+dotenv.config();
 const app = express();
 const PORT: Number = 8000;
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
@@ -60,4 +59,7 @@ app.use('/refresh-token', refreshRouter);
 app.use('/changeFeatures', authenticate, featuresSignupRouter);
 app.use('/google', googleAuthRouter); 
 app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
+
+// use the text_extraction_router
+app.use('/text_extraction', text_extraction_router);
 
