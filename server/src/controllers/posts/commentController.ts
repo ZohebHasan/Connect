@@ -27,7 +27,7 @@ export const Comment = async (req: Request, res: Response) => {
         await comment.save();
         parentEntity.comments.push(comment._id as any);
         await parentEntity.save();
-        await parentEntity.populate("comments")
+        await parentEntity.populate("comments");
         res.status(200).json(comment)
     }catch(err){
         res.status(400).json(err)

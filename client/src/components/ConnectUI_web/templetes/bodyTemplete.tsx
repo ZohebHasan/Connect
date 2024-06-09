@@ -13,7 +13,7 @@ const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position, 
     const {isDarkMode} = useDarkMode();
 
     return (
-        <BodyContainer $flexDirection={flexDirection} $position={position} $flex={flex} isDarkMode={isDarkMode}>
+        <BodyContainer $flexDirection={flexDirection} $position={position} $flex={flex} $isDarkMode={isDarkMode}>
             {children}
         </BodyContainer>
     );
@@ -21,7 +21,7 @@ const Body: React.FC<BodyContainerProps> = ({children, flexDirection, position, 
 
 export default Body;
 
-const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute", $flex?: number, isDarkMode: boolean}>`
+const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute", $flex?: number, $isDarkMode: boolean}>`
     flex: ${({ $flex }) => $flex || 1}; 
     display: flex;
     align-items: center;
@@ -43,13 +43,13 @@ const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: 
     }
 
     ::-webkit-scrollbar-thumb {
-        background: ${({ isDarkMode }) => isDarkMode ? '#555' : '#888'}; /* Color of the scrollbar thumb */
+        background: ${({ $isDarkMode }) => $isDarkMode ? '#555' : '#888'}; /* Color of the scrollbar thumb */
         border-radius: 10px; /* Rounded corners for the thumb */
         min-height: 30px; /* Minimum height for the thumb */
         transition: background-color 0.3s ease; /* Smooth transition for color change */
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: ${({ isDarkMode }) => isDarkMode ? '#888' : '#f41c7ac9'}; /* Darker color on hover */
+        background: ${({ $isDarkMode }) => $isDarkMode ? '#888' : '#f41c7ac9'}; /* Darker color on hover */
     }
 `;

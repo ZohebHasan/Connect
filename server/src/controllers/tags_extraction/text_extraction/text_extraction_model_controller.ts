@@ -25,12 +25,39 @@ import { Request, Response } from "express";
 import { spawn } from 'child_process';
 export const extractTags = async (req: Request & { body: { text: string } }, res: Response) => {
     const { text } = req.body;
-    const python_process = spawn('python3', ['path/to/your/python_script.py', text]);
+    console.log("Text: ", text)
+    const pathToScript = "/Users/yodahemesay/Connect/client/src/models/tag_extraction/text_extraction/text_extraction_model.py" // You are going to have to write the absolute path for the python file, I looked it up online and this was the only solution that was available
+    const pathToPython = "/Users/yodahemesay/Connect/venv/bin/python3" //Since we are using venv, you are going to put in the absolute path for the python3 in venv.
+    const python_process = spawn(pathToPython, [pathToScript, text]);
 
+    // Send text data to Python script
+    python_process.stdin.write(JSON.stringify(text));
+    python_process.stdin.end();
     // listen for data from the python process
+    let dataString = '';
+
     python_process.stdout.on('data', (data) => {
-        console.log(data.toString());
-        res.status(200).json({ message: 'Tags extracted successfully', tags: data.toString() });
+        dataString += data.toString();
+        console.log("Data: ", data)
+        console.log("DataString: ", dataString)
+    });
+
+    python_process.stderr.on('data', (data) => {
+        console.error('Error from Python script:', data.toString());
+    });
+
+    python_process.on('close', (code) => {
+        if (code !== 0) {
+            console.log("Code: ", code)
+            return res.status(500).json({ message: 'Failed to extract tags' });
+        }
+        try {
+            const tags = dataString;  // Assuming Python script outputs JSON
+            console.log("Tags: ", tags)
+            res.status(200).json({ message: 'Tags extracted successfully', tags });
+        } catch (error) {
+            res.status(500).json({ message: 'Failed to parse tags' });
+        }
     });
     
 }
