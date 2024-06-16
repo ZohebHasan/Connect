@@ -10,6 +10,8 @@ import { PixelProvider } from '../contexts/personalProfile/pixelContext';
 import { ClipProvider } from '../contexts/personalProfile/clipContext';
 import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
 
+import { AboutInfoProvider } from '../contexts/professionalProfile/aboutContext';
+
 
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
@@ -158,7 +160,7 @@ function CurrentUserProfessionalRoutes() {
     return (
 
         <Routes>
-            <Route path="/" element={ <CurrentUserProfessional /> } />
+            <Route path="/" element={ <AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
             {/* <Route path="clips" element={<ClipProvider> <CurrentUserProfessional/> </ClipProvider>} />
                 <Route path="chirps" element={<ChirpProvider> <CurrentUserProfessional/> </ChirpProvider>} /> */}
         </Routes>

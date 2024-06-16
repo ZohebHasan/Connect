@@ -13,7 +13,7 @@ import OptionDark from "../../../assets/storyOptionsDark.png";
 import ProfileInfo from "../elements/profileInfo/profileInfo";
 import PostFilter from "../elements/profileFilter/profileFilter";
 
-
+import AboutInfo from '../elements/about/about';
 
 
 const ProfileBody: React.FC = () => {
@@ -23,7 +23,7 @@ const ProfileBody: React.FC = () => {
     const renderContent = () => {
         switch (location.pathname) {
             case "/currentUser/professional":
-                return <></>
+                return <AboutInfo/>
             case "/currentUser/professional/posts":
                 return <></>
             case "/currentUser/personal/savedJobs":
