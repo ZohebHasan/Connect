@@ -18,7 +18,7 @@ const LeftToRightText: React.FC<AnimatedTextProps> = ({ size, children }) => {
     useEffect(() => {
       const intervalId = setInterval(() => {
         setIndex(currentIndex => (currentIndex + 1) % childArray.length);
-      }, 100);
+      }, 200);
   
       return () => clearInterval(intervalId);
     }, [childArray.length]);

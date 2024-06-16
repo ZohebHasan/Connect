@@ -31,39 +31,40 @@ const FilterButtons: React.FC = () => {
         <FilterContainer>
             <FeedButtonContainer>
                 <StyledButton
-                $isActive = {true}
+                    $isActive={true}
                     // $isActive={activeState === 'personal'}
                     // onClick={() => handleClick('personal', '/currentUser/personal')}
                     $isDarkMode={isDarkMode}
                     className="pixels"
                 >
-                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>About</Text>
+                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>Posts</Text>
+
                 </StyledButton>
             </FeedButtonContainer>
 
-            <TrendingButtonContainer>
-                <StyledButton
-                $isActive = {false}
-                    // $isActive={activeState === 'clips'}
-                    // onClick={() => handleClick('clips', '/currentUser/personal/clips')}
-                    $isDarkMode={isDarkMode}
-                    className="clips"
-                >
-                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>Posts</Text>
-                </StyledButton>
-            </TrendingButtonContainer>
-
             <FeedButtonContainer>
                 <StyledButton
-                $isActive = {false}
+                    $isActive={false}
                     // $isActive={activeState === 'chirps'}
                     // onClick={() => handleClick('chirps', '/currentUser/personal/chirps')}
                     $isDarkMode={isDarkMode}
                     className="chirps"
                 >
-                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>Saved Jobs</Text>
+                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>Recommendations</Text>
                 </StyledButton>
             </FeedButtonContainer>
+
+            <TrendingButtonContainer>
+                <StyledButton
+                    $isActive={false}
+                    // $isActive={activeState === 'clips'}
+                    // onClick={() => handleClick('clips', '/currentUser/personal/clips')}
+                    $isDarkMode={isDarkMode}
+                    className="clips"
+                >
+                    <Text variant={"transparent"} fontWeight={"300"} size={"1.1rem"}>About</Text>
+                </StyledButton>
+            </TrendingButtonContainer>
         </FilterContainer>
     );
 };
