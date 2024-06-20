@@ -15,7 +15,7 @@ const extractTags = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { text } = req.body;
     console.log("Text: ", text);
     const pathToScript = "/Users/yodahemesay/Connect/client/src/models/tag_extraction/text_extraction/text_extraction_model.py";
-    const pathToPython = "/Users/yodahemesay/Connect/venv/bin/python3";
+    const pathToPython = "/Users/yodahemesay/Connect/.venv/bin/python3";
     const python_process = (0, child_process_1.spawn)(pathToPython, [pathToScript, text]);
     python_process.stdin.write(JSON.stringify(text));
     python_process.stdin.end();
