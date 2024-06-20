@@ -25,9 +25,3 @@ if __name__ == '__main__':
         print(extract_tags(text))
     else:
         print("No text provided")
-
-
-
-
-
-

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Post = void 0;
+exports.updatePost = exports.Post = void 0;
 const userModel_1 = __importDefault(require("../../models/userModel"));
 const post_model_1 = __importDefault(require("../../models/posts/post_model"));
 const clip_model_1 = __importDefault(require("../../models/posts/media/clip_model"));
@@ -122,3 +122,34 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.Post = Post;
+const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { post_id, likes, dislikes, views, shared } = req.body;
+    console.log("Post ID: ", post_id);
+    console.log("Likes: ", likes);
+    console.log("Dislikes: ", dislikes);
+    console.log("Views: ", views);
+    console.log("Shared: ", shared);
+    if (!post_id) {
+        return res.status(400).json({ message: "Post ID is required." });
+    }
+    try {
+        const post = yield post_model_1.default.findById(post_id);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+        if (likes != null)
+            post.likes = (post.likes || 0) + 1;
+        if (dislikes != null)
+            post.dislikes = (post.dislikes || 0) + 1;
+        if (views != null)
+            post.views = (post.views || 0) + 1;
+        if (shared != null)
+            post.shared = (post.shared || 0) + 1;
+        yield post.save();
+        res.status(200).json(post);
+    }
+    catch (error) {
+        res.status(500).json("Error updating post");
+    }
+});
+exports.updatePost = updatePost;
