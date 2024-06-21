@@ -101,6 +101,13 @@ const ProfileBody: React.FC = () => {
                                     </Text>
                                 </FollowingButton>
                             </DataContainer>
+                            <DataContainer>
+                                <FollowingButton>
+                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                        234 Recommendations
+                                    </Text>
+                                </FollowingButton>
+                            </DataContainer>
 
                             {/* <DataContainer>
                                 <Text variant={"transparent"} size={"1.2rem"} fontWeight={"300"}>
