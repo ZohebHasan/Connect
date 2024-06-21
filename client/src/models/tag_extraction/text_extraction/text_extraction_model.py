@@ -5,6 +5,7 @@ import sys
 # text = "i like basketball and my favorite player is LeBron James"
 
 def extract_tags(text):
+    # decrypt with the users client jwt token
     language = "en"
     max_ngram_size = 3
     deduplication_threshold = 0.1

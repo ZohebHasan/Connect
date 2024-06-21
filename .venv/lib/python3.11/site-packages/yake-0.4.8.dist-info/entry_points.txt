@@ -1,0 +1,3 @@
+[console_scripts]
+yake = yake.cli:keywords
+
