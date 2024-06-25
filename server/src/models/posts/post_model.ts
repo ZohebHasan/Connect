@@ -43,7 +43,6 @@ interface Post{
     censorable: boolean;
     isEighteen: boolean;
 }
-
 // this is the post schema
 const postSchema = new Schema<Post>({
 
@@ -54,7 +53,6 @@ const postSchema = new Schema<Post>({
     location: { type: Number, required: false },
     content_type: { type: Number, required: false },
     likes: { type: Number, required: false, default: 0 },
-    dislikes: { type: Number, required: false, default: 0},
     views: { type: Number, required: false, default: 0},
     shared: { type: Number, required: false, default: 0},
     tags: [{ type: String, required: false }],
