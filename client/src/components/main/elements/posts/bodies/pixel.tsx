@@ -265,8 +265,8 @@ const MediaContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   position: relative;
 `;
 
