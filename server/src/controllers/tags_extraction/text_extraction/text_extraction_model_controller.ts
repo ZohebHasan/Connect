@@ -27,7 +27,7 @@ export const extractTags = async (req: Request & { body: { text: string } }, res
     const { text } = req.body;
     console.log("Text: ", text)
     const pathToScript = "/Users/yodahemesay/Connect/client/src/models/tag_extraction/text_extraction/text_extraction_model.py" // You are going to have to write the absolute path for the python file, I looked it up online and this was the only solution that was available
-    const pathToPython = "/Users/yodahemesay/Connect/venv/bin/python3" //Since we are using venv, you are going to put in the absolute path for the python3 in venv.
+    const pathToPython = "/Users/yodahemesay/Connect/.venv/bin/python3" //Since we are using venv, you are going to put in the absolute path for the python3 in venv.
     const python_process = spawn(pathToPython, [pathToScript, text]);
 
     // Send text data to Python script
@@ -52,7 +52,7 @@ export const extractTags = async (req: Request & { body: { text: string } }, res
             return res.status(500).json({ message: 'Failed to extract tags' });
         }
         try {
-            const tags = dataString;  // Assuming Python script outputs JSON
+            const tags = dataString;
             console.log("Tags: ", tags)
             res.status(200).json({ message: 'Tags extracted successfully', tags });
         } catch (error) {

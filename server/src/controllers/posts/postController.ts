@@ -111,3 +111,35 @@ export const Post = async (req: Request, res: Response) => {
         res.status(400).json(err);
     }
 }
+
+export const updatePost = async (req: Request, res: Response) => {
+    const { post_id, likes, dislikes, views, shared } = req.body;
+    console.log("Post ID: ", post_id)
+    console.log("Likes: ", likes)
+    console.log("Dislikes: ", dislikes)
+    console.log("Views: ", views)
+    console.log("Shared: ", shared)
+
+    if (!post_id) {
+        return res.status(400).json({ message: "Post ID is required." });
+    }
+    try {
+        const post = await PostModel.findById(post_id);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // Update fields if they are provided in the request
+        if (likes != null) post.likes = (post.likes || 0) + 1;
+        if (dislikes != null) post.dislikes = (post.dislikes || 0) + 1;
+        if (views != null) post.views = (post.views || 0) + 1;
+        if (shared != null) post.shared = (post.shared || 0) + 1;
+
+        await post.save();
+
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json("Error updating post");
+    }
+};
