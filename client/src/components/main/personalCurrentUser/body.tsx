@@ -7,7 +7,7 @@ import Bodycontainer from "../../ConnectUI_web/templetes/bodyTemplete"
 import LeftBar from '../smallComponents/leftBar';
 import ProfileBody from './smallComponents/profileBody';
 
-import PixelFullScreen from "./elements/profilePosts/pixels/pixelFullScreen"
+import PixelFullScreen from "./elements/profilePosts/pixels/pixelFullScreen";
 import ClipFullScreen from "./elements/profilePosts/clips/clipsFullScreen"
 
 

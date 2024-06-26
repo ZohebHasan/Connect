@@ -1,16 +1,40 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Profiles from "./profileLinkButton"
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import ProfilesButton from "./profileBarButton"
 
+import { useProfile } from '../../../../contexts/profiles/profilesContext';
+
 const UserProfile: React.FC = () => {
+
+    const {isActivePersonal, isActiveProfessional, isActiveSchool, } = useProfile();
+
     const {isDarkMode} = useDarkMode();
+    const navigate = useNavigate();
+
+
+    const handleProfileNav = () =>{
+        if(isActivePersonal){
+            navigate('/currentUser/personal');
+        }
+        else if(isActiveProfessional){
+            navigate('/currentUser/professional');
+        }
+        else{
+            navigate('#');
+
+        }
+    }
+
+
     return (
         <>
             <UserProfileContainer>
-                <ProfilesContainer to = "#" $isDarkMode = {isDarkMode}>
+                <ProfilesContainer onClick={handleProfileNav} $isDarkMode = {isDarkMode}>
                     <Profiles />
                 </ProfilesContainer>
                 <ProfilesButton/>
@@ -33,7 +57,7 @@ const UserProfileContainer = styled.div`
     // background-color: red;
 `
 
-const ProfilesContainer = styled(Link)<{$isDarkMode: boolean}>`
+const ProfilesContainer = styled.div<{$isDarkMode: boolean}>`
     display: flex;
     flex: 6;
     height: 100%;

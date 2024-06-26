@@ -11,10 +11,14 @@ import OptionLight from "../../../assets/storyOptionsLight.png";
 import OptionDark from "../../../assets/storyOptionsDark.png";
 
 import ProfileInfo from "../elements/profileInfo/profileInfo";
-import PostFilter from "../elements/profileFilter/profileFilter";
+import PostFilter from "../elements/nav/profNav";
 
 import AboutInfo from '../elements/about/about';
+import Recommendation from '../elements/recommendations/recommendation';
+import ProfPosts from '../elements/profilePosts/professionalPost'
 
+import LeftButton from '../../smallComponents/leftButton';
+import RightButton from '../../smallComponents/rightButton';
 
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
@@ -23,11 +27,11 @@ const ProfileBody: React.FC = () => {
     const renderContent = () => {
         switch (location.pathname) {
             case "/currentUser/professional":
-                return <AboutInfo/>
+                return <AboutInfo />
+            case "/currentUser/professional/recommendations":
+                return <Recommendation />
             case "/currentUser/professional/posts":
-                return <></>
-            case "/currentUser/personal/savedJobs":
-                return <></>
+                return <ProfPosts />
             default:
                 return <></>
         }
@@ -36,6 +40,8 @@ const ProfileBody: React.FC = () => {
     return (
         <>
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
+                <LeftButton />
+                <RightButton />
                 <ProfileHeaderContainer>
                     <DarkLightToggle />
                     <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />

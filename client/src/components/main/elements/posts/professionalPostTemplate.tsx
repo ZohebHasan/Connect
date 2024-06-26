@@ -4,35 +4,34 @@ import styled from 'styled-components';
 import HeaderProfessional from "./headers/professionalHeader";
 import ProfessionalCaption from "./captions/professional";
 import Clip from "./bodies/clip";
-import Post from "./bodies/pixel";
-import ProfessionalChirp from "./bodies/professionalChirp"
+import Pixel from "./bodies/pixel";
+import ProfessionalChirp from "./bodies/professionalChirp";
 import Bottom from "./bottom";
+import { Media } from './mediaType'; 
 
 interface ProfessionalPostContainerProps {
   userName: string;
-  bodyType: "post" | "chirp" | "clip";
+  bodyType: "pixel" | "chirp" | "clip";
   isVarified: boolean;
+  media?: Media[];
+  textBody?: string;
 }
 
-const ProfessionalPostContainer: React.FC<ProfessionalPostContainerProps> = ({ userName, bodyType, isVarified}) => {
+const ProfessionalPostContainer: React.FC<ProfessionalPostContainerProps> = ({ userName, bodyType, isVarified, media, textBody }) => {
   return (
     <PostTemplate>
       <PostTemplateWrapper>
-        {/* Render Professional Header */}
         <HeaderProfessional userName={userName} isVarified={isVarified} />
-
-        {/* Render Professional Caption if bodyType is not chirp */}
-        {bodyType !== "chirp" && <ProfessionalCaption />}
-
-        {/* Render Body based on bodyType */}
-        {bodyType === "chirp" ? (
-          <ProfessionalChirp />
-        ) : bodyType === "clip" ? (
-          <></>
-          // <Clip /> 
+        {bodyType !== "chirp" && textBody && <ProfessionalCaption textBody={textBody} />}
+        
+        {bodyType === "chirp" && textBody ? (
+          <ProfessionalChirp textBody={textBody} />
+        ) : bodyType === "clip" && media ? (
+          <Clip media={media} />
+        ) : bodyType === "pixel" && media ? (
+          <Pixel media={media} />
         ) : (
-          <></>
-          // <Post /> 
+          <div>No content available</div>
         )}
 
         <Bottom />

@@ -8,28 +8,7 @@ import Profiles from "./profiles"
 
 
 const SidebarContainer: React.FC = () => {
-    const [activeButtons, setActiveButtons] = useState({
-        home: false,
-        search: false,
-        notifications: false,
-        inbox: false,
-        clips: false,
-        trending: false,
-        create: false
-    });
 
-    const toggleActive = (buttonKey: keyof typeof activeButtons) => {
-        setActiveButtons({
-            home: false,
-            search: false,
-            notifications: false,
-            inbox: false,
-            clips: false,
-            trending: false,
-            create: false,
-            [buttonKey]: true
-        });
-    };
 
 
     return (

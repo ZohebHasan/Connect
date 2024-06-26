@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 
-const Caption: React.FC = () => {
+
+interface CaptionProps {
+  textBody: string;
+}
+
+const Caption: React.FC<CaptionProps> = ({textBody}) => {
   const { isDarkMode } = useDarkMode();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -11,33 +16,7 @@ const Caption: React.FC = () => {
     setIsExpanded(!isExpanded);
   };
 
-//    const fullText = "I am saddened to share that today. I have been laid off from Google. Please let me know if you have any opportunity for me. Here's a code snippet: ``const[state, setState]``. This message is extended to reach a total of 300 characters. Let's make sure to provide the best support for those in need.";
-
-  const fullText = `
-    I am saddened to share that today. I have been laid off from Google. Please let me know if you have any opportunity for me.
-    Here's a code snippet: \`\`const[state, setState]\`\`.
-    \`\`\`
-    import React, { useState } from 'react';
-
-    const ExampleComponent = () => {
-      const [count, setCount] = useState(0);
-
-      const increment = () => setCount(count + 1);
-
-      return (
-        <div>
-          <p>Count: {count}</p>
-          <button onClick={increment}>Increment</button>
-        </div>
-      );
-    };
-
-    export default ExampleComponent;
-    \`\`\`
-    This message is extended to reach a total of 300 characters. Let's make sure to provide the best support for those in need.
-  `;
-
-  const truncatedText = fullText.length > 125 ? fullText.substring(0, 125) : fullText;
+  const truncatedText = textBody.length > 125 ? textBody.substring(0, 125) : textBody;
 
   const formatText = (text: string) => {
     const parts = text.split(/(```[\s\S]*?```|``.*?``)/g); // Split by parts that are wrapped in triple or double backticks
@@ -56,17 +35,17 @@ const Caption: React.FC = () => {
       <TextContainer>
         <Wrapper>
           <Text variant={"normal"} size={"1rem"} fontWeight='300'>
-            {isExpanded ? formatText(fullText) : (
+            {isExpanded ? formatText(textBody) : (
               <>
                 {formatText(truncatedText)}
-                {fullText.length > 125 && (
+                {textBody.length > 125 && (
                   <SeeMoreButton onClick={handleToggle} isDarkMode={isDarkMode}>
                     ...See more
                   </SeeMoreButton>
                 )}
               </>
             )}
-            {fullText.length > 125 && isExpanded && (
+            {textBody.length > 125 && isExpanded && (
               <SeeMoreButton onClick={handleToggle} isDarkMode={isDarkMode}>
                 See less
               </SeeMoreButton>

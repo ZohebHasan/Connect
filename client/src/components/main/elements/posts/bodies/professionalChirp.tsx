@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 
-const ChirpComponent: React.FC = () => {
+
+interface CaptionProps {
+  textBody: string;
+}
+
+const ChirpComponent: React.FC<CaptionProps> = ({textBody}) => {
   const { isDarkMode } = useDarkMode();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -11,38 +16,12 @@ const ChirpComponent: React.FC = () => {
     setIsExpanded(!isExpanded);
   };
 
-  const fullText = `
-    Excited to share a unique program I've been working on with you all! It's a React component that dynamically updates and renders data from an external API in real-time. This project showcases the power of hooks and the \`\`useEffect\`\` lifecycle method.
-    \`\`\`
-    import React, { useState, useEffect } from 'react';
-
-    const DataFetcher = () => {
-      const [data, setData] = useState(null);
-
-      useEffect(() => {
-        fetch('https://api.example.com/data')
-          .then(response => response.json())
-          .then(data => setData(data));
-      }, []);
-
-      return (
-        <div>
-          <h1>Real-time Data</h1>
-          {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : <p>Loading...</p>}
-        </div>
-      );
-    };
-
-    export default DataFetcher;
-    \`\`\`
-    This approach ensures that the component remains efficient and responsive. Can't wait to see what you all think!
-  `;
 
   // Check if there is a code block before the 241st character
-  const codeBlockIndex = fullText.indexOf('```');
+  const codeBlockIndex = textBody.indexOf('```');
   const truncateIndex = codeBlockIndex !== -1 && codeBlockIndex < 241 ? codeBlockIndex : 241;
 
-  const truncatedText = fullText.length > truncateIndex ? fullText.substring(0, truncateIndex) : fullText;
+  const truncatedText = textBody.length > truncateIndex ? textBody.substring(0, truncateIndex) : textBody;
 
   const formatText = (text: string) => {
     const parts = text.split(/(```[\s\S]*?```|``.*?``)/g); // Split by parts that are wrapped in triple or double backticks
@@ -61,17 +40,17 @@ const ChirpComponent: React.FC = () => {
       <TextContainer>
         <Wrapper>
           <StyledText variant={"normal"} size={"1rem"} fontWeight='300'>
-            {isExpanded ? formatText(fullText) : (
+            {isExpanded ? formatText(textBody) : (
               <>
                 {formatText(truncatedText)}
-                {fullText.length > truncateIndex && (
+                {textBody.length > truncateIndex && (
                   <SeeMoreButton onClick={handleToggle} $isDarkMode={isDarkMode}>
                     ...See more
                   </SeeMoreButton>
                 )}
               </>
             )}
-            {fullText.length > truncateIndex && isExpanded && (
+            {textBody.length > truncateIndex && isExpanded && (
               <SeeMoreButton onClick={handleToggle} $isDarkMode={isDarkMode}>
                 See less
               </SeeMoreButton>

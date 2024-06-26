@@ -11,12 +11,15 @@ import OptionLight from "../../../assets/storyOptionsLight.png";
 import OptionDark from "../../../assets/storyOptionsDark.png";
 
 import ProfileInfo from "../elements/profileInfo/profileInfo";
-import PostFilter from "../elements/profileFilter/profileFilter";
+import PostFilter from "../elements/navigation/profNav";
 
 
 import Pixels from "../elements/profilePosts/pixels/pixelsGrid";
 import Clips from "../elements/profilePosts/clips/clipsGrid";
 import Chirps from "../elements/profilePosts/chirps/chirps";
+
+import LeftButton from '../../smallComponents/leftButton';
+import RightButton from '../../smallComponents/rightButton';
 
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
@@ -38,6 +41,8 @@ const ProfileBody: React.FC = () => {
     return (
         <>
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
+                <LeftButton/>
+                <RightButton/>
                 <ProfileHeaderContainer>
                     <DarkLightToggle />
                     <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />

@@ -4,12 +4,12 @@ import styled, { css, keyframes } from 'styled-components';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 
-import VerifiedIcon from '../../../assets/verified.png';
+import VerifiedIcon from '../../../../assets/verified.png';
 
-import StoryOptionDark from '../../../assets/storyOptionsDark.png';
-import StoryOptionLight from '../../../assets/storyOptionsLight.png';
+import StoryOptionDark from '../../../../assets/storyOptionsDark.png';
+import StoryOptionLight from '../../../../assets/storyOptionsLight.png';
 
-import DummyPhoto1 from '../../../../dummies/Adnan.jpeg';
+import DummyPhoto1 from '../../../dummies/Adnan.jpeg';
 
 
 

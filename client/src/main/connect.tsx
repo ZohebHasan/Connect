@@ -4,13 +4,17 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import { ProfileProvider } from '../contexts/profiles/profilesContext';
-import { PersonalProfileNavigationProvider } from '../contexts/navigation/personalProfileNav';
+import { PerNavProvider } from '../contexts/navigation/perNavContext';
+import { ProfNavProvider } from '../contexts/navigation/profNavContext';
+
 
 import { PixelProvider } from '../contexts/personalProfile/pixelContext';
 import { ClipProvider } from '../contexts/personalProfile/clipContext';
 import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
 
 import { AboutInfoProvider } from '../contexts/professionalProfile/aboutContext';
+import { RecInfoProvider } from '../contexts/professionalProfile/recommendationContext';
+import { ProfPostProvider } from '../contexts/professionalProfile/profPostContext';
 
 
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
@@ -78,7 +82,7 @@ function ConnectInner() {
             <PageContainer>
 
                 {backgroundComponent}
-                
+
                 <RoutesWrapper />
             </PageContainer>
             {/* <ImageAnalysis /> */}
@@ -96,7 +100,7 @@ function RoutesWrapper() {
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             <Route path="/login/signup" element={<SignupPage />} />
-            
+
             <Route
                 path="/login/*"
                 element={
@@ -108,7 +112,7 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-            
+
             <Route
                 path="/signup/*"
                 element={
@@ -146,24 +150,24 @@ function RoutesWrapper() {
 
 function CurrentUserPersonalRoutes() {
     return (
-        <PersonalProfileNavigationProvider>
+        <PerNavProvider>
             <Routes>
                 <Route path="/" element={<PixelProvider> <CurrentUserPersonal /> </PixelProvider>} />
                 <Route path="clips" element={<ClipProvider> <CurrentUserPersonal /> </ClipProvider>} />
                 <Route path="chirps" element={<ChirpProvider> <CurrentUserPersonal /> </ChirpProvider>} />
             </Routes>
-        </PersonalProfileNavigationProvider>
+        </PerNavProvider>
     );
 }
 
 function CurrentUserProfessionalRoutes() {
     return (
-
-        <Routes>
-            <Route path="/" element={ <AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
-            {/* <Route path="clips" element={<ClipProvider> <CurrentUserProfessional/> </ClipProvider>} />
-                <Route path="chirps" element={<ChirpProvider> <CurrentUserProfessional/> </ChirpProvider>} /> */}
-        </Routes>
-
+        <ProfNavProvider>
+            <Routes>
+                <Route path="/" element={<AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
+                <Route path="/recommendations" element={ <RecInfoProvider> <CurrentUserProfessional/></RecInfoProvider>}/>
+                <Route path="/posts" element={ <ProfPostProvider><CurrentUserProfessional/></ProfPostProvider>} />
+            </Routes>
+        </ProfNavProvider>
     );
 }
