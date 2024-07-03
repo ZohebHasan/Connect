@@ -140,7 +140,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (likes != null)
             post.likes = (post.likes || 0) + 1;
         if (dislikes != null)
-            post.dislikes = (post.dislikes || 0) + 1;
+            post.likes = (post.dislikes || 0) - 1;
         if (views != null)
             post.views = (post.views || 0) + 1;
         if (shared != null)
