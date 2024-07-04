@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import { ProfileProvider } from '../contexts/profiles/profilesContext';
 import { PerNavProvider } from '../contexts/navigation/perNavContext';
 import { ProfNavProvider } from '../contexts/navigation/profNavContext';
+import { SchoolNavProvider } from '../contexts/navigation/schoolNavContext';
 
 
 import { PixelProvider } from '../contexts/personalProfile/pixelContext';
@@ -17,6 +18,10 @@ import { RecInfoProvider } from '../contexts/professionalProfile/recommendationC
 import { ProfPostProvider } from '../contexts/professionalProfile/profPostContext';
 
 
+import { CoursesProvider } from '../contexts/schoolProfile/courseContext';
+import { OrgsProvider } from '../contexts/schoolProfile/clubAndOrgsContext';
+import { CampusPostProvider } from '../contexts/schoolProfile/campusPostContext';
+
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
 import Copyright from '../components/ConnectUI_web/common/copyright/Copyright';
@@ -27,18 +32,24 @@ import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
 import LoginPage from "../pages/loginSignup/login";
 import SignupPage from "../pages/loginSignup/signup";
 import VerificationLoginPage from "../pages/loginSignup/verificationLogin";
-import AgreementPage from "../pages/loginSignup/agreement";
+// import AgreementPage from "../pages/loginSignup/agreement";
 import FeaturesPage from "../pages/loginSignup/features";
 import ProfilesPage from "../pages/loginSignup/profiles";
-import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
+// import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
 import DateOfBirth from "../pages/loginSignup/ageVerification";
-import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
+// import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 
 import UserCredentials from "../pages/loginSignup/userCredentials";
 import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
 import CurrentUserPersonal from "../pages/currentUserPersonal";
 import CurrentUserProfessional from "../pages/currentUserProfessional"
+import CurrentUserSchool from "../pages/currentUserSchool/profile"
+
+import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData"
+import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData"
+
+
 import Feed from "../pages/feed";
 
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
@@ -138,6 +149,8 @@ function RoutesWrapper() {
                             <Route path="/home" element={<Feed />} />
                             <Route path="/currentUser/personal/*" element={<CurrentUserPersonalRoutes />} />
                             <Route path="/currentUser/professional/*" element={<CurrentUserProfessionalRoutes />} />
+                            <Route path="/currentUser/school/*" element={<CurrentUserSchoolRoutes />} />
+
                         </Routes>
                     </ProfileProvider>
                 }
@@ -169,5 +182,23 @@ function CurrentUserProfessionalRoutes() {
                 <Route path="/posts" element={ <ProfPostProvider><CurrentUserProfessional/></ProfPostProvider>} />
             </Routes>
         </ProfNavProvider>
+    );
+}
+
+function CurrentUserSchoolRoutes() {
+    return (
+        <SchoolNavProvider>
+            <Routes>
+                <Route path="/" element={<Navigate to="/currentUser/school/courses" replace />} />
+                <Route path="courses" element={<CoursesProvider> <CurrentUserSchool /> </CoursesProvider>} />
+                <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser/></CoursesProvider>} />
+
+                <Route path="clubsAndOrgs" element={<OrgsProvider> <CurrentUserSchool /> </OrgsProvider>} />
+                <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser/></OrgsProvider>} />
+
+                <Route path="campus" element={<CampusPostProvider> <CurrentUserSchool /> </CampusPostProvider>}  />
+
+            </Routes>
+        </SchoolNavProvider>
     );
 }

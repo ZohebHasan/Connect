@@ -25,7 +25,7 @@ const UserProfile: React.FC = () => {
             navigate('/currentUser/professional');
         }
         else{
-            navigate('#');
+            navigate('/currentUser/school');
 
         }
     }

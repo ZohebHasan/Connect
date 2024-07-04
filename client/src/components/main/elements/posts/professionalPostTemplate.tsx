@@ -34,7 +34,7 @@ const ProfessionalPostContainer: React.FC<ProfessionalPostContainerProps> = ({ u
           <div>No content available</div>
         )}
 
-        <Bottom />
+        <Bottom type= {"professional"}/>
       </PostTemplateWrapper>
     </PostTemplate>
   );

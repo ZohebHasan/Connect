@@ -4,7 +4,7 @@ import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 import { useProfile } from '../../../contexts/profiles/profilesContext';
 
 const ProfileBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const { isProfilesbarOpen, toggleProfilesbar, addProtectedRef, removeProtectedRef } = useProfile();
+  const { isProfilesbarOpen, addProtectedRef, removeProtectedRef } = useProfile();
   const { isDarkMode } = useDarkMode();
   const profileBarRef = useRef<HTMLDivElement>(null);
 
@@ -21,7 +21,7 @@ const ProfileBar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   }, [addProtectedRef, removeProtectedRef]);
 
   const handleProfileBarClick = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevents the click from closing the ProfileBar immediately
+    event.stopPropagation();
   };
 
   return (

@@ -254,6 +254,7 @@ const Bottom = styled.div`
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  /* background-color: red; */
 `;
 
 const BottomWrapper = styled.div`

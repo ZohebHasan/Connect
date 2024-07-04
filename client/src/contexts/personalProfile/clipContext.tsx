@@ -32,6 +32,8 @@ interface ClipProviderProps {
 
 const ClipContext = createContext<ClipContextProps | undefined>(undefined);
 
+
+
 export const ClipProvider: React.FC<ClipProviderProps> = ({ children }) => {
     const [posts, setPosts] = useState<Post[]>([
         {
@@ -76,7 +78,8 @@ export const ClipProvider: React.FC<ClipProviderProps> = ({ children }) => {
             likes: 100,
             views: 1000,
         },
-    ]);
+    ]
+    );
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [isClipBarOpen, setIsClipBarOpen] = useState(false);

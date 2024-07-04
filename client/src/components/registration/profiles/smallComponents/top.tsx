@@ -72,6 +72,7 @@ const TopContainer = styled.div`
     align-items: center;
     justify-content: center;
     width: 90%;   
+    /* background-color: pink; */
 `
 const ProfilesContainer = styled.div<{$isActive: boolean}>`
   flex: 3;
@@ -79,7 +80,7 @@ const ProfilesContainer = styled.div<{$isActive: boolean}>`
   flex-direction: row;
   width: 100%;
   align-items: center;
-  justify content: center;
+  justify-content: center;
   gap: 5%;
   animation: ${({ $isActive }) => $isActive ? css`${shakeAnimation} 0.5s cubic-bezier(.36,.07,.19,.97) both` : 'none'};
 `

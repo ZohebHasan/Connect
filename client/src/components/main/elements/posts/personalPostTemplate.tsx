@@ -37,7 +37,7 @@ const PersonalPostContainer: React.FC<PersonalPostContainerProps> = ({ userName,
           <PersonalCaption userName={userName} isVarified={isVarified} />
         )}
 
-        <Bottom />
+        <Bottom type={"personal"}/>
       </PostTemplateWrapper>
     </PostTemplate>
   );

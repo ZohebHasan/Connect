@@ -38,7 +38,7 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
                 navigate('currentUser/professional');
                 break;
             case 'school':
-                navigate('#');
+                navigate('currentUser/school');
                 break;
             default:
                 navigate('/');
