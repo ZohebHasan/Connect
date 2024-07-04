@@ -21,9 +21,14 @@ import ViewsDark from '../../../assets/viewsDark.png';
 import ViewsLight from '../../../assets/viewsLight.png';
 
 
-const BottomComponent: React.FC = () => {
+interface BottomComponenetProps {
+  postId?: string;
+  type: "school" | "professional" | "personal";
+}
 
-  const {isDarkMode} = useDarkMode();
+const BottomComponent: React.FC<BottomComponenetProps> = ({ postId, type }) => {
+
+  const { isDarkMode } = useDarkMode();
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = () => {
@@ -34,27 +39,42 @@ const BottomComponent: React.FC = () => {
     <Bottom>
       <BottomWrapper>
         <ButtonsContainer>
-          <LikedButtonContainer onClick={handleLike}>
-            <IconButton src={isLiked ? LikedIcon : isDarkMode ? NotLikedDark : NotLikedLight} isLiked={isLiked} />
-            <Text variant={'transparent'} size={'0.9rem'} fontWeight="300">
-              12k
-            </Text>
-          </LikedButtonContainer>
-          <CommentButtonContainer>
-            <IconButton src={isDarkMode ? CommentDark : CommentLight} />
-            <Text variant={'transparent'} size={'0.9rem'} fontWeight="300">
-              3k
-            </Text>
-          </CommentButtonContainer>
-          <ShareButtonContainer>
-            <IconButton src={isDarkMode ? ShareDark : ShareLight} />
-          </ShareButtonContainer>
-          <ViewsIconContainer>
-            <ViewIcon src={isDarkMode ? ViewsDark : ViewsLight} />
-            <Text variant={'transparent'} size={'0.7rem'} fontWeight="300">
-              450k
-            </Text>
-          </ViewsIconContainer>
+          <FirstHalf>
+
+
+            <LikedButtonContainer onClick={handleLike}>
+              <IconButton src={isLiked ? LikedIcon : isDarkMode ? NotLikedDark : NotLikedLight} isLiked={isLiked} />
+              <Text variant={'transparent'} size={'0.9rem'} fontWeight="300">
+                12k
+              </Text>
+            </LikedButtonContainer>
+            <CommentButtonContainer>
+              <IconButton src={isDarkMode ? CommentDark : CommentLight} />
+              <Text variant={'transparent'} size={'0.9rem'} fontWeight="300">
+                3k
+              </Text>
+            </CommentButtonContainer>
+            <ShareButtonContainer>
+              <IconButton src={isDarkMode ? ShareDark : ShareLight} />
+            </ShareButtonContainer>
+          </FirstHalf>
+          <SecondHalf>
+            {type === "school" && postId &&
+              <PostIdContainer>
+                <Text variant={"normal"} size={'0.9rem'} fontWeight="400">
+                  Post {postId}
+                </Text>
+              </PostIdContainer>
+            }
+
+
+            <ViewsIconContainer>
+              <ViewIcon src={isDarkMode ? ViewsDark : ViewsLight} />
+              <Text variant={'transparent'} size={'0.7rem'} fontWeight="300">
+                450k
+              </Text>
+            </ViewsIconContainer>
+          </SecondHalf>
         </ButtonsContainer>
 
       </BottomWrapper>
@@ -64,12 +84,37 @@ const BottomComponent: React.FC = () => {
 
 export default BottomComponent;
 
+const PostIdContainer = styled.div`
+  
+`
+
+const FirstHalf = styled.div`
+  /* width: 100%; */
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  /* gap: 3rem; */
+`
+
+const SecondHalf = styled.div`
+  flex: 1;
+  /* width: 100%; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  
+`
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 `;
 
 const BottomWrapper = styled.div`
@@ -78,7 +123,7 @@ const BottomWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  gap: 0.8rem;
+  /* gap: 0.8rem; */
 `;
 
 const ButtonsContainer = styled.div`
@@ -87,7 +132,7 @@ const ButtonsContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 95%;
-  gap: 1.5rem;
+
 `;
 
 const LikedButtonContainer = styled.div`
@@ -118,7 +163,7 @@ const ShareButtonContainer = styled.div`
 `;
 
 const ViewsIconContainer = styled.div`
-  flex: 3;
+  /* flex: 3; */
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 
-const Caption: React.FC = () => {
+interface CaptionProps {
+    title: string;
+}
+
+const Caption: React.FC<CaptionProps> = ({title}) => {
+
     const { isDarkMode } = useDarkMode();
-
-    const fullText = "What does ``const[state,setState]`` mean in react?";
-
     const formatText = (text: string) => {
-        const parts = text.split(/(``.*?``)/g); // Split by parts that are wrapped in double backticks
+        const parts = text.split(/(``.*?``)/g); 
         return parts.map((part, index) => {
             if (part.startsWith("``") && part.endsWith("``")) {
-                return <Code key={index} $isDarkMode={isDarkMode}>{part.slice(2, -2)}</Code>; // Remove the backticks and wrap in Code component
+                return <Code key={index} $isDarkMode={isDarkMode}>{part.slice(2, -2)}</Code>; 
             }
             return <span key={index}>{part}</span>;
         });
@@ -23,7 +25,7 @@ const Caption: React.FC = () => {
             <TextContainer>
                 <Wrapper>
                     <Text variant={"normal"} size={"1.1rem"} fontWeight='400'>
-                        {formatText(fullText)}
+                        {formatText(title)}
                     </Text>
                 </Wrapper>
             </TextContainer>
@@ -35,7 +37,7 @@ export default Caption;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 93%;
+  width: 100%;
   flex-direction: column;
 `;
 
@@ -48,12 +50,12 @@ const TextContainer = styled.div`
 
 const CaptionContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   align-items: flex-start;
   flex-direction: row;
   justify-content: flex-start;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 `;
 
 const Code = styled.span<{ $isDarkMode: boolean }>`

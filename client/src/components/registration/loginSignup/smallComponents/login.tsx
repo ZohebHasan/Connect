@@ -107,7 +107,7 @@ const LoginContainer = styled.div<{ $isDarkMode: boolean }>`
     flex-direction: column;
     background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(156, 156, 156, 0.4)' : 'rgba(255, 255, 255, 0.4)'};
     border-radius: 10px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 15px ${({ $isDarkMode }) => ($isDarkMode ? 'rgba(164, 164, 164, 0.2)' : 'rgba(0, 0, 0, 0.2)')};
     border: 1px solid rgba(253, 211, 255, 0.201);
 `;
 
