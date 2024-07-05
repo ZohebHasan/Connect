@@ -23,6 +23,7 @@ const verification_1 = __importDefault(require("./routers/verification"));
 const post_1 = __importDefault(require("./routers/posts/post"));
 const comment_1 = __importDefault(require("./routers/posts/comment"));
 const text_extraction_router_1 = __importDefault(require("./routers/tags_extraction/text_extraction_router"));
+const file_upload_1 = __importDefault(require("./routers/file_upload/file_upload"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const PORT = 8000;
@@ -53,3 +54,4 @@ app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.defau
 app.use('/google', google_1.default);
 app.use('/microsoft', microsoft_1.default);
 app.use('/text_extraction', text_extraction_router_1.default);
+app.use('/file_upload', file_upload_1.default);

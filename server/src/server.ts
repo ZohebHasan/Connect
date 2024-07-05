@@ -20,6 +20,7 @@ import verificationRouter from './routers/verification'
 import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
 import text_extraction_router from './routers/tags_extraction/text_extraction_router';
+import file_router from './routers/file_upload/file_upload';
 
 dotenv.config();
 const app = express();
@@ -62,4 +63,7 @@ app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 
 // use the text_extraction_router
 app.use('/text_extraction', text_extraction_router);
+
+// use the file_router
+app.use('/file_upload', file_router);
 

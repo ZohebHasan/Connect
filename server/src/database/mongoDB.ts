@@ -11,6 +11,8 @@ export const connectToMongoDB = async () => {
         await mongoose.connect(connection_string, { useNewUrlParser: true } as ConnectOptions);
         console.log('Connected to MongoDB');
     } catch (error) {
+        const connection_string = 'mongodb://localhost:27017/Connect';
+    
         console.error('Error connecting to MongoDB: ', error);
     }
 };

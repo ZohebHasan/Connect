@@ -12,19 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectToMongoDB = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+exports.fileUpload = void 0;
+const multer_1 = __importDefault(require("multer"));
+const multer_gridfs_storage_1 = require("multer-gridfs-storage");
 const connection_string = 'mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.kacb3bl.mongodb.net/?retryWrites=true&w=majority&appName=Connect';
-const connectToMongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield mongoose_1.default.connect(connection_string, { useNewUrlParser: true });
-        console.log('Connected to MongoDB');
-    }
-    catch (error) {
-        const connection_string = 'mongodb://localhost:27017/Connect';
-        console.error('Error connecting to MongoDB: ', error);
-    }
+const fileUpload = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const storage = new multer_gridfs_storage_1.GridFsStorage({
+        url: connection_string,
+        file: (req, file) => {
+            return {
+                filename: file.originalname
+            };
+        }
+    });
+    const upload = (0, multer_1.default)({ storage }).single('file');
+    upload(req, res, (err) => {
+        if (err) {
+            return res.status(400).json({ message: 'An error occurred while uploading the file' });
+        }
+        return res.status(200).json({ message: 'File uploaded successfully' });
+    });
 });
-exports.connectToMongoDB = connectToMongoDB;
+exports.fileUpload = fileUpload;
