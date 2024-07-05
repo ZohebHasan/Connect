@@ -76,7 +76,7 @@ const getRoleString = (postedBy: User): string | null => {
     } else if (postedBy.userType === 'advisor') {
         return 'Faculty Advisor';
     } else {
-        return null;
+        return "";
     }
 };
 

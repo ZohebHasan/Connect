@@ -73,6 +73,7 @@ function ConnectInner() {
         console.log("Current Pathname:", location.pathname); // Debugging log
         switch (location.pathname) {
             case "/login":
+            case "/selectLanguage":
             case "/login/signup":
             case "/signup":
             case "/signup/userInfo":
@@ -135,7 +136,7 @@ function RoutesWrapper() {
                             <Route path="/ageVerification" element={<DateOfBirth />} />
                             {/* <Route path="/agreement" element={<AgreementPage />} /> */}
                             <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
-                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
+                            <Route path="/profiles" element={<ProfilesPage />} />
                         </Routes>
                     </SignupProvider>
                 }
