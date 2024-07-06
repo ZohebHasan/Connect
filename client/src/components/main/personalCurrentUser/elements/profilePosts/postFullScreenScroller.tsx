@@ -47,15 +47,15 @@ const PostScroller: React.FC<PostScrollerProps> = ({ children, activeIndex }) =>
 export default PostScroller;
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 const PostList = styled.div<{ $isDarkMode: boolean }>`
-  width: 97%;
-  height: 100%;
+  width: 100%;
+  height: auto;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

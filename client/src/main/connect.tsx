@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import { ProfileProvider } from '../contexts/profiles/profilesContext';
-import { PersonalProfileNavigationProvider } from '../contexts/navigation/personalProfileNav';
+import { PerNavProvider } from '../contexts/navigation/perNavContext';
+import { ProfNavProvider } from '../contexts/navigation/profNavContext';
+import { SchoolNavProvider } from '../contexts/navigation/schoolNavContext';
+
 
 import { PixelProvider } from '../contexts/personalProfile/pixelContext';
 import { ClipProvider } from '../contexts/personalProfile/clipContext';
 import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
 
 import { AboutInfoProvider } from '../contexts/professionalProfile/aboutContext';
+import { RecInfoProvider } from '../contexts/professionalProfile/recommendationContext';
+import { ProfPostProvider } from '../contexts/professionalProfile/profPostContext';
 
+
+import { CoursesProvider } from '../contexts/schoolProfile/courseContext';
+import { OrgsProvider } from '../contexts/schoolProfile/clubAndOrgsContext';
+import { CampusPostProvider } from '../contexts/schoolProfile/campusPostContext';
 
 import PageContainer from '../components/ConnectUI_web/templetes/pageTemplete';
 import Background1 from '../components/ConnectUI_web/backgrounds/background1/background1';
@@ -23,18 +32,24 @@ import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
 import LoginPage from "../pages/loginSignup/login";
 import SignupPage from "../pages/loginSignup/signup";
 import VerificationLoginPage from "../pages/loginSignup/verificationLogin";
-import AgreementPage from "../pages/loginSignup/agreement";
+// import AgreementPage from "../pages/loginSignup/agreement";
 import FeaturesPage from "../pages/loginSignup/features";
 import ProfilesPage from "../pages/loginSignup/profiles";
-import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
+// import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
 import DateOfBirth from "../pages/loginSignup/ageVerification";
-import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
+// import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
 
 import UserCredentials from "../pages/loginSignup/userCredentials";
 import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
 import CurrentUserPersonal from "../pages/currentUserPersonal";
 import CurrentUserProfessional from "../pages/currentUserProfessional"
+import CurrentUserSchool from "../pages/currentUserSchool/profile"
+
+import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData"
+import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData"
+
+
 import Feed from "../pages/feed";
 
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
@@ -78,7 +93,7 @@ function ConnectInner() {
             <PageContainer>
 
                 {backgroundComponent}
-                
+
                 <RoutesWrapper />
             </PageContainer>
             {/* <ImageAnalysis /> */}
@@ -96,7 +111,7 @@ function RoutesWrapper() {
             <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             <Route path="/login/signup" element={<SignupPage />} />
-            
+
             <Route
                 path="/login/*"
                 element={
@@ -108,7 +123,7 @@ function RoutesWrapper() {
                     </LoginProvider>
                 }
             />
-            
+
             <Route
                 path="/signup/*"
                 element={
@@ -134,6 +149,8 @@ function RoutesWrapper() {
                             <Route path="/home" element={<Feed />} />
                             <Route path="/currentUser/personal/*" element={<CurrentUserPersonalRoutes />} />
                             <Route path="/currentUser/professional/*" element={<CurrentUserProfessionalRoutes />} />
+                            <Route path="/currentUser/school/*" element={<CurrentUserSchoolRoutes />} />
+
                         </Routes>
                     </ProfileProvider>
                 }
@@ -146,24 +163,42 @@ function RoutesWrapper() {
 
 function CurrentUserPersonalRoutes() {
     return (
-        <PersonalProfileNavigationProvider>
+        <PerNavProvider>
             <Routes>
                 <Route path="/" element={<PixelProvider> <CurrentUserPersonal /> </PixelProvider>} />
                 <Route path="clips" element={<ClipProvider> <CurrentUserPersonal /> </ClipProvider>} />
                 <Route path="chirps" element={<ChirpProvider> <CurrentUserPersonal /> </ChirpProvider>} />
             </Routes>
-        </PersonalProfileNavigationProvider>
+        </PerNavProvider>
     );
 }
 
 function CurrentUserProfessionalRoutes() {
     return (
+        <ProfNavProvider>
+            <Routes>
+                <Route path="/" element={<AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
+                <Route path="/recommendations" element={ <RecInfoProvider> <CurrentUserProfessional/></RecInfoProvider>}/>
+                <Route path="/posts" element={ <ProfPostProvider><CurrentUserProfessional/></ProfPostProvider>} />
+            </Routes>
+        </ProfNavProvider>
+    );
+}
 
-        <Routes>
-            <Route path="/" element={ <AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
-            {/* <Route path="clips" element={<ClipProvider> <CurrentUserProfessional/> </ClipProvider>} />
-                <Route path="chirps" element={<ChirpProvider> <CurrentUserProfessional/> </ChirpProvider>} /> */}
-        </Routes>
+function CurrentUserSchoolRoutes() {
+    return (
+        <SchoolNavProvider>
+            <Routes>
+                <Route path="/" element={<Navigate to="/currentUser/school/courses" replace />} />
+                <Route path="courses" element={<CoursesProvider> <CurrentUserSchool /> </CoursesProvider>} />
+                <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser/></CoursesProvider>} />
 
+                <Route path="clubsAndOrgs" element={<OrgsProvider> <CurrentUserSchool /> </OrgsProvider>} />
+                <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser/></OrgsProvider>} />
+
+                <Route path="campus" element={<CampusPostProvider> <CurrentUserSchool /> </CampusPostProvider>}  />
+
+            </Routes>
+        </SchoolNavProvider>
     );
 }

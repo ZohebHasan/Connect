@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components'
-
-;
+import styled from 'styled-components';
 import Button from '../../../ConnectUI_web/common/buttons/button1';
 import ConnaButton from '../../../ConnectUI_web/common/conna/connaButton';
 
+// import {useSelectProfile} from "./somecontext"
 
 interface BottomProps {
       selectedProfile: {
@@ -17,7 +16,7 @@ interface BottomProps {
     }
 
 const Bottom: React.FC<BottomProps> = ({ selectedProfile, handleConfirmClick, selectAllAndNavigate }) => {
-
+  // const {toggleSelected, isSelected, selectedProfiles} = useSelectProfile();
   return(
         <BottomContainer>
             <ConnaContainer>

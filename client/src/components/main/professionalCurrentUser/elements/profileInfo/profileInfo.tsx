@@ -7,16 +7,28 @@ import Text from '../../../../ConnectUI_web/common/texts/static';
 import AddStoryDark from "../../../../assets/addStoryDark.png";
 import AddStoryLight from "../../../../assets/addStoryLight.png";
 
+
+import JobIconDark from '../../../../assets/jobDark.png';
+import JobIconLight from '../../../../assets/jobLight.png';
+
+import EducationIconDark from '../../../../assets/educationDark.png';
+import EducationIconLight from '../../../../assets/educationLight.png';
+
+import DotIconDark from '../../../../assets/dotDark.png';
+import DotIconLight from '../../../../assets/dotLight.png';
+
 import VerifiedIcon from "../../../../assets/verified.png"
 
+
+import DummyCompany from "../../../dummies/Connect.jpg"
 import DummyProfessional from "../../../dummies/professional.jpeg"
 
-const VerifiedBadge: React.FC = () => {
-    const isVarified: boolean = true;
+const VerifiedBadge: React.FC<{type: 'org' | 'user'} > = ({type}) => {
+    
     return (
         <>
             <VerifiedBadgeContainer>
-                <StyledLogo src={VerifiedIcon} alt="Logo" />
+                <StyledLogo src={VerifiedIcon} alt="Logo" $type = {type}/>
             </VerifiedBadgeContainer>
         </>
     )
@@ -24,7 +36,7 @@ const VerifiedBadge: React.FC = () => {
 }
 
 const ProfileBody: React.FC = () => {
-    const isVarified: boolean = true;
+    const isVerified: boolean = true;
     const fullName = "Zoheb Hasan"
     const userName = "zoheb.hasan"
     const { isDarkMode } = useDarkMode();
@@ -50,7 +62,7 @@ const ProfileBody: React.FC = () => {
                             <Text size={"1.7rem"} fontWeight={"300"}>
                                 {fullName}
                             </Text>
-                            {isVarified ? <VerifiedBadge /> : <></>}
+                            {isVerified ? <VerifiedBadge type='user'/> : <></>}
                             <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
                                 (He/His)
                             </Text>
@@ -108,12 +120,6 @@ const ProfileBody: React.FC = () => {
                                     </Text>
                                 </FollowingButton>
                             </DataContainer>
-
-                            {/* <DataContainer>
-                                <Text variant={"transparent"} size={"1.2rem"} fontWeight={"300"}>
-                                    24 Posts
-                                </Text>
-                            </DataContainer> */}
                         </PostFollowInfo>
 
                         <BioContainer>
@@ -122,13 +128,118 @@ const ProfileBody: React.FC = () => {
                             </Text>
                         </BioContainer>
                     </UserNameBioContainer>
+                    <UserInfoContainer>
+                        <UserInfoWrapper>
+                            <Info>
+                                <Icon src={isDarkMode ? EducationIconDark : EducationIconLight} $type={'education'} />
+                                <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
+                                <AssociationContent  >
+                                    <LogoContainer>
+                                        <Logo src={DummyCompany} />
+                                    </LogoContainer>
+                                    <OrgName>
+                                        <Text variant="normal" size="0.9rem" fontWeight="400">
+                                           Stony Brook University
+                                        </Text>
+                                        {isVerified && <VerifiedBadge type='org'/>}
+                                    </OrgName>
+                                </AssociationContent>
+
+                            </Info>
+
+                            <Info>
+                                <Icon src={isDarkMode ? JobIconDark : JobIconLight} $type={'job'} />
+                                <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
+                                <AssociationContent  >
+                                    <LogoContainer>
+                                        <Logo src={DummyCompany} />
+                                    </LogoContainer>
+                                    <OrgName>
+                                        <Text variant="normal" size="0.9rem" fontWeight="400">
+                                            Connect
+                                        </Text>
+                                        {isVerified && <VerifiedBadge type='org'/>}
+                                    </OrgName>
+                                </AssociationContent>
+                            </Info>
+                        </UserInfoWrapper>
+                    </UserInfoContainer>
                 </Bottom>
+
             </ProfileInfoContainer>
         </>
     );
 };
 
 export default ProfileBody;
+
+const OrgName = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+`;
+
+const LogoContainer = styled.div``;
+
+const Logo = styled.img`
+  width: 1.7rem;
+  height: auto;
+  border-radius: 50%;
+`;
+
+const AssociationContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.7rem;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.02);
+  }
+  &:active {
+    transform: scale(1.00);
+  }
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
+const DotIcon = styled.img`
+    width: 1.3rem;
+`
+
+const Icon = styled.img<{ $type: 'education' | 'job' }>`
+    width: ${(props) => (props.$type === 'job' ? '1.4rem' : '1.7rem')};
+    margin-left: ${(props) => (props.$type === 'job' ? '0.2rem' : '0rem')};
+`;
+
+const UserInfoWrapper = styled.div`
+    width: 55%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+`
+
+
+
+const Info = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+
+    
+`
+
+const UserInfoContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+`
 
 const Location = styled.div`
     display: flex;
@@ -155,9 +266,9 @@ const BioContainer = styled.div`
     
 `
 
-const StyledLogo = styled.img`
-    width: 1.6rem;
-    height: 1.6rem;
+const StyledLogo = styled.img<{$type: 'org' | 'user'}>`
+    width: ${(props) => (props.$type === 'user' ? '1.6rem' : '1.2rem')};
+    height: auto;
 
 `;
 
@@ -242,7 +353,7 @@ const AddBorder = styled.div<{ $isDarkMode: boolean }>`
 
 const Bottom = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     /* background-color: green; */

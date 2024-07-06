@@ -255,18 +255,18 @@ const MediaScrollerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   position: relative;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 `;
 
 const MediaContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60%;
-  height: 60%;
+  width: 50%;
+  height: 50%;
   position: relative;
 `;
 

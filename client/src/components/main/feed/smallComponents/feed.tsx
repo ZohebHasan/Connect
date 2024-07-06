@@ -64,7 +64,7 @@ const MainFeed: React.FC = () => {
                             isVarified={true}
                             bodyType={"chirp"}
                         />
-                           <SchoolPost
+                        <SchoolPost
                             userName={'adnan'}
                             isVarified={true}
                             bodyType={"post"}

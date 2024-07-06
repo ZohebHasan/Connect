@@ -7,7 +7,7 @@ import Bottom from './smallComponents/bottom';
 type ProfileType = 'professional' | 'personal' | 'school';
 
 const Body: React.FC= () => {
-    const navigate = useNavigate();  // Hook for navigation
+    const navigate = useNavigate();  
     const [selectedProfile, setSelectedProfile] = useState({
         professional: false,
         personal: false,

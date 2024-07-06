@@ -73,11 +73,11 @@ const OptionButtonContainer = styled.div`
 
   &:hover {
     opacity: 0.7;
-    transform: scale(1.05);
+    transform: scale(1.02);
     transform-origin: center; // Redefine it here to avoid any overrides
   }
 
   &:active {
-    transform: scale(1.00);
+    transform: scale(0.98);
   }
 `;

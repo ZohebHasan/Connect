@@ -26,7 +26,7 @@ const UserProfile: React.FC = () => {
           if (optionBtnRef.current) {
             removeProtectedRef(optionBtnRef);
           }
-        };
+        }; 
       }, [optionBtnRef, addProtectedRef, removeProtectedRef]);
 
     return (

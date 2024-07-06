@@ -61,6 +61,6 @@ const ElementsContainer = styled.div<{ $isContentBarFullScreenOpen?: boolean }>`
   flex-direction: column;
   height: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 `;

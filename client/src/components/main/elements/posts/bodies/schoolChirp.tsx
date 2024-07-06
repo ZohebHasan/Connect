@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 
-const ChirpComponent: React.FC = () => {
+interface ChirpProps {
+  textBody: string;
+}
+
+const ChirpComponent: React.FC<ChirpProps> = ({textBody}) => {
   const { isDarkMode } = useDarkMode();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -12,43 +16,18 @@ const ChirpComponent: React.FC = () => {
   };
 
 
-  const fullText = `
-    How can I use \`\`state\`\` and \`\`setState\`\` in a React component? 
-    Here is the code I'm working with:
-    \`\`\`
-    import React, { useState } from 'react';
-
-    const ExampleComponent = () => {
-      const [count, setCount] = useState(0);
-
-      const increment = () => setCount(count + 1);
-
-      return (
-        <div>
-          <p>Count: {count}</p>
-          <button onClick={increment}>Increment</button>
-        </div>
-      );
-    };
-
-    export default ExampleComponent;
-    \`\`\`
-    Can I use different names for \`\`state\`\` variables and their setters?
-  `;
-
-  // Check if there is a code block before the 125th character
-  const codeBlockIndex = fullText.indexOf('```');
+  const codeBlockIndex = textBody.indexOf('```');
   const truncateIndex = codeBlockIndex !== -1 && codeBlockIndex < 125 ? codeBlockIndex : 125;
 
-  const truncatedText = fullText.length > truncateIndex ? fullText.substring(0, truncateIndex) : fullText;
+  const truncatedText = textBody.length > truncateIndex ? textBody.substring(0, truncateIndex) : textBody;
 
   const formatText = (text: string) => {
-    const parts = text.split(/(```[\s\S]*?```|``.*?``)/g); // Split by parts that are wrapped in triple or double backticks
+    const parts = text.split(/(```[\s\S]*?```|``.*?``)/g); 
     return parts.map((part, index) => {
       if (part.startsWith("```") && part.endsWith("```")) {
-        return <CodeBlock key={index} $isDarkMode={isDarkMode}>{part.slice(3, -3)}</CodeBlock>; // Remove the backticks and wrap in CodeBlock component
+        return <CodeBlock key={index} $isDarkMode={isDarkMode}>{part.slice(3, -3)}</CodeBlock>; 
       } else if (part.startsWith("``") && part.endsWith("``")) {
-        return <InlineCode key={index} $isDarkMode={isDarkMode}>{part.slice(2, -2)}</InlineCode>; // Remove the backticks and wrap in InlineCode component
+        return <InlineCode key={index} $isDarkMode={isDarkMode}>{part.slice(2, -2)}</InlineCode>; 
       }
       return <span key={index}>{part}</span>;
     });
@@ -59,17 +38,17 @@ const ChirpComponent: React.FC = () => {
       <TextContainer>
         <Wrapper>
           <StyledText variant={"normal"} size={"1rem"} fontWeight='300'>
-            {isExpanded ? formatText(fullText) : (
+            {isExpanded ? formatText(textBody) : (
               <>
                 {formatText(truncatedText)}
-                {fullText.length > truncateIndex && (
+                {textBody.length > truncateIndex && (
                   <SeeMoreButton onClick={handleToggle} $isDarkMode={isDarkMode}>
                     ...See more
                   </SeeMoreButton>
                 )}
               </>
             )}
-            {fullText.length > truncateIndex && isExpanded && (
+            {textBody.length > truncateIndex && isExpanded && (
               <SeeMoreButton onClick={handleToggle} $isDarkMode={isDarkMode}>
                 See less
               </SeeMoreButton>
@@ -85,7 +64,7 @@ export default ChirpComponent;
 
 const Wrapper = styled.div`
   display: flex;
-  width: 93%;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -100,15 +79,15 @@ const TextContainer = styled.div`
 
 const ChirpContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 `;
 
 const SeeMoreButton = styled.span<{ $isDarkMode: boolean }>`
-  color: rgb(184, 27, 100);
+  color: #c963d0;
     cursor: pointer;
   font-size: 1rem;
   font-weight: 300;
