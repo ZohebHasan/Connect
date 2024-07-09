@@ -40,6 +40,7 @@ app.listen(PORT, () => {
     console.log('The application is listening on port http://localhost:' + PORT);
     (0, mongoDB_1.connectToMongoDB)();
 });
+app.use('/upload', file_upload_1.default);
 app.use('/auth', authRouter_1.default);
 app.use('/login', login_1.default);
 app.use('/signup', signup_1.default);
@@ -54,4 +55,3 @@ app.use('/changeFeatures', authMiddleware_1.authenticate, featuresSignup_1.defau
 app.use('/google', google_1.default);
 app.use('/microsoft', microsoft_1.default);
 app.use('/text_extraction', text_extraction_router_1.default);
-app.use('/file_upload', file_upload_1.default);
