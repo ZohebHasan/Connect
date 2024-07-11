@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const pixelsSchema = new mongoose_2.Schema({
-    file: { type: [String], required: false },
+    file: [{ type: mongoose_2.Schema.Types.ObjectId, required: false }],
     dateEdit: { type: Date, required: false },
     caption: { type: String, required: false }
 });

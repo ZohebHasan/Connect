@@ -11,22 +11,14 @@ var location;
     location[location["professionalProfile"] = 2] = "professionalProfile";
     location[location["personalProfile"] = 3] = "personalProfile";
 })(location || (location = {}));
-var content_type;
-(function (content_type) {
-    content_type[content_type["pixel"] = 1] = "pixel";
-    content_type[content_type["chirp"] = 2] = "chirp";
-    content_type[content_type["snip"] = 3] = "snip";
-    content_type[content_type["clip"] = 4] = "clip";
-})(content_type || (content_type = {}));
 const postSchema = new mongoose_2.Schema({
     dateCreated: { type: Date, required: false, default: Date.now },
     ownedBy: { type: mongoose_2.Schema.Types.ObjectId, ref: 'User' },
     content: { type: mongoose_2.Schema.Types.ObjectId, required: false },
     comments: [{ type: mongoose_2.Schema.Types.ObjectId, ref: 'Comment' }],
     location: { type: Number, required: false },
-    content_type: { type: Number, required: false },
+    content_type: { type: String, required: false },
     likes: { type: Number, required: false, default: 0 },
-    dislikes: { type: Number, required: false, default: 0 },
     views: { type: Number, required: false, default: 0 },
     shared: { type: Number, required: false, default: 0 },
     tags: [{ type: String, required: false }],

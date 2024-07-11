@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectToMongoDB = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const connection_string = 'mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.kacb3bl.mongodb.net/?retryWrites=true&w=majority&appName=Connect';
-const connectToMongoDB = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.getRecommendations = void 0;
+const post_model_1 = __importDefault(require("../../models/posts/post_model"));
+const getRecommendations = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield mongoose_1.default.connect(connection_string, { useNewUrlParser: true });
-        console.log('Connected to MongoDB');
+        const targetDocument = yield post_model_1.default.find({ ownedBy: userId });
+        if (!targetDocument) {
+            return { status: 404, message: 'No recommendations found' };
+        }
+        const searchText = '${targetDocument.content.media.body}';
     }
     catch (error) {
-        const connection_string = 'mongodb://localhost:27017/Connect';
-        console.error('Error connecting to MongoDB: ', error);
+        console.error('Error getting recommendations: ', error);
+        return { status: 500, message: 'Error getting recommendations' };
     }
 });
-exports.connectToMongoDB = connectToMongoDB;
+exports.getRecommendations = getRecommendations;
