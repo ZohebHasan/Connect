@@ -1,120 +1,103 @@
-import {Request, Response} from 'express';
-
+import { Request, Response } from 'express';
+import zlib from 'zlib';
+import { GridFSBucket } from 'mongodb';
+import Grid from 'gridfs-stream';
+import mongoose from 'mongoose';
 import User from '../../models/userModel';
-
 import PostModel from '../../models/posts/post_model';
-
 import ClipModel from '../../models/posts/media/clip_model';
 import SnipModel from '../../models/posts/media/snip_model';
 import PixelsModel from '../../models/posts/media/pixel_model';
 import ChirpModel from '../../models/posts/media/chirp_model';
 
+// Assuming you have a primary connection already set up
+const conn = mongoose.createConnection('mongodb+srv://kamrulhassan:fNXADjxipNKubPlP@connect.kacb3bl.mongodb.net/?retryWrites=true&w=majority&appName=Connect');
+
+let gfs: any;
+
+conn.once('open', () => {
+  // Initialize stream
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('uploads');
+});
+
+
 export const Post = async (req: Request, res: Response) => {
-    if(!req.file){
-        res.status(400).json("Media file is required");
-    }
-
     const { ownedBy, location, media_body } = req.body;
-    const { media_type } = req.params
+    const { media_type } = req.params;
+    const file: any = req.file;
 
+    const content_type = media_type;
+
+    if (!file) {
+        return res.status(400).json("Media file is required");
+    }
+    console.log("File: ", file)
+    // Find user by their UserID
     const user = await User.findById(ownedBy);
-
-    let media;
-    let content_type;
-    if(!user){
-        res.status(404).json("User does not exist")
+    if (!user) {
+        return res.status(404).json("User does not exist");
     }
+    console.log("User: ", user)
+    // Compress and upload the file
+    try {
+        let media;
+        const body = media_body.body;
+        switch (media_type) {
+            case "pixel":
+                media = new PixelsModel({ 
+                    file: file.id,
+                    body 
+                });
+                // content_type = 1;
+                await media.save();
+                break;
+            case "snip":
+                media = new SnipModel({ 
+                    file: file.id, 
+                    body 
+                });
+                // content_type = 2;
+                await media.save();
+                break;
+            case "clip":
+                media = new ClipModel({ 
+                    file: file.id, 
+                    body 
+                });
+                // content_type = 3;
+                await media.save();
+                break;
+            case "chirp":
+                if (!body) {
+                    return res.status(400).json("Text is required");
+                }
+                media = new ChirpModel({ 
+                    body 
+                });
+                await media.save();
+                break;
+            default:
+                return res.status(400).json("Invalid media type");
+        }
 
-    switch(media_type){
-        case "pixel":
-            try{
-                const file = media_body.file;
-                const caption = media_body.caption;
-                if(!file){
-                    res.status(400).json("Media file is required");
-                }
-                media = new PixelsModel({
-                    file,
-                    caption,
-                    dateEdit: null
-                });
-                content_type = 1;
-                await media.save();
-            } catch(err){
-                res.status(400).json(err)
-            }
-            break;
-        case "chirp":
-            try{
-                const body = media_body.body;
-                if(!body){
-                    res.status(400).json("Text is required");
-                }
-                media = new ChirpModel({
-                    body,
-                    dateEdit: null
-                });
-                content_type = 2;
-                await media.save();
-            } catch(err){
-                res.status(400).json(err)
-            }
-            break;
-        case "snip":
-            try{
-                const file = media_body.file;
-                const caption = media_body.caption;
-                if(!file){
-                    res.status(400).json("Media file is required");
-                }
-                media = new SnipModel({
-                    file,
-                    caption,
-                    dateEdit: null
-                });
-                content_type = 3;
-                await media.save();
-            } catch(err){
-                res.status(400).json(err)
-            }
-            break;
-        case "clip":
-            try{
-                const file = media_body.file;
-                const caption = media_body.caption;
-                if(!file){
-                    res.status(400).json("Media file is required");
-                }
-                media = new ClipModel({
-                    file,
-                    caption,
-                    dateEdit: null
-                });
-                content_type = 4;
-                await media.save();
-            } catch(err){
-                res.status(400).json(err)
-            }
-            break;
-        default:
-            res.send(400).json("Media file is not valid");
-            break;
-    }
+        await media.save();
 
-    try{
         const post = new PostModel({
-            ownedBy: user?._id,
+            ownedBy: user._id,
             location,
-            content_type,
-            content: media?._id,
-        })
-        await post.save();
-        res.status(200).json(post);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-}
+            content_type,// Assuming you have mapped media types to numbers
+            content: media._id,
+        });
 
+        await post.save();
+        res.status(201).json(post);
+
+    } catch (error) {
+        console.error("Failed to process file or create post:", error);
+        res.status(500).json({ message: "Error processing file or creating post", error });
+    }
+};
 export const updatePost = async (req: Request, res: Response) => {
     const { post_id, likes, dislikes, views, shared } = req.body;
     console.log("Post ID: ", post_id)

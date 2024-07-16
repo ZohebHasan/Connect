@@ -17,12 +17,12 @@ enum location{
     'personalProfile' = 3,
 }
 
-enum content_type{
-    'pixel' = 1,
-    'chirp' = 2,
-    'snip' = 3,
-    'clip' = 4
-}
+// enum content_type{
+//     'pixel' = 1,
+//     'chirp' = 2,
+//     'snip' = 3,
+//     'clip' = 4
+// }
 
 
 
@@ -34,7 +34,7 @@ interface Post{
 
     comments: typeof CommentModel[]; // Comments
     location: location.educationalProfile | location.personalProfile | location.professionalProfile; // enum of profile location
-    content_type: content_type.pixel | content_type.chirp | content_type.snip | content_type.clip ; // enum of content_type
+    content_type: string;
     likes: number;
     dislikes: number;
     views: number;
@@ -51,7 +51,7 @@ const postSchema = new Schema<Post>({
     content: { type: Schema.Types.ObjectId, required: false },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     location: { type: Number, required: false },
-    content_type: { type: Number, required: false },
+    content_type: { type: String, required: false },
     likes: { type: Number, required: false, default: 0 },
     views: { type: Number, required: false, default: 0},
     shared: { type: Number, required: false, default: 0},
