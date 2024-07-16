@@ -10,6 +10,9 @@ import PixelsModel from '../../models/posts/media/pixel_model';
 import ChirpModel from '../../models/posts/media/chirp_model';
 
 export const Post = async (req: Request, res: Response) => {
+    if(!req.file){
+        res.status(400).json("Media file is required");
+    }
 
     const { ownedBy, location, media_body } = req.body;
     const { media_type } = req.params

@@ -10,6 +10,7 @@ conn.once('open', () => {
   // Initialize stream
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
+
 });
 
 export const fileUpload = (req: Request, res: Response) => {
