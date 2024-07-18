@@ -29,15 +29,16 @@ const Header: React.FC<HeaderContainerProps> = ({children, variant }) => {
     flex-direction: row;
     align-items: center;
     transition: background-color 0.1s ease-in-out;
-    position: relative;
+    position: absolute;
     z-index: 3;
     background-color: ${({ $isDarkMode, $variant }) => getBackgroundColor($isDarkMode, $variant)};
-    margin-top: ${({ $variant }) => ($variant === "visible" ? "0.9375rem" : "0")};
+    /* margin-top: ${({ $variant }) => ($variant === "visible" ? "0.9375rem" : "0")}; */
+    top: 2.5%;
   
 
     @media (max-width: 1280px) {
       height: 2.2rem; 
-      margin-top: ${({ $variant }) => ($variant === "visible" ? "1rem" : "0")}; 
+      /* margin-top: ${({ $variant }) => ($variant === "visible" ? "1rem" : "0")};  */
     }
   `;
   
@@ -46,6 +47,6 @@ const Header: React.FC<HeaderContainerProps> = ({children, variant }) => {
     if ($variant === "hidden") {
       return "transparent";
     }
-    return $isDarkMode ? "rgba(52, 52, 52, 0.4)" : "rgba(212, 197, 216, 0.5)";
+    return $isDarkMode ? "rgba(52, 52, 52, 0.4)" : "rgba(221, 221, 221, 0.5)";
   };
   

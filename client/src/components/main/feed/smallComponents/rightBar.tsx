@@ -19,7 +19,7 @@ const RightBar: React.FC = () => {
         <>
             <RightBarContainer flexDirection={"column"} flex={2}>
                 <TopContainer>
-                    <DarkLightToggle />
+                    {/* <DarkLightToggle /> */}
                 </TopContainer>
 
                 <SuggestedPeopleContainer>

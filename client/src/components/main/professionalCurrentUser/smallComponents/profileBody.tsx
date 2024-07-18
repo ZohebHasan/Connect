@@ -42,10 +42,10 @@ const ProfileBody: React.FC = () => {
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
                 <LeftButton />
                 <RightButton />
-                <ProfileHeaderContainer>
+                {/* <ProfileHeaderContainer>
                     <DarkLightToggle />
                     <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
-                </ProfileHeaderContainer>
+                </ProfileHeaderContainer> */}
                 <ProfileInfo />
                 <PostFilter />
                 {renderContent()}

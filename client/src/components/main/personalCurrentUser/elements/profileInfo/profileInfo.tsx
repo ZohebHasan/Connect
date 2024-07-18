@@ -11,6 +11,9 @@ import VerifiedIcon from "../../../../assets/verified.png"
 
 import DummyPersonal from "../../../dummies/personal.jpeg"
 
+import OptionLight from "../../../../assets/storyOptionsLight.png";
+import OptionDark from "../../../../assets/storyOptionsDark.png";
+
 const VerifiedBadge: React.FC = () => {
 
     return (
@@ -51,7 +54,7 @@ const ProfileBody: React.FC = () => {
                                 {fullName}
                             </Text>
                             {isVarified ? <VerifiedBadge /> : <></>}
-                            <Text size={"1rem"} fontWeight={"300"} variant= {"transparent"}>
+                            <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
                                 (He/His)
                             </Text>
                         </FullNameContainer>
@@ -62,9 +65,15 @@ const ProfileBody: React.FC = () => {
                         </UserName>
                     </UserInfo>
                     <ProfileTypeContainer>
-                        <Text size={"2rem"} fontWeight={"300"} variant={"personal"}>
-                            Personal
-                        </Text>
+                        <OptionIconContainer>
+                            <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
+                        </OptionIconContainer>
+                        <TextContainer>
+                            <Text size={"2rem"} fontWeight={"300"} variant={"personal"}>
+                                Personal
+                            </Text>
+                        </TextContainer>
+
                     </ProfileTypeContainer>
                 </Top>
 
@@ -108,13 +117,43 @@ const ProfileBody: React.FC = () => {
 
 export default ProfileBody;
 
+const TextContainer = styled.div`
+    flex: 2;
+`
+
+const OptionIconContainer = styled.div`
+    flex: 1;
+    /* background-color: red; */
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+`
+
+const OptionIcon = styled.img`
+    width: 1.7rem;
+    height: 1.7rem;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.10);
+    }
+    &:active {
+        transform: scale(1.00);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
 
 const ProfileTypeContainer = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    flex-direction: column;
+    /* background-color: blue; */
+    height: 100%;
+    width: 100%;  
 `
 
 const UserName = styled.div`
@@ -263,6 +302,7 @@ const ProfileInfoContainer = styled.div`
     /* background-color: blue; */
     width: 95%;
     flex-direction: column;
+    margin-top: 8%;
 `
 
 const Top = styled.div`
