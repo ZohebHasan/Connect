@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
-import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { connectToMongoDB } from './database/mongoDB';
@@ -21,6 +20,8 @@ import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
 import text_extraction_router from './routers/tags_extraction/text_extraction_router';
 
+import fileUploadRouter from './routers/file_upload/file_upload';
+
 dotenv.config();
 const app = express();
 const PORT: Number = 8000;
@@ -35,10 +36,16 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to typescript backend!');
 });
 
+
 app.listen(PORT, () => {
     console.log('The application is listening on port http://localhost:' + PORT);
     connectToMongoDB();
 });
+
+
+// File upload route
+app.use('/upload', fileUploadRouter);
+
 
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
