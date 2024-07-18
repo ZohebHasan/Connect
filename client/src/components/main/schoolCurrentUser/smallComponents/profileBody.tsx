@@ -51,10 +51,10 @@ const ProfileBody: React.FC = () => {
 
                 <LeftButton />
                 <RightButton />
-                <ProfileHeaderContainer>
+                {/* <ProfileHeaderContainer>
                     <DarkLightToggle />
                     <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
-                </ProfileHeaderContainer>
+                </ProfileHeaderContainer> */}
                 <ProfileInfo />
                 <PostFilter />
                 {renderContent()}

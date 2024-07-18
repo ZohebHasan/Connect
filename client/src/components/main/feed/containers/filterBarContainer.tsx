@@ -72,7 +72,7 @@ const StyledFilterBarContainer = styled.div<{ $isFilterBarContainerOpen?: boolea
   flex-direction: column;
   z-index: 3;
   transform-origin: bottom;
-  top: 0.5rem;
+  top: 10%;
   bottom: auto;
 `;
 

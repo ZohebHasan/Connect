@@ -23,12 +23,15 @@ import VerifiedIcon from "../../../../assets/verified.png"
 import DummyCompany from "../../../dummies/Connect.jpg"
 import DummyProfessional from "../../../dummies/professional.jpeg"
 
-const VerifiedBadge: React.FC<{type: 'org' | 'user'} > = ({type}) => {
-    
+import OptionLight from "../../../../assets/storyOptionsLight.png";
+import OptionDark from "../../../../assets/storyOptionsDark.png";
+
+const VerifiedBadge: React.FC<{ type: 'org' | 'user' }> = ({ type }) => {
+
     return (
         <>
             <VerifiedBadgeContainer>
-                <StyledLogo src={VerifiedIcon} alt="Logo" $type = {type}/>
+                <StyledLogo src={VerifiedIcon} alt="Logo" $type={type} />
             </VerifiedBadgeContainer>
         </>
     )
@@ -62,7 +65,7 @@ const ProfileBody: React.FC = () => {
                             <Text size={"1.7rem"} fontWeight={"300"}>
                                 {fullName}
                             </Text>
-                            {isVerified ? <VerifiedBadge type='user'/> : <></>}
+                            {isVerified ? <VerifiedBadge type='user' /> : <></>}
                             <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
                                 (He/His)
                             </Text>
@@ -89,81 +92,91 @@ const ProfileBody: React.FC = () => {
 
                     </UserInfo>
                     <ProfileTypeContainer>
-                        <Text size={"2rem"} fontWeight={"300"} variant={"professional"}>
-                            Professional
-                        </Text>
+                        <OptionIconContainer>
+                            <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
+                        </OptionIconContainer>
+                        <TextContainer>
+                            <Text size={"2rem"} fontWeight={"300"} variant={"professional"}>
+                                Professional
+                            </Text>
+                        </TextContainer>
+
                     </ProfileTypeContainer>
                 </Top>
 
                 <Bottom>
-                    <UserNameBioContainer>
-                        <PostFollowInfo>
-                            <DataContainer>
-                                <FollowersButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        523 Followers
-                                    </Text>
-                                </FollowersButton>
-                            </DataContainer>
+                    <BottomWrapper>
 
-                            <DataContainer>
-                                <FollowingButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        234 Following
-                                    </Text>
-                                </FollowingButton>
-                            </DataContainer>
-                            <DataContainer>
-                                <FollowingButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        234 Recommendations
-                                    </Text>
-                                </FollowingButton>
-                            </DataContainer>
-                        </PostFollowInfo>
 
-                        <BioContainer>
-                            <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
-                                Trying to do better things everyday, every way.
-                            </Text>
-                        </BioContainer>
-                    </UserNameBioContainer>
-                    <UserInfoContainer>
-                        <UserInfoWrapper>
-                            <Info>
-                                <Icon src={isDarkMode ? EducationIconDark : EducationIconLight} $type={'education'} />
-                                <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
-                                <AssociationContent  >
-                                    <LogoContainer>
-                                        <Logo src={DummyCompany} />
-                                    </LogoContainer>
-                                    <OrgName>
-                                        <Text variant="normal" size="0.9rem" fontWeight="400">
-                                           Stony Brook University
+                        <UserNameBioContainer>
+                            <PostFollowInfo>
+                                <DataContainer>
+                                    <FollowersButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            523 Followers
                                         </Text>
-                                        {isVerified && <VerifiedBadge type='org'/>}
-                                    </OrgName>
-                                </AssociationContent>
+                                    </FollowersButton>
+                                </DataContainer>
 
-                            </Info>
-
-                            <Info>
-                                <Icon src={isDarkMode ? JobIconDark : JobIconLight} $type={'job'} />
-                                <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
-                                <AssociationContent  >
-                                    <LogoContainer>
-                                        <Logo src={DummyCompany} />
-                                    </LogoContainer>
-                                    <OrgName>
-                                        <Text variant="normal" size="0.9rem" fontWeight="400">
-                                            Connect
+                                <DataContainer>
+                                    <FollowingButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            234 Following
                                         </Text>
-                                        {isVerified && <VerifiedBadge type='org'/>}
-                                    </OrgName>
-                                </AssociationContent>
-                            </Info>
-                        </UserInfoWrapper>
-                    </UserInfoContainer>
+                                    </FollowingButton>
+                                </DataContainer>
+                                <DataContainer>
+                                    <FollowingButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            234 Recommendations
+                                        </Text>
+                                    </FollowingButton>
+                                </DataContainer>
+                            </PostFollowInfo>
+
+                            <BioContainer>
+                                <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    Trying to do better things everyday, every way.
+                                </Text>
+                            </BioContainer>
+                        </UserNameBioContainer>
+                        <UserInfoContainer>
+                            <UserInfoWrapper>
+                                <Info>
+                                    <Icon src={isDarkMode ? EducationIconDark : EducationIconLight} $type={'education'} />
+                                    <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
+                                    <AssociationContent  >
+                                        <LogoContainer>
+                                            <Logo src={DummyCompany} />
+                                        </LogoContainer>
+                                        <OrgName>
+                                            <Text variant="normal" size="0.9rem" fontWeight="400">
+                                                Stony Brook University
+                                            </Text>
+                                            {isVerified && <VerifiedBadge type='org' />}
+                                        </OrgName>
+                                    </AssociationContent>
+
+                                </Info>
+
+                                <Info>
+                                    <Icon src={isDarkMode ? JobIconDark : JobIconLight} $type={'job'} />
+                                    <DotIcon src={isDarkMode ? DotIconDark : DotIconLight} />
+                                    <AssociationContent  >
+                                        <LogoContainer>
+                                            <Logo src={DummyCompany} />
+                                        </LogoContainer>
+                                        <OrgName>
+                                            <Text variant="normal" size="0.9rem" fontWeight="400">
+                                                Connect
+                                            </Text>
+                                            {isVerified && <VerifiedBadge type='org' />}
+                                        </OrgName>
+                                    </AssociationContent>
+                                </Info>
+                            </UserInfoWrapper>
+                        </UserInfoContainer>
+                    </BottomWrapper>
                 </Bottom>
 
             </ProfileInfoContainer>
@@ -172,6 +185,12 @@ const ProfileBody: React.FC = () => {
 };
 
 export default ProfileBody;
+
+const BottomWrapper = styled.div`
+    width: 95%;
+    display: flex;
+    flex-direction:row;
+`
 
 const OrgName = styled.div`
   display: flex;
@@ -239,6 +258,7 @@ const UserInfoContainer = styled.div`
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
+    /* background-color: pink; */
 `
 
 const Location = styled.div`
@@ -249,11 +269,44 @@ const Profession = styled.div`
     display: flex;
 `
 
+
+const TextContainer = styled.div`
+    flex: 2;
+`
+
+const OptionIconContainer = styled.div`
+    flex: 1;
+    /* background-color: red; */
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+`
+
+const OptionIcon = styled.img`
+    width: 1.7rem;
+    height: 1.7rem;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.10);
+    }
+    &:active {
+        transform: scale(1.00);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
+
 const ProfileTypeContainer = styled.div`
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    /* background-color: blue; */
+    height: 100%;
+    width: 100%;
     
 `
 
@@ -266,7 +319,7 @@ const BioContainer = styled.div`
     
 `
 
-const StyledLogo = styled.img<{$type: 'org' | 'user'}>`
+const StyledLogo = styled.img<{ $type: 'org' | 'user' }>`
     width: ${(props) => (props.$type === 'user' ? '1.6rem' : '1.2rem')};
     height: auto;
 
@@ -308,7 +361,7 @@ const UserNameBioContainer = styled.div`
     /* background-color: red;   */
     display: flex;
 
-    width: 95%;
+    width: 100%;
     flex-direction: column;
     gap: 1rem;
 `
@@ -403,6 +456,7 @@ const ProfileInfoContainer = styled.div`
     /* background-color: blue; */
     width: 95%;
     flex-direction: column;
+    margin-top: 8%;
 `
 
 const Top = styled.div`

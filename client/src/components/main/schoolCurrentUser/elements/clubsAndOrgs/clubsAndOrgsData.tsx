@@ -34,5 +34,6 @@ const CoursesContainer = styled.div`
   margin-top: 0.5rem;
   gap: 1rem;
   position: relative;
+  margin-top: 8%;
 `;
 

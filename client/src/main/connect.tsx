@@ -4,9 +4,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'r
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/registration/signup/signupContext';
 import { ProfileProvider } from '../contexts/profiles/profilesContext';
+import { LeftBarNavButtonProvider } from '../contexts/navigation/menuNavContext';
 import { PerNavProvider } from '../contexts/navigation/perNavContext';
 import { ProfNavProvider } from '../contexts/navigation/profNavContext';
 import { SchoolNavProvider } from '../contexts/navigation/schoolNavContext';
+
+import { CreateBarProvider } from '../contexts/leftBar/createBarContext';
 
 
 import { PixelProvider } from '../contexts/personalProfile/pixelContext';
@@ -57,7 +60,9 @@ import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
 export default function Connect(): React.ReactElement {
     return (
         <Router>
-
+            <Routes>
+                <Route path="/" element={<Intro />} />
+            </Routes>
             <ConnectInner />
 
         </Router>
@@ -92,9 +97,7 @@ function ConnectInner() {
     return (
         <>
             <PageContainer>
-
                 {backgroundComponent}
-
                 <RoutesWrapper />
             </PageContainer>
             {/* <ImageAnalysis /> */}
@@ -106,13 +109,8 @@ function ConnectInner() {
 function RoutesWrapper() {
     return (
         <Routes>
-
-
-
-            <Route path="/" element={<Intro />} />
             <Route path="/selectLanguage" element={<SelectLanguagePage />} />
             <Route path="/login/signup" element={<SignupPage />} />
-
             <Route
                 path="/login/*"
                 element={
@@ -145,15 +143,18 @@ function RoutesWrapper() {
             <Route
                 path="/*"
                 element={
-                    <ProfileProvider>
-                        <Routes>
-                            <Route path="/home" element={<Feed />} />
-                            <Route path="/currentUser/personal/*" element={<CurrentUserPersonalRoutes />} />
-                            <Route path="/currentUser/professional/*" element={<CurrentUserProfessionalRoutes />} />
-                            <Route path="/currentUser/school/*" element={<CurrentUserSchoolRoutes />} />
-
-                        </Routes>
-                    </ProfileProvider>
+                    <LeftBarNavButtonProvider>
+                        <ProfileProvider>
+                            <CreateBarProvider>
+                                <Routes>
+                                    <Route path="/home" element={<Feed />} />
+                                    <Route path="/currentUser/personal/*" element={<CurrentUserPersonalRoutes />} />
+                                    <Route path="/currentUser/professional/*" element={<CurrentUserProfessionalRoutes />} />
+                                    <Route path="/currentUser/school/*" element={<CurrentUserSchoolRoutes />} />
+                                </Routes>
+                            </CreateBarProvider>
+                        </ProfileProvider>
+                    </LeftBarNavButtonProvider>
                 }
             />
             {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} />
@@ -179,8 +180,8 @@ function CurrentUserProfessionalRoutes() {
         <ProfNavProvider>
             <Routes>
                 <Route path="/" element={<AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
-                <Route path="/recommendations" element={ <RecInfoProvider> <CurrentUserProfessional/></RecInfoProvider>}/>
-                <Route path="/posts" element={ <ProfPostProvider><CurrentUserProfessional/></ProfPostProvider>} />
+                <Route path="/recommendations" element={<RecInfoProvider> <CurrentUserProfessional /></RecInfoProvider>} />
+                <Route path="/posts" element={<ProfPostProvider><CurrentUserProfessional /></ProfPostProvider>} />
             </Routes>
         </ProfNavProvider>
     );
@@ -192,13 +193,10 @@ function CurrentUserSchoolRoutes() {
             <Routes>
                 <Route path="/" element={<Navigate to="/currentUser/school/courses" replace />} />
                 <Route path="courses" element={<CoursesProvider> <CurrentUserSchool /> </CoursesProvider>} />
-                <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser/></CoursesProvider>} />
-
+                <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser /></CoursesProvider>} />
                 <Route path="clubsAndOrgs" element={<OrgsProvider> <CurrentUserSchool /> </OrgsProvider>} />
-                <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser/></OrgsProvider>} />
-
-                <Route path="campus" element={<CampusPostProvider> <CurrentUserSchool /> </CampusPostProvider>}  />
-
+                <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser /></OrgsProvider>} />
+                <Route path="campus" element={<CampusPostProvider> <CurrentUserSchool /> </CampusPostProvider>} />
             </Routes>
         </SchoolNavProvider>
     );
