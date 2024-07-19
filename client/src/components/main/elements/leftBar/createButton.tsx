@@ -1,18 +1,17 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-
 import Button from '../../../ConnectUI_web/common/buttons/button1';
-
 import LogoCreate from "../../containers/buttonLogo";
 
-import CreateDark from "../../../assets/createDark.png"
-import CreateLight from "../../../assets/createLight.png"
-import CreateActiveLight from "../../../assets/createLightActive.png"
-import CreateActiveDark from "../../../assets/createDarkActive.png"
+import CreateDark from "../../../assets/createDark.png";
+import CreateLight from "../../../assets/createLight.png";
+import CreateActiveLight from "../../../assets/createLightActive.png";
+import CreateActiveDark from "../../../assets/createDarkActive.png";
+
+import { useCreateBar } from '../../../../contexts/leftBar/createBarContext';
 
 type ButtonKey = 'home' | 'search' | 'notifications' | 'inbox' | 'trending' | 'clips' | 'create';
-
 
 interface LeftBarButtonsProps {
     activeButtons: {
@@ -27,19 +26,21 @@ interface LeftBarButtonsProps {
     toggleActive: (buttonKey: ButtonKey) => void;
 }
 
-
-
 const CreateButton: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleActive }) => {
-  
+    const {openCreateBar } = useCreateBar();
 
+    const handleCreateButtonClick = () => {
+        toggleActive('create');
+        openCreateBar();
+    };
 
     return (
-        <>      
-            <Button 
-                variant= {"transparent"}
-                width= {"60%"}
-                onClick={() => toggleActive('create')} 
-                to = "#"
+        <>
+            <Button
+                variant={"transparent"}
+                width={"60%"}
+                onClick={handleCreateButtonClick}
+                to="#"
                 isActive={activeButtons.create}
             >
                 <Temp>
@@ -53,8 +54,7 @@ const CreateButton: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleActi
                     />
                     Create
                 </Temp>
-                </Button>
-              
+            </Button>
         </>
     );
 };
@@ -62,20 +62,11 @@ const CreateButton: React.FC<LeftBarButtonsProps> = ({ activeButtons, toggleActi
 export default CreateButton;
 
 const Temp = styled.div`
-display: flex;
-flex-direction:row;
-// background-color: red;
-width: 100%;
-align-items: center;
-justify-content: center;
-gap: 0.8rem;
-`
-
-
-
-
-
-
-
-
-
+    display: flex;
+    flex-direction: row;
+    // background-color: red;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+`;

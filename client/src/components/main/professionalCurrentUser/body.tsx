@@ -10,6 +10,7 @@ import ProfileBody from './smallComponents/profileBody';
 
 import DataFullScreen from './elements/about/dataFullScreen'
 
+import Header from "../elements/header"
 
 
 
@@ -30,6 +31,7 @@ const Body: React.FC = () => {
         <>
             <Bodycontainer flexDirection="row">
                 {renderContent()}
+                <Header/>
                 <LeftBar />
                 <ProfileBody />
             </Bodycontainer>

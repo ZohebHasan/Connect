@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import VideoDark from './assets/background1DarkMonitor.mp4';
-import VideoLight from './assets/background1LightMonitor.mp4'
+
 
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 
-import VideoTransperant from "./assets/background1Transperant.webm"
+import VideoTransperant from "./assets/background1.webm"
 
 const BackgroundAnimation: React.FC = () => {
     const { isDarkMode } = useDarkMode();

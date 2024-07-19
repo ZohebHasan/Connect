@@ -16,19 +16,19 @@ export interface User {
     link: string;
     photoUrl: string;
     isVerified?: boolean;
-    type: 'instructor' | 'student' | 'ta';
+    userType: 'instructor' | 'student' | 'ta';
 }
 
 export interface Instructor extends User {
-    type: 'instructor';
+    userType: 'instructor';
 }
 
 export interface Student extends User {
-    type: 'student';
+    userType: 'student';
 }
 
 export interface TA extends User {
-    type: 'ta';
+    userType: 'ta';
 }
 
 export interface Media {
@@ -79,7 +79,7 @@ const demoInstructor: Instructor = {
     link: '#',
     photoUrl: UserPhoto2,
     isVerified: true,
-    type: 'instructor'
+    userType: 'instructor'
 };
 const demoInstructor1: Instructor = {
     name: 'Kevin Mcdonell',
@@ -87,7 +87,7 @@ const demoInstructor1: Instructor = {
     link: '#',
     photoUrl: UserPhoto2,
     isVerified: true,
-    type: 'instructor'
+    userType: 'instructor'
 };
 
 const demoInstructor2: Instructor = {
@@ -96,7 +96,7 @@ const demoInstructor2: Instructor = {
     link: '#',
     photoUrl: UserPhoto2,
     isVerified: true,
-    type: 'instructor'
+    userType: 'instructor'
 };
 
 const demoStudent: Student = {
@@ -105,7 +105,7 @@ const demoStudent: Student = {
     link: '#',
     photoUrl: UserPhoto3,
     isVerified: true,
-    type: 'student'
+    userType: 'student'
 };
 
 const demoTAs: TA[] = [
@@ -114,34 +114,34 @@ const demoTAs: TA[] = [
         userName: 'johndoe',
         link: '#',
         photoUrl: UserPhoto1,
-        type: 'ta'
+        userType: 'ta'
     },
     {
         name: 'Alice Johnson',
         userName: 'alicejohnson',
         link: '#',
         photoUrl: UserPhoto2,
-        type: 'ta'
+        userType: 'ta'
     },
     {
         name: 'Zoheb Hasan',
         userName: 'zohebhasan',
         link: '#',
         photoUrl: UserPhoto2,
-        type: 'ta'
+        userType: 'ta'
     },
     {
         name: 'Kamrul Hasan',
         userName: 'kamhasan',
         link: '#',
         photoUrl: UserPhoto2,
-        type: 'ta'
+        userType: 'ta'
     },
 ];
 
 const demoPost1: Post = {
     postId: '@1',
-    postedBy: demoStudent,
+    postedBy: demoInstructor,
     tag: 'Homework 1',
     datePosted: new Date('2023-02-01'),
     title: "What does ``const[state,setState]`` mean in react?",

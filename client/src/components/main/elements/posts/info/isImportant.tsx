@@ -13,19 +13,19 @@ export interface User {
     link: string;
     photoUrl: string;
     isVerified?: boolean;
-    type: 'instructor' | 'student' | 'ta';
+    userType: 'instructor' | 'student' | 'ta';
 }
 
 export interface Instructor extends User {
-    type: 'instructor';
+    userType: 'instructor';
 }
 
 export interface Student extends User {
-    type: 'student';
+    userType: 'student';
 }
 
 export interface TA extends User {
-    type: 'ta';
+    userType: 'ta';
 }
 
 interface IsImportantProps {
@@ -40,8 +40,8 @@ const IsImportantComponent: React.FC<IsImportantProps> = ({ markedBy, isQuestion
         .map(userName => markedBy.find(user => user.userName === userName))
         .filter((user): user is Instructor | TA => user !== undefined);
 
-    const instructors = uniqueMarkedBy.filter(user => user.type === 'instructor') as Instructor[];
-    const tas = uniqueMarkedBy.filter(user => user.type === 'ta') as TA[];
+    const instructors = uniqueMarkedBy.filter(user => user.userType === 'instructor') as Instructor[];
+    const tas = uniqueMarkedBy.filter(user => user.userType === 'ta') as TA[];
 
     let message = '';
     const importanceText = isQuestion ? 'question' : 'post';

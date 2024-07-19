@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from '../components/main/feed/header';
+import Header from '../components/main/elements/header';
 import Body from '../components/main/feed/body'
 
 import { StoriesProvider } from '../contexts/stories/storiesContext';

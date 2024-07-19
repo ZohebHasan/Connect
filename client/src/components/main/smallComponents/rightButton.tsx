@@ -54,8 +54,9 @@ const RightButtonContainer = styled.div<{
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    opacity: 0.5;
     &:hover {
-        opacity: 0.7;
+        opacity: 0.8;
         transform: translateY(-50%) scale(1.05);
     }
     &:active {
