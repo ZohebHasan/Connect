@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Button from '../../../ConnectUI_web/common/buttons/button1';
 import ConnaButton from '../../../ConnectUI_web/common/conna/connaButton';
 
-import { useSignup } from '../../../../contexts/registration/signup/signupContext';
+import { useSignup } from '../../../../contexts/signup/signupContext';
 
 
 const Bottom: React.FC= () => {

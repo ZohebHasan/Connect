@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import { LoginProvider } from '../contexts/login/loginContext';
-import { SignupProvider } from '../contexts/registration/signup/signupContext';
+import { SignupProvider } from '../contexts/signup/signupContext';
 import { ProfileProvider } from '../contexts/profiles/profilesContext';
 import { LeftBarNavButtonProvider } from '../contexts/navigation/menuNavContext';
 import { PerNavProvider } from '../contexts/navigation/perNavContext';
@@ -134,7 +134,7 @@ function RoutesWrapper() {
                             <Route path="/ageVerification" element={<DateOfBirth />} />
                             {/* <Route path="/agreement" element={<AgreementPage />} /> */}
                             <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
-                            <Route path="/profiles" element={<ProfilesPage />} />
+                            <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
                         </Routes>
                     </SignupProvider>
                 }
