@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface ProfNavContextProps {
     activeState: string;
@@ -15,18 +15,19 @@ const ProfNavContext = createContext<ProfNavContextProps | undefined>(undefined)
 export const ProfNavProvider: React.FC<ProfNavProviderProps> = ({ children }) => {
     const [activeState, setActiveState] = useState('about');
     const navigate = useNavigate();
+    const { username } = useParams<{ username: string }>();
 
     const handleSetActiveState = (state: string) => {
         setActiveState(state);
         switch (state) {
             case 'posts':
-                navigate('/currentUser/professional/posts');
+                navigate(`/professional/${username}/posts`);
                 break;
             case 'recommendations':
-                navigate('/currentUser/professional/recommendations');
+                navigate(`/professional/${username}/recommendations`);
                 break;
             default:
-                navigate('/currentUser/professional');
+                navigate(`/professional/${username}`);
                 break;
         }
     };

@@ -1,32 +1,25 @@
-import React, { createContext, useContext, ReactNode } from 'react';
-import dummyPhoto1 from '../../components/main/dummies/dummyPhotoPortrait1.png';
-import dummyPhoto2 from '../../components/main/dummies/dummyPhotoPortrait2.png';
-import dummyPhoto3 from '../../components/main/dummies/dummyPhotoPortrait3.png';
-import dummyPhoto4 from '../../components/main/dummies/dummyPhotoPortrait4.png';
-import dummyVideo from '../../components/main/dummies/dummyVideoPortrait.mp4';
+import React, { createContext, useContext, ReactNode, useEffect, useState } from 'react';
+import axios from 'axios';
 
-import ConnectLogo from '../../components/main/dummies/Connect.jpg';
-import GoogleLogo from '../../components/main/dummies/Google.jpg';
-import UniversityLogo from '../../components/main/dummies/Connect.jpg';
-import PhdUniversityLogo from '../../components/main/dummies/Connect.jpg';
+interface UserProfile {
+    userId: string;
+    userName: string;
+    name?: string;
+    isVerified?: boolean;
+    profilePhoto?: string;
+    currentStatus: {
+      role: string;
+      orgName?: string;
+    };
+  }
 
 interface Media {
     type: 'image' | 'video';
     url: string;
 }
 
-interface Recommender {
-    recommenderName?: string;
-    recommenderUserName: string;
-    recommenderPosition?: string;
-    recommenderCompany?: string;
-    profileUrl: string;
-    profilePhoto: string;
-    isVerified: boolean;
-}
-
-interface RecommendationInfo  {  
-    recommender: Recommender;
+interface RecommendationInfo {
+    recommender: UserProfile;
     text?: string;
     media?: Media[];
     recTime: string;
@@ -38,6 +31,8 @@ interface RecommendationInfo  {
 
 interface RecInfoContextData {
     recommendations: RecommendationInfo[];
+    loading: boolean;
+    error: string | null;
 }
 
 interface RecInfoProviderProps {
@@ -47,93 +42,36 @@ interface RecInfoProviderProps {
 const RecInfoContext = createContext<RecInfoContextData | undefined>(undefined);
 
 export const RecInfoProvider: React.FC<RecInfoProviderProps> = ({ children }) => {
-    const recommendationsData: RecommendationInfo[] = [
-        {
-            recommender: {
-                recommenderName: 'Alice Johnson',
-                recommenderUserName: 'alicejohnson',
-                recommenderPosition: 'Senior Software Engineer',
-                recommenderCompany: 'Google',
-                profileUrl: '#',
-                profilePhoto: dummyPhoto1,
-                isVerified: true
-            },
-            text: 'Priyanka is a highly skilled and dedicated professional.',
-            media: [
-                {
-                    type: 'image',
-                    url: dummyPhoto2,
-                },
-                {
-                    type: 'video',
-                    url: dummyVideo,
-                },
-            ],
-            recTime: 'April 2023',
-            recType: 'strongly',
-            description: 'A glowing recommendation from a colleague at Google.',
-            relation: 'colleague',
-            relationStatus: 'current',
-        },
-        {
-            recommender: {
-                recommenderName: 'Alice Johnson',
-                recommenderUserName: 'alicejohnson',
-                recommenderPosition: 'Senior Software Engineer',
-                recommenderCompany: 'Google',
-                profileUrl: '#',
-                profilePhoto: dummyPhoto1,
-                isVerified: true
-            },
-            text: 'Priyanka is a highly skilled and dedicated professional.',
-            media: [
-                {
-                    type: 'image',
-                    url: dummyPhoto2,
-                },
-                {
-                    type: 'video',
-                    url: dummyVideo,
-                },
-            ],
-            recTime: 'April 2023',
-            recType: 'strongly',
-            description: 'A glowing recommendation from a colleague at Google.',
-            relation: 'colleague',
-            relationStatus: 'current',
-        },
-        {
-            recommender: {
-                recommenderName: 'Alice Johnson',
-                recommenderUserName: 'alicejohnson',
-                recommenderPosition: 'Senior Software Engineer',
-                recommenderCompany: 'Google',
-                profileUrl: '#',
-                profilePhoto: dummyPhoto1,
-                isVerified: true
-            },
-            text: 'Priyanka is a highly skilled and dedicated professional.',
-            media: [
-                {
-                    type: 'image',
-                    url: dummyPhoto2,
-                },
-                {
-                    type: 'video',
-                    url: dummyVideo,
-                },
-            ],
-            recTime: 'April 2023',
-            recType: 'strongly',
-            description: 'A glowing recommendation from a colleague at Google.',
-            relation: 'colleague',
-            relationStatus: 'current',
-        }
-    ];
+    const [recommendations, setRecommendations] = useState<RecommendationInfo[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchRecommendations = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`http://localhost:8000/currentUserProfessionalRecommendations`, {
+                    withCredentials: true,
+                });
+
+                setRecommendations(response.data);
+                setError(null);
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                setError('Failed to fetch recommendations');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchRecommendations();
+    }, []);
 
     return (
         <RecInfoContext.Provider value={{ 
-            recommendations: recommendationsData
+            recommendations,
+            loading,
+            error
         }}>
             {children}
         </RecInfoContext.Provider>

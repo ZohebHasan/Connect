@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, useParams, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+
+import { ConnectUserProvider } from '../contexts/ConnectUser/connectUserProvider';
+import { PersonalProvider } from '../contexts/personalProfile/personal';
+import { ProfessionalProvider } from '../contexts/professionalProfile/professional';
 
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
@@ -11,7 +15,6 @@ import { SchoolNavProvider } from '../contexts/navigation/schoolNavContext';
 
 import { CreateBarProvider } from '../contexts/leftBar/createBarContext';
 
-
 import { PixelProvider } from '../contexts/personalProfile/pixelContext';
 import { ClipProvider } from '../contexts/personalProfile/clipContext';
 import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
@@ -19,7 +22,6 @@ import { ChirpProvider } from '../contexts/personalProfile/chirpContext';
 import { AboutInfoProvider } from '../contexts/professionalProfile/aboutContext';
 import { RecInfoProvider } from '../contexts/professionalProfile/recommendationContext';
 import { ProfPostProvider } from '../contexts/professionalProfile/profPostContext';
-
 
 import { CoursesProvider } from '../contexts/schoolProfile/courseContext';
 import { OrgsProvider } from '../contexts/schoolProfile/clubAndOrgsContext';
@@ -35,23 +37,18 @@ import SelectLanguagePage from "../pages/loginSignup/selectLanguage";
 import LoginPage from "../pages/loginSignup/login";
 import SignupPage from "../pages/loginSignup/signup";
 import VerificationLoginPage from "../pages/loginSignup/verificationLogin";
-// import AgreementPage from "../pages/loginSignup/agreement";
 import FeaturesPage from "../pages/loginSignup/features";
 import ProfilesPage from "../pages/loginSignup/profiles";
-// import VerificationSignupPage from "../pages/loginSignup/verificationSignup";
 import DateOfBirth from "../pages/loginSignup/ageVerification";
-// import UserInfoEmail from "../pages/loginSignup/userInfoEmail";
-
 import UserCredentials from "../pages/loginSignup/userCredentials";
 import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
 import CurrentUserPersonal from "../pages/currentUserPersonal";
-import CurrentUserProfessional from "../pages/currentUserProfessional"
-import CurrentUserSchool from "../pages/currentUserSchool/profile"
+import CurrentUserProfessional from "../pages/currentUserProfessional";
+import CurrentUserSchool from "../pages/currentUserSchool/profile";
 
-import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData"
-import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData"
-
+import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData";
+import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData";
 
 import Feed from "../pages/feed";
 
@@ -64,7 +61,6 @@ export default function Connect(): React.ReactElement {
                 <Route path="/" element={<Intro />} />
             </Routes>
             <ConnectInner />
-
         </Router>
     );
 }
@@ -100,7 +96,6 @@ function ConnectInner() {
                 {backgroundComponent}
                 <RoutesWrapper />
             </PageContainer>
-            {/* <ImageAnalysis /> */}
             <Copyright />
         </>
     );
@@ -132,7 +127,6 @@ function RoutesWrapper() {
                             <Route path="/userInfo" element={<UserCredentials />} />
                             <Route path="/idVerification" element={<VerificationSignup />} />
                             <Route path="/ageVerification" element={<DateOfBirth />} />
-                            {/* <Route path="/agreement" element={<AgreementPage />} /> */}
                             <Route path="/features" element={<ProtectedRoute><FeaturesPage /></ProtectedRoute>} />
                             <Route path="/profiles" element={<ProtectedRoute><ProfilesPage /></ProtectedRoute>} />
                         </Routes>
@@ -143,55 +137,63 @@ function RoutesWrapper() {
             <Route
                 path="/*"
                 element={
-                    <LeftBarNavButtonProvider>
-                        <ProfileProvider>
-                            <CreateBarProvider>
-                                <Routes>
-                                    <Route path="/home" element={<Feed />} />
-                                    <Route path="/currentUser/personal/*" element={<CurrentUserPersonalRoutes />} />
-                                    <Route path="/currentUser/professional/*" element={<CurrentUserProfessionalRoutes />} />
-                                    <Route path="/currentUser/school/*" element={<CurrentUserSchoolRoutes />} />
-                                </Routes>
-                            </CreateBarProvider>
-                        </ProfileProvider>
-                    </LeftBarNavButtonProvider>
+                    <ProtectedRoute>
+                        <ConnectUserProvider>
+                            <LeftBarNavButtonProvider>
+                                <ProfileProvider>
+                                    <CreateBarProvider>
+                                        <Routes>
+                                            <Route path="/home" element={<Feed />} />
+                                            <Route path="/personal/:username/*" element={<CurrentUserPersonalRoutes />} />
+                                            <Route path="/professional/:username/*" element={<CurrentUserProfessionalRoutes />} />
+                                            <Route path="/school/:username/*" element={<CurrentUserSchoolRoutes />} />
+                                        </Routes>
+                                    </CreateBarProvider>
+                                </ProfileProvider>
+                            </LeftBarNavButtonProvider>
+                        </ConnectUserProvider>
+                    </ProtectedRoute>
                 }
             />
-            {/* <Route path="/userInfoEmail" element={<UserInfoEmail />} />
-            <Route path="/home" element={<Feed />} /> */}
         </Routes>
     );
 }
 
 function CurrentUserPersonalRoutes() {
     return (
-        <PerNavProvider>
-            <Routes>
-                <Route path="/" element={<PixelProvider> <CurrentUserPersonal /> </PixelProvider>} />
-                <Route path="clips" element={<ClipProvider> <CurrentUserPersonal /> </ClipProvider>} />
-                <Route path="chirps" element={<ChirpProvider> <CurrentUserPersonal /> </ChirpProvider>} />
-            </Routes>
-        </PerNavProvider>
+        <PersonalProvider>
+            <PerNavProvider>
+                <Routes>
+                    <Route path="/" element={<PixelProvider> <CurrentUserPersonal /> </PixelProvider>} />
+                    <Route path="clips" element={<ClipProvider> <CurrentUserPersonal /> </ClipProvider>} />
+                    <Route path="chirps" element={<ChirpProvider> <CurrentUserPersonal /> </ChirpProvider>} />
+                </Routes>
+            </PerNavProvider>
+        </PersonalProvider>
     );
 }
 
 function CurrentUserProfessionalRoutes() {
     return (
-        <ProfNavProvider>
-            <Routes>
-                <Route path="/" element={<AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
-                <Route path="/recommendations" element={<RecInfoProvider> <CurrentUserProfessional /></RecInfoProvider>} />
-                <Route path="/posts" element={<ProfPostProvider><CurrentUserProfessional /></ProfPostProvider>} />
-            </Routes>
-        </ProfNavProvider>
+        <ProfessionalProvider>
+            <ProfNavProvider>
+                <Routes>
+                    <Route path="/" element={<AboutInfoProvider> <CurrentUserProfessional /> </AboutInfoProvider>} />
+                    <Route path="/recommendations" element={<RecInfoProvider> <CurrentUserProfessional /></RecInfoProvider>} />
+                    <Route path="/posts" element={<ProfPostProvider><CurrentUserProfessional /></ProfPostProvider>} />
+                </Routes>
+            </ProfNavProvider>
+        </ProfessionalProvider>
     );
 }
 
 function CurrentUserSchoolRoutes() {
+    const { username } = useParams<{ username: string }>();
+
     return (
         <SchoolNavProvider>
             <Routes>
-                <Route path="/" element={<Navigate to="/currentUser/school/courses" replace />} />
+                <Route path="/" element={<Navigate to={`/school/${username}/courses`} replace />} />
                 <Route path="courses" element={<CoursesProvider> <CurrentUserSchool /> </CoursesProvider>} />
                 <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser /></CoursesProvider>} />
                 <Route path="clubsAndOrgs" element={<OrgsProvider> <CurrentUserSchool /> </OrgsProvider>} />

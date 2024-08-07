@@ -22,6 +22,16 @@ import text_extraction_router from './routers/tags_extraction/text_extraction_ro
 import ProfileSelectionRouter from './routers/signupAndLogin/signup/profileSelection'
 import fileUploadRouter from './routers/file_upload/file_upload';
 
+import CreateOrganizationRouter from './routers/signupAndLogin/signup/organization'
+
+import PersonalProfileRouter from './routers/connectUser/profiles/personal'
+import ProfessionalProfileRouter from "./routers/connectUser/profiles/professional/professional"
+import ProfessionalProfileRecommendationsRouter from "./routers/connectUser/profiles/professional/recommendations"
+
+
+import ConnectUserDataRouter from "./routers/connectUser/userDataRouter"
+import ConnectUserProfileRoutes from "./routers/connectUser/profiles"
+
 dotenv.config();
 const app = express();
 const PORT: Number = 8000;
@@ -56,6 +66,10 @@ app.use('/verification', verificationRouter)
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
 app.use('/educational_profile', schoolProfileRouter); // for testing purposes : removed the authenticate middleware
 app.use('/professional_profile', professionalProfileRouter); // for testing purposes : removed the authenticate middleware
+
+app.use('/createOrg', CreateOrganizationRouter); // for testing purposes : removed the authenticate middleware
+
+
 app.use('/post', postRouter);
 app.use('/comment', commentRouter);
 
@@ -72,3 +86,11 @@ app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 app.use('/text_extraction', text_extraction_router);
 app.use('/profileSelection', authenticate, ProfileSelectionRouter);
 
+
+app.use('/user' , authenticate, ConnectUserDataRouter);
+app.use('/profiles' , authenticate, ConnectUserProfileRoutes);
+app.use('/currentUserPersonal' , authenticate, PersonalProfileRouter);
+
+
+app.use('/currentUserProfessional' , authenticate, ProfessionalProfileRouter);
+app.use('/currentUserProfessionalRecommendations' , authenticate,  ProfessionalProfileRecommendationsRouter);

@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.personalProfile = void 0;
-const personal_profile_1 = __importDefault(require("../../../models/profiles/personal_profile"));
+const personal_1 = __importDefault(require("../../../models/profiles/personal"));
 const userModel_1 = __importDefault(require("../../../models/userModel"));
 const personalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user_id } = req.body;
@@ -24,7 +24,7 @@ const personalProfile = (req, res) => __awaiter(void 0, void 0, void 0, function
     if (!user) {
         return res.status(400).json({ message: 'User does not exist' });
     }
-    const newProfile = new personal_profile_1.default({
+    const newProfile = new personal_1.default({
         user: user
     });
     yield newProfile.save();

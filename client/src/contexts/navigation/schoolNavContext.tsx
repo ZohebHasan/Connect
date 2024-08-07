@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 interface SchoolNavContextProps {
     activeState: string;
@@ -15,18 +15,19 @@ const SchoolNavContext = createContext<SchoolNavContextProps | undefined>(undefi
 export const SchoolNavProvider: React.FC<SchoolNavProviderProps> = ({ children }) => {
     const [activeState, setActiveState] = useState('courses');
     const navigate = useNavigate();
+    const { username } = useParams<{ username: string }>();
 
     const handleSetActiveState = (state: string) => {
         setActiveState(state);
         switch (state) {
             case 'campus':
-                navigate('/currentUser/school/campus');
+                navigate(`/school/${username}/campus`);
                 break;
             case 'clubsAndOrgs':
-                navigate('/currentUser/school/clubsAndOrgs');
+                navigate(`/school/${username}/clubsAndOrgs`);
                 break;
             default:
-                navigate('/currentUser/school/courses');
+                navigate(`/school/${username}/courses`);
                 break;
         }
     };

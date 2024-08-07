@@ -5,6 +5,10 @@ import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 import RightIconDark from "../../assets/rightDark.png";
 import RightIconLight from "../../assets/rightLight.png";
 
+import RightPersonal from "../../assets/rightPersonal.png";
+import RightSchool from "../../assets/rightSchool.png";
+import RightProfessional from "../../assets/rightProfessional.png";
+
 import { useProfile } from '../../../contexts/profiles/profilesContext';
 
 const RightButton: React.FC = () => {
@@ -21,42 +25,45 @@ const RightButton: React.FC = () => {
         }
     };
 
+    const getIcon = () => {
+        if (isActivePersonal) {
+            return RightSchool;
+        } else if (isActiveSchool) {
+            return RightProfessional;
+        } else if (isActiveProfessional) {
+            return RightPersonal;
+        } else {
+            return isDarkMode ? RightIconDark : RightIconLight;
+        }
+    };
+
     return (
         <RightButtonContainer
-            isActivePersonal={isActivePersonal}
-            isActiveProfessional={isActiveProfessional}
-            isActiveSchool={isActiveSchool}
+            isDarkMode={isDarkMode}
             onClick={handleClick}
         >
-            <Icon src={isDarkMode ? RightIconDark : RightIconLight} />
+            <Icon src={getIcon()} />
         </RightButtonContainer>
     );
 };
 
 export default RightButton;
 
-const RightButtonContainer = styled.div<{
-    isActivePersonal: boolean;
-    isActiveProfessional: boolean;
-    isActiveSchool: boolean;
-}>`
+const RightButtonContainer = styled.div<{ isDarkMode: boolean }>`
     position: fixed;
     right: 2%; 
     top: 50%;
     transform: translateY(-50%);
-    background: ${({ isActivePersonal, isActiveProfessional, isActiveSchool }) => 
-        isActivePersonal ? 'linear-gradient(to right, #EA8D8D, #A890FE)' :
-        isActiveSchool ? 'linear-gradient(to right, #2E3192, #1BFFFF)' :
-        isActiveProfessional ? 'linear-gradient(to right, #662D8C, #ED1E79)' : 'red'};
-    padding: 0.5rem;
+    background: ${({ isDarkMode }) => isDarkMode ? 'rgba(118, 118, 118, 0.665)' : 'rgba(141, 141, 141, 0.238)'};
+    padding: 0.2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.8;
     &:hover {
-        opacity: 0.8;
+        opacity: 0.7;
         transform: translateY(-50%) scale(1.05);
     }
     &:active {
@@ -66,6 +73,6 @@ const RightButtonContainer = styled.div<{
 `;
 
 const Icon = styled.img`
-    width: 1.2rem;
+    width: 1.8rem;
     height: auto;
 `;

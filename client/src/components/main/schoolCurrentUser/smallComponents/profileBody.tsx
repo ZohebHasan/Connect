@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import ProfileBodyContainer from '../../../ConnectUI_web/templetes/bodyTemplete';
@@ -24,37 +24,28 @@ import RightButton from '../../smallComponents/rightButton';
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
-
-    
+    const { username } = useParams<{ username: string }>();
 
     const renderContent = () => {
         switch (location.pathname) {
-            case "/currentUser/school":
+            case `/school/${username}`:
                 return <Courses />
-            case "/currentUser/school/courses":
+            case `/school/${username}/courses`:
                 return <Courses />
-            case "/currentUser/school/clubsAndOrgs":
-                return <ClubsAndOrgs/>
-            case "/currentUser/school/campus":
-                return <CampusPosts/>
-            // return <ProfPosts />
+            case `/school/${username}/clubsAndOrgs`:
+                return <ClubsAndOrgs />
+            case `/school/${username}/campus`:
+                return <CampusPosts />
             default:
                 return <></>
         }
     };
 
-    
-
     return (
         <>
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
-
                 <LeftButton />
                 <RightButton />
-                {/* <ProfileHeaderContainer>
-                    <DarkLightToggle />
-                    <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
-                </ProfileHeaderContainer> */}
                 <ProfileInfo />
                 <PostFilter />
                 {renderContent()}

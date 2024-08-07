@@ -2,29 +2,38 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../../ConnectUI_web/common/texts/static';
-import Header from '../common/header';
 
 import VerifiedIcon from '../../../../assets/verified.png';
 import Pixel from "../../../elements/posts/bodies/pixel";
 import { Media as PixelMedia } from "../../../elements/posts/mediaType";
+import { useConnectUser } from '../../../../../contexts/ConnectUser/connectUserProvider';
+
 
 interface Media {
   type: 'image' | 'video';
   url: string;
 }
 
-interface Recommender {
-  recommenderName?: string;
-  recommenderUserName: string;
-  recommenderPosition?: string;
-  recommenderCompany?: string;
-  profileUrl: string;
-  profilePhoto: string;
-  isVerified: boolean;
+
+interface UserProfile {
+  userId: string;
+  userName: string;
+  name?: string;
+  isVerified?: boolean;
+  profilePhoto?: string;
+  currentStatus: {
+    role: string;
+    orgName?: string;
+  };
+}
+
+interface Media {
+  type: 'image' | 'video';
+  url: string;
 }
 
 interface RecommendationInfo {
-  recommender: Recommender;
+  recommender: UserProfile;
   text?: string;
   media?: Media[];
   recTime: string;
@@ -34,16 +43,31 @@ interface RecommendationInfo {
   relationStatus: 'current' | 'former';
 }
 
+
+
+
+
 interface RecProps {
   recs: RecommendationInfo[];
 }
 
 const RecElement: React.FC<RecProps> = ({ recs }) => {
   const { isDarkMode } = useDarkMode();
+  const { user } = useConnectUser();
+
+
+  if (recs.length === 0) {
+    return (
+      <RecContainer>
+        <Text variant={"transparent"} size="1.3rem" fontWeight="300">
+          You don't have any recommendations yet.
+        </Text>
+      </RecContainer>
+    );
+  }
 
   return (
     <RecContainer>
-      {/* <Header HeaderType='recommendation'/> */}
       <Recs>
         {recs.map((item, index) => (
           <React.Fragment key={index}>
@@ -61,7 +85,7 @@ const RecElement: React.FC<RecProps> = ({ recs }) => {
                       <UserName>
                         <FullNameContainer>
                           <Text variant={"normal"} size={"1.1rem"} fontWeight={"400"}>
-                            {item.recommender.recommenderName}
+                            {item.recommender.name}
                           </Text>
 
                           {item.recommender.isVerified ? <VerifiedBadge /> : null}
@@ -82,7 +106,7 @@ const RecElement: React.FC<RecProps> = ({ recs }) => {
                         </Text>
                         <UserNameContainer>
                           <Text variant={"transparent"} size={"1rem"} fontWeight={"300"}>
-                            @{item.recommender.recommenderUserName}
+                            @{item.recommender.userName}
                           </Text>
                         </UserNameContainer>
                       </UserName>
@@ -90,13 +114,13 @@ const RecElement: React.FC<RecProps> = ({ recs }) => {
                     <UserInfo>
                       <CompanyNameContainer>
                         <Text variant={"transparent"} size={"0.85rem"} fontWeight={"300"}>
-                          {item.recommender.recommenderPosition}
+                          {item.recommender.currentStatus.role}
                         </Text>
                         <Text variant={"transparent"} size={"0.85rem"} fontWeight={"300"}>
                           at
                         </Text>
                         <Text variant={"normal"} size={"0.85rem"} fontWeight={"300"}>
-                          {item.recommender.recommenderCompany}
+                          {item.recommender.currentStatus.orgName}
                         </Text>
                       </CompanyNameContainer>
 
@@ -109,7 +133,7 @@ const RecElement: React.FC<RecProps> = ({ recs }) => {
                     </UserInfo>
                     <RelationContainer>
                       <Text variant={"transparent"} size={"0.8rem"} fontWeight={"300"}>
-                        {item.recommender.recommenderName?.split(' ')[0]} {item.relationStatus === 'current' ? 'is' : 'was'} Zoheb's {item.relation}
+                        {item.relationStatus.split(' ')[0]} {item.relationStatus === 'current' ? 'is' : 'was'} {user?.fullName.split(' ')[0]}'s {item.relation}
                       </Text>
                     </RelationContainer>
 

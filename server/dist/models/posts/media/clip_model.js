@@ -7,8 +7,6 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 const clipSchema = new mongoose_2.Schema({
     file: { type: mongoose_2.Schema.Types.ObjectId, required: false },
-    dateCreated: { type: Date, required: false, default: Date.now() },
-    duration: { type: Number, required: false },
     caption: { type: String, required: false }
 });
 const ClipModel = mongoose_1.default.model('Clip', clipSchema);

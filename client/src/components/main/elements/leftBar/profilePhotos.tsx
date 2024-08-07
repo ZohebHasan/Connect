@@ -1,92 +1,98 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import PersonalPhoto from "../../dummies/personal.jpeg";
-import ProfessionalPhoto from "../../dummies/professional.jpeg";
-import SchoolPhoto from "../../dummies/school.jpeg";
+import DefaultPersonalDark from "../../../assets/personalDark.png";
+import DefaultPersonalLight from "../../../assets/personalLight.png";
 
-import VideoDark from "../../../ConnectUI_web/backgrounds/background1/assets/background1DarkMonitor.mp4"
+import DefaultProfessionalDark from "../../../assets/professionalDark.png";
+import DefaultProfessionalLight from "../../../assets/professionalLight.png";
+
+import DefaultSchoolDark from "../../../assets/schoolUserDark.png";
+import DefaultSchoolLight from "../../../assets/schoolUserLight.png";
+
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
+import { useProfile, ProfileType } from '../../../../contexts/profiles/profilesContext'; // Import ProfileType
 
-import { useProfile } from '../../../../contexts/profiles/profilesContext';
-
-
-// const StyledVideo = styled.video`
-//     width: 3rem;
-//     height: 3rem;
-//     z-index: 0;
-//     object-fit: cover;
-//     // position: absolute;
-//      border-radius: 50%;
-// `;
 interface ContentProps {
     parentSize?: number;
     childSize?: number;
 }
 
 const ProfilePhotos: React.FC<ContentProps> = ({ parentSize, childSize }) => {
-    const { activeProfile } = useProfile();
+    const { profiles, activeProfile } = useProfile();
     const { isDarkMode } = useDarkMode();
 
-    const profiles = {
-        personal: PersonalPhoto,
-        professional: ProfessionalPhoto,
-        school: SchoolPhoto
+    const getProfilePhoto = (type: ProfileType) => {
+        const profile = profiles.find(p => p.type === type);
+        if (profile && profile.photoUrl) {
+            return profile.photoUrl;
+        }
+
+        switch (type) {
+            case 'personal':
+                return isDarkMode ? DefaultPersonalDark : DefaultPersonalLight;
+            case 'professional':
+                return isDarkMode ? DefaultProfessionalDark : DefaultProfessionalLight;
+            case 'school':
+                return isDarkMode ? DefaultSchoolDark : DefaultSchoolLight;
+            default:
+                return null;
+        }
+    };
+
+    const renderProfilePhoto = (type: ProfileType, role: 'parent' | 'child', position?: 'top' | 'bottom') => (
+        <PhotoContainer
+            key={type}
+            role={role}
+            position={position}
+        >
+            <Border role={role} profileType={type}>
+                <InnerBorder $isDarkMode={isDarkMode}>
+                    <Photo
+                        src={getProfilePhoto(type)}
+                        role={role}
+                        $parentSize={parentSize}
+                        $childSize={childSize}
+                    />
+                </InnerBorder>
+            </Border>
+        </PhotoContainer>
+    );
+
+    const renderChildProfile = (type: ProfileType, position: 'top' | 'bottom') => {
+        const profile = profiles.find(p => p.type === type);
+        if (profile) {
+            return renderProfilePhoto(type, 'child', position);
+        }
+        return null;
     };
 
     return (
         <>
             <ProfilePhotoContainer>
-                <PhotoContainer role="parent">
-                    <Border role="parent" profileType={activeProfile}>
-                        <InnerBorder $isDarkMode={isDarkMode}>
-
-                            <Photo
-                                src={profiles[activeProfile]}
-                                role={'parent'}
-                                $parentSize={parentSize}
-                                $childSize={childSize}
-
-                            />
-                        </InnerBorder>
-                        {/* <StyledVideo autoPlay loop muted playsInline controls={false}>
-                            <source src={VideoDark} type="video/mp4" />
-                        </StyledVideo> */}
-                    </Border>
-                </PhotoContainer>
-
-                <PhotoContainer role="child" position="top">
-                    <Border role="child" profileType={activeProfile === 'personal' ? 'school' : 'personal'}>
-                        <InnerBorder $isDarkMode={isDarkMode}>
-                            <Photo
-                                src={activeProfile === 'personal' ? profiles['school'] : profiles['personal']}
-                                role={'child'}
-                                $parentSize={parentSize}
-                                $childSize={childSize}
-                            />
-                        </InnerBorder>
-                    </Border>
-                </PhotoContainer>
-
-                <PhotoContainer role="child" position="bottom">
-                    <Border role="child" profileType={activeProfile === 'professional' ? 'school' : 'professional'}>
-                        <InnerBorder $isDarkMode={isDarkMode}>
-
-                            <Photo
-                                src={activeProfile === 'professional' ? profiles['school'] : profiles['professional']}
-                                role={'child'}
-                                $parentSize={parentSize}
-                                $childSize={childSize}
-                            />
-                        </InnerBorder>
-                    </Border>
-                </PhotoContainer>
-
+                {activeProfile && renderProfilePhoto(activeProfile, 'parent')}
+                {activeProfile === 'personal' && (
+                    <>
+                        {renderChildProfile('professional', 'top')}
+                        {renderChildProfile('school', 'bottom')}
+                    </>
+                )}
+                {activeProfile === 'professional' && (
+                    <>
+                        {renderChildProfile('personal', 'top')}
+                        {renderChildProfile('school', 'bottom')}
+                    </>
+                )}
+                {activeProfile === 'school' && (
+                    <>
+                        {renderChildProfile('personal', 'top')}
+                        {renderChildProfile('professional', 'bottom')}
+                    </>
+                )}
             </ProfilePhotoContainer>
         </>
     );
 };
-
 
 export default ProfilePhotos;
 
@@ -97,8 +103,7 @@ const InnerBorder = styled.div<{ $isDarkMode: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-    transition: background-color 0.3s ease; 
-
+  transition: background-color 0.3s ease; 
 `;
 
 const ProfilePhotoContainer = styled.div`
@@ -107,8 +112,8 @@ const ProfilePhotoContainer = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    position:relative;
-`
+    position: relative;
+`;
 
 interface PhotoContainerProps {
     role: 'parent' | 'child';
@@ -130,17 +135,15 @@ const PhotoContainer = styled.div<PhotoContainerProps>`
   justify-content: ${({ role, position }) =>
         role === 'parent'
             ? 'flex-start'
-            : position === 'top'
-                ? 'flex-end'
-                : 'flex-end'};
+            : 'flex-end'};
 `;
 
 interface BorderProps {
     role: 'parent' | 'child';
-    profileType: 'personal' | 'professional' | 'school';
+    profileType: ProfileType;
 }
 
-const getBackgroundGradient = (profileType: string) => {
+const getBackgroundGradient = (profileType: ProfileType) => {
     switch (profileType) {
         case 'personal':
             return 'linear-gradient(to right, #662D8C, #ED1E79)';
@@ -153,7 +156,6 @@ const getBackgroundGradient = (profileType: string) => {
     }
 };
 
-
 const Border = styled.div<BorderProps>`
   background: ${({ profileType }) => getBackgroundGradient(profileType)};
   padding: ${({ role }) => (role === 'parent' ? '1.8px' : '1.5px')};
@@ -162,7 +164,6 @@ const Border = styled.div<BorderProps>`
   align-items: center;
   justify-content: center;
 `;
-
 
 const Photo = styled.img<{ role: 'parent' | 'child', $parentSize?: number, $childSize?: number }>`
     height: ${({ role, $parentSize, $childSize }) => {
@@ -183,9 +184,3 @@ const Photo = styled.img<{ role: 'parent' | 'child', $parentSize?: number, $chil
     }};
     border-radius: 50%;
 `;
-
-
-
-
-
-
