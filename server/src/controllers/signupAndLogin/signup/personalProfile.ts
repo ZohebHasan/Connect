@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import personal_profile from "../../../models/profiles/personal_profile";
+import personal_profile from "../../../models/profiles/personal";
 import User from "../../../models/userModel";
 export const personalProfile = async (req: Request, res: Response) => {
     const {  user_id } = req.body;

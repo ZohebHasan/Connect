@@ -37,7 +37,7 @@ export const verifyEmailCodeController = async (req: Request, res: Response) => 
     if (storedCode === code && now - timestamp <= 10 * 60 * 1000) { // 10 minutes expiration
         
         verificationCodes.delete(email); // Remove code after verification
-        const user = await User.findOneAndUpdate({email: email},{ verified: true });
+        const user = await User.findOneAndUpdate({email: email},{ verifiedCredential: true });
 
         
         if (!user) {

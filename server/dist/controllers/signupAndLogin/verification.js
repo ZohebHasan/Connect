@@ -46,7 +46,7 @@ const verifyEmailCodeController = (req, res) => __awaiter(void 0, void 0, void 0
     const now = Date.now();
     if (storedCode === code && now - timestamp <= 10 * 60 * 1000) {
         verificationCodes.delete(email);
-        const user = yield userModel_1.default.findOneAndUpdate({ email: email }, { verified: true });
+        const user = yield userModel_1.default.findOneAndUpdate({ email: email }, { verifiedCredential: true });
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
         }

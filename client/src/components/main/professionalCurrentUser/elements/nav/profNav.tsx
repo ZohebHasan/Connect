@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useProfNavContext } from '../../../../../contexts/navigation/profNavContext';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
@@ -11,6 +11,7 @@ const FilterButtons: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useParams<{ username: string }>();
 
     useEffect(() => {
         const path = location.pathname.split('/').pop();
@@ -34,7 +35,7 @@ const FilterButtons: React.FC = () => {
             <FeedButtonContainer>
                 <StyledButton
                     $isActive={activeState === 'about'}
-                    onClick={() => handleClick('about', '/currentUser/professional')}
+                    onClick={() => handleClick('about', `/professional/${username}`)}
                     $isDarkMode={isDarkMode}
                     className="about"
                 >
@@ -45,7 +46,7 @@ const FilterButtons: React.FC = () => {
             <TrendingButtonContainer>
                 <StyledButton
                     $isActive={activeState === 'posts'}
-                    onClick={() => handleClick('posts', '/currentUser/professional/posts')}
+                    onClick={() => handleClick('posts', `/professional/${username}/posts`)}
                     $isDarkMode={isDarkMode}
                     className="posts"
                 >
@@ -56,7 +57,7 @@ const FilterButtons: React.FC = () => {
             <FeedButtonContainer>
                 <StyledButton
                     $isActive={activeState === 'recommendations'}
-                    onClick={() => handleClick('recommendations', '/currentUser/professional/recommendations')}
+                    onClick={() => handleClick('recommendations', `/professional/${username}/recommendations`)}
                     $isDarkMode={isDarkMode}
                     className="recommendations"
                 >

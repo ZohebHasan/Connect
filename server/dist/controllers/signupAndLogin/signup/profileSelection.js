@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleProfileSelections = void 0;
 const userModel_1 = __importDefault(require("../../../models/userModel"));
-const personal_profile_1 = __importDefault(require("../../../models/profiles/personal_profile"));
-const professional_profile_1 = __importDefault(require("../../../models/profiles/professional_profile"));
-const educational_profile_1 = __importDefault(require("../../../models/profiles/educational_profile"));
+const personal_1 = __importDefault(require("../../../models/profiles/personal"));
+const professional_1 = __importDefault(require("../../../models/profiles/professional/professional"));
+const school_1 = __importDefault(require("../../../models/profiles/school"));
 const handleProfileSelections = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
-    const { personalProfile, professionalProfile, educationalProfile } = req.body;
+    const { personal, professional, school } = req.body;
     if (!userId) {
         return res.status(401).json({ message: 'Unauthorized: No user ID found' });
     }
@@ -29,22 +29,28 @@ const handleProfileSelections = (req, res) => __awaiter(void 0, void 0, void 0, 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-        if (personalProfile) {
-            const newPersonalProfile = new personal_profile_1.default(Object.assign({ user: user._id }, personalProfile));
+        if (personal) {
+            const newPersonalProfile = new personal_1.default({
+                user: user._id
+            });
             yield newPersonalProfile.save();
         }
-        if (professionalProfile) {
-            const newProfessionalProfile = new professional_profile_1.default(Object.assign({ user: user._id }, professionalProfile));
+        if (professional) {
+            const newProfessionalProfile = new professional_1.default({
+                user: user._id
+            });
             yield newProfessionalProfile.save();
         }
-        if (educationalProfile) {
-            const newEducationalProfile = new educational_profile_1.default(Object.assign({ user: user._id }, educationalProfile));
+        if (school) {
+            const newEducationalProfile = new school_1.default({
+                user: user._id
+            });
             yield newEducationalProfile.save();
         }
-        res.status(200).json({ message: 'Profiles updated successfully' });
+        res.status(200).json({ message: 'Profiles created successfully' });
     }
     catch (error) {
-        console.error('Error updating profiles:', error);
+        console.error('Error creating profiles:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });

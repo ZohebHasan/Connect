@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import professional_profile from "../../../models/profiles/professional_profile";
+import professional_profile from "../../../models/profiles/professional/professional";
 import User from "../../../models/userModel";
 
 export const professionalProfile = async (req: Request, res: Response) => {

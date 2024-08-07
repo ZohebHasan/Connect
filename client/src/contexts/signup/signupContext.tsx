@@ -401,7 +401,7 @@ export const SignupProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     };
 
     const handleSelectedSubmit = async (selectedProfiles: { professional: boolean; personal: boolean; school: boolean }) => {
-        console.log("personal: " + (selectedProfiles.personal) + ", School: " + selectedProfiles.school +", professional: "+  selectedProfiles.professional)
+        console.log("personal: " + (selectedProfiles.personal) + ", School: " + selectedProfiles.school + ", professional: " + selectedProfiles.professional);
         try {
             const response = await axios.post('http://localhost:8000/profileSelection', selectedProfiles, { withCredentials: true });
             console.log('Profiles created successfully:', response.data);

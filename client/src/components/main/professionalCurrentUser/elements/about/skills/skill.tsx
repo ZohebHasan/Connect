@@ -9,7 +9,11 @@ import SkillLight from "../../../../../assets/skillLight.png";
 import RightArrowDark from '../../../../../assets/rightArrowDark.png';
 import RightArrowLight from '../../../../../assets/rightArrowLight.png';
 
-import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
+import AddIconDark from "../../../../../assets/createDarkActive.png"
+import AddIconLight from "../../../../../assets/createLightActive.png"
+
+
+// import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
 
 import Header from '../../common/header';
 import TextBody from '../../common/textDescription';
@@ -30,9 +34,16 @@ interface CommonInfo {
   department?: string;
 }
 
+interface UserProfile {
+  userId: String;
+  name?: string;
+  isVerified?: boolean;
+  profilePhoto?: string;
+}
+
 interface SkillInfo extends CommonInfo {
   proficiency?: string;
-  endorsedBy?: { id: number; src: string }[];
+  endorsedBy?: UserProfile[];
 }
 
 interface SkillsComponentProps {
@@ -42,17 +53,34 @@ interface SkillsComponentProps {
 
 const SkillsComponent: React.FC<SkillsComponentProps> = ({ headerType, data }) => {
   const { isDarkMode } = useDarkMode();
-  const { setActiveType, toggleDataBar } = useAboutInfoContext();
+  // const { setActiveType, toggleDataBar } = useAboutInfoContext();
 
 
   const getSeeAllText = () => {
     return `${data.length} skills`;
   };
 
-  const handleShowAllClick = () => {
-    setActiveType(headerType);
-    toggleDataBar();
-  };
+  if (data.length === 0 ) {
+    return <>
+      <SkillsContainer>
+        <Header HeaderType={headerType} display={"notFullScreen"} />
+
+        <AddIconContainer>
+          <AddInfoWrapper>
+            <AddIcon src={isDarkMode ? AddIconDark : AddIconLight} $isDarkMode={isDarkMode} />
+            <Text variant={"transparent"} size={"1rem"} fontWeight={"400"}>
+              Add skills
+            </Text>
+          </AddInfoWrapper>
+        </AddIconContainer>
+      </SkillsContainer>
+    </>
+  }
+
+  // const handleShowAllClick = () => {
+  //   setActiveType(headerType);
+  //   toggleDataBar();
+  // };
 
   return (
     <SkillsContainer>
@@ -101,8 +129,8 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({ headerType, data }) =
                   <Text variant={"normal"} size={"0.9rem"} fontWeight={"300"}>
                     •
                   </Text>
-                
-                  <TextBody textBody={description} display= {'notFullScreen'}/>
+
+                  <TextBody textBody={description} display={'notFullScreen'} />
 
                 </SkillDescription>
 
@@ -111,11 +139,11 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({ headerType, data }) =
                     Endorsed by:
                   </Text>
                   <EndorsersList>
-                    {visibleEndorsers.map((endorser) => (
-                      <Endorser key={endorser.id}>
+                    {visibleEndorsers.map((endorser, index) => (
+                      <Endorser key={index}>
                         <OuterBorder>
                           <InnerBorder $isDarkMode={isDarkMode}>
-                            <EndorserImage src={endorser.src} />
+                            <EndorserImage src={endorser.profilePhoto} />
                           </InnerBorder>
                         </OuterBorder>
                       </Endorser>
@@ -140,7 +168,8 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({ headerType, data }) =
         })}
       </SkillsList>
       {data.length > 1 && (
-        <ShowAllContainer onClick={handleShowAllClick}>
+        // <ShowAllContainer onClick={handleShowAllClick}>
+        <ShowAllContainer >
           <Text variant="normal" size="1rem" fontWeight="500">
             See all {getSeeAllText()}
           </Text>
@@ -153,6 +182,43 @@ const SkillsComponent: React.FC<SkillsComponentProps> = ({ headerType, data }) =
 };
 
 export default SkillsComponent;
+
+
+const AddInfoWrapper = styled.div`
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.6;
+  }
+`;
+
+
+const AddIcon = styled.img<{ $isDarkMode: boolean }>`
+  width: 1rem;
+  padding: 0.3rem;
+  border: 1px solid ${({ $isDarkMode }) => ($isDarkMode ? 'white' : 'black')};
+  border-radius: 3px;
+`;
+
+const AddIconContainer = styled.div`
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+
+`
 
 const ArrowIcon = styled.img`
   width: 1.4rem;
