@@ -19,6 +19,7 @@ import verificationRouter from './routers/verification'
 import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
 import text_extraction_router from './routers/tags_extraction/text_extraction_router';
+import social_networking_router from './routers/social_networking'
 
 import fileUploadRouter from './routers/file_upload/file_upload';
 
@@ -37,6 +38,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
+
 app.listen(PORT, () => {
     console.log('The application is listening on port http://localhost:' + PORT);
     connectToMongoDB();
@@ -50,7 +52,7 @@ app.use('/upload', fileUploadRouter);
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
-app.use('/verification', verificationRouter)
+app.use('/verification', verificationRouter);
 
 // Protect routes with JWT middleware
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
@@ -69,4 +71,8 @@ app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 
 // use the text_extraction_router
 app.use('/text_extraction', text_extraction_router);
+
+// use the social networking algorithm to get recommendations from users based on their interactions
+
+app.use('/recommendations', social_networking_router)
 
