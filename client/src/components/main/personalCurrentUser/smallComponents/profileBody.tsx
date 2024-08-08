@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import ProfileBodyContainer from '../../../ConnectUI_web/templetes/bodyTemplete';
@@ -11,8 +11,7 @@ import OptionLight from "../../../assets/storyOptionsLight.png";
 import OptionDark from "../../../assets/storyOptionsDark.png";
 
 import ProfileInfo from "../elements/profileInfo/profileInfo";
-import PostFilter from "../elements/navigation/profNav";
-
+import PostFilter from "../elements/navigation/profileNav";
 
 import Pixels from "../elements/profilePosts/pixels/pixelsGrid";
 import Clips from "../elements/profilePosts/clips/clipsGrid";
@@ -24,14 +23,15 @@ import RightButton from '../../smallComponents/rightButton';
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
+    const { username } = useParams<{ username: string }>();
 
     const renderContent = () => {
         switch (location.pathname) {
-            case "/currentUser/personal":
+            case `/personal/${username}`:
                 return <Pixels />;
-            case "/currentUser/personal/clips":
-                return <Clips/>
-            case "/currentUser/personal/chirps":
+            case `/personal/${username}/clips`:
+                return <Clips />;
+            case `/personal/${username}/chirps`:
                 return <Chirps />;
             default:
                 return <Pixels />;
@@ -43,10 +43,6 @@ const ProfileBody: React.FC = () => {
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
                 <LeftButton/>
                 <RightButton/>
-                <ProfileHeaderContainer>
-                    <DarkLightToggle />
-                    <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
-                </ProfileHeaderContainer>
                 <ProfileInfo />
                 <PostFilter />
                 {renderContent()}

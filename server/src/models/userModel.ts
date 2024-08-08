@@ -14,11 +14,13 @@ interface SignedPreKey {
 export interface UserType extends Document {
     id: string; // Add this field to indicate the presence of _id
     fullName: string;
+    pronouns: string;
     email?: string;
     password: string;
     username: string;
     dateCreated: Date;
-    verified: boolean;
+    isVerified: boolean;
+    verifiedCredential: boolean;
     lastLogin: Date;
     phoneNumber?: string;
     dataProtection: boolean;
@@ -50,12 +52,14 @@ const signedPreKeySchema = new Schema<SignedPreKey>({
 });
 
 const userSchema = new Schema<UserType>({
+    pronouns: { type: String, required: false, default: '' },
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
-    verified: {type: Boolean, default: false },
+    isVerified: {type: Boolean, default: false },
+    verifiedCredential: {type: Boolean, default: false},
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, unique: true, sparse: true },
     dataProtection: { type: Boolean, default: true },

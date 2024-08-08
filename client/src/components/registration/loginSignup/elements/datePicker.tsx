@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
-import { useSignup } from '../../../../contexts/registration/signup/signupContext';
+import { useSignup } from '../../../../contexts/signup/signupContext';
 
 const DatePicker: React.FC = () => {
   const currentYear = new Date().getFullYear();

@@ -27,9 +27,7 @@ const MainFeed: React.FC = () => {
                     <FilterBarContainer>
                         <FilterBar />
                     </FilterBarContainer>
-
                     <FeedWrapper>
-
                         <FeedHeader />
                         <StoryScroller />
                         <PersonalPost
@@ -58,7 +56,6 @@ const MainFeed: React.FC = () => {
                             isVarified={true}
                             bodyType={"post"}
                         />
-
                         <SchoolPost
                             userName={'adnan'}
                             isVarified={true}
@@ -91,6 +88,7 @@ const FilterBarContainer = styled.div`
     width: 95%;
     align-items: center;
     justify-content: flex-end;
+    margin-top: 4rem;
     
 `
 

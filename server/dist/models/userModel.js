@@ -11,12 +11,14 @@ const signedPreKeySchema = new mongoose_1.Schema({
     signature: { type: String, required: true }
 });
 const userSchema = new mongoose_1.Schema({
+    pronouns: { type: String, required: false, default: '' },
     fullName: { type: String, required: true },
     email: { type: String, unique: true, sparse: true },
     password: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     dateCreated: { type: Date, default: Date.now },
-    verified: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false },
+    verifiedCredential: { type: Boolean, default: false },
     lastLogin: { type: Date, default: Date.now },
     phoneNumber: { type: String, unique: true, sparse: true },
     dataProtection: { type: Boolean, default: true },

@@ -23,10 +23,16 @@ import AwardIconLight from '../../../../../assets/awardLight.png';
 import RightArrowDark from '../../../../../assets/rightArrowDark.png';
 import RightArrowLight from '../../../../../assets/rightArrowLight.png';
 
+import AddIconDark from "../../../../../assets/createDarkActive.png"
+import AddIconLight from "../../../../../assets/createLightActive.png"
+
 import Header from '../../common/header';
 import TextBody from '../../common/textDescription';
 
-import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
+import OrgIconDark from "../../../../../assets/orgIconDark.png"
+import OrgIconLight from "../../../../../assets/orgIconLight.png"
+
+// import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
 
 interface Media {
   type: 'image' | 'video';
@@ -43,16 +49,23 @@ interface CommonInfo {
   department?: string;
 }
 
-interface Organization<T> {
-  organizationName: string;
-  organizationLogo: string;
-  isVerified: boolean;
-  infoList: T[];
+// Define the Org interface
+interface Org {
+  company?: string; // This will hold the ObjectId as a string
+  name?: string;
+  isVerified?: boolean;
+  profilePhoto?: string;
 }
 
-interface AboutDataProps<T extends CommonInfo> {
+// Define the OrgWithInfo interface
+interface OrgWithInfo {
+  organization: Org;
+  infoList: CommonInfo[];
+}
+
+interface AboutDataProps {
   headerType: string;
-  organizations: Organization<T>[];
+  organizations: OrgWithInfo[];
 }
 
 const VerifiedBadge: React.FC = () => (
@@ -61,9 +74,9 @@ const VerifiedBadge: React.FC = () => (
   </BadgeContainer>
 );
 
-const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: AboutDataProps<T>) => {
+const AboutDataElement: React.FC<AboutDataProps> = ({ headerType, organizations }) => {
   const { isDarkMode } = useDarkMode();
-  const { setActiveType, toggleDataBar } = useAboutInfoContext();
+  // const { setActiveType, toggleDataBar } = useAboutInfoContext();
 
   const getIcon = () => {
     switch (headerType) {
@@ -82,11 +95,53 @@ const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: A
     }
   };
 
+  const getAddText = () => {
+    switch (headerType) {
+      case 'job':
+        return 'experiences';
+      case 'education':
+        return 'education';
+      case 'project':
+        return 'projects';
+      case 'research':
+        return 'research & Publications';
+      case 'leadership':
+        return 'leadership & Extracurricular Activities';
+      case 'skill':
+        return 'skills & Expertise';
+      case 'recommendation':
+        return 'recommendations';
+      case 'certification':
+        return 'certifications';
+      case 'award':
+        return 'awards';
+      default:
+        return 'experiences';
+    }
+  };
+
   const getFontSize = (type: string) => {
     return type === 'certification' || type === 'award' ? '0.85rem' : '0.75rem';
   };
 
   const totalInfos = organizations.reduce((sum, org) => sum + org.infoList.length, 0);
+
+  if (organizations.length === 0 || organizations[0].infoList.length === 0) {
+    return <>
+      <Container>
+        <Header HeaderType={headerType} display={"notFullScreen"} />
+
+        <IconContainer>
+          <AddInfoWrapper>
+            <AddIcon src={isDarkMode ? AddIconDark : AddIconLight} $isDarkMode={isDarkMode} />
+            <Text variant={"transparent"} size={"1rem"} fontWeight={"400"}>
+              Add {getAddText()}
+            </Text>
+          </AddInfoWrapper>
+        </IconContainer>
+      </Container>
+    </>
+  }
 
   const firstOrganization = organizations[0];
   const firstInfo = firstOrganization.infoList[0];
@@ -110,27 +165,29 @@ const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: A
     }
   };
 
-  const handleShowAllClick = () => {
-    setActiveType(headerType);
-    toggleDataBar();
-  };
+  // const handleShowAllClick = () => {
+  //   setActiveType(headerType);
+  //   toggleDataBar();
+  // };
+
+  const isClickable = !!firstOrganization.organization.company;
 
   return (
     <Container>
-      <Header HeaderType={headerType} display= {"notFullScreen"}/>
+      <Header HeaderType={headerType} display={"notFullScreen"} />
 
       <OrganizationList>
         <Organization>
           <Top>
-            <TopWrapper>
+            <TopWrapper $isClickable = {isClickable}>
               <LogoContainer>
-                <Logo src={firstOrganization.organizationLogo} />
+                <Logo src={firstOrganization.organization.profilePhoto ? firstOrganization.organization.profilePhoto : isDarkMode ? OrgIconDark : OrgIconLight } />
               </LogoContainer>
               <OrgNameContainer>
                 <Text variant={"normal"} size={"1.1rem"} fontWeight={"400"}>
-                  {firstOrganization.organizationName}
+                  {firstOrganization.organization.name}
                 </Text>
-                {firstOrganization.isVerified && <VerifiedBadge />}
+                {firstOrganization.organization.isVerified && <VerifiedBadge />}
               </OrgNameContainer>
             </TopWrapper>
           </Top>
@@ -184,7 +241,7 @@ const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: A
                     <Text variant={"transparent"} size={"0.9rem"} fontWeight={"300"}>
                       •
                     </Text>
-                    <TextBody textBody={firstInfo.description} display= {'notFullScreen'}/>
+                    <TextBody textBody={firstInfo.description} display={'notFullScreen'} />
                   </Description>
                   {firstInfo.media ? (
                     <MediaSection>
@@ -204,7 +261,8 @@ const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: A
         </Organization>
       </OrganizationList>
       {totalInfos > 1 && (
-        <ShowAllContainer onClick={handleShowAllClick}>
+        // <ShowAllContainer onClick={handleShowAllClick}>
+        <ShowAllContainer>
           <Text variant={"normal"} size={"1rem"} fontWeight={"500"}>
             See all {getSeeAllText()}
           </Text>
@@ -216,6 +274,42 @@ const AboutDataElement = <T extends CommonInfo>({ headerType, organizations }: A
 };
 
 export default AboutDataElement;
+
+
+const AddInfoWrapper = styled.div`
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.6;
+  }
+`;
+
+const AddIcon = styled.img<{ $isDarkMode: boolean }>`
+  width: 1rem;
+  padding: 0.3rem;
+  border: 1px solid ${({ $isDarkMode }) => ($isDarkMode ? 'white' : 'black')};
+  border-radius: 3px;
+`;
+
+const IconContainer = styled.div`
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+
+`
 
 const CertificateIcon = styled.img`
   width: 70%;
@@ -288,22 +382,27 @@ const Top = styled.div`
   margin-bottom: 0.8rem;
 `;
 
-const TopWrapper = styled.div`
+const TopWrapper = styled.div<{$isClickable: boolean}>`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   gap: 0.7rem;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.02);
-  }
-  &:active {
-    transform: scale(1.00);
-  }
-  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  cursor: ${({ $isClickable }) => ($isClickable ? 'pointer' : 'default')};
+  ${({ $isClickable }) =>
+    $isClickable &&
+    `
+    &:hover {
+      opacity: 0.7;
+      transform: scale(1.02);
+    }
+    &:active {
+      transform: scale(1.00);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  `}
 `;
+
 
 const LogoContainer = styled.div``;
 
@@ -412,3 +511,4 @@ const OrganizationIcon = styled.img<{ $type: 'education' | 'job' }>`
   height: ${(props) => (props.$type === 'job' ? '1.8rem' : '2rem')};
   margin-top: 0.2rem;
 `;
+

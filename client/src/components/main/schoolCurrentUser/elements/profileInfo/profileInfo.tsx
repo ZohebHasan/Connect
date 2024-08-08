@@ -23,6 +23,10 @@ import VerifiedIcon from "../../../../assets/verified.png"
 import DummyCompany from "../../../dummies/Connect.jpg"
 import DummySchool from "../../../dummies/school.jpeg"
 
+import OptionLight from "../../../../assets/storyOptionsLight.png";
+import OptionDark from "../../../../assets/storyOptionsDark.png";
+
+
 const VerifiedBadge: React.FC<{ type: 'org' | 'user' }> = ({ type }) => {
 
     return (
@@ -93,7 +97,7 @@ const ProfileBody: React.FC = () => {
                             </Text>
                             <Text variant={"transparent"} size={"1rem"} fontWeight={"300"}>
                                 •
-                            </Text> 
+                            </Text>
                             <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
                                 Sophomore
                             </Text>
@@ -101,62 +105,69 @@ const ProfileBody: React.FC = () => {
 
                     </UserInfo>
                     <ProfileTypeContainer>
-                        <Text size={"2rem"} fontWeight={"300"} variant={"school"}>
-                            School
-                        </Text>
+                        <OptionIconContainer>
+                            <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
+                        </OptionIconContainer>
+                        <TextContainer>
+                            <Text size={"2rem"} fontWeight={"300"} variant={"school"}>
+                                School
+                            </Text>
+                        </TextContainer>
                     </ProfileTypeContainer>
                 </Top>
 
                 <Bottom>
-                    <UserNameBioContainer>
-                        <PostFollowInfo>
-                            <DataContainer>
-                                <FollowersButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        523 Followers
-                                    </Text>
-                                </FollowersButton>
-                            </DataContainer>
-
-                            <DataContainer>
-                                <FollowingButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        234 Following
-                                    </Text>
-                                </FollowingButton>
-                            </DataContainer>
-                            <DataContainer>
-                                <FollowingButton>
-                                    <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                        7 courses
-                                    </Text>
-                                </FollowingButton>
-                            </DataContainer>
-                        </PostFollowInfo>
-
-                        <BioContainer>
-                            <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
-                                sbu 25`
-                            </Text>
-                        </BioContainer>
-                    </UserNameBioContainer>
-                    <UserInfoContainer>
-                        <UserInfoWrapper>
-                            <Info>    
-                                <AssociationContent>
-                                    <LogoContainer>
-                                        <Logo src={DummyCompany} />
-                                    </LogoContainer>
-                                    <OrgName>
-                                        <Text variant="normal" size="1.4rem" fontWeight="300">
-                                            Stony Brook University
+                    <BottomWrapper>
+                        <UserNameBioContainer>
+                            <PostFollowInfo>
+                                <DataContainer>
+                                    <FollowersButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            523 Followers
                                         </Text>
-                                        {isVerified && <VerifiedBadge type='org' />}
-                                    </OrgName>
-                                </AssociationContent>
-                            </Info>
-                        </UserInfoWrapper>
-                    </UserInfoContainer>
+                                    </FollowersButton>
+                                </DataContainer>
+
+                                <DataContainer>
+                                    <FollowingButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            234 Following
+                                        </Text>
+                                    </FollowingButton>
+                                </DataContainer>
+                                <DataContainer>
+                                    <FollowingButton>
+                                        <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
+                                            7 courses
+                                        </Text>
+                                    </FollowingButton>
+                                </DataContainer>
+                            </PostFollowInfo>
+
+                            <BioContainer>
+                                <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    sbu 25`
+                                </Text>
+                            </BioContainer>
+                        </UserNameBioContainer>
+                        <UserInfoContainer>
+                            <UserInfoWrapper>
+                                <Info>
+                                    <AssociationContent>
+                                        <LogoContainer>
+                                            <Logo src={DummyCompany} />
+                                        </LogoContainer>
+                                        <OrgName>
+                                            <Text variant="normal" size="1.4rem" fontWeight="300">
+                                                Stony Brook University
+                                            </Text>
+                                            {isVerified && <VerifiedBadge type='org' />}
+                                        </OrgName>
+                                    </AssociationContent>
+                                </Info>
+                            </UserInfoWrapper>
+                        </UserInfoContainer>
+                    </BottomWrapper>
                 </Bottom>
 
             </ProfileInfoContainer>
@@ -165,6 +176,51 @@ const ProfileBody: React.FC = () => {
 };
 
 export default ProfileBody;
+
+const BottomWrapper = styled.div`
+    width: 95%;
+    display: flex;
+    flex-direction:row;
+`
+
+const TextContainer = styled.div`
+    flex: 2;
+`
+
+const OptionIconContainer = styled.div`
+    flex: 1;
+    /* background-color: red; */
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+`
+
+const OptionIcon = styled.img`
+    width: 1.7rem;
+    height: 1.7rem;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.10);
+    }
+    &:active {
+        transform: scale(1.00);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
+
+const ProfileTypeContainer = styled.div`
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* background-color: blue; */
+    height: 100%;
+    width: 100%;  
+`
 
 const OrgName = styled.div`
   display: flex;
@@ -245,13 +301,6 @@ const Profession = styled.div`
     gap: 0.3rem;
 `
 
-const ProfileTypeContainer = styled.div`
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-`
 
 const UserName = styled.div`
     display: flex;
@@ -399,6 +448,7 @@ const ProfileInfoContainer = styled.div`
     /* background-color: blue; */
     width: 95%;
     flex-direction: column;
+    margin-top: 8%;
 `
 
 const Top = styled.div`

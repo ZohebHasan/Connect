@@ -18,7 +18,7 @@ interface User {
     link: string;
     photoUrl: string;
     isVerified?: boolean;
-    userType?: 'instructor' | 'TA'
+    userType: 'instructor' | 'student' | 'ta';
 }
 
 interface SchoolHeaderProps {
@@ -56,9 +56,21 @@ const calculateElapsedTime = (datePosted: Date): string => {
     }
 };
 
+const getRoleString = (postedBy: User): string | null => {
+    if (postedBy.userType === 'ta') {
+        return "Teaching Assistant"
+    } else if (postedBy.userType === 'instructor') {
+        return 'Instructor';
+    } else {
+        return "";
+    }
+};
+
 const SchoolHeader: React.FC<SchoolHeaderProps> = ({ postedBy, datePosted, postType, display, isQuestion, tag }) => {
     const { isDarkMode } = useDarkMode();
     const elapsedTime = calculateElapsedTime(datePosted);
+
+    const role = getRoleString(postedBy);
     return (
         <Top>
             <HeaderContainer>
@@ -127,7 +139,7 @@ const SchoolHeader: React.FC<SchoolHeaderProps> = ({ postedBy, datePosted, postT
                     }
                     {postedBy.userType &&
                         <LeftToRightText size={"1rem"}>
-                            {postedBy.userType === 'TA' ? "Teaching Assistant" : "Instructor"}
+                            {role}
                         </LeftToRightText>
                     }
                     <Text variant={"school"} size={'1rem'} fontWeight="300">

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface PerNavContextProps {
     activeState: string;
-    setActiveState: (state: string) => void;
+    setActiveState: (state: string, username: string) => void;
 }
 
 interface PerNavProviderProps {
@@ -13,20 +13,20 @@ interface PerNavProviderProps {
 const PerNavContext = createContext<PerNavContextProps | undefined>(undefined);
 
 export const PerNavProvider: React.FC<PerNavProviderProps> = ({ children }) => {
-    const [activeState, setActiveState] = useState('pixels');
+    const [activeState, setActiveState] = useState('personal');
     const navigate = useNavigate();
 
-    const handleSetActiveState = (state: string) => {
+    const handleSetActiveState = (state: string, username: string) => {
         setActiveState(state);
         switch (state) {
             case 'clips':
-                navigate('/currentUser/personal/clips');
+                navigate(`/personal/${username}/clips`);
                 break;
             case 'chirps':
-                navigate('/currentUser/personal/chirps');
+                navigate(`/personal/${username}/chirps`);
                 break;
             default:
-                navigate('/currentUser/personal');
+                navigate(`/personal/${username}`);
                 break;
         }
     };

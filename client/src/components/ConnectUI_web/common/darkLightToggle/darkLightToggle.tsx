@@ -95,7 +95,7 @@ const SunIcon = styled.img<{ $darkMode?: boolean }>`
   height: 1.25rem;
   background-size: cover;
   position: absolute;
-  right: : auto;
+  right:  auto;
   left: 0.3125rem;
   // top: 0.3rem;
   transition: opacity 0.3s ease-in-out;

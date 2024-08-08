@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import ProfileBodyContainer from '../../../ConnectUI_web/templetes/bodyTemplete';
@@ -15,7 +15,7 @@ import PostFilter from "../elements/nav/profNav";
 
 import AboutInfo from '../elements/about/about';
 import Recommendation from '../elements/recommendations/recommendation';
-import ProfPosts from '../elements/profilePosts/professionalPost'
+import ProfPosts from '../elements/profilePosts/professionalPost';
 
 import LeftButton from '../../smallComponents/leftButton';
 import RightButton from '../../smallComponents/rightButton';
@@ -23,14 +23,15 @@ import RightButton from '../../smallComponents/rightButton';
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
+    const { username } = useParams<{ username: string }>();
 
     const renderContent = () => {
         switch (location.pathname) {
-            case "/currentUser/professional":
+            case `/professional/${username}`:
                 return <AboutInfo />
-            case "/currentUser/professional/recommendations":
+            case `/professional/${username}/recommendations`:
                 return <Recommendation />
-            case "/currentUser/professional/posts":
+            case `/professional/${username}/posts`:
                 return <ProfPosts />
             default:
                 return <></>
@@ -42,10 +43,10 @@ const ProfileBody: React.FC = () => {
             <ProfileBodyContainer flexDirection="column" flex={5.5}>
                 <LeftButton />
                 <RightButton />
-                <ProfileHeaderContainer>
+                {/* <ProfileHeaderContainer>
                     <DarkLightToggle />
                     <OptionIcon src={isDarkMode ? OptionDark : OptionLight} />
-                </ProfileHeaderContainer>
+                </ProfileHeaderContainer> */}
                 <ProfileInfo />
                 <PostFilter />
                 {renderContent()}

@@ -5,6 +5,10 @@ import { useDarkMode } from '../../../contexts/DarkMode/DarkMode';
 import LeftIconDark from "../../assets/leftDark.png";
 import LeftIconLight from "../../assets/leftLight.png";
 
+import LeftPersonal from "../../assets/leftPersonal.png";
+import LeftSchool from "../../assets/leftSchool.png";
+import LeftProfessional from "../../assets/leftProfessional.png";
+
 import { useProfile } from '../../../contexts/profiles/profilesContext';
 
 const LeftButton: React.FC = () => {
@@ -21,39 +25,43 @@ const LeftButton: React.FC = () => {
         }
     };
 
+    const getIcon = () => {
+        if (isActivePersonal) {
+            return LeftProfessional;
+        } else if (isActiveProfessional) {
+            return LeftSchool;
+        } else if (isActiveSchool) {
+            return LeftPersonal;
+        } else {
+            return isDarkMode ? LeftIconDark : LeftIconLight;
+        }
+    };
+
     return (
         <LeftButtonContainer
-            isActivePersonal={isActivePersonal}
-            isActiveProfessional={isActiveProfessional}
-            isActiveSchool={isActiveSchool}
+            isDarkMode={isDarkMode}
             onClick={handleClick}
         >
-            <Icon src={isDarkMode ? LeftIconDark : LeftIconLight} />
+            <Icon src={getIcon()} />
         </LeftButtonContainer>
     );
 };
 
 export default LeftButton;
 
-const LeftButtonContainer = styled.div<{
-    isActivePersonal: boolean;
-    isActiveProfessional: boolean;
-    isActiveSchool: boolean;
-}>`
+const LeftButtonContainer = styled.div<{ isDarkMode: boolean }>`
     position: fixed;
     left: 22%; 
     top: 50%;
     transform: translateY(-50%);
-    background: ${({ isActivePersonal, isActiveProfessional, isActiveSchool }) => 
-        isActivePersonal ? 'linear-gradient(to right, #2E3192, #1BFFFF)' :
-        isActiveProfessional ? 'linear-gradient(to right, #EA8D8D, #A890FE)' :
-        isActiveSchool ? 'linear-gradient(to right, #662D8C, #ED1E79)' : 'red'};
-    padding: 0.5rem;
+    background: ${({ isDarkMode }) => isDarkMode ? 'rgba(118, 118, 118, 0.665)' : 'rgba(141, 141, 141, 0.238)'};
+    padding: 0.2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    opacity: 0.8;
     &:hover {
         opacity: 0.7;
         transform: translateY(-50%) scale(1.05);
@@ -65,6 +73,6 @@ const LeftButtonContainer = styled.div<{
 `;
 
 const Icon = styled.img`
-    width: 1.2rem;
+    width: 1.8rem;
     height: auto;
 `;

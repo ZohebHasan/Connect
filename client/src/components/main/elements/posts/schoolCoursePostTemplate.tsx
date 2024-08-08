@@ -16,22 +16,23 @@ export interface User {
   link: string;
   photoUrl: string;
   isVerified?: boolean;
+  userType: 'instructor' | 'student' | 'ta';
 }
 
 export interface Instructor extends User {
-  type: 'instructor';
+  userType: 'instructor';
 }
 
 export interface Student extends User {
-  type: 'student';
+  userType: 'student';
 }
 
 export interface TA extends User {
-  type: 'ta';
+  userType: 'ta';
 }
 
 interface SchoolPostContainerProps {
-  postedBy: User;
+  postedBy: Instructor | Student | TA;
   datePosted: Date;
   title: string;
   textBody?: string;

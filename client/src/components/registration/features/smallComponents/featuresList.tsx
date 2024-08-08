@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Text from '../../../ConnectUI_web/common/texts/static';
 import Toggle from "../../../ConnectUI_web/common/buttons/toggle";
 
-import { useSignup } from '../../../../contexts/registration/signup/signupContext';
+import { useSignup } from '../../../../contexts/signup/signupContext';
 
 const Features: React.FC = () => {
 

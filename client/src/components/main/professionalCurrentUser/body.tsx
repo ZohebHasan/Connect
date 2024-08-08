@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
-
-
-import Bodycontainer from "../../ConnectUI_web/templetes/bodyTemplete"
+import Bodycontainer from "../../ConnectUI_web/templetes/bodyTemplete";
 import LeftBar from '../smallComponents/leftBar';
 import ProfileBody from './smallComponents/profileBody';
-
-
-import DataFullScreen from './elements/about/dataFullScreen'
-
-
-
+import DataFullScreen from './elements/about/dataFullScreen';
+import Header from "../elements/header";
 
 const Body: React.FC = () => {
-
     const location = useLocation();
+    const { username } = useParams<{ username: string }>();
 
     const renderContent = () => {
+        const professionalPath = `/professional/${username}`;
+
         switch (location.pathname) {
-            case "/currentUser/professional":
-                return  <DataFullScreen/> 
+            case professionalPath:
+                return <DataFullScreen />;
             default:
                 return <></>;
         }
@@ -30,6 +26,7 @@ const Body: React.FC = () => {
         <>
             <Bodycontainer flexDirection="row">
                 {renderContent()}
+                <Header />
                 <LeftBar />
                 <ProfileBody />
             </Bodycontainer>
@@ -38,5 +35,3 @@ const Body: React.FC = () => {
 };
 
 export default Body;
-
-

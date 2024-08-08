@@ -1,15 +1,27 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-interface ActiveButtonContextType {
-    activeButtons: Record<string, boolean>;
-    toggleActive: (buttonKey: string) => void;
+interface LeftBarNavButtons {
+    home: boolean;
+    search: boolean;
+    notifications: boolean;
+    inbox: boolean;
+    clips: boolean;
+    trending: boolean;
+    create: boolean;
 }
 
-const ActiveButtonContext = createContext<ActiveButtonContextType | undefined>(undefined);
+interface LeftBarNavButtonContextType {
+    leftBarNavButtons: LeftBarNavButtons;
+    toggleActive: (buttonKey: keyof LeftBarNavButtons) => void;
+    setLeftBarNavButtons: React.Dispatch<React.SetStateAction<LeftBarNavButtons>>;
+}
 
-export const ActiveButtonProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [activeButtons, setActiveButtons] = useState({
-        home: false,
+const LeftBarNavButtonContext = createContext<LeftBarNavButtonContextType | undefined>(undefined);
+
+export const LeftBarNavButtonProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const [leftBarNavButtons, setLeftBarNavButtons] = useState<LeftBarNavButtons>({
+        home: true,
         search: false,
         notifications: false,
         inbox: false,
@@ -18,8 +30,30 @@ export const ActiveButtonProvider: React.FC<{ children: ReactNode }> = ({ childr
         create: false
     });
 
-    const toggleActive = (buttonKey: string) => {
-        setActiveButtons({
+    const location = useLocation();
+
+    useEffect(() => {
+        const currentPath = location.pathname;
+        if (
+            currentPath.startsWith('/personal/') ||
+            currentPath.startsWith('/professional/') ||
+            currentPath.startsWith('/school/')
+        ) {
+            setLeftBarNavButtons({
+                home: false,
+                search: false,
+                notifications: false,
+                inbox: false,
+                clips: false,
+                trending: false,
+                create: false
+            });
+        }
+    }, [location]);
+
+    const toggleActive = (buttonKey: keyof LeftBarNavButtons) => {
+        setLeftBarNavButtons(prevState => ({
+            ...prevState,
             home: false,
             search: false,
             notifications: false,
@@ -28,20 +62,20 @@ export const ActiveButtonProvider: React.FC<{ children: ReactNode }> = ({ childr
             trending: false,
             create: false,
             [buttonKey]: true
-        });
+        }));
     };
 
     return (
-        <ActiveButtonContext.Provider value={{ activeButtons, toggleActive }}>
+        <LeftBarNavButtonContext.Provider value={{ leftBarNavButtons, toggleActive, setLeftBarNavButtons }}>
             {children}
-        </ActiveButtonContext.Provider>
+        </LeftBarNavButtonContext.Provider>
     );
 };
 
-export const useActiveButton = (): ActiveButtonContextType => {
-    const context = useContext(ActiveButtonContext);
+export const useLeftBarNavButton = (): LeftBarNavButtonContextType => {
+    const context = useContext(LeftBarNavButtonContext);
     if (!context) {
-        throw new Error('useActiveButton must be used within an ActiveButtonProvider');
+        throw new Error('useLeftBarNavButton must be used within a LeftBarNavButtonProvider');
     }
     return context;
 };

@@ -34,7 +34,7 @@ const OptionButton: React.FC = () => {
   const altText = isSidebarOpen ? 'Close' : 'Open';
 
   return (
-    <StyledIcon 
+    <StyledIcon
       onClick={toggleSidebar}
       src={iconSrc}
       alt={altText}
@@ -50,7 +50,6 @@ const StyledIcon = styled.img`
   cursor: pointer;
   width: 1.7rem;
   height: 1.7rem;
-  transition: opacity 0.3s ease-in-out;  // Use opacity for smoother visual transitions
   display: flex;  // Ensure the image doesn't have extra space below it
 
 
@@ -58,6 +57,17 @@ const StyledIcon = styled.img`
     width: 1.3rem;
     height: 1.3rem;
   }
+
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+&:hover {
+  opacity: 0.7;
+  transform: scale(1.02);
+}
+
+&:active {
+  transform: scale(0.98);
+}
 `;
 
 

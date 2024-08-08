@@ -10,7 +10,7 @@ import ProfileBody from './smallComponents/profileBody';
 import PixelFullScreen from "./elements/profilePosts/pixels/pixelFullScreen";
 import ClipFullScreen from "./elements/profilePosts/clips/clipsFullScreen"
 
-
+import Header from "../elements/header"
 
 
 const Body: React.FC = () => {
@@ -18,9 +18,9 @@ const Body: React.FC = () => {
 
     const renderContent = () => {
         switch (location.pathname) {
-            case "/currentUser/personal":
+            case "/personal/${username}":
                 return <PixelFullScreen />;
-            case "/currentUser/personal/clips":
+            case "/personal/${username}/clips":
                 return <ClipFullScreen/>;
             default:
                 return <></>;
@@ -33,6 +33,7 @@ const Body: React.FC = () => {
         <>
             <Bodycontainer flexDirection="row">
                 {renderContent()}
+                <Header/>
                 <LeftBar />
                 <ProfileBody />
             </Bodycontainer>

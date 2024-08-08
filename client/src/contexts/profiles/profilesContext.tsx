@@ -1,10 +1,17 @@
 import React, { createContext, useContext, useState, useRef, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useConnectUser } from '../ConnectUser/connectUserProvider';
 
-type ProfileType = 'personal' | 'professional' | 'school';
+export type ProfileType = 'personal' | 'professional' | 'school';
+
+interface Profile {
+    type: ProfileType;
+    photoUrl: string | null;
+}
 
 interface ProfileContextType {
-    activeProfile: ProfileType;
+    activeProfile: ProfileType | null;
     handleProfileChange: (profile: ProfileType) => void;
     isActivePersonal: boolean;
     isActiveProfessional: boolean;
@@ -13,36 +20,49 @@ interface ProfileContextType {
     toggleProfilesbar: () => void;
     addProtectedRef: (ref: React.RefObject<HTMLElement>) => void;
     removeProtectedRef: (ref: React.RefObject<HTMLElement>) => void;
+    profiles: Profile[];
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [activeProfile, setActiveProfile] = useState<ProfileType>('professional');
+    const [activeProfile, setActiveProfile] = useState<ProfileType | null>(null);
     const [isProfilesbarOpen, setIsProfilesbarOpen] = useState<boolean>(false);
+    const [profiles, setProfiles] = useState<Profile[]>([]);
     const protectedRefs = useRef<React.RefObject<HTMLElement>[]>([]);
     const navigate = useNavigate();
+    const { user, loading } = useConnectUser();
 
     const isActivePersonal = activeProfile === 'personal';
     const isActiveProfessional = activeProfile === 'professional';
     const isActiveSchool = activeProfile === 'school';
 
+    useEffect(() => {
+        if (!loading && user) {
+            const fetchProfiles = async () => {
+                try {
+                    const response = await axios.get('http://localhost:8000/profiles', { withCredentials: true });
+                    const fetchedProfiles: Profile[] = response.data;
+                    setProfiles(fetchedProfiles);
+
+                    if (fetchedProfiles.length > 0) {
+                        const initialProfile = fetchedProfiles[0].type;
+                        setActiveProfile(initialProfile);
+                    }
+                } catch (error) {
+                    console.error('Error fetching profiles:', error);
+                }
+            };
+
+            fetchProfiles();
+        }
+    }, [loading, user]);
+
     const handleProfileChange = (profile: ProfileType) => {
         setActiveProfile(profile);
-        setIsProfilesbarOpen(false); // Close the sidebar after handling the profile change
-        switch (profile) {
-            case 'personal':
-                navigate('currentUser/personal');
-                break;
-            case 'professional':
-                navigate('currentUser/professional');
-                break;
-            case 'school':
-                navigate('currentUser/school');
-                break;
-            default:
-                navigate('/');
-                break;
+        setIsProfilesbarOpen(false);
+        if (user) {
+            navigate(`/${profile}/${user.username}`);
         }
     };
 
@@ -87,7 +107,8 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
             isProfilesbarOpen,
             toggleProfilesbar,
             addProtectedRef,
-            removeProtectedRef
+            removeProtectedRef,
+            profiles
         }}>
             {children}
         </ProfileContext.Provider>
