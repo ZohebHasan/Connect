@@ -23,11 +23,8 @@ const verification_1 = __importDefault(require("./routers/signupAndLogin/verific
 const post_1 = __importDefault(require("./routers/posts/post"));
 const comment_1 = __importDefault(require("./routers/posts/comment"));
 const text_extraction_router_1 = __importDefault(require("./routers/tags_extraction/text_extraction_router"));
-<<<<<<< HEAD
-const social_networking_1 = __importDefault(require("./routers/social_networking"));
-=======
 const profileSelection_1 = __importDefault(require("./routers/signupAndLogin/signup/profileSelection"));
->>>>>>> TestBranch
+const social_networking_1 = __importDefault(require("./routers/social_networking"));
 const file_upload_1 = __importDefault(require("./routers/file_upload/file_upload"));
 const organization_1 = __importDefault(require("./routers/signupAndLogin/signup/organization"));
 const personal_1 = __importDefault(require("./routers/connectUser/profiles/personal"));
@@ -68,13 +65,10 @@ app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.d
 app.use('/google', google_1.default);
 app.use('/microsoft', microsoft_1.default);
 app.use('/text_extraction', text_extraction_router_1.default);
-<<<<<<< HEAD
 app.use('/recommendations', social_networking_1.default);
-=======
 app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.default);
 app.use('/user', authMiddleware_1.authenticate, userDataRouter_1.default);
 app.use('/profiles', authMiddleware_1.authenticate, profiles_1.default);
 app.use('/currentUserPersonal', authMiddleware_1.authenticate, personal_1.default);
 app.use('/currentUserProfessional', authMiddleware_1.authenticate, professional_1.default);
 app.use('/currentUserProfessionalRecommendations', authMiddleware_1.authenticate, recommendations_1.default);
->>>>>>> TestBranch

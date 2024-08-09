@@ -20,27 +20,46 @@
 // the post model
 import { Request, Response } from "express";
 import PostModel from "../models/posts/post_model";
+import mongoose from "mongoose";
 
 // write documentation for this function
 export const findSimilarPosts = async (postId: string, userId: string) => {
-    try{
+    try {
         const post = await findPost(postId);
-        if(post){
+        if (post) {
             const tags = post.tags;
-            const similarPosts = await PostModel.find({ 
-                tags: { $in: tags },
-                ownedBy: { $ne: userId }
-            });
+            const limit = 10; // Specify the limit of posts you want to return
+
+            // Using aggregate to find similar posts, exclude owned by userId, and sort by similarity
+            const similarPosts = await PostModel.aggregate([
+                {
+                    $match: {
+                        tags: { $in: tags },
+                        _id: { $ne: new mongoose.Types.ObjectId(postId) }, // Exclude the original post by its ID
+                        ownedBy: { $ne: new mongoose.Types.ObjectId(userId) }
+                    }
+                },
+                {
+                    $addFields: {
+                        // Compute the size of the intersection of the target post's tags and this document's tags
+                        commonTagsCount: { $size: { $setIntersection: ["$tags", tags] } }
+                    }
+                },
+                { $sort: { commonTagsCount: -1 } }, // Sort by the number of common tags in descending order
+                { $limit: limit } // Limit the number of posts returned
+            ]);
+
             return similarPosts;
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
 
 
+
 // Function to find similar posts based on metadata
-const findSimilarPostsByMetadata = async (postId: string) => {
+const findSimilarPostsByMetadata = async (postId: string, userId: string) => {
     try {
         const post = await findPost(postId);
         if (post) {
@@ -49,7 +68,8 @@ const findSimilarPostsByMetadata = async (postId: string) => {
             const similarPosts = await PostModel.aggregate([
                 {
                     $match: {
-                        _id: { $ne: post._id }, // Exclude the current post
+                        _id: { $ne: new mongoose.Types.ObjectId(postId) }, 
+                        ownedBy: { $ne: new mongoose.Types.ObjectId(userId) },
                         tags: { $in: tags } // Match at least one tag
                     }
                 },
@@ -110,7 +130,7 @@ export const recommendationAlgo = async (req: Request, res: Response) => {
     switch (encrypted) {
         case true:
             // Handle the case when encrypted is true
-            recommendedPost = await findSimilarPostsByMetadata(postID);
+            recommendedPost = await findSimilarPostsByMetadata(postID, userID);
             res.status(200).json( recommendedPost );
             break;
         case false:

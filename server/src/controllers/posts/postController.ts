@@ -127,7 +127,7 @@ export const updatePost = async (req: Request, res: Response) => {
 
         // Update fields if they are provided in the request
         if (likes != null) post.likes = (post.likes || 0) + 1;
-        if (dislikes != null) post.likes = (post.dislikes || 0) - 1;
+        if (dislikes != null) post.likes = (post.likes || 0) - 1;
         if (views != null) post.views = (post.views || 0) + 1;
         if (shared != null) post.shared = (post.shared || 0) + 1;
 

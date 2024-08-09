@@ -12,6 +12,13 @@ const SCOPE ='user.read';
 const RESPONSE_MODE ='query';
 const CLIENT_SECRET = 'ff680cec-1c03-4bb9-8d8a-2bbc1410e24c';
 
+declare module 'express-session' {
+    export interface SessionData {
+      tokens: any;  // Define the type according to what you expect here, e.g., any, specific object type, etc.
+      profile: any;  // Similarly, define the type as needed
+    }
+}
+
 export const getMicrosoftAuthUrl = (req: Request, res: Response) => {
     const authUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=${CLIENT_ID}&response_type=${RESPONSE_TYPE}&redirect_uri=${REDIRECT_URI}&scope=${SCOPE}&response_mode=${RESPONSE_MODE}`;
     res.json({ url: authUrl });
@@ -61,9 +68,9 @@ export const microsoftCallback = async (req: Request, res: Response) => {
         const profile = graphResponse.data;
         console.log("Profile: ", profile);
 
-
-        // req.session.tokens = tokens;
-        // req.session.user = user;
+        // Store the tokens and profile in sessions
+        req.session.tokens = tokens;
+        req.session.profile = profile;
 
         res.json({
             tokens,

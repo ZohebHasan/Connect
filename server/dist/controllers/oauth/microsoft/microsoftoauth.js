@@ -59,6 +59,8 @@ const microsoftCallback = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
         const profile = graphResponse.data;
         console.log("Profile: ", profile);
+        req.session.tokens = tokens;
+        req.session.profile = profile;
         res.json({
             tokens,
             profile

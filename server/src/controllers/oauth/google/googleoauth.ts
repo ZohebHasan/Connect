@@ -1,11 +1,20 @@
+import session from 'express-session';
 import { Request, Response } from 'express';
 import { google } from 'googleapis';
 import dotenv from 'dotenv';
 import UserModel from '../../../models/userModel';
 
+
 const GOOGLE_CLIENT_ID = "792300995072-8dpe1tf9k3m6va65673akfevjm0rlaj1.apps.googleusercontent.com";
 const GOOGLE_CLIENT_SECRET = "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";
 const GOOGLE_REDIRECT_URI = "http://localhost:3000/signup/features";
+
+declare module 'express-session' {
+    export interface SessionData {
+      tokens: any;  // Define the type according to what you expect here, e.g., any, specific object type, etc.
+      profile: any;  // Similarly, define the type as needed
+    }
+}
 
 export const google_oauth_controller = async (req: Request, res: Response) => {
     const { oauth } = req.body;
@@ -74,6 +83,10 @@ export const googlecallback = async(req: Request, res: Response) => {
         const userInfoResponse = await oauth2.userinfo.get();
         const profile = userInfoResponse.data;
         console.log("Profile: ", profile);
+
+        //Store the tokens and profiles in sessions
+        req.session.tokens = tokens;
+        req.session.profile = profile;
 
         res.json({
             tokens,

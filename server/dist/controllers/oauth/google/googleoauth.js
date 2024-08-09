@@ -66,6 +66,8 @@ const googlecallback = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const userInfoResponse = yield oauth2.userinfo.get();
         const profile = userInfoResponse.data;
         console.log("Profile: ", profile);
+        req.session.tokens = tokens;
+        req.session.profile = profile;
         res.json({
             tokens,
             profile

@@ -14,15 +14,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.recommendationAlgo = exports.findSimilarPosts = void 0;
 const post_model_1 = __importDefault(require("../models/posts/post_model"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const findSimilarPosts = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield findPost(postId);
         if (post) {
             const tags = post.tags;
-            const similarPosts = yield post_model_1.default.find({
-                tags: { $in: tags },
-                ownedBy: { $ne: userId }
-            });
+            const limit = 10;
+            const similarPosts = yield post_model_1.default.aggregate([
+                {
+                    $match: {
+                        tags: { $in: tags },
+                        _id: { $ne: new mongoose_1.default.Types.ObjectId(postId) },
+                        ownedBy: { $ne: new mongoose_1.default.Types.ObjectId(userId) }
+                    }
+                },
+                {
+                    $addFields: {
+                        commonTagsCount: { $size: { $setIntersection: ["$tags", tags] } }
+                    }
+                },
+                { $sort: { commonTagsCount: -1 } },
+                { $limit: limit }
+            ]);
             return similarPosts;
         }
     }
@@ -31,16 +45,7 @@ const findSimilarPosts = (postId, userId) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.findSimilarPosts = findSimilarPosts;
-const findPostsByUserId = (userId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const posts = yield post_model_1.default.find({ ownedBy: userId });
-        return posts;
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-const findSimilarPostsByMetadata = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+const findSimilarPostsByMetadata = (postId, userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield findPost(postId);
         if (post) {
@@ -48,7 +53,8 @@ const findSimilarPostsByMetadata = (postId) => __awaiter(void 0, void 0, void 0,
             const similarPosts = yield post_model_1.default.aggregate([
                 {
                     $match: {
-                        _id: { $ne: post._id },
+                        _id: { $ne: new mongoose_1.default.Types.ObjectId(postId) },
+                        ownedBy: { $ne: new mongoose_1.default.Types.ObjectId(userId) },
                         tags: { $in: tags }
                     }
                 },
@@ -102,7 +108,7 @@ const recommendationAlgo = (req, res) => __awaiter(void 0, void 0, void 0, funct
     let recommendedPost;
     switch (encrypted) {
         case true:
-            recommendedPost = yield findSimilarPostsByMetadata(postID);
+            recommendedPost = yield findSimilarPostsByMetadata(postID, userID);
             res.status(200).json(recommendedPost);
             break;
         case false:
