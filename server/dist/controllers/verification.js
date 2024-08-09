@@ -36,13 +36,11 @@ const sendVerificationEmailController = (req, res) => __awaiter(void 0, void 0, 
 exports.sendVerificationEmailController = sendVerificationEmailController;
 const verifyEmailCodeController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, code } = req.body;
-    console.log(email, code);
     const data = verificationCodes.get(email);
     if (!data) {
         return res.status(400).send({ message: 'Invalid code' });
     }
     const { code: storedCode, timestamp } = data;
-    console.log(storedCode, code);
     const now = Date.now();
     if (storedCode === code && now - timestamp <= 10 * 60 * 1000) {
         verificationCodes.delete(email);

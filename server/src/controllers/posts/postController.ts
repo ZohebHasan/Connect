@@ -21,17 +21,14 @@ conn.once('open', () => {
   gfs.collection('uploads');
 });
 
+
 export const Post = async (req: Request, res: Response) => {
-    const { ownedBy, location, media_body } = req.body;
+    const { ownedBy, location, media_body, tags } = req.body;
     const { media_type } = req.params;
     const file: any = req.file;
 
     const content_type = media_type;
 
-    if (!file) {
-        return res.status(400).json("Media file is required");
-    }
-    console.log("File: ", file)
     // Find user by their UserID
     const user = await User.findById(ownedBy);
     if (!user) {
@@ -44,6 +41,10 @@ export const Post = async (req: Request, res: Response) => {
         const body = media_body.body;
         switch (media_type) {
             case "pixel":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file)
                 media = new PixelsModel({ 
                     file: file.id,
                     body 
@@ -52,6 +53,10 @@ export const Post = async (req: Request, res: Response) => {
                 await media.save();
                 break;
             case "snip":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file)
                 media = new SnipModel({ 
                     file: file.id, 
                     body 
@@ -60,6 +65,10 @@ export const Post = async (req: Request, res: Response) => {
                 await media.save();
                 break;
             case "clip":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file)
                 media = new ClipModel({ 
                     file: file.id, 
                     body 
@@ -87,6 +96,7 @@ export const Post = async (req: Request, res: Response) => {
             location,
             content_type,// Assuming you have mapped media types to numbers
             content: media._id,
+            tags
         });
 
         await post.save();
@@ -117,7 +127,7 @@ export const updatePost = async (req: Request, res: Response) => {
 
         // Update fields if they are provided in the request
         if (likes != null) post.likes = (post.likes || 0) + 1;
-        if (dislikes != null) post.likes = (post.dislikes || 0) - 1;
+        if (dislikes != null) post.likes = (post.likes || 0) - 1;
         if (views != null) post.views = (post.views || 0) + 1;
         if (shared != null) post.shared = (post.shared || 0) + 1;
 
