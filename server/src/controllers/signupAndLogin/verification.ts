@@ -25,19 +25,17 @@ export const sendVerificationEmailController = async (req: Request, res: Respons
 
 export const verifyEmailCodeController = async (req: Request, res: Response) => {
     const { email, code} = req.body;
-    console.log(email, code);
     const data = verificationCodes.get(email);
     if (!data) {
         return res.status(400).send({ message: 'Invalid code' });
     }
     const { code: storedCode, timestamp } = data;
-    console.log(storedCode, code);
     const now = Date.now();
 
     if (storedCode === code && now - timestamp <= 10 * 60 * 1000) { // 10 minutes expiration
         
         verificationCodes.delete(email); // Remove code after verification
-        const user = await User.findOneAndUpdate({email: email},{ verified: true });
+        const user = await User.findOneAndUpdate({email: email},{ verifiedCredential: true });
 
         
         if (!user) {

@@ -20,7 +20,19 @@ import postRouter from './routers/posts/post'
 import commentRouter from './routers/posts/comment'
 import text_extraction_router from './routers/tags_extraction/text_extraction_router';
 import ProfileSelectionRouter from './routers/signupAndLogin/signup/profileSelection'
+import social_networking_router from './routers/social_networking'
+
 import fileUploadRouter from './routers/file_upload/file_upload';
+
+import CreateOrganizationRouter from './routers/signupAndLogin/signup/organization'
+
+import PersonalProfileRouter from './routers/connectUser/profiles/personal'
+import ProfessionalProfileRouter from "./routers/connectUser/profiles/professional/professional"
+import ProfessionalProfileRecommendationsRouter from "./routers/connectUser/profiles/professional/recommendations"
+
+
+import ConnectUserDataRouter from "./routers/connectUser/userDataRouter"
+import ConnectUserProfileRoutes from "./routers/connectUser/profiles"
 
 dotenv.config();
 const app = express();
@@ -37,6 +49,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
+
 app.listen(PORT, () => {
     console.log('The application is listening on port http://localhost:' + PORT);
     connectToMongoDB();
@@ -50,12 +63,16 @@ app.use('/upload', fileUploadRouter);
 app.use('/auth', authRouter);
 app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
-app.use('/verification', verificationRouter)
+app.use('/verification', verificationRouter);
 
 // Protect routes with JWT middleware
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
 app.use('/educational_profile', schoolProfileRouter); // for testing purposes : removed the authenticate middleware
 app.use('/professional_profile', professionalProfileRouter); // for testing purposes : removed the authenticate middleware
+
+app.use('/createOrg', CreateOrganizationRouter); // for testing purposes : removed the authenticate middleware
+
+
 app.use('/post', postRouter);
 app.use('/comment', commentRouter);
 
@@ -70,5 +87,17 @@ app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 
 // use the text_extraction_router
 app.use('/text_extraction', text_extraction_router);
+
+// use the social networking algorithm to get recommendations from users based on their interactions
+
+app.use('/recommendations', social_networking_router)
 app.use('/profileSelection', authenticate, ProfileSelectionRouter);
 
+
+app.use('/user' , authenticate, ConnectUserDataRouter);
+app.use('/profiles' , authenticate, ConnectUserProfileRoutes);
+app.use('/currentUserPersonal' , authenticate, PersonalProfileRouter);
+
+
+app.use('/currentUserProfessional' , authenticate, ProfessionalProfileRouter);
+app.use('/currentUserProfessionalRecommendations' , authenticate,  ProfessionalProfileRecommendationsRouter);

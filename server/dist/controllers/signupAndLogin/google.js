@@ -4,7 +4,7 @@ exports.getGoogleAuthUrl = void 0;
 const googleapis_1 = require("googleapis");
 const GOOGLE_CLIENT_ID = "927314664227-e5ukk88gdjem7f4mn8dkk6op0fjv6ej8.apps.googleusercontent.com";
 const GOOGLE_CLIENT_SECRET = "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";
-const GOOGLE_REDIRECT_URI = "http://localhost:8000/google/callback";
+const GOOGLE_REDIRECT_URI = "http://localhost:3000/home";
 const getGoogleAuthUrl = (req, res) => {
     const oauth2Client = new googleapis_1.google.auth.OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI);
     const scopes = [

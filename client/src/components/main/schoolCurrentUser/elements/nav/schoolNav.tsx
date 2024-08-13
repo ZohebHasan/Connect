@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useSchoolNavContext } from '../../../../../contexts/navigation/schoolNavContext';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
@@ -11,6 +11,7 @@ const FilterButtons: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
     const navigate = useNavigate();
+    const { username } = useParams<{ username: string }>();
 
     useEffect(() => {
         const path = location.pathname.split('/').pop();
@@ -33,9 +34,8 @@ const FilterButtons: React.FC = () => {
         <FilterContainer>
             <FeedButtonContainer>
                 <StyledButton
-                    // $isActive={true}
                     $isActive={activeState === 'courses'}
-                    onClick={() => handleClick('courses', '/currentUser/school/courses')}
+                    onClick={() => handleClick('courses', `/school/${username}/courses`)}
                     $isDarkMode={isDarkMode}
                     className="courses"
                 >
@@ -45,9 +45,8 @@ const FilterButtons: React.FC = () => {
 
             <TrendingButtonContainer>
                 <StyledButton
-                    // $isActive={false}
                     $isActive={activeState === 'clubsAndOrgs'}
-                    onClick={() => handleClick('clubsAndOrgs', '/currentUser/school/clubsAndOrgs')}
+                    onClick={() => handleClick('clubsAndOrgs', `/school/${username}/clubsAndOrgs`)}
                     $isDarkMode={isDarkMode}
                     className="clubsAndOrgs"
                 >
@@ -57,9 +56,8 @@ const FilterButtons: React.FC = () => {
 
             <FeedButtonContainer>
                 <StyledButton
-                    // $isActive={false}
                     $isActive={activeState === 'campus'}
-                    onClick={() => handleClick('campus', '/currentUser/school/campus')}
+                    onClick={() => handleClick('campus', `/school/${username}/campus`)}
                     $isDarkMode={isDarkMode}
                     className="campus"
                 >

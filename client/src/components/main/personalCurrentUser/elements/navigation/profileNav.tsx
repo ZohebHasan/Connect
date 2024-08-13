@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { usePerNavContext } from '../../../../../contexts/navigation/perNavContext';
+import { useConnectUser } from '../../../../../contexts/ConnectUser/connectUserProvider';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 
@@ -11,28 +12,39 @@ const FilterButtons: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
     const navigate = useNavigate();
+    const { user } = useConnectUser();
+    const { username } = useParams<{ username: string }>();
 
     useEffect(() => {
-        const path = location.pathname.split('/').pop();
-        const validPaths = ['personal', 'clips', 'chirps'];
-        if (validPaths.includes(path!) && path !== activeState) {
-            setActiveState(path!);
-        } else if (!validPaths.includes(path!)) {
-            setActiveState('personal');
+        if (!user) return;
+
+        const currentPath = location.pathname;
+        if (currentPath === `/personal/${user.username}` && activeState !== 'pixels') {
+            setActiveState('pixels', user.username);
+        } else if (currentPath === `/personal/${user.username}/clips` && activeState !== 'clips') {
+            setActiveState('clips', user.username);
+        } else if (currentPath === `/personal/${user.username}/chirps` && activeState !== 'chirps') {
+            setActiveState('chirps', user.username);
         }
-    }, [location, activeState, setActiveState]);
+    }, [location.pathname, activeState, setActiveState, user]);
 
     const handleClick = (state: string, path: string) => {
-        setActiveState(state);
-        navigate(path);
+        if (user) {
+            setActiveState(state, user.username);
+            navigate(path);
+        }
     };
+
+    if (!user) {
+        return null; // or some loading state
+    }
 
     return (
         <FilterContainer>
             <FeedButtonContainer>
                 <StyledButton
-                    $isActive={activeState === 'personal'}
-                    onClick={() => handleClick('personal', '/currentUser/personal')}
+                    $isActive={activeState === 'pixels'}
+                    onClick={() => handleClick('pixels', `/personal/${user.username}`)}
                     $isDarkMode={isDarkMode}
                     className="pixels"
                 >
@@ -43,7 +55,7 @@ const FilterButtons: React.FC = () => {
             <TrendingButtonContainer>
                 <StyledButton
                     $isActive={activeState === 'clips'}
-                    onClick={() => handleClick('clips', '/currentUser/personal/clips')}
+                    onClick={() => handleClick('clips', `/personal/${user.username}/clips`)}
                     $isDarkMode={isDarkMode}
                     className="clips"
                 >
@@ -54,7 +66,7 @@ const FilterButtons: React.FC = () => {
             <FeedButtonContainer>
                 <StyledButton
                     $isActive={activeState === 'chirps'}
-                    onClick={() => handleClick('chirps', '/currentUser/personal/chirps')}
+                    onClick={() => handleClick('chirps', `/personal/${user.username}/chirps`)}
                     $isDarkMode={isDarkMode}
                     className="chirps"
                 >

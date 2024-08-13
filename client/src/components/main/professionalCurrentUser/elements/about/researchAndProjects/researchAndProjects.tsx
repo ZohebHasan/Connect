@@ -20,7 +20,12 @@ import LinkLight from "../../../../../assets/linkLight.png";
 import RightArrowDark from '../../../../../assets/rightArrowDark.png';
 import RightArrowLight from '../../../../../assets/rightArrowLight.png';
 
-import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
+
+import AddIconDark from "../../../../../assets/createDarkActive.png"
+import AddIconLight from "../../../../../assets/createLightActive.png"
+
+
+// import { useAboutInfoContext } from '../../../../../../contexts/professionalProfile/aboutContext';
 
 
 interface Media {
@@ -40,17 +45,31 @@ interface CommonInfo {
 
 interface ProjectInfo extends CommonInfo {
   role?: string;
-  association?: Association;
+  association?: Org;
   projectLink?: string;
-  collaborators?: { id: number; src: string }[];
+  collaborators?: UserProfile[];
   skills?: string[];
+}
+
+interface Org {
+  company?: string; // This will hold the ObjectId as a string
+  name?: string;
+  isVerified?: boolean;
+  profilePhoto?: string;
+}
+
+interface UserProfile {
+  userId: String;
+  name?: string;
+  isVerified?: boolean;
+  profilePhoto?: string;
 }
 
 interface ResearchAndPubInfo extends CommonInfo {
   role?: string;
-  association?: Association;
+  association?: Org;
   researchLink?: string;
-  collaborators?: { id: number; src: string }[];
+  collaborators?: UserProfile[];
   skills?: string[];
 }
 
@@ -68,7 +87,7 @@ interface Association {
 
 const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) => {
   const { isDarkMode } = useDarkMode();
-  const { setActiveType, toggleDataBar } = useAboutInfoContext();
+  // const { setActiveType, toggleDataBar } = useAboutInfoContext();
 
   const iconDark = headerType === 'project' ? ProjectDark : ResearchDark;
   const iconLight = headerType === 'project' ? ProjectLight : ResearchLight;
@@ -84,14 +103,42 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
     }
   };
 
-  const handleShowAllClick = () => {
-    setActiveType(headerType);
-    toggleDataBar();
+  const getAddText = () => {
+    switch (headerType) {
+      case 'project':
+        return `projects`;
+      case 'research':
+        return `research & publications`;
+      default:
+        return 'projects';
+    }
   };
+
+  if (info.length  === 0) {
+    return <>
+      <ElementContainer>
+        <Header HeaderType={headerType} display={"notFullScreen"} />
+
+        <IconContainer>
+          <AddInfoWrapper>
+            <AddIcon src={isDarkMode ? AddIconDark : AddIconLight} $isDarkMode={isDarkMode} />
+            <Text variant={"transparent"} size={"1rem"} fontWeight={"400"}>
+              Add {getAddText()}
+            </Text>
+          </AddInfoWrapper>
+        </IconContainer>
+      </ElementContainer>
+    </>
+  }
+
+  // const handleShowAllClick = () => {
+  //   setActiveType(headerType);
+  //   toggleDataBar();
+  // };
 
   return (
     <ElementContainer>
-      <Header HeaderType={headerType} display= {"notFullScreen"}/>
+      <Header HeaderType={headerType} display={"notFullScreen"} />
       {info.slice(0, 1).map((item, index) => (
         <Info key={index}>
           <ContentWrapper>
@@ -138,7 +185,7 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
                 <Text variant="normal" size="0.9rem" fontWeight="300">
                   •
                 </Text>
-               <TextBody textBody={item.description} display= {'notFullScreen'}/>
+                <TextBody textBody={item.description} display={'notFullScreen'} />
               </Description>
 
               {(item as ProjectInfo).projectLink && (
@@ -170,7 +217,7 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
                   </Text>
                   <AssociationContent>
                     <LogoContainer>
-                      <Logo src={item.association.logo} />
+                      <Logo src={item.association.profilePhoto} />
                     </LogoContainer>
                     <OrgName>
                       <Text variant="normal" size="0.9rem" fontWeight="400">
@@ -188,15 +235,15 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
                     Collaborators:
                   </Text>
                   <CollaboratorList>
-                    {item.collaborators.slice(0, 3).map(collaborator => (
+                    {/* {item.collaborators.slice(0, 3).map(collaborator => (
                       <Collaborator key={collaborator.id}>
                         <Border>
                           <InnerBorder isDarkMode={isDarkMode}>
-                            <Story src={collaborator.src} />
+                            <Story src={collaborator.profilePhoto} />
                           </InnerBorder>
                         </Border>
                       </Collaborator>
-                    ))}
+                    ))} */}
                     {item.collaborators.length > 3 && (
                       <MoreCollaborators>
                         <TextWrapper>
@@ -219,11 +266,12 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
         </Info>
       ))}
       {info.length > 1 && (
-        <ShowAllContainer onClick={handleShowAllClick}>
+        <ShowAllContainer>
+          {/* <ShowAllContainer onClick={handleShowAllClick}> */}
           <Text variant="normal" size="1rem" fontWeight="500">
             See all {getSeeAllText()}
           </Text>
-          <ArrowIcon src = {isDarkMode? RightArrowDark : RightArrowLight}/>
+          <ArrowIcon src={isDarkMode ? RightArrowDark : RightArrowLight} />
 
         </ShowAllContainer>
       )}
@@ -232,6 +280,42 @@ const ResearchOrProjectElement: React.FC<ElementProps> = ({ headerType, info }) 
 };
 
 export default ResearchOrProjectElement;
+
+
+const AddInfoWrapper = styled.div`
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.6;
+  }
+`;
+
+const AddIcon = styled.img<{ $isDarkMode: boolean }>`
+  width: 1rem;
+  padding: 0.3rem;
+  border: 1px solid ${({ $isDarkMode }) => ($isDarkMode ? 'white' : 'black')};
+  border-radius: 3px;
+`;
+
+const IconContainer = styled.div`
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+
+`
 
 const ArrowIcon = styled.img`
   width: 1.4rem;

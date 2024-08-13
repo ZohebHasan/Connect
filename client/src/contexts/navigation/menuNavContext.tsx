@@ -35,9 +35,9 @@ export const LeftBarNavButtonProvider: React.FC<{ children: ReactNode }> = ({ ch
     useEffect(() => {
         const currentPath = location.pathname;
         if (
-            currentPath.startsWith('/currentUser/personal') ||
-            currentPath.startsWith('/currentUser/professional') ||
-            currentPath.startsWith('/currentUser/school')
+            currentPath.startsWith('/personal/') ||
+            currentPath.startsWith('/professional/') ||
+            currentPath.startsWith('/school/')
         ) {
             setLeftBarNavButtons({
                 home: false,

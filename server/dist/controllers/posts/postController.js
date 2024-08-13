@@ -28,14 +28,10 @@ conn.once('open', () => {
     gfs.collection('uploads');
 });
 const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ownedBy, location, media_body } = req.body;
+    const { ownedBy, location, media_body, tags } = req.body;
     const { media_type } = req.params;
     const file = req.file;
     const content_type = media_type;
-    if (!file) {
-        return res.status(400).json("Media file is required");
-    }
-    console.log("File: ", file);
     const user = yield userModel_1.default.findById(ownedBy);
     if (!user) {
         return res.status(404).json("User does not exist");
@@ -46,6 +42,10 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const body = media_body.body;
         switch (media_type) {
             case "pixel":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file);
                 media = new pixel_model_1.default({
                     file: file.id,
                     body
@@ -53,6 +53,10 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 yield media.save();
                 break;
             case "snip":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file);
                 media = new snip_model_1.default({
                     file: file.id,
                     body
@@ -60,6 +64,10 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 yield media.save();
                 break;
             case "clip":
+                if (!file) {
+                    return res.status(400).json("Media file is required");
+                }
+                console.log("File: ", file);
                 media = new clip_model_1.default({
                     file: file.id,
                     body
@@ -84,6 +92,7 @@ const Post = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             location,
             content_type,
             content: media._id,
+            tags
         });
         yield post.save();
         res.status(201).json(post);
@@ -112,7 +121,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         if (likes != null)
             post.likes = (post.likes || 0) + 1;
         if (dislikes != null)
-            post.likes = (post.dislikes || 0) - 1;
+            post.likes = (post.likes || 0) - 1;
         if (views != null)
             post.views = (post.views || 0) + 1;
         if (shared != null)

@@ -98,7 +98,6 @@ const sendVerificationEmail = (to, verificationToken) => __awaiter(void 0, void 
     };
     try {
         yield mail_1.default.send(msg);
-        console.log('Verification email sent successfully.');
     }
     catch (error) {
         console.error('Error sending verification email:', error.response ? error.response.body : error);

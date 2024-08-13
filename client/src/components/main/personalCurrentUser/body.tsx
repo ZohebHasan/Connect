@@ -18,9 +18,9 @@ const Body: React.FC = () => {
 
     const renderContent = () => {
         switch (location.pathname) {
-            case "/currentUser/personal":
+            case "/personal/${username}":
                 return <PixelFullScreen />;
-            case "/currentUser/personal/clips":
+            case "/personal/${username}/clips":
                 return <ClipFullScreen/>;
             default:
                 return <></>;
