@@ -33,6 +33,8 @@ import ProfessionalProfileRecommendationsRouter from "./routers/connectUser/prof
 
 import ConnectUserDataRouter from "./routers/connectUser/userDataRouter"
 import ConnectUserProfileRoutes from "./routers/connectUser/profiles"
+import https from 'https';
+import fs from 'fs';
 
 dotenv.config();
 const app = express();
@@ -44,16 +46,32 @@ app.use(cors({
     credentials: true,
 }));
 
+
+
+const options = {
+    key: fs.readFileSync('/home/kamhassan/Desktop/Projects/Connect/server/server.key'),
+    cert: fs.readFileSync('/home/kamhassan/Desktop/Projects/Connect/server/server.cert')
+}
+
+https.createServer(options, app).listen(PORT, () => {
+    console.log('The application is listening on port https://localhost:' + PORT);
+    connectToMongoDB();
+});
+
+
+
+
+
 app.get('/', (req: Request, res: Response) => {
     res.send('Welcome to typescript backend!');
 });
 
 
 
-app.listen(PORT, () => {
-    console.log('The application is listening on port http://localhost:' + PORT);
-    connectToMongoDB();
-});
+// app.listen(PORT, () => {
+//     console.log('The application is listening on port http://localhost:' + PORT);
+//     connectToMongoDB();
+// });
 
 
 // File upload route
