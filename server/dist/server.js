@@ -67,10 +67,8 @@ app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.d
 app.use('/google', google_1.default);
 app.use('/microsoft', microsoft_1.default);
 app.use('/text_extraction', text_extraction_router_1.default);
-
 app.use('/recommendations', social_networking_1.default);
 app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.default);
-
 app.use('/user', authMiddleware_1.authenticate, userDataRouter_1.default);
 app.use('/profiles', authMiddleware_1.authenticate, profiles_1.default);
 app.use('/currentUserPersonal', authMiddleware_1.authenticate, personal_1.default);

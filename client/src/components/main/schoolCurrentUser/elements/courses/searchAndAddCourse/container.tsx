@@ -43,6 +43,7 @@ const StyledFilterBarContainer = styled.div<{ $isFilterBarContainerOpen?: boolea
     border: 1px solid ${$isDarkMode ? 'rgba(193, 193, 193, 0.2)' : 'rgba(57, 57, 57, 0.1)'};
   `}
   
+  /* background-color: red; */
   border-radius: 15px;
   position: absolute;
   backdrop-filter: blur(3px);
