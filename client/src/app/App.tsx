@@ -11,17 +11,17 @@ import { scheduleTokenRefresh } from '../services/authHelpers';
 const App: React.FC = () => {
   useEffect(() => {
     scheduleTokenRefresh();
-}, []);
+  }, []);
 
   return (
     <>
       <AuthProvider>
         <LanguageProvider>
           <DarkModeProvider>
-            <SidebarProvider>
-              <GlobalStyle />
-              <Connect />
-            </SidebarProvider>
+              <SidebarProvider>
+                <GlobalStyle />
+                <Connect />
+              </SidebarProvider>
           </DarkModeProvider>
         </LanguageProvider>
       </AuthProvider>

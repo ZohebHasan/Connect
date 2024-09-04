@@ -8,6 +8,7 @@ import loginRouter from './routers/signupAndLogin/login/login';
 import signupRouter from './routers/signupAndLogin/signup/signup';
 import personalProfileRouter from './routers/signupAndLogin/signup/personalProfile';
 import schoolProfileRouter from './routers/signupAndLogin/signup/schoolProfile';
+// import schoolCampusData from './routers/connectUser/profiles/school/userSchoolData';
 import professionalProfileRouter from './routers/signupAndLogin/signup/professionalProfile';
 import { authenticate } from './middleware/authMiddleware';
 import refreshRouter from './routers/refresh';
@@ -29,7 +30,8 @@ import CreateOrganizationRouter from './routers/signupAndLogin/signup/organizati
 import PersonalProfileRouter from './routers/connectUser/profiles/personal'
 import ProfessionalProfileRouter from "./routers/connectUser/profiles/professional/professional"
 import ProfessionalProfileRecommendationsRouter from "./routers/connectUser/profiles/professional/recommendations"
-
+import SchoolProfileRouter from "./routers/connectUser/profiles/school/school"
+import SchoolClubsAndOrgsRouter from "./routers/connectUser/profiles/school/clubsAndOrgs"
 
 import ConnectUserDataRouter from "./routers/connectUser/userDataRouter"
 import ConnectUserProfileRoutes from "./routers/connectUser/profiles"
@@ -65,6 +67,8 @@ app.use('/login', loginRouter);
 app.use('/signup', signupRouter);
 app.use('/verification', verificationRouter);
 
+
+
 // Protect routes with JWT middleware
 app.use('/personal_profile', personalProfileRouter); // for testing purposes : added back the authenticate middleware
 app.use('/educational_profile', schoolProfileRouter); // for testing purposes : removed the authenticate middleware
@@ -88,10 +92,10 @@ app.use('/microsoft', microsoftAuthRouter); // Ensure correct route
 // use the text_extraction_router
 app.use('/text_extraction', text_extraction_router);
 
-// use the social networking algorithm to get recommendations from users based on their interactions
 
 app.use('/recommendations', social_networking_router)
 app.use('/profileSelection', authenticate, ProfileSelectionRouter);
+
 
 
 app.use('/user' , authenticate, ConnectUserDataRouter);
@@ -101,3 +105,7 @@ app.use('/currentUserPersonal' , authenticate, PersonalProfileRouter);
 
 app.use('/currentUserProfessional' , authenticate, ProfessionalProfileRouter);
 app.use('/currentUserProfessionalRecommendations' , authenticate,  ProfessionalProfileRecommendationsRouter);
+
+app.use('/currentUserSchool' , authenticate, SchoolProfileRouter);
+// app.use('/getUserCampusData', authenticate, schoolCampusData);
+app.use('/clubsAndOrgs' , authenticate, SchoolClubsAndOrgsRouter);

@@ -1,19 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { useConnectUser } from '../../../../contexts/ConnectUser/connectUserProvider';
+
 
 import { useDarkMode } from '../../../../contexts/DarkMode/DarkMode';
 import ProfileBodyContainer from '../../../ConnectUI_web/templetes/bodyTemplete';
 
-import DarkLightToggle from '../../../ConnectUI_web/common/darkLightToggle/darkLightToggle';
-
-import OptionLight from "../../../assets/storyOptionsLight.png";
-import OptionDark from "../../../assets/storyOptionsDark.png";
-
 import ProfileInfo from "../elements/profileInfo/profileInfo";
+import ProfileInfoLoading from "../elements/profileInfo/profileInfoLoading"
 import PostFilter from "../elements/nav/schoolNav";
+import PostFilterLoading from "../elements/nav/navLoading"
 
 import Courses from "../elements/courses/courseList"
+import CoursesLoading from "../elements/courses/courseListLoading"
+
 import ClubsAndOrgs from "../elements/clubsAndOrgs/clubsAndOrgsList"
 
 import CampusPosts from "../elements/campus/campusPosts"
@@ -21,35 +24,131 @@ import CampusPosts from "../elements/campus/campusPosts"
 import LeftButton from '../../smallComponents/leftButton';
 import RightButton from '../../smallComponents/rightButton';
 
+import AddSchool from './addSchool';
+import SetSchoolEmail from './addSchoolEmail';
+import VerifySchoolEmail from './verifySchoolEmail';
+import SelectUserType from './selectUserType';
+
+
+
+import { useSchoolProfile } from '../../../../contexts/schoolProfile/school';
+
+
 const ProfileBody: React.FC = () => {
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
-    const { username } = useParams<{ username: string }>();
+    const navigate = useNavigate();  // Get the navigate function
+    const { user } = useConnectUser();
 
-    const renderContent = () => {
-        switch (location.pathname) {
-            case `/school/${username}`:
-                return <Courses />
-            case `/school/${username}/courses`:
-                return <Courses />
-            case `/school/${username}/clubsAndOrgs`:
-                return <ClubsAndOrgs />
-            case `/school/${username}/campus`:
-                return <CampusPosts />
-            default:
-                return <></>
-        }
-    };
+    const { username } = useParams<{ username: string }>();
+    const {
+        schoolProfile,
+        loading,
+        fetchProfileData,
+        profileLoading,
+        isUniversitySelected,
+        isEmailSet,
+        isEmailVerified,
+        isUserTypeSelected,
+        handleUniversitySelection,
+        handleEmailSet,
+        handleEmailVerified,
+        handleUserTypeSelected,
+        setProfileLoadingOff,
+        setProfileLoadingOn
+    } = useSchoolProfile();
+
+    setProfileLoadingOn();
+
+    // if (!schoolProfile) {
+    //     fetchProfileData();
+    // }
+
+
+    // if (schoolProfile) {
+    //     if (schoolProfile.campus.name) {
+    //         if (schoolProfile.schoolEmail) {
+    //             if (schoolProfile.verifiedSchoolEmail) {
+    //                 if (schoolProfile.userType) {
+    //                     handleUserTypeSelected();
+    //                 }
+    //                 else {
+    //                     navigate(`/school/${user?.username}/addUserType`);
+    //                 }
+    //             }
+    //             else {
+    //                 navigate(`/school/${user?.username}/verifySchoolEmail`);
+    //             }
+    //         }
+    //         else {
+    //             navigate(`/school/${user?.username}/addSchoolEmail`);
+    //         }
+    //     }
+    //     else {
+    //         navigate(`/school/${user?.username}/addUniversity`);
+    //     }
+    //     setProfileLoadingOff();
+    // }
+
+
+    // const renderContent = () => {
+    //     switch (location.pathname) {
+    //         case `/school/${username}`:
+    //             return <>
+    //                 <ProfileInfo />
+    //                 <PostFilter />
+    //                 <Courses />
+    //             </>
+    //         case `/school/${username}/courses`:
+    //             return <>
+    //                 <ProfileInfo />
+    //                 <PostFilter />
+    //                 <Courses />
+    //             </>
+    //         case `/school/${username}/clubsAndOrgs`:
+    //             return <>
+    //                 <ProfileInfo />
+    //                 <PostFilter />
+    //                 <ClubsAndOrgs />
+    //             </>
+    //         case `/school/${username}/campus`:
+    //             return <>
+    //                 <ProfileInfo />
+    //                 <PostFilter />
+    //                 <CampusPosts />
+    //             </>
+    //         case `/school/${username}/addUniversity`:
+    //             return <AddSchool />
+    //         case `/school/${username}/addSchoolEmail`:
+    //             return <SetSchoolEmail />
+    //         case `/school/${username}/verifySchoolEmail`:
+    //             return <CampusPosts />
+    //         case `/school/${username}/addUserType`:
+    //             return <CampusPosts />
+    //         default:
+    //             return <></>
+    //     }
+    // };
 
     return (
         <>
-            <ProfileBodyContainer flexDirection="column" flex={5.5}>
+            {/* <ProfileBodyContainer flexDirection="column" flex={5.5}>
                 <LeftButton />
                 <RightButton />
-                <ProfileInfo />
-                <PostFilter />
-                {renderContent()}
-            </ProfileBodyContainer>
+                {
+                    profileLoading ? (
+                        <>
+                            <ProfileInfoLoading />
+                            <PostFilterLoading />
+                            <CoursesLoading />
+                        </>
+                    ) : renderContent()
+                }
+
+
+
+
+            </ProfileBodyContainer> */}
         </>
     );
 };

@@ -6,8 +6,11 @@ import { useSchoolNavContext } from '../../../../../contexts/navigation/schoolNa
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 import Text from '../../../../ConnectUI_web/common/texts/static';
 
+import { useSchoolProfile } from '../../../../../contexts/schoolProfile/school';
+
 const FilterButtons: React.FC = () => {
-    const { activeState, setActiveState } = useSchoolNavContext();
+    const { activeState, handleSetActiveState } = useSchoolProfile();
+    // const { activeState, setActiveState } = useSchoolNavContext();
     const { isDarkMode } = useDarkMode();
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,15 +21,15 @@ const FilterButtons: React.FC = () => {
         const validPaths = ['courses', 'clubsAndOrgs', 'campus'];
         if (validPaths.includes(path!)) {
             if (path !== activeState) {
-                setActiveState(path!);
+                handleSetActiveState(path!);
             }
         } else if (activeState !== 'courses') {
-            setActiveState('courses');
+            handleSetActiveState('courses');
         }
-    }, [location, activeState, setActiveState]);
+    }, [location, activeState, handleSetActiveState]);
 
     const handleClick = (state: string, path: string) => {
-        setActiveState(state);
+        handleSetActiveState(state);
         navigate(path);
     };
 

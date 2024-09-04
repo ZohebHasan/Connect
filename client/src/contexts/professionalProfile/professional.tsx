@@ -158,7 +158,7 @@ export const ProfessionalProvider: React.FC<{ children: ReactNode }> = ({ childr
                     certifications: response.data.certifications,
                     awards: response.data.awards,
                 };
-                console.log(data);
+                // console.log(data);
                 setProfessionalProfile(data);
                 setError(null);
             } catch (error) {

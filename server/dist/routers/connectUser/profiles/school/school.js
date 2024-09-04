@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const school_1 = require("../../../../controllers/ConnectUser/profiles/school/school");
+const authMiddleware_1 = require("../../../../middleware/authMiddleware");
+const schoolEmailVerification_1 = require("../../../../controllers/ConnectUser/profiles/school/schoolEmailVerification");
+const createCourse_1 = require("../../../../controllers/ConnectUser/profiles/school/createCourse");
+const router = express_1.default.Router();
+router.get('/', authMiddleware_1.authenticate, school_1.getUserSchool);
+router.post('/setSchool', authMiddleware_1.authenticate, school_1.setSchool);
+router.post('/deleteSchoolCampus', authMiddleware_1.authenticate, school_1.deleteSchool);
+router.post('/setSchoolEmail', authMiddleware_1.authenticate, school_1.setSchoolEmail);
+router.post('/deleteSchoolEmail', authMiddleware_1.authenticate, school_1.deleteSchoolEmail);
+router.post('/sendVerificationEmail', authMiddleware_1.authenticate, schoolEmailVerification_1.sendVerificationEmailController);
+router.post('/verifyCode', authMiddleware_1.authenticate, schoolEmailVerification_1.verifyEmailCodeController);
+router.post('/setUserType', authMiddleware_1.authenticate, school_1.setUserType);
+router.post('/createCourse', authMiddleware_1.authenticate, createCourse_1.createCourse);
+exports.default = router;

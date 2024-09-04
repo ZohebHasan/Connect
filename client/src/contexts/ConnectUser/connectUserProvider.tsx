@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 interface User {
+    userId: string;
     fullName: string;
     username: string;
     isVerified: boolean;
@@ -33,8 +34,8 @@ export const ConnectUserProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 }
             });
     
-            const { fullName, username, isVerified, pronouns } = response.data;
-            setUser({ fullName, username, isVerified: isVerified, pronouns: pronouns});
+            const { fullName, username, isVerified, pronouns , userId} = response.data;
+            setUser({ fullName, username, isVerified: isVerified, pronouns: pronouns, userId: userId});
         } catch (err: any) {
             console.error('Error fetching user data:', err);
             setError('Error fetching user data');

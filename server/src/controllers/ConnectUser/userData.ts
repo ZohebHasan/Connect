@@ -21,6 +21,7 @@ export const getUserData = async (req: AuthenticatedRequest, res: Response) => {
 
         // Prepare the user data to send back
         const userData = {
+            userId: user.id,
             fullName: user.fullName,
             username: user.username,
             isVerified: user.isVerified,

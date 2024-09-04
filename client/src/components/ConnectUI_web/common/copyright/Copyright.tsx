@@ -7,7 +7,7 @@ const Copyright: React.FC= () => {
   const {isDarkMode} = useDarkMode();
   return (
     <CopyRightText $isDarkMode={isDarkMode}>
-       Connect Inc. © 2024
+       Connect LLC. © 2024
     </CopyRightText>
   );
 };

@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDarkMode } from '../../../../../contexts/DarkMode/DarkMode';
 
-import CourseHeader from "./headers/activeHeader"
-import PostList from "./posts/postList"
-import CreateAndFilterButton from "./buttons/activeCourse/filterAndCreate"
+// import CourseHeader from "./headers/activeHeader"
+// import PostList from "./posts/postList"
+// import CreateAndFilterButton from "./buttons/activeCourse/filterAndCreate"
 
-import OrgsBar from "./orgsSelectionBar/orgsBar"
+// import OrgsBar from "./orgsSelectionBar/orgsBar"
 
 
 const Courses: React.FC = () => {
@@ -14,10 +14,10 @@ const Courses: React.FC = () => {
 
   return (
     <CoursesContainer>
-      <OrgsBar/>
-      <CourseHeader/>
-      <CreateAndFilterButton/>
-      <PostList />
+      {/* <OrgsBar/> */}
+      {/* <CourseHeader/> */}
+      {/* <CreateAndFilterButton/> */}
+      {/* <PostList /> */}
     </CoursesContainer>
   );
 };

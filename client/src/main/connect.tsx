@@ -4,6 +4,8 @@ import { BrowserRouter as Router, useParams, Routes, Route, useLocation, Navigat
 import { ConnectUserProvider } from '../contexts/ConnectUser/connectUserProvider';
 import { PersonalProvider } from '../contexts/personalProfile/personal';
 import { ProfessionalProvider } from '../contexts/professionalProfile/professional';
+import { SchoolProfileProvider } from '../contexts/schoolProfile/school';
+
 
 import { LoginProvider } from '../contexts/login/loginContext';
 import { SignupProvider } from '../contexts/signup/signupContext';
@@ -45,12 +47,47 @@ import VerificationSignup from "../pages/loginSignup/verificationSignup";
 
 import CurrentUserPersonal from "../pages/currentUserPersonal";
 import CurrentUserProfessional from "../pages/currentUserProfessional";
-import CurrentUserSchool from "../pages/currentUserSchool/profile";
+// import CurrentUserSchool from "../pages/currentUserSchool/profile";
 
-import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData";
-import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData";
+// import SchoolCourseDataCurrentUser from "../pages/currentUserSchool/courseData";
+// import SchoolOrgDataCurrentUser from "../pages/currentUserSchool/orgData";
+// import SchoolCourses from "../pages/currentUserSchool/courses";
+// import SchoolClubs from "../pages/currentUserSchool/clubsAndOrgs";
+// import SchoolPosts from "../pages/currentUserSchool/schoolPosts";
+// import AddCampus from "../pages/currentUserSchool/selectSchool";
+// import AddSchoolEmail from "../pages/currentUserSchool/setSchoolEmail";
+// import VerifySchoolEmail from "../pages/currentUserSchool/verifySchoolEmail";
+// import AddUserType from "../pages/currentUserSchool/setUserType";
+
+
+// import BodyContainer from '../components/ConnectUI_web/templetes/bodyTemplete';
+// import LeftBar from '../components/main/smallComponents/leftBar';
+// import ProfileBody from '../components/main/schoolCurrentUser/smallComponents/profileBody';
+// import LoadingComponent from '../components/main/schoolCurrentUser/elements/loading/loading';
+// import Header from '../components/main/elements/header';
+// import { useSchoolProfile } from '../contexts/schoolProfile/school';
+
+// import SearchAndCreate from '../components/main/schoolCurrentUser/elements/courses/searchAndAddCourse/searchAndAdd';
+
+
+// import LeftButton from '../components/main/smallComponents/leftButton';
+// import RightButton from '../components/main/smallComponents/rightButton';
+
+// import ProfileInfoLoading from "../components/main/schoolCurrentUser/elements/profileInfo/profileInfoLoading"
+// import PostFilterLoading from "../components/main/schoolCurrentUser/elements/nav/navLoading"
+// import CoursesLoading from "../components/main/schoolCurrentUser/elements/courses/courseListLoading"
+// import SetUserType from '../components/main/schoolCurrentUser/smallComponents/selectUserType';
+
+
+import ProfileInfo from "../components/main/schoolCurrentUser/elements/profileInfo/profileInfo";
+import PostFilter from "../components/main/schoolCurrentUser/elements/nav/schoolNav";
+import Courses from "../components/main/schoolCurrentUser/elements/courses/courseList"
+
+import styled from 'styled-components';
 
 import Feed from "../pages/feed";
+
+import { CurrentUserSchoolRoutes } from './currentUser/school/schoolRouters';
 
 import ProtectedRoute from '../contexts/protectedRoute/protectedRoute';
 
@@ -146,7 +183,7 @@ function RoutesWrapper() {
                                             <Route path="/home" element={<Feed />} />
                                             <Route path="/personal/:username/*" element={<CurrentUserPersonalRoutes />} />
                                             <Route path="/professional/:username/*" element={<CurrentUserProfessionalRoutes />} />
-                                            <Route path="/school/:username/*" element={<CurrentUserSchoolRoutes />} />
+                                            <Route path="/school/:username/*" element={<SchoolProfileProvider><SchoolNavProvider><CurrentUserSchoolRoutes /></SchoolNavProvider></SchoolProfileProvider>} />
                                         </Routes>
                                     </CreateBarProvider>
                                 </ProfileProvider>
@@ -187,19 +224,74 @@ function CurrentUserProfessionalRoutes() {
     );
 }
 
-function CurrentUserSchoolRoutes() {
-    const { username } = useParams<{ username: string }>();
 
-    return (
-        <SchoolNavProvider>
-            <Routes>
-                <Route path="/" element={<Navigate to={`/school/${username}/courses`} replace />} />
-                <Route path="courses" element={<CoursesProvider> <CurrentUserSchool /> </CoursesProvider>} />
-                <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser /></CoursesProvider>} />
-                <Route path="clubsAndOrgs" element={<OrgsProvider> <CurrentUserSchool /> </OrgsProvider>} />
-                <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser /></OrgsProvider>} />
-                <Route path="campus" element={<CampusPostProvider> <CurrentUserSchool /> </CampusPostProvider>} />
-            </Routes>
-        </SchoolNavProvider>
-    );
-}
+
+// function CurrentUserSchoolRoutes() {
+//     const { username } = useParams<{ username: string }>();
+//     const { loading,
+//         isCourseSearchAddBarOpen,
+//         profileLoading
+//     } = useSchoolProfile();
+
+//     const isDisabled = loading || isCourseSearchAddBarOpen;
+//     return (
+//         <BodyContainer flexDirection="row">
+//             {loading && <LoadingComponent />}
+//             <SearchAndCreate />
+//             <LoadingWrapper $isDisabled={isDisabled}>
+//                 <Header />
+//                 <LeftBar />
+//                 <BodyContainer flexDirection="column" flex={5.5}>
+//                     <LeftButton />
+//                     <RightButton />
+//                     {
+//                         profileLoading ? (
+//                             <>
+//                                 <ProfileInfoLoading />
+//                                 <PostFilterLoading />
+//                                 <CoursesLoading />
+//                             </>
+//                         ) : <>
+//                             <ProfileInfo />
+//                             <PostFilter />
+//                             <Courses />
+//                         </>
+//                     }
+
+
+
+
+//                 </BodyContainer>
+//             </LoadingWrapper>
+//         </BodyContainer>
+
+//         // <Routes>
+//         //     {/* <Route path="/" element={<Navigate to={`/school/${username}/courses`} replace />} />
+//         //         <Route path="courses" element={<CoursesProvider> <SchoolCourses/> </CoursesProvider>} />
+//         //         <Route path="courses/:courseCode/*" element={<CoursesProvider><SchoolCourseDataCurrentUser /></CoursesProvider>} />
+//         //         <Route path="clubsAndOrgs" element={<OrgsProvider> <SchoolClubs/> </OrgsProvider>} />
+//         //         <Route path="clubsAndOrgs/:orgCode/*" element={<OrgsProvider><SchoolOrgDataCurrentUser /></OrgsProvider>} />
+//         //         <Route path="campus" element={<CampusPostProvider> <SchoolPosts/> </CampusPostProvider>} />
+//         //         <Route path="addUniversity" element={<CoursesProvider> <AddCampus /> </CoursesProvider>} />
+//         //         <Route path="addSchoolEmail" element={<CoursesProvider> <AddSchoolEmail /> </CoursesProvider>} />
+//         //         <Route path="verifySchoolEmail" element={<CoursesProvider> <VerifySchoolEmail /> </CoursesProvider>} />
+//         //         <Route path="addUserType" element={<CoursesProvider> <AddUserType/> </CoursesProvider>} /> */}
+//         //      <Route path="/" element={<Navigate to={`/school/${username}/courses`} replace />} />
+//         //      <Route path="courses" element={<CoursesProvider> Hello </CoursesProvider>} />
+
+//         // </Routes>
+
+//     );
+// }
+
+// const LoadingWrapper = styled.div<{ $isDisabled: boolean }>`
+//   display: flex;
+//   align-items: center;
+//   position: relative;
+//   flex-direction: row;
+//   width: 100%;
+//   height: 100%;
+//   overflow: auto;
+//   pointer-events: ${({ $isDisabled }) => ($isDisabled ? 'none' : 'auto')};
+//   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.2 : 1)};
+// `;
