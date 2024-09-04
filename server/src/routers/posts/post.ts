@@ -1,5 +1,6 @@
 import express from 'express';
 import { Post, updatePost } from '../../controllers/posts/postController';
+
 import upload from '../../middleware/upload';
 import compressFile from '../../middleware/compression';
 

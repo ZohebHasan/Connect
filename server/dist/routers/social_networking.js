@@ -4,9 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const microsoftoauth_1 = require("../../controllers/oauth/microsoft/microsoftoauth");
-const microsoftoauth_2 = require("../../controllers/oauth/microsoft/microsoftoauth");
+const social_network_1 = require("../social_networking/social_network");
 const router = express_1.default.Router();
-router.get('/auth', microsoftoauth_1.getMicrosoftAuthUrl);
-router.get('/', microsoftoauth_2.microsoftCallback);
+router.get('/', social_network_1.recommendationAlgo);
 exports.default = router;
