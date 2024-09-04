@@ -2,7 +2,7 @@ import { Response } from 'express';
 import User from '../../../models/userModel';
 import personalProfileModel from '../../../models/profiles/personal';
 import professionalProfileModel from '../../../models/profiles/professional/professional';
-import educationalProfileModel from '../../../models/profiles/school';
+import schoolProfileModel from '../../../models/profiles/school/school';
 import { AuthenticatedRequest } from '../../../middleware/authMiddleware'; 
 
 export const handleProfileSelections = async (req: AuthenticatedRequest, res: Response) => {
@@ -39,7 +39,7 @@ export const handleProfileSelections = async (req: AuthenticatedRequest, res: Re
 
         // Create educational profile if requested
         if (school) {
-            const newEducationalProfile = new educationalProfileModel({
+            const newEducationalProfile = new schoolProfileModel({
                 user: user._id
             });
             await newEducationalProfile.save();

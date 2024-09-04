@@ -8,7 +8,17 @@ import OptionIconDark from "../../../../../assets/optionHorizontalDark.png";
 import OptionIconLight from "../../../../../assets/optionHorizontalLight.png";
 import VerifiedIcon from "../../../../../assets/verified.png";
 
-import { Course, useCourses } from '../../../../../../contexts/schoolProfile/courseContext';
+import SchoolPhotoDark from "../../../../../assets/schoolUserDark.png"
+import SchoolPhotoLight from "../../../../../assets/schoolUserLight.png"
+
+import InfoIconDark from "../../../../../assets/infoDark.png";
+import InfoIconLight from "../../../../../assets/infoLight.png";
+
+import WarningDark from "../../../../../assets/warningDark.png";
+import WarningLight from "../../../../../assets/warningLight.png";
+
+// import { Course, useCourses } from '../../../../../../contexts/schoolProfile/courseContext';
+import { Course, useSchoolProfile } from '../../../../../../contexts/schoolProfile/school';
 
 interface HeaderProps {
   course: Course;
@@ -17,7 +27,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ course }) => {
   const { isDarkMode } = useDarkMode();
   const navigate = useNavigate();
-  const { setActiveCourse } = useCourses();
+  const { setActiveCourse } = useSchoolProfile();
   const [isNeutralized, setIsNeutralized] = useState(false);
 
   const handleNavigation = () => {
@@ -43,16 +53,32 @@ const Header: React.FC<HeaderProps> = ({ course }) => {
         <TitleContainer>
           <TitleWrapper>
             <CourseCodeContainer>
+              {course.isStudentLed &&
+                <StudentLedContainer>
+                  <InfoIcon src={isDarkMode ? InfoIconDark : InfoIconLight} />
+                  <Text variant={"transparent"} size={"1rem"} fontWeight={"200"}>
+                    Student-led
+                  </Text>
+                </StudentLedContainer>
+
+              }
               <Text variant={"normal"} size={"2rem"} fontWeight={"500"}>
                 {course.courseCode}
               </Text>
+              {/* <Text variant={"transparent"} size={"1rem"} fontWeight={"200"}>
+                {course.courseId}
+              </Text> */}
             </CourseCodeContainer>
           </TitleWrapper>
           <Text variant={"normal"} size={"1.3rem"} fontWeight={"300"}>
             {course.courseName}
           </Text>
         </TitleContainer>
-        <OptionIconContainer>
+        <OptionIconContainer
+          onMouseEnter={handleNeutralize(true)}
+          onMouseLeave={handleNeutralize(false)}
+          onClick={handleNeutralize(true)}
+        >
           <OptionWrapper>
             <OptionIcon src={isDarkMode ? OptionIconDark : OptionIconLight} />
           </OptionWrapper>
@@ -63,83 +89,180 @@ const Header: React.FC<HeaderProps> = ({ course }) => {
         <DataContainer>
           <InstructorContainer>
             <Text variant={"normal"} size={"0.9rem"} fontWeight={"500"}>
-              Instructor:
+              {course.instructor.length > 0 ? "Instructors" : "Instructor"}:
             </Text>
-            <AssociationContent
-              onMouseEnter={handleNeutralize(true)}
-              onMouseLeave={handleNeutralize(false)}
-              onClick={handleNeutralize(true)}
-              $isDarkMode = {isDarkMode}
-            >
-              <Border $type={"instructor"}>
-                <InnerBorder isDarkMode={isDarkMode} $type={"instructor"}>
-                  <UserIcon src={course.instructor.photoUrl} $type={"instructor"} />
-                </InnerBorder>
-              </Border>
-              <NameContainer>
-                <FullName>
-                  <Text variant="normal" size="0.85rem" fontWeight="350">
-                    {course.instructor.name}
-                  </Text>
-                  {course.instructor.isVerified && <VerifiedBadge type='org' />}
-                </FullName>
-                <Text variant={"transparent"} size="0.8rem" fontWeight="350">
-                  @{course.instructor.userName}
+            {course.instructor.length > 0 ?
+              course.instructor.length === 1 ?
+                <AssociationContent
+                  onMouseEnter={handleNeutralize(true)}
+                  onMouseLeave={handleNeutralize(false)}
+                  onClick={handleNeutralize(true)}
+                  $isDarkMode={isDarkMode}
+                >
+                  <Border $type={"instructor"}>
+                    <InnerBorder isDarkMode={isDarkMode} $type={"instructor"}>
+                      <UserIcon src={course.instructor[0].profilePhoto ? course.instructor[0].profilePhoto : isDarkMode ? SchoolPhotoDark : SchoolPhotoLight} $type={"instructor"} />
+                    </InnerBorder>
+                  </Border>
+                  <NameContainer>
+                    <FullName>
+                      <Text variant="normal" size="0.85rem" fontWeight="350">
+                        {course.instructor[0].name}
+                      </Text>
+                      {course.instructor[0].isVerified && <VerifiedBadge type='org' />}
+                    </FullName>
+                    <Text variant={"transparent"} size="0.8rem" fontWeight="350">
+                      @{course.instructor[0].userName}
+                    </Text>
+                  </NameContainer>
+                </AssociationContent>
+                :
+                <CollaboratorList>
+                  {course.instructor.slice(0, 3).map((instructor) => (
+                    <Collaborator key={instructor.userName}>
+                      <ClickableWrapper
+                        onMouseEnter={handleNeutralize(true)}
+                        onMouseLeave={handleNeutralize(false)}
+                        onClick={handleNeutralize(true)}
+                      >
+                        <Border $type={"ta"}>
+                          <InnerBorder isDarkMode={isDarkMode} $type={"ta"}>
+                            <UserIcon src={instructor.profilePhoto ? instructor.profilePhoto : isDarkMode ? SchoolPhotoDark : SchoolPhotoLight} $type={"ta"} />
+                          </InnerBorder>
+                        </Border>
+                      </ClickableWrapper>
+                    </Collaborator>
+                  ))}
+                  {course.instructor.length > 3 && (
+                    <MoreCollaborators>
+                      <TextWrapper>
+                        <Text variant="normal" size="0.8rem" fontWeight="300">
+                          and
+                        </Text>
+                        <OtherCollaborator
+                          onMouseEnter={handleNeutralize(true)}
+                          onMouseLeave={handleNeutralize(false)}
+                          onClick={handleNeutralize(true)}
+                        >
+                          <Text variant="normal" size="1rem" fontWeight="300">
+                            {course.instructor.length - 3} other.
+                          </Text>
+                        </OtherCollaborator>
+                      </TextWrapper>
+                    </MoreCollaborators>
+                  )}
+                </CollaboratorList> :
+              <NothingToShowContainer>
+                <WarningIcon src={isDarkMode ? WarningDark : WarningLight} />
+                <Text variant="normal" size="0.9rem" fontWeight="300">
+                  No instructor to show
                 </Text>
-              </NameContainer>
-            </AssociationContent>
+              </NothingToShowContainer>
+            }
+
           </InstructorContainer>
 
           <TAContainer>
             <Text variant={"normal"} size={"0.9rem"} fontWeight={"400"}>
-              Teaching Assistants:
+              {course.instructor.length > 0 ? "Teaching Assistants" : "Teaching Assistant"}:
             </Text>
-            <CollaboratorList>
-              {course.TAs.slice(0, 3).map((ta) => (
-                <Collaborator key={ta.userName}>
-                  <ClickableWrapper
-                    onMouseEnter={handleNeutralize(true)}
-                    onMouseLeave={handleNeutralize(false)}
-                    onClick={handleNeutralize(true)}
-                  >
-                    <Border $type={"ta"}>
-                      <InnerBorder isDarkMode={isDarkMode} $type={"ta"}>
-                        <UserIcon src={ta.photoUrl} $type={"ta"} />
-                      </InnerBorder>
-                    </Border>
-                  </ClickableWrapper>
-                </Collaborator>
-              ))}
-              {course.TAs.length > 3 && (
-                <MoreCollaborators>
-                  <TextWrapper>
-                    <Text variant="normal" size="0.8rem" fontWeight="300">
-                      and
-                    </Text>
-                    <OtherCollaborator
+            {course.TAs.length > 0 ?
+              <CollaboratorList>
+                {course.TAs.slice(0, 3).map((ta) => (
+                  <Collaborator key={ta.userName}>
+                    <ClickableWrapper
                       onMouseEnter={handleNeutralize(true)}
                       onMouseLeave={handleNeutralize(false)}
                       onClick={handleNeutralize(true)}
                     >
+                      <Border $type={"ta"}>
+                        <InnerBorder isDarkMode={isDarkMode} $type={"ta"}>
+                          <UserIcon src={ta.profilePhoto ? ta.profilePhoto : isDarkMode ? SchoolPhotoDark : SchoolPhotoLight} $type={"ta"} />
+                        </InnerBorder>
+                      </Border>
+                    </ClickableWrapper>
+                  </Collaborator>
+                ))}
+                {course.TAs.length > 3 && (
+                  <MoreCollaborators>
+                    <TextWrapper>
                       <Text variant="normal" size="0.8rem" fontWeight="300">
-                        {course.TAs.length - 3} other.
+                        and
                       </Text>
-                    </OtherCollaborator>
-                  </TextWrapper>
-                </MoreCollaborators>
-              )}
-            </CollaboratorList>
+                      <OtherCollaborator
+                        onMouseEnter={handleNeutralize(true)}
+                        onMouseLeave={handleNeutralize(false)}
+                        onClick={handleNeutralize(true)}
+                      >
+                        <Text variant="normal" size="0.8rem" fontWeight="300">
+                          {course.TAs.length - 3} other.
+                        </Text>
+                      </OtherCollaborator>
+                    </TextWrapper>
+                  </MoreCollaborators>
+                )}
+              </CollaboratorList>
+              :
+              <NothingToShowContainer>
+                <WarningIcon src={isDarkMode ? WarningDark : WarningLight} />
+                <Text variant="normal" size="0.9rem" fontWeight="300">
+                  No TA to show
+                </Text>
+              </NothingToShowContainer>
+
+            }
+
           </TAContainer>
         </DataContainer>
       </BottomWrapper>
+      <CourseIdContainer>
+
+        <Text variant={"transparent"} size={"0.8rem"} fontWeight={"300"}>
+          Course uid: {course.courseId}
+        </Text>
+      </CourseIdContainer>
     </HeaderContainer>
   );
 };
 
 export default Header;
 
+const WarningIcon = styled.img`
+  width: 1rem;
+`
+
+const NothingToShowContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`
+
+const CourseIdContainer = styled.div`
+  width: 100%;
+  /* background-color: blue; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`
+
+const InfoIcon = styled.img`
+  width: 1rem;
+`
+
+const StudentLedContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+`
+
 const CourseCodeContainer = styled.div`
   flex: 3;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  /* gap: 1rem; */
+  /* background-color: blue; */
 `;
 
 const NameContainer = styled.div``;
@@ -163,7 +286,8 @@ const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 30%;
+  /* width: 30%; */
+  /* background-color: pink; */
 `;
 
 const TopWrapper = styled.div`
@@ -188,6 +312,7 @@ const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  /* background-color: pink; */
 `;
 
 const ClickableWrapper = styled.div`
@@ -287,7 +412,7 @@ const FullName = styled.div`
   gap: 0.3rem;
 `;
 
-const AssociationContent = styled.div<{$isDarkMode: boolean}>`
+const AssociationContent = styled.div<{ $isDarkMode: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;

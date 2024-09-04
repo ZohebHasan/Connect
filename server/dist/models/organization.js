@@ -8,5 +8,6 @@ const schema = new mongoose_1.Schema({
     location: { type: String, required: false, default: '' },
     bio: { type: String, required: false, default: '' },
     profilePhoto: { type: String, required: false, default: '' },
+    domain: { type: String, required: false, default: '' },
 });
 exports.default = (0, mongoose_1.model)('Organization', schema);

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUserProfiles = void 0;
 const personal_1 = __importDefault(require("../../models/profiles/personal"));
 const professional_1 = __importDefault(require("../../models/profiles/professional/professional"));
-const school_1 = __importDefault(require("../../models/profiles/school"));
+const school_1 = __importDefault(require("../../models/profiles/school/school"));
 const userModel_1 = __importDefault(require("../../models/userModel"));
 const getUserProfiles = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -30,7 +30,7 @@ const getUserProfiles = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         const personalProfile = yield personal_1.default.findOne({ user: userId }).lean();
         const professionalProfile = yield professional_1.default.findOne({ user: userId }).lean();
-        const educationalProfile = yield school_1.default.findOne({ user: userId }).lean();
+        const schoolProfile = yield school_1.default.findOne({ user: userId }).lean();
         const profiles = [];
         if (personalProfile) {
             profiles.push({
@@ -44,10 +44,10 @@ const getUserProfiles = (req, res) => __awaiter(void 0, void 0, void 0, function
                 photoUrl: professionalProfile.profilePhoto,
             });
         }
-        if (educationalProfile) {
+        if (schoolProfile) {
             profiles.push({
                 type: 'school',
-                photoUrl: educationalProfile.profilePhoto,
+                photoUrl: schoolProfile.profilePhoto,
             });
         }
         return res.status(200).json(profiles);

@@ -24,7 +24,9 @@ const ProfilePhotos: React.FC<ContentProps> = ({ parentSize, childSize }) => {
 
     const getProfilePhoto = (type: ProfileType) => {
         const profile = profiles.find(p => p.type === type);
-        if (profile && profile.photoUrl) {
+        // console.log(`Profile for type ${type}:`, profile);
+
+        if (profile && profile.photoUrl && profile.photoUrl.trim() !== '') {
             return profile.photoUrl;
         }
 

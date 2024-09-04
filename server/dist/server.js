@@ -29,6 +29,8 @@ const organization_1 = __importDefault(require("./routers/signupAndLogin/signup/
 const personal_1 = __importDefault(require("./routers/connectUser/profiles/personal"));
 const professional_1 = __importDefault(require("./routers/connectUser/profiles/professional/professional"));
 const recommendations_1 = __importDefault(require("./routers/connectUser/profiles/professional/recommendations"));
+const school_1 = __importDefault(require("./routers/connectUser/profiles/school/school"));
+const clubsAndOrgs_1 = __importDefault(require("./routers/connectUser/profiles/school/clubsAndOrgs"));
 const userDataRouter_1 = __importDefault(require("./routers/connectUser/userDataRouter"));
 const profiles_1 = __importDefault(require("./routers/connectUser/profiles"));
 dotenv_1.default.config();
@@ -64,9 +66,10 @@ app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.d
 app.use('/google', google_1.default);
 app.use('/microsoft', microsoft_1.default);
 app.use('/text_extraction', text_extraction_router_1.default);
-app.use('/profileSelection', authMiddleware_1.authenticate, profileSelection_1.default);
 app.use('/user', authMiddleware_1.authenticate, userDataRouter_1.default);
 app.use('/profiles', authMiddleware_1.authenticate, profiles_1.default);
 app.use('/currentUserPersonal', authMiddleware_1.authenticate, personal_1.default);
 app.use('/currentUserProfessional', authMiddleware_1.authenticate, professional_1.default);
 app.use('/currentUserProfessionalRecommendations', authMiddleware_1.authenticate, recommendations_1.default);
+app.use('/currentUserSchool', authMiddleware_1.authenticate, school_1.default);
+app.use('/clubsAndOrgs', authMiddleware_1.authenticate, clubsAndOrgs_1.default);

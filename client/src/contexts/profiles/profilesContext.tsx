@@ -21,6 +21,8 @@ interface ProfileContextType {
     addProtectedRef: (ref: React.RefObject<HTMLElement>) => void;
     removeProtectedRef: (ref: React.RefObject<HTMLElement>) => void;
     profiles: Profile[];
+    loading: boolean;
+    error: string | null;
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
@@ -29,20 +31,24 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
     const [activeProfile, setActiveProfile] = useState<ProfileType | null>(null);
     const [isProfilesbarOpen, setIsProfilesbarOpen] = useState<boolean>(false);
     const [profiles, setProfiles] = useState<Profile[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const protectedRefs = useRef<React.RefObject<HTMLElement>[]>([]);
     const navigate = useNavigate();
-    const { user, loading } = useConnectUser();
+    const { user, loading: userLoading } = useConnectUser();
 
     const isActivePersonal = activeProfile === 'personal';
     const isActiveProfessional = activeProfile === 'professional';
     const isActiveSchool = activeProfile === 'school';
 
     useEffect(() => {
-        if (!loading && user) {
+        if (!userLoading && user) {
             const fetchProfiles = async () => {
                 try {
+                    setLoading(true);
                     const response = await axios.get('http://localhost:8000/profiles', { withCredentials: true });
                     const fetchedProfiles: Profile[] = response.data;
+                    // console.log('Fetched profiles:', fetchedProfiles); // Add this line to debug
                     setProfiles(fetchedProfiles);
 
                     if (fetchedProfiles.length > 0) {
@@ -51,12 +57,15 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
                     }
                 } catch (error) {
                     console.error('Error fetching profiles:', error);
+                    setError('Failed to fetch profiles');
+                } finally {
+                    setLoading(false);
                 }
             };
 
             fetchProfiles();
         }
-    }, [loading, user]);
+    }, [userLoading, user]);
 
     const handleProfileChange = (profile: ProfileType) => {
         setActiveProfile(profile);
@@ -108,7 +117,9 @@ export const ProfileProvider: React.FC<{ children: ReactNode }> = ({ children })
             toggleProfilesbar,
             addProtectedRef,
             removeProtectedRef,
-            profiles
+            profiles,
+            loading,
+            error,
         }}>
             {children}
         </ProfileContext.Provider>

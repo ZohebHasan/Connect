@@ -8,10 +8,16 @@ import OptionIconDark from "../../../../../assets/optionHorizontalDark.png";
 import OptionIconLight from "../../../../../assets/optionHorizontalLight.png";
 import VerifiedIcon from "../../../../../assets/verified.png";
 
-import { Org, Eboard, useOrgs } from '../../../../../../contexts/schoolProfile/clubAndOrgsContext';
+import ClubDark from "../../../../../assets/clubAndOrgDark.png";
+import ClubLight from "../../../../../assets/clubAndOrgLight.png";
+
+import SchoolDefaultDark from "../../../../../assets/schoolUserDark.png";
+import SchoolDefaultLight from "../../../../../assets/schoolUserLight.png";
+
+import { ClubAndOrg, Eboard, useOrgs } from '../../../../../../contexts/schoolProfile/clubAndOrgsContext';
 
 interface HeaderProps {
-  org: Org;
+  org: ClubAndOrg;
 }
 
 const Header: React.FC<HeaderProps> = ({ org }) => {
@@ -33,13 +39,13 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
     setIsNeutralized(neutralize);
   };
 
-  const findMemberByTitle = (eBoard: Eboard[], title: string): Eboard | undefined => {
-    return eBoard.find(member => member.title === title);
+  const findMemberByTitle = (eBoard: Eboard[], position: string): Eboard | undefined => {
+    return eBoard.find(member => member.position === position);
   };
 
   const president = findMemberByTitle(org.eBoard, 'President');
   const vicePresident = findMemberByTitle(org.eBoard, 'Vice-President');
-  const remainingEboard = org.eBoard.filter(member => member.title !== 'President' && member.title !== 'Vice-President');
+  const remainingEboard = org.eBoard.filter(member => member.position !== 'President' && member.position !== 'Vice-President');
 
   return (
     <HeaderContainer
@@ -53,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
           <TitleWrapper>
             <Border $type={"org"}>
               <InnerBorder isDarkMode={isDarkMode} $type={"org"}>
-                <UserIcon src={org.photoUrl} $type={"org"} />
+                <UserIcon src={org.photoUrl ? org.photoUrl : isDarkMode ? ClubDark : ClubLight} $type={"org"} />
               </InnerBorder>
             </Border>
             <OrgCodeContainer>
@@ -85,18 +91,18 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
               >
                 <Border $type={"leader"}>
                   <InnerBorder isDarkMode={isDarkMode} $type={"leader"}>
-                    <UserIcon src={president.photoUrl} $type={"leader"} />
+                    <UserIcon src={president.user.profilePhoto ? president.user.profilePhoto : isDarkMode ? SchoolDefaultDark : SchoolDefaultLight } $type={"leader"} />
                   </InnerBorder>
                 </Border>
                 <NameContainer>
                   <FullName>
                     <Text variant="normal" size="0.85rem" fontWeight="350">
-                      {president.name}
+                      {president.user.name}
                     </Text>
-                    {president.isVerified && <VerifiedBadge type='org' />}
+                    {president.user.isVerified && <VerifiedBadge type='org' />}
                   </FullName>
                   <Text variant={"transparent"} size="0.8rem" fontWeight="350">
-                    @{president.userName}
+                    @{president.user.userName}
                   </Text>
                 </NameContainer>
               </AssociationContent>
@@ -116,18 +122,18 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
               >
                 <Border $type={"leader"}>
                   <InnerBorder isDarkMode={isDarkMode} $type={"leader"}>
-                    <UserIcon src={vicePresident.photoUrl} $type={"leader"} />
+                    <UserIcon src={vicePresident.user.profilePhoto ? vicePresident.user.profilePhoto : isDarkMode ? SchoolDefaultDark : SchoolDefaultLight } $type={"leader"} />
                   </InnerBorder>
                 </Border>
                 <NameContainer>
                   <FullName>
                     <Text variant="normal" size="0.85rem" fontWeight="350">
-                      {vicePresident.name}
+                      {vicePresident.user.name}
                     </Text>
-                    {vicePresident.isVerified && <VerifiedBadge type='org' />}
+                    {vicePresident.user.isVerified && <VerifiedBadge type='org' />}
                   </FullName>
                   <Text variant={"transparent"} size="0.8rem" fontWeight="350">
-                    @{vicePresident.userName}
+                    @{vicePresident.user.userName}
                   </Text>
                 </NameContainer>
               </AssociationContent>
@@ -147,7 +153,7 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
             </Text>
             <CollaboratorList>
               {remainingEboard.slice(0, 3).map((member) => (
-                <Collaborator key={member.userName}>
+                <Collaborator key={member.user.userId}>
                   <ClickableWrapper
                     onMouseEnter={handleNeutralize(true)}
                     onMouseLeave={handleNeutralize(false)}
@@ -155,7 +161,7 @@ const Header: React.FC<HeaderProps> = ({ org }) => {
                   >
                     <Border $type={"eboard"}>
                       <InnerBorder isDarkMode={isDarkMode} $type={"eboard"}>
-                        <UserIcon src={member.photoUrl} $type={"eboard"} />
+                        <UserIcon src={member.user.profilePhoto ? member.user.profilePhoto : isDarkMode ? SchoolDefaultDark : SchoolDefaultLight } $type={"eboard"} />
                       </InnerBorder>
                     </Border>
                   </ClickableWrapper>

@@ -16,7 +16,7 @@ exports.handleProfileSelections = void 0;
 const userModel_1 = __importDefault(require("../../../models/userModel"));
 const personal_1 = __importDefault(require("../../../models/profiles/personal"));
 const professional_1 = __importDefault(require("../../../models/profiles/professional/professional"));
-const school_1 = __importDefault(require("../../../models/profiles/school"));
+const school_1 = __importDefault(require("../../../models/profiles/school/school"));
 const handleProfileSelections = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;

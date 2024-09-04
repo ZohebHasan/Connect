@@ -8,24 +8,22 @@ import AddStoryDark from "../../../../assets/addStoryDark.png";
 import AddStoryLight from "../../../../assets/addStoryLight.png";
 
 
-import JobIconDark from '../../../../assets/jobDark.png';
-import JobIconLight from '../../../../assets/jobLight.png';
-
-import EducationIconDark from '../../../../assets/educationDark.png';
-import EducationIconLight from '../../../../assets/educationLight.png';
-
-import DotIconDark from '../../../../assets/dotDark.png';
-import DotIconLight from '../../../../assets/dotLight.png';
+import EditLight from "../../../../assets/editLightPencil.png"
+import EditDark from "../../../../assets/editDarkPencil.png"
 
 import VerifiedIcon from "../../../../assets/verified.png"
 
+import DefaultSchoolDark from "../../../../assets/schoolUserDark.png";
+import DefaultSchoolLight from "../../../../assets/schoolUserLight.png";
 
-import DummyCompany from "../../../dummies/Connect.jpg"
-import DummySchool from "../../../dummies/school.jpeg"
+import DefaultOrgIconDark from "../../../../assets/orgIconDark.png"
+import DefaultOrgIconLight from "../../../../assets/orgIconLight.png"
 
 import OptionLight from "../../../../assets/storyOptionsLight.png";
 import OptionDark from "../../../../assets/storyOptionsDark.png";
 
+import { useConnectUser } from '../../../../../contexts/ConnectUser/connectUserProvider';
+import { useSchoolProfile } from '../../../../../contexts/schoolProfile/school';
 
 const VerifiedBadge: React.FC<{ type: 'org' | 'user' }> = ({ type }) => {
 
@@ -40,10 +38,241 @@ const VerifiedBadge: React.FC<{ type: 'org' | 'user' }> = ({ type }) => {
 }
 
 const ProfileBody: React.FC = () => {
-    const isVerified: boolean = true;
-    const fullName = "Zoheb Hasan"
-    const userName = "zoheb.hasan"
+
     const { isDarkMode } = useDarkMode();
+    const { user } = useConnectUser();
+    const { schoolProfile } = useSchoolProfile();
+
+    const hasProfilePhoto = Boolean(schoolProfile?.profilePhoto);
+    const renderAdditionalInfo = () => {
+        switch (schoolProfile?.userType) {
+            case 'Student':
+                return (
+                    <>
+                        <Profession>
+                            <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                {schoolProfile?.userType}
+                            </Text>
+                            <Text variant={'transparent'} size={'1rem'} fontWeight="300">
+                                •
+                            </Text>
+                            {schoolProfile?.studentData?.major ? (
+                                <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                    {schoolProfile?.studentData?.major}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1.2rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your major
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Profession>
+                        <Location>
+                            {schoolProfile?.studentData?.degree ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.studentData?.degree}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your degree level
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+
+                            <Text variant={"transparent"} size={"1rem"} fontWeight={"300"}>
+                                •
+                            </Text>
+                            {schoolProfile?.studentData?.year ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.studentData?.year}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your class standing
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                    </>
+                );
+            case 'Faculty':
+                return (
+                    <>
+                        <Profession>
+                            <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                {schoolProfile?.userType}
+                            </Text>
+                            <Text variant={'transparent'} size={'1rem'} fontWeight="300">
+                                •
+                            </Text>
+                            {schoolProfile?.facultyData?.discipline ? (
+                                <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                    {schoolProfile?.facultyData?.discipline}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1.2rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your discipline
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Profession>
+                        <Location>
+                            {schoolProfile?.facultyData?.position ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.facultyData?.position}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your position
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                        <Location>
+                            {schoolProfile?.facultyData?.office ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.facultyData?.office}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your office
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                    </>
+                );
+            case 'Alumni':
+                return (
+                    <>
+                        <Profession>
+                            <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                {schoolProfile?.userType}
+                            </Text>
+                            <Text variant={'transparent'} size={'1rem'} fontWeight="300">
+                                •
+                            </Text>
+                            {schoolProfile?.alumniData?.major ? (
+                                <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                    {schoolProfile?.alumniData?.major}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1.2rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your major
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Profession>
+                        <Location>
+                            {schoolProfile?.alumniData?.graduationYear ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    Year of {schoolProfile?.alumniData?.graduationYear}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your graduation year
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                    </>
+                );
+            case 'Staff':
+                return (
+                    <>
+                        <Profession>
+                            <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                {schoolProfile?.userType}
+                            </Text>
+                            <Text variant={'transparent'} size={'1rem'} fontWeight="300">
+                                •
+                            </Text>
+                            {schoolProfile?.staffData?.department ? (
+                                <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
+                                    {schoolProfile?.staffData?.department}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1.2rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your department
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Profession>
+                        <Location>
+                            {schoolProfile?.staffData?.position ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.staffData?.position}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your position
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                        <Location>
+                            {schoolProfile?.staffData?.office ? (
+                                <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                    {schoolProfile?.staffData?.office}
+                                </Text>
+                            ) : (
+                                <AddLocationWrapper>
+                                    <AddLocationButton>
+                                        <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your office
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"location"} />
+                                    </AddLocationButton>
+                                </AddLocationWrapper>
+                            )}
+                        </Location>
+                    </>
+                );
+            default:
+                return null;
+        }
+    };
+
 
     return (
         <>
@@ -51,10 +280,17 @@ const ProfileBody: React.FC = () => {
                 <Top>
                     <UserPhotoContainer>
                         <UserPhotoWrapper>
-                            <Border >
+                            <Border>
                                 <InnerBorder $isDarkMode={isDarkMode}>
-                                    <Story src={DummySchool} />
+                                    <Story src={hasProfilePhoto ? schoolProfile?.profilePhoto : isDarkMode ? DefaultSchoolDark : DefaultSchoolLight} />
                                 </InnerBorder>
+                                <AddOrEditPhotoBar $isDarkMode={isDarkMode} $hasProfilePhoto={hasProfilePhoto}>
+                                    <Wrapper>
+                                        <Text size={"1.1rem"} fontWeight={"400"} variant="transparent">
+                                            {hasProfilePhoto ? "Change your profile picture" : "Add your profile picture"}
+                                        </Text>
+                                    </Wrapper>
+                                </AddOrEditPhotoBar>
                             </Border>
                             <AddBorder $isDarkMode={isDarkMode}>
                                 <AddIcon src={isDarkMode ? AddStoryDark : AddStoryLight} />
@@ -64,45 +300,22 @@ const ProfileBody: React.FC = () => {
                     <UserInfo>
                         <FullNameContainer>
                             <Text size={"1.7rem"} fontWeight={"300"}>
-                                {fullName}
+                                {user?.fullName}
                             </Text>
-                            {isVerified ? <VerifiedBadge type='user' /> : <></>}
+                            {user?.isVerified ? <VerifiedBadge type='user' /> : <></>}
                             <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
-                                (He/His)
+                                {user?.pronouns}
                             </Text>
                             <Text variant={'transparent'} size={'1rem'} fontWeight="300">
                                 •
                             </Text>
                             <UserName>
                                 <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
-                                    @{userName}
+                                    @{user?.username}
                                 </Text>
                             </UserName>
                         </FullNameContainer>
-
-                        <Profession>
-                            {/* <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
-                                Undergraduate
-                            </Text>
-                            <Text variant={"transparent"} size={"1.25rem"} fontWeight={"300"}>
-                                •
-                            </Text> */}
-                            <Text size={"1.2rem"} fontWeight={"300"} variant={"normal"}>
-                                Computer Science
-                            </Text>
-                        </Profession>
-                        <Location>
-                            <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
-                                Undergraduate
-                            </Text>
-                            <Text variant={"transparent"} size={"1rem"} fontWeight={"300"}>
-                                •
-                            </Text>
-                            <Text size={"1rem"} fontWeight={"300"} variant={"transparent"}>
-                                Sophomore
-                            </Text>
-                        </Location>
-
+                        {renderAdditionalInfo()}
                     </UserInfo>
                     <ProfileTypeContainer>
                         <OptionIconContainer>
@@ -123,7 +336,7 @@ const ProfileBody: React.FC = () => {
                                 <DataContainer>
                                     <FollowersButton>
                                         <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                            523 Followers
+                                            {schoolProfile?.followers.length} Followers
                                         </Text>
                                     </FollowersButton>
                                 </DataContainer>
@@ -131,40 +344,52 @@ const ProfileBody: React.FC = () => {
                                 <DataContainer>
                                     <FollowingButton>
                                         <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                            234 Following
+                                            {schoolProfile?.following.length} Following
                                         </Text>
                                     </FollowingButton>
                                 </DataContainer>
                                 <DataContainer>
                                     <FollowingButton>
                                         <Text variant={"normal"} size={"1.2rem"} fontWeight={"300"}>
-                                            7 courses
+                                            {schoolProfile?.courses?.length} Courses
                                         </Text>
                                     </FollowingButton>
                                 </DataContainer>
                             </PostFollowInfo>
 
-                            <BioContainer>
-                                <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
-                                    sbu 25`
-                                </Text>
-                            </BioContainer>
+                            {schoolProfile?.bio ? (
+                                <BioContainer>
+                                    <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
+                                        {schoolProfile?.bio}
+                                    </Text>
+                                </BioContainer>
+                            ) : (
+                                <AddBioButtonWrapper>
+                                    <AddBioButton>
+                                        <Text size={"1.1rem"} fontWeight={"300"} variant={"transparent"}>
+                                            Add your bio
+                                        </Text>
+                                        <EditIcon src={isDarkMode ? EditDark : EditLight} type={"bio"} />
+                                    </AddBioButton>
+                                </AddBioButtonWrapper>
+                            )}
                         </UserNameBioContainer>
                         <UserInfoContainer>
                             <UserInfoWrapper>
                                 <Info>
-                                    <AssociationContent>
+                                    <AssociationContent $clickable={!!schoolProfile?.campus.school}>
                                         <LogoContainer>
-                                            <Logo src={DummyCompany} />
+                                            <Logo src={schoolProfile?.campus.profilePhoto ? schoolProfile?.campus.profilePhoto : isDarkMode ? DefaultOrgIconDark : DefaultOrgIconLight} />
                                         </LogoContainer>
                                         <OrgName>
                                             <Text variant="normal" size="1.4rem" fontWeight="300">
-                                                Stony Brook University
+                                                {schoolProfile?.campus.name}
                                             </Text>
-                                            {isVerified && <VerifiedBadge type='org' />}
+                                            {schoolProfile?.campus.isVerified && <VerifiedBadge type='org' />}
                                         </OrgName>
                                     </AssociationContent>
                                 </Info>
+
                             </UserInfoWrapper>
                         </UserInfoContainer>
                     </BottomWrapper>
@@ -176,6 +401,89 @@ const ProfileBody: React.FC = () => {
 };
 
 export default ProfileBody;
+
+const AddLocationButton = styled.div`
+    display: flex;
+    gap: 0.5rem;
+    align-items:flex-start;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.01);
+    }
+    &:active {
+        transform: scale(0.98);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`
+
+const AddLocationWrapper = styled.div`
+    display: flex;
+`
+
+const getWidthByType = (type: 'location' | 'status' | 'bio' | 'schoolAndWork') => {
+    switch (type) {
+        case 'location':
+            return '0.7rem';
+        case 'status':
+        case 'bio':
+        case 'schoolAndWork':
+            return '0.7rem'
+        default:
+            return '1rem';
+    }
+};
+
+const EditIcon = styled.img<{ type: 'location' | 'status' | 'bio' | 'schoolAndWork' }>`
+    width: ${(props) => getWidthByType(props.type)};
+    height: auto;
+    opacity: 0.7;
+`;
+
+const AddBioButton = styled.div`
+    display: flex;
+    gap: 0.5rem;
+    align-items:flex-start;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.02);
+    }
+    &:active {
+        transform: scale(0.97);
+    }
+    transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+`;
+
+const AddBioButtonWrapper = styled.div`
+    display: flex;
+`;
+
+const Wrapper = styled.div`
+    width: 70%;
+`;
+
+
+const AddOrEditPhotoBar = styled.div<{ $isDarkMode: boolean; $hasProfilePhoto: boolean }>`
+    z-index: 2;
+    width: 12rem;
+    height: 6rem;
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: ${({ $isDarkMode }) => $isDarkMode ? 'rgba(60, 60, 60, 0.819)' : 'rgba(179, 179, 179, 0.708)'};
+    border-bottom-left-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    opacity: ${({ $hasProfilePhoto }) => $hasProfilePhoto ? 0 : 1}; // Always visible if no profile photo
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+    &:active {
+        transform: scale(1.01);
+    }
+`;
 
 const BottomWrapper = styled.div`
     width: 95%;
@@ -236,20 +544,26 @@ const Logo = styled.img`
   border-radius: 50%;
 `;
 
-const AssociationContent = styled.div`
+const AssociationContent = styled.div<{ $clickable?: boolean; }>`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   gap: 0.7rem;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.02);
-  }
-  &:active {
-    transform: scale(1.00);
-  }
+  cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
+  
+  ${({ $clickable }) =>
+        $clickable &&
+        `
+    &:hover {
+      opacity: 0.7;
+      transform: scale(1.02);
+    }
+    &:active {
+      transform: scale(1.00);
+    }
+  `}
+  
   transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
 `;
 
@@ -258,8 +572,8 @@ const DotIcon = styled.img`
 `
 
 const Icon = styled.img<{ $type: 'education' | 'job' }>`
-    width: ${(props) => (props.$type === 'job' ? '1.4rem' : '1.7rem')};
-    margin-left: ${(props) => (props.$type === 'job' ? '0.2rem' : '0rem')};
+    width: ${(props) => (props.$type === 'job' ? '1.8rem' : '1.7rem')};
+    margin-left: ${(props) => (props.$type === 'job' ? '0.5rem' : '0rem')};
 `;
 
 const UserInfoWrapper = styled.div`
@@ -299,6 +613,7 @@ const Location = styled.div`
 const Profession = styled.div`
     display: flex;
     gap: 0.3rem;
+    align-items: center;
 `
 
 
@@ -383,6 +698,7 @@ const AddBorder = styled.div<{ $isDarkMode: boolean }>`
   position: absolute;
   right: 0;
   bottom: 0;
+  z-index: 2;
   cursor: pointer;
   &:hover {
     transform: scale(1.10);
@@ -493,18 +809,10 @@ const Border = styled.div`
   padding: 1.8px;
   border-radius: 50%;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-
-  cursor: pointer;
-  &:hover {
-    opacity: 0.7;
-    transform: scale(1.02);
-  }
-  &:active {
-    transform: scale(1.00);
-  }
-  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
+  position: relative;
+  z-index: 1;
 `;
 
 const InnerBorder = styled.div<{ $isDarkMode: boolean }>`
@@ -522,6 +830,15 @@ const Story = styled.img`
   height: 12rem;
   border-radius: 50%;
   flex-shrink: 0;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.01);
+  }
+  &:active {
+    transform: scale(0.99);
+  }
+  transition: transform 0.2s ease-in-out, opacity 0.3s ease-in-out;
 `;
 
 

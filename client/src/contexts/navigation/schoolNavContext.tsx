@@ -12,6 +12,7 @@ interface SchoolNavProviderProps {
 
 const SchoolNavContext = createContext<SchoolNavContextProps | undefined>(undefined);
 
+
 export const SchoolNavProvider: React.FC<SchoolNavProviderProps> = ({ children }) => {
     const [activeState, setActiveState] = useState('courses');
     const navigate = useNavigate();

@@ -64,8 +64,8 @@ interface RecommendationInfo {
 interface Professional extends Document {
     user: Types.ObjectId; // Use Types.ObjectId for referencing User
     profilePhoto: string;
-    followers: Types.ObjectId[]; // Use Types.ObjectId for referencing Personal profiles
-    following: Types.ObjectId[]; // Use Types.ObjectId for referencing Personal profiles
+    followers: Types.ObjectId[]; // Use Types.ObjectId for referencing Professional profiles
+    following: Types.ObjectId[]; // Use Types.ObjectId for referencing Professional profiles
     company: Org;
     school: Org;
     currentStatus: {

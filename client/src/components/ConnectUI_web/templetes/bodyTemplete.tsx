@@ -24,6 +24,7 @@ export default Body;
 const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: "absolute", $flex?: number, $isDarkMode: boolean}>`
     flex: ${({ $flex }) => $flex || 1}; 
     display: flex;
+
     align-items: center;
     z-index: 1;
     width: 100%;
@@ -50,6 +51,6 @@ const BodyContainer = styled.div<{$flexDirection: "row" | "column", $position?: 
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: ${({ $isDarkMode }) => $isDarkMode ? '#888' : '#f41c7ac9'}; /* Darker color on hover */
+        background: ${({ $isDarkMode }) => $isDarkMode ? '#888' : '#3f3f3fc8'}; /* Darker color on hover */
     }
 `;

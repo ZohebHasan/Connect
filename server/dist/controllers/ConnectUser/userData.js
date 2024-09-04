@@ -28,6 +28,7 @@ const getUserData = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             return res.status(404).json({ message: 'User not found' });
         }
         const userData = {
+            userId: user.id,
             fullName: user.fullName,
             username: user.username,
             isVerified: user.isVerified,

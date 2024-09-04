@@ -231,13 +231,13 @@ const ProfileBody: React.FC = () => {
                                     {ProfessionalProfile?.company.name ?
                                         <AssociationContent clickable={Boolean(ProfessionalProfile?.company.company)} >
                                             <LogoContainer>
-                                                <Logo src={ProfessionalProfile?.school.profilePhoto ? ProfessionalProfile?.company.profilePhoto : isDarkMode ? OrgIconDark : OrgIconLight} />
+                                                <Logo src={ProfessionalProfile?.company.profilePhoto ? ProfessionalProfile?.company.profilePhoto : isDarkMode ? OrgIconDark : OrgIconLight} />
                                             </LogoContainer>
                                             <OrgName>
                                                 <Text variant="normal" size="0.9rem" fontWeight="400">
-                                                    Connect
+                                                    {ProfessionalProfile.company.name}
                                                 </Text>
-                                                {/* {isVerified && <VerifiedBadge type='org' />} */}
+                                                {ProfessionalProfile.company.isVerified && <VerifiedBadge type='org' />}
                                             </OrgName>
                                         </AssociationContent>
                                         :
@@ -245,7 +245,6 @@ const ProfileBody: React.FC = () => {
                                         <AddOrgWrapper>
                                             <AddOrgButton>
                                                 <Text variant={"transparent"} size="0.9rem" fontWeight="400">
-                                                    {/* {ProfessionalProfile?.company.} */}
                                                     Add your display work
                                                 </Text>
                                                 <EditIcon src={isDarkMode ? EditDark : EditLight} type={"schoolAndWork"} />
