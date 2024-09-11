@@ -1,6 +1,3 @@
-Here’s the `README.md` file based on the *Connect Developer Notebook*:
-
----
 
 # Welcome to Connect!
 
@@ -166,6 +163,4 @@ For more detailed documentation and setup, refer to the `connect_documentation.m
 
 Connect Inc. © 2024
 
---- 
 
-This `README.md` file outlines the essential steps to set up and start working with the Connect project, including client, server, database setup, version control practices, and security protocols.
